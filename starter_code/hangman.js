@@ -1,16 +1,15 @@
 function Hangman() {
- this.words = ['bottle', 'navigator', 'poetry', 'astronaut', 'bicycle'];
- this.secretWord = '';
+ this.words = ['computer', 'mouse', 'poetry', 'phone', 'sticker'];
+ this.secretWord = this._getWord();
  this.letters = [];
  this.guessedLetter = '';
  this.errorsLeft = 10;
- this.canvas = new HangmanCanvas(this._getWord());
-
 }
 
 Hangman.prototype._getWord = function () {
   var randomIndex = Math.floor(Math.random() * this.words.length);
-  return this.words[randomIndex];
+  this.secretWord = this.words[randomIndex];
+  return this.secretWord;
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
@@ -36,6 +35,7 @@ Hangman.prototype._addCorrectLetter = function(i){
 
 Hangman.prototype._addWrongLetter = function (letter){
   this.errorsLeft--;
+  
 };
 
 Hangman.prototype._checkGameOver = function() {
