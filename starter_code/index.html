@@ -15,7 +15,13 @@
     <button id="start-game-button">START GAME</button>
   </div>
   <div style="text-align:center;">
-    <canvas id="hangman" height="800px" width="1200px"></canvas>
+    <div id="game-over" class="hidden">
+      <img src="./images/gameover.png" alt="">
+    </div>
+    <div id="winner" class="hidden">
+      <img src="./images/awesome.png" alt="">
+    </div>
+  <canvas id="hangman" height="800px" width="1200px"></canvas>
   </div>
   <script type="text/javascript" src="canvas.js"></script>
   <script type="text/javascript" src="hangman.js"></script>

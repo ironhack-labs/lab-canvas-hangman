@@ -35,7 +35,7 @@ Hangman.prototype._addCorrectLetter = function(i){
 
 Hangman.prototype._addWrongLetter = function (letter){
   this.errorsLeft--;
-  
+
 };
 
 Hangman.prototype._checkGameOver = function() {
@@ -46,7 +46,8 @@ Hangman.prototype._checkWinner = function() {
   var lettersArr = this.secretWord.split('');
   var that = this;
   function isInGuessedLetters(letter) {
-    return that.guessedLetter.indexOf(letter) !== -1;
+    return that.guessedLetter.indexOf(letter.toUpperCase()) !== -1;
   }
+  // return true;
   return lettersArr.every(isInGuessedLetters);
 };
