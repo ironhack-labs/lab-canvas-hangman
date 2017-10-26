@@ -1,8 +1,7 @@
 var hangman;
 
 function Hangman() {
-
-  this.words = ["computer", "horse", "site", "keyboard"];
+  this.words = ["pepper", "cat", "dragon", "computer", "elephant"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
@@ -10,9 +9,9 @@ function Hangman() {
 }
 
 Hangman.prototype._getWord = function() {
-var random = Math.floor(Math.random()*this.words.length);
-this.secretWord = this.words[random];
-return this.words[random];
+  var random = Math.floor(Math.random() * this.words.length);
+  this.secretWord = this.words[random];
+  return this.words[random];
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
@@ -42,9 +41,9 @@ Hangman.prototype._checkGameOver = function() {
 };
 
 Hangman.prototype._checkWinner = function() {
-  var a = this.guessedLetter.split("").sort().join("");
-  var b = this.secretWord.split("").sort().join("");
-  if (a == b) return true;
+  if(this.guessedLetter.length >= this.secretWord.length) {
+    return true;
+  }
   return false;
 };
 
