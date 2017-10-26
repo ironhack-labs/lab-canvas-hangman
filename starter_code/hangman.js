@@ -1,6 +1,6 @@
 function Hangman() {
   this.words = ['Hello'];
-  this.secretWord = "Hola";
+  this.secretWord = "Hoolaa";
   this.letters = [];
   this.guessedLetter = '';
   this.errorsLeft = 10;
@@ -26,8 +26,13 @@ Hangman.prototype._checkClickedLetters = function(key) {
   }
 };
 
+Hangman.prototype._addLetter = function(letter) {
+  this.letters.push(letter);
+};
+
 Hangman.prototype._addCorrectLetter = function(i){
-  this.guessedLetter = this.secretWord[i].toUpperCase();
+  this.guessedLetter += this.secretWord[i].toUpperCase();
+  console.log(this.guessedLetter);
 };
 
 Hangman.prototype._addWrongLetter = function (letter){

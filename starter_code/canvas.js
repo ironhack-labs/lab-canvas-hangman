@@ -48,8 +48,6 @@ HangmanCanvas.prototype._writeWrongLetter = function (letter, errorsLeft){
   this.ctx.fillText(letter, space, 200);
   space += 45;
   this._drawHangman(errorsDraw[errorsDraw.length - errorsLeft]);
-  console.log(errorsDraw[errorsDraw.length - errorsLeft]);
-  console.log(errorsLeft);
 };
 
 HangmanCanvas.prototype._drawHangman = function(shape) {
