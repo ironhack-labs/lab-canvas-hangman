@@ -1,12 +1,13 @@
 function Hangman() {
-  this.words = ['Hello'];
-  this.secretWord = "Hoolaa";
+  this.words = ['Computer' , 'Science', 'Fan' , 'Software', 'Hardware'];
+  this.secretWord;
   this.letters = [];
   this.guessedLetter = '';
   this.errorsLeft = 10;
 }
 
 Hangman.prototype._getWord = function () {
+  this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
   return this.secretWord;
 };
 
