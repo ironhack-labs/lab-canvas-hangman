@@ -39,7 +39,7 @@ describe("Hangman Game", function () {
       var keyCode = 43;
       hangman._checkIfLetter(keyCode);
       expect(typeof(keyCode)).toBe("number");
-      
+
     });
 
     it("_checkIfLetter should return a boolean", function () {
@@ -98,7 +98,7 @@ describe("Hangman Game", function () {
 
   describe("Wrong letters", function () {
     it("_addWrongLetter should be a function", function () {
-      expect(typeof(hangman._addWrongLetter)).toBe("function");
+     expect(typeof(hangman._addWrongLetter)).toBe("function");
     });
     it("_addWrongLetter should receive a string", function () {
       var letter = "P";
