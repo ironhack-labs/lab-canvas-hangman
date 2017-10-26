@@ -1,42 +1,41 @@
 var hangman;
 
 function Hangman() {
-
+  this.words = ['JAVASCRIPT', 'IRONHACK', 'JUAN'];
+  this.secretWord = 'ironhack';
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
 }
 
-Hangman.prototype._getWord = function () {
-
+Hangman.prototype._getWord = function() {
+  return "";
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
-
+  if (keyCode >= 65 && keyCode <= 90) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
-
+  return (this.letters.indexOf(key) == -1);
 };
 
-Hangman.prototype._addCorrectLetter = function(i){
-
+Hangman.prototype._addCorrectLetter = function(i) {
+  this.guessedLetter = (this.secretWord[i].toUpperCase());
 };
 
-Hangman.prototype._addWrongLetter = function (letter){
-
+Hangman.prototype._addWrongLetter = function(letter) {
+  this.errorsLeft--;
 };
 
 Hangman.prototype._checkGameOver = function() {
-
+  return (this.errorsLeft == 0);
 };
 
 Hangman.prototype._checkWinner = function() {
-
-};
-
-document.getElementById("start-game-button").onclick = function(){
-  hangman = new Hangman();
-};
-
-
-document.onkeydown = function(e) {
-
+  return (this.secretWord.length == this.guessedLetter.length);
 };
