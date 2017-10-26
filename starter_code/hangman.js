@@ -1,6 +1,6 @@
 var hangman;
 
-function Hangman() {
+function Hangman(words, secretWord, letters, guessedLetter, errorsLeft) {
 this.words = [""];
 this.secretWord = "";
 this.letters = [""];
@@ -9,7 +9,9 @@ this.errorsLeft = "";
 }
 
 Hangman.prototype._getWord = function () {
-return this.words[0];
+  console.log(this.words.length);
+return this.words[Math.floor(Math.random() * 2)];
+
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
@@ -52,15 +54,4 @@ Hangman.prototype._checkWinner = function() {
  } else {
    return false;
  }
-
-
-};
-
-document.getElementById("start-game-button").onclick = function(){
-  hangman = new Hangman();
-};
-
-
-document.onkeydown = function(e) {
-
 };
