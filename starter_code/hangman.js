@@ -2,7 +2,7 @@ var hangman
 
 function Hangman() {
   this.words = ["robot", "telefono", "ordenador"]
-  this.secretWord = ""
+  this.secretWord = this._getWord()
   this.letters = []
   this.guessedLetter = ""
   this.errorsLeft = 10;
@@ -10,11 +10,11 @@ function Hangman() {
 
 
 Hangman.prototype._getWord = function () {
- return this.words[0]
+ return this.words[Math.floor(Math.random()*this.words.length)];
 }
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
-  if  (keyCode >=65 &&  keyCode<=90) {
+  if  ((keyCode >=65 && keyCode<=90) || (keyCode>=97 && keyCode<=122)) {
     return true
   } else  {
     return false
