@@ -1,16 +1,17 @@
 var hangman;
 
 function Hangman() {
-this.words = [""];
-this.secretWord = "";
+this.words = ["computer", "table", "horse", "cupcake", "helicopter"];
+this.secretWord = this._getWord();
 this.letters = [];
 this.guessedLetter = [];
 this.errorsLeft = 10;
 };
 
 Hangman.prototype._getWord = function () {
-return "";
-};
+ var random = Math.floor(Math.random() * this.words.length);
+ return this.words[random];
+ };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
   if ((typeof(keyCode) == "number")
