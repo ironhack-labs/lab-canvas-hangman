@@ -40,7 +40,7 @@ HangmanCanvas.prototype._drawLines = function() {
 
 HangmanCanvas.prototype._writeCorrectLetter = function(i){
   this.ctx.font = "48px Open Sans, sans-serif";
-  this.ctx.fillText(this.secretWord[i].toUpperCase(), 260+(i*70), 680);
+  this.ctx.fillText(this.secretWord[i], 260+(i*70), 680);
 };
 
 HangmanCanvas.prototype._writeWrongLetter = function (letter, errorsLeft){

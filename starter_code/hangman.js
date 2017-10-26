@@ -1,14 +1,14 @@
 var hangman;
 
 function Hangman() {
-  this.words = ['javascript','ironhack','juan'];
-  this.secretWord = 'javascript';
+  this.words = ['JAVASCRIPT','IRONHACK','JUAN'];
+  this.secretWord = 'ironhack';
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
 }
 
-Hangman.prototype._getWord = function () {
+Hangman.prototype._getWord = function() {
   return "";
 };
 
@@ -25,7 +25,7 @@ Hangman.prototype._checkClickedLetters = function(key) {
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
-  this.guessedLetter = (this.secretWord[i].toUpperCase());
+  this.guessedLetter = (this.secretWord[i]);
 };
 
 Hangman.prototype._addWrongLetter = function(letter){

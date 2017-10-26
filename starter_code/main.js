@@ -1,43 +1,38 @@
-$(function(){
-  $('#start-game-button').click(function(){
-    // Initiate our objects
-    var hangman = new Hangman();
-    var secret = hangman.words[0];
-    var canvas = new HangmanCanvas(secret);
+var hangman = new Hangman();
+var canvas = new HangmanCanvas("ironhack");
 
-    // Hide main menu
-    $(this).css('display','none');
-    $('.game-logo').css('display','none');
+console.log(canvas.secretWord);
 
-    // Draw bases of our pole
-    canvas._drawHangman(errorsDraw[0]);
-    canvas._drawHangman(errorsDraw[1]);
+$(function() {
+  $('#start-game-button').click(function() {
+    // Hide main menu, start game
+    $(this).css('display', 'none');
+    $('.game-logo').css('display', 'none');
+
+    // Draw bases of our hanging pole
+    canvas._drawHangman(errorsDraw[0]); // triangle
+    canvas._drawHangman(errorsDraw[1]); // first line up
   });
 });
 
 document.onkeydown = function(e) {
-    var hangman = new Hangman();
-    var secret = hangman.words[0];
-    var canvas = new HangmanCanvas(secret);
-
-    hangman._checkIfLetter();
-    hangman.guessedLetter = e.key;
-    console.log(e.key);
-
-    if(hangman._checkClickedLetters() == false){
-      console.log('guay!');
-    } else {
-      losePoints();
+  if (hangman._checkIfLetter(e.keyCode)) {
+    if (canvas.secretWord.indexOf(e.key) == -1) {
+      console.log('wrong letter: [' + e.key + ']');
+      hangman._addWrongLetter();
+      canvas._writeWrongLetter(e.key, hangman.errorsLeft)
+      console.log('errors left: ' + hangman.errorsLeft);
     }
+    else {
+      hangman._addCorrectLetter(1);
+      canvas._writeCorrectLetter(canvas.secretWord.indexOf(e.key));
+      console.log('Right letter [' + e.key + ']');
+    }
+  }
+
+  if (hangman.errorsLeft == 1){
+    canvas._gameOver();
+  }
+
+
 };
-
-function losePoints(){
-  // Get length of secret word
-  hangman.errorsLeft = secret.length;
-
-  // If bad letter
-  hangman.errorsLeft--;
-  var errors = 0;
-  errors++;
-  canvas._drawHangman(errorsDraw[errors]);
-}
