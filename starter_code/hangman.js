@@ -31,12 +31,3 @@ Hangman.prototype._checkGameOver = function() {
 Hangman.prototype._checkWinner = function() {
 
 };
-
-document.getElementById("start-game-button").onclick = function(){
-  hangman = new Hangman();
-};
-
-
-document.onkeydown = function(e) {
-
-};
