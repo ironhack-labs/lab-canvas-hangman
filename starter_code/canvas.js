@@ -17,18 +17,19 @@ var errorsDraw = [
 ];
 
 function HangmanCanvas(secretWord) {
+  console.log("PALABRA SECRETA"+secretWord);
   this.ctx = document.getElementById("hangman").getContext('2d');
   this.secretWord = secretWord;
   this._createBoard();
   this._drawLines();
 }
-
 HangmanCanvas.prototype._createBoard = function () {
   this.ctx.clearRect(0,0,1200,800);
   this.ctx.beginPath();
   this.ctx.lineWidth = 8;
 };
 
+// DRAW LINES OF WORD UNDER
 HangmanCanvas.prototype._drawLines = function() {
   for (var i = 0; i < this.secretWord.length; i++) {
     this.ctx.lineWidth = 3;
