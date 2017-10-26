@@ -39,7 +39,7 @@ describe("Hangman Game", function () {
       var keyCode = 43;
       hangman._checkIfLetter(keyCode);
       expect(typeof(keyCode)).toBe("number");
-      
+
     });
 
     it("_checkIfLetter should return a boolean", function () {
@@ -61,7 +61,7 @@ describe("Hangman Game", function () {
     });
     it("_checkClickedLetters should receive a string", function () {
       var key = "P";
-      hangman._checkClickedLetters(key);
+      //hangman._checkClickedLetters(key);
       expect(typeof(key)).toBe("string");
     });
     it("_checkClickedLetters should return a boolean", function () {
