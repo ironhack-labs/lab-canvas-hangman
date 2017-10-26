@@ -1,8 +1,8 @@
 var hangman;
 
 function Hangman() {
-  this.words = ['javascript'];
-  this.secretWord = '';
+  this.words = ['javascript','ironhack','juan'];
+  this.secretWord = 'javascript';
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
@@ -38,13 +38,4 @@ Hangman.prototype._checkGameOver = function() {
 
 Hangman.prototype._checkWinner = function() {
   return (this.secretWord.length == this.guessedLetter.length);
-};
-
-document.getElementById("start-game-button").onclick = function(){
-  hangman = new Hangman();
-};
-
-
-document.onkeydown = function(e) {
-
 };
