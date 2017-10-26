@@ -36,13 +36,14 @@ describe("Hangman Game", function () {
     });
 
     it("_checkIfLetter should receive a number", function () {
-      expect(typeof(hangman._checkIfLetter)).toBe("function");
-    });
-
-    it("_checkIfLetter should return a boolean", function () {
       var keyCode = 43;
       hangman._checkIfLetter(keyCode);
       expect(typeof(keyCode)).toBe("number");
+      
+    });
+
+    it("_checkIfLetter should return a boolean", function () {
+      expect(typeof(hangman._checkIfLetter())).toBe("boolean");
     });
 
     it("_checkIfLetter should return false", function () {
