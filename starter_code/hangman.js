@@ -1,11 +1,11 @@
-// var _ = lodash;
-
 function Hangman() {
  this.words = ['bottle', 'navigator', 'poetry', 'astronaut', 'bicycle'];
  this.secretWord = '';
  this.letters = [];
  this.guessedLetter = '';
  this.errorsLeft = 10;
+ this.canvas = new HangmanCanvas(this._getWord());
+
 }
 
 Hangman.prototype._getWord = function () {

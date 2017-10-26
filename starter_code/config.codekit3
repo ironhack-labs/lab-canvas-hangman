@@ -151,6 +151,16 @@
 		"oAP": "\/jasmine\/SpecRunner.html",
 		"oF": 0
 		},
+	"\/main.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/main-min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/stylesheets\/styles.css": {
 		"aP": 1,
 		"bl": 0,
