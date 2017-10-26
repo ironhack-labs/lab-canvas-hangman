@@ -55,12 +55,7 @@ Hangman.prototype._checkGameOver = function() {
 };
 Hangman.prototype._checkWinner = function() {
 
-  var varScret = this.secretWord.toUpperCase();
- varScret = varScret.split('').sort;
- varScret = this.guessedLetter.sort;
-  varScret = _.difference(varScret,this.guessedLetter);
-
-if (varScret.length == 1){
+if (this.secretWord.length == this.guessedLetter.length){
 return true;
 }else{
 return false;
