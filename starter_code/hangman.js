@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman(words, secretWord, letters, guessedLetter, errorsLeft) {
-this.words = [""];
+this.words = ["ron", "Hack", "Ironhack", "test"];
 this.secretWord = "";
 this.letters = [""];
 this.guessedLetter = "";
@@ -9,25 +9,15 @@ this.errorsLeft = "";
 }
 
 Hangman.prototype._getWord = function () {
-  console.log(this.words.length);
-return this.words[Math.floor(Math.random() * 2)];
-
+return this.words[Math.floor(Math.random() * this.words.length)];
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
- if (keyCode >= 65 && keyCode <= 90){
-   return true;
- } else {
-    return false;
- }
+return keyCode >= 65 && keyCode <= 90 ? true : false
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
-if (this.letters.indexOf(key) === -1){
-   return true;
- } else {
-   return false;
- }
+ return this.letters.indexOf(key) === -1 ? true : false
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
@@ -41,17 +31,9 @@ Hangman.prototype._addWrongLetter = function (letter){
 };
 
 Hangman.prototype._checkGameOver = function() {
- if (this.errorsLeft == 0){
-   return true;
- } else {
-   return false;
- }
+ return this.errorsLeft == 0 ? true : false
 };
 
 Hangman.prototype._checkWinner = function() {
- if (this.secretWord.length == this.guessedLetter.length) {
-   return true;
- } else {
-   return false;
- }
+ return this.secretWord.length == this.guessedLetter.length ? true : false
 };
