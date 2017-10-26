@@ -1,10 +1,10 @@
 var hangman;
 
 function Hangman() {
-  this.words = ['andrei','papu','yaiza','avello','manu','marknoesta'];
+  this.words = ['ANDREI','PAPU','YAIZA','AVELLO','MANU','MARKNOESTA'];
   this.secretWord = '';
   this.letters = [];
-  this.guessedLetter = "";
+  this.guessedLetter = '';
   this.errorsLeft = 10;
 }
 
@@ -19,33 +19,52 @@ Hangman.prototype._checkIfLetter = function(keyCode) {
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
-  return this.letters.includes(key) ? false : true;
+  if (this.letters.includes(String.fromCharCode(key))){
+    return false;
+  } else {
+   this.letters.push(String.fromCharCode(key));
+    return true;
+  };
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
+  console.log('Posicion '+i);
   this.guessedLetter += this.secretWord[i].toUpperCase();
 };
 
-Hangman.prototype._addWrongLetter = function (){
-  this.errorsLeft -- ;
-  this._checkGameOver();
+Hangman.prototype._addWrongLetter = function (word){
+  this.errorsLeft-- ;
+  this.letters.push(word);
 };
 
 Hangman.prototype._checkGameOver = function() {
-  return this.errorsLeft == 0 ? false : true;
+  console.log("quedan "+this.errorsLeft);
+  return this.errorsLeft == 0 ? true : false;
 };
 
 Hangman.prototype._checkWinner = function() {
-  var auxArray = this.secretWord.split("");
+  var auxArray = this.secretWord.split('');
   var that = this;
-  console.log(auxArray);
   var isComplete = true;
   auxArray.forEach(function(letter){
-    console.log(that.guessedLetter);
     if (!that.guessedLetter.includes(letter)){
-       console.log("comparando :" +letter+" resultado: "+!that.guessedLetter.includes(letter));
+       console.log('comparando :' +letter+' resultado: '+that.guessedLetter.includes(letter));
        isComplete = false;
+     }else{
+      // Put something ...
      }
-   }); // CHECK WITH FUNCTION EVERY
+   });
+
   return isComplete;
+};
+
+Hangman.prototype._checkIfExists = function(letter){
+  console.log(this.secretWord.includes(letter));
+  if (this.secretWord.includes(letter)){
+    console.log('si esta incluida');
+    return true;
+  } else {
+    console.log('no esta incluida');
+    return false;
+  }
 };
