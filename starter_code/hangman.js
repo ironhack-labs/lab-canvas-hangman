@@ -1,7 +1,20 @@
 var hangman;
 
 function Hangman() {
-  this.words = ['IRONHACK'];
+  this.words = [
+    'IRONHACK',
+    'OBLIVION',
+    'SKYRIM',
+    'OCARINA',
+    'GANONDORF',
+    'TRIFORCE',
+    'GOBLIN',
+    'DIN',
+    'FARORE',
+    'NAYRU',
+    'DODONGO',
+    'DARUNIA'
+  ];
   this.secretWord = '';
   this.letters = [];
   this.guessedLetter = '';
@@ -9,11 +22,19 @@ function Hangman() {
 }
 
 Hangman.prototype._getWord = function () {
-  return '';
+  return this.words[Math.floor(Math.random() * this.words.length)];
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
-  if(keyCode > 65 && keyCode < 90){
+  if(keyCode > 64 && keyCode < 91){
+    return true;
+  } else{
+    return false;
+  }
+};
+
+Hangman.prototype._checkLetter = function(key){
+  if(this.secretWord.split('').includes(String.fromCharCode(key))){
     return true;
   } else{
     return false;
@@ -21,7 +42,8 @@ Hangman.prototype._checkIfLetter = function(keyCode) {
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
-  if(this.letters.includes(key)){
+  if(!this.letters.includes(key)){
+    this.letters.push(key.toUpperCase());
     return false;
   } else{
     return true;
@@ -37,7 +59,7 @@ Hangman.prototype._addWrongLetter = function (letter){
 };
 
 Hangman.prototype._checkGameOver = function() {
-  if(this.errorsLeft == 0){
+  if(this.errorsLeft == 1){
     return true;
   } else{
     return false;
