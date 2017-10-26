@@ -1,5 +1,3 @@
-var hangman;
-
 function Hangman() {
   this.words = ['Hello'];
   this.secretWord = "Hola";
@@ -37,15 +35,12 @@ Hangman.prototype._addWrongLetter = function (letter){
 };
 
 Hangman.prototype._checkGameOver = function() {
-  if (this.errorsLeft == 0) {
-    return true;
-  }
-  return false;
+  return (this.errorsLeft == 0) ? true:false;
 };
 
 Hangman.prototype._checkWinner = function() {
   if (this.guessedLetter.length == this.secretWord.length){
     return true;
   }
-  return false; 
+  return false;
 };
