@@ -26,6 +26,7 @@ $('document').ready(function() {
           } else {
             if (hangman._checkGameOver()){
               canvas._gameOver();
+              console.log('game over');
             } else {
               canvas._writeWrongLetter(word, hangman.errorsLeft);
               hangman._addWrongLetter(word);
