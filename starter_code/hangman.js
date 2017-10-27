@@ -1,4 +1,4 @@
-var hangman;
+// var hangman;
 
 function Hangman() {
   this.words = ["palabra", "abecedario", "rama"];
@@ -17,7 +17,6 @@ Hangman.prototype._getWord = function () {
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
   return keyCode >= 65 && keyCode <= 90;
-
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
@@ -25,20 +24,18 @@ Hangman.prototype._checkClickedLetters = function(key) {
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
-  var letter = String.fromCharCode(i);
-  this.guessedLetter += letter;
-  return letter;
+  this.guessedLetter += this.secretWord[i].toUpperCase();
 };
 
 Hangman.prototype._addWrongLetter = function (letter){
-
+  this.errorsLeft--;
 };
 
 Hangman.prototype._checkGameOver = function() {
-
+  return this.errorsLeft == 0;
 };
 
 Hangman.prototype._checkWinner = function() {
-
+  return this.secretWord.length == this.guessedLetter.length;
 };
 //
