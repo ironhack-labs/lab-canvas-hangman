@@ -3,13 +3,15 @@ var hangman;
 var randomNumber = Math.floor(Math.random()*6);
 var wordArray = ['code', 'byte', 'laptop', 'terminal', 'program', 'pizza'];
 console.log(wordArray[randomNumber]);
+var lettersArray = [];
+
 
 function Hangman(wordsFill, secretWordFill, lettersFill, guessedLetterFill, errorsLeftFill) {
   this.words = wordArray;
   this.secretWord = wordArray[randomNumber];
-  this.letters = lettersFill;
-  this.guessedLetter = guessedLetterFill;
-  this.errorsLeft = errorsLeftFill;
+  this.letters = lettersArray;
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
 }
 
 Hangman.prototype._getWord = function () {
@@ -27,7 +29,14 @@ Hangman.prototype._checkIfLetter = function(keyCode) {
 
 Hangman.prototype._checkClickedLetters = function(key) {
 
+ //  if (key ) {
+ //
+ // }
 };
+
+var key = onkeydown.keyCode;
+console.log(key);
+
 
 Hangman.prototype._addCorrectLetter = function(i){
 

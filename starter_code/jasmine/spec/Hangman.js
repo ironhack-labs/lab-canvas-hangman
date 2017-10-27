@@ -55,25 +55,25 @@ describe("Hangman Game", function () {
       });
     });
 
-  // describe("Check if the letter was already clicked", function () {
-  //   it("_checkClickedLetters should be a function", function () {
-  //     expect(typeof(hangman._checkClickedLetters)).toBe("function");
-  //   });
-  //   it("_checkClickedLetters should receive a string", function () {
-  //     var key = "P";
-  //     hangman._checkClickedLetters(key);
-  //     expect(typeof(key)).toBe("string");
-  //   });
-  //   it("_checkClickedLetters should return a boolean", function () {
-  //     hangman.letters.push("I");
-  //     expect(typeof(hangman._checkIfLetter("N"))).toBe("boolean");
-  //   });
-  //
-  //   it("_checkClickedLetters should return true", function () {
-  //     hangman.letters.push("I","R","P");
-  //     expect(hangman._checkClickedLetters("F")).toEqual(true);
-  //   });
-  //
+  describe("Check if the letter was already clicked", function () {
+    it("_checkClickedLetters should be a function", function () {
+      expect(typeof(hangman._checkClickedLetters)).toBe("function");
+    });
+      it("_checkClickedLetters should receive a string", function () {
+        var key = "P";
+        hangman._checkClickedLetters(key);
+        expect(typeof(key)).toBe("string");
+      });
+    it("_checkClickedLetters should return a boolean", function () {
+      hangman.letters.push("I");
+      expect(typeof(hangman._checkIfLetter("N"))).toBe("boolean");
+    });
+
+    // it("_checkClickedLetters should return true", function () {
+    //   hangman.letters.push("I","R","P");
+    //   expect(hangman._checkClickedLetters("F")).toEqual(true);
+    // });
+
   //   it("_checkIfLetter should return false", function () {
   //     hangman.letters.push("I","R","P");
   //     expect(hangman._checkClickedLetters("R")).toEqual(false);
