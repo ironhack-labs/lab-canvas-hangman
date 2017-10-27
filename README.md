@@ -42,7 +42,7 @@ First, of at all let's create or Hangman constructor. It should have the followi
 
 ### Prototypes properties
 
-- `_getWrod()`. Returns a random word from our array `words`.
+- `_getWord()`. Returns a random word from our array `words`.
 - `checkIfLetter`. This function should check if the key the user type is a letter.
 - `_checkClickedLetters`. Checks if the pressed letter already pressed and return `true` if it was not or `false` in the opposite case.
 - `_checkGameOver`. Returns a bolean value, `true` if the users lose, and `false` in any other case.

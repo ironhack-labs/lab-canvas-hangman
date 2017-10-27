@@ -1,4 +1,4 @@
-
+ 
 //space is the width value where we will start drawing wrong letters
 var space = 700;
 
