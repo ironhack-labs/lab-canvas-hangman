@@ -1,29 +1,27 @@
-var hangman;
-
 function Hangman() {
-  this.words = ["hello", "world", "magic", "matadero"];
+  this.words = ["HELLO", "WORLD", "MAGIC", "MATADERO"];
   this.words.length >= 1;
   this.secretWord = "";
   this.letters = [""];
   this.guessedLetter = [""];
   this.errorsLeft = 10;
-
 };
 
 Hangman.prototype._getWord = function() {
-  var random = Math.floor((Math.random() * this.words.length) + 1);
+  var random = Math.floor((Math.random() * this.words.length));
   var result = this.words[random];
   return result;
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
   if(keyCode >= 65 && keyCode <= 90){
+    console.log("TRUE")
     return true;
   }else{
+    console.log("FALSE")
     return false;
   }
 };
-
 
 Hangman.prototype._checkClickedLetters = function(key) {
   if (this.words.indexOf(key) == undefined) {
