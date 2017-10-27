@@ -1,18 +1,32 @@
 var hangman;
 
 function Hangman() {
+  this.words = ["information", "difficult", "parking", "building", "fahrenheit"];
 
+  this.secretWord = ("");
+  this.letters = [];
 }
 
 Hangman.prototype._getWord = function () {
-
+  return this.secretWord;
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
-
+  if (65 <= keyCode && keyCode <= 90) {
+    return true;
+  }
+  return false;
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
+
+  var letters = String.fromCharCode(event.keyCode);
+
+if (/[a-zA-Z]/) {
+    return true;
+  }
+
+  return false;
 
 };
 
