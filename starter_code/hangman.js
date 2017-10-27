@@ -1,15 +1,26 @@
 var hangman;
 
-function Hangman() {
+var words = ["ironhack", "javascript", 'jquery', 'keyboard', 'miami'];
+ var clickedLetters = [];
 
+function Hangman() {
+this.words = words;
+this.secretWord = '';
+this.clickedLetters = [];
 }
 
 Hangman.prototype._getWord = function () {
-
+ var randomW = Math.floor(Math.random() * this.words.length);
+ return this.words[randomW] ;
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
-
+  if (keyCode >= 65 && keyCode <= 90){
+    return true;
+  }
+  else {
+    return false;
+  }
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
