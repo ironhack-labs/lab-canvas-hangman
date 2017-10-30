@@ -39,7 +39,7 @@ describe("Hangman Game", function () {
       var keyCode = 43;
       hangman._checkIfLetter(keyCode);
       expect(typeof(keyCode)).toBe("number");
-      
+
     });
 
     it("_checkIfLetter should return a boolean", function () {
@@ -119,7 +119,7 @@ describe("Hangman Game", function () {
     it("_checkGameOver should return a boolean", function () {
       expect(typeof(hangman._checkGameOver())).toBe("boolean");
     });
-    it("_checkGameOver should return false if the errorsLeft is 0", function () {
+    it("_checkGameOver should return true if the errorsLeft is 0", function () {
       hangman.errorsLeft = 0;
       expect(hangman._checkGameOver()).toEqual(true);
     });
@@ -141,7 +141,7 @@ describe("Hangman Game", function () {
       hangman.guessedLetter = "KHARCNIO";
       expect(hangman._checkWinner()).toEqual(true);
     });
-    it("_checkWinner should return true if we guess all letters", function () {
+    it("_checkWinner should return false if we not guess all letters", function () {
       hangman.secretWord = "IRONHACK";
       hangman.guessedLetter = "KHARCN";
       expect(hangman._checkWinner()).toEqual(false);
