@@ -38,9 +38,21 @@ HangmanCanvas.prototype._drawLines = function() {
   }
 };
 
-HangmanCanvas.prototype._writeCorrectLetter = function(i){
+HangmanCanvas.prototype._writeCorrectLetter = function(letter){
   this.ctx.font = "48px Open Sans, sans-serif";
-  this.ctx.fillText(this.secretWord[i].toUpperCase(), 260+(i*70), 680);
+  var counterArray = [];
+  for(var i = 0; i<this.secretWord.length; i++){
+    if (letter === this.secretWord[i]){
+      counterArray.push(i+1);
+    }
+    else{
+      counterArray.push(-1);
+    }
+  }
+  for(var i = 0; i<counterArray.length; i++){
+  if(counterArray[i] > 0)
+  this.ctx.fillText(letter, 260+(i*70), 680);
+  }
 };
 
 HangmanCanvas.prototype._writeWrongLetter = function (letter, errorsLeft){
@@ -86,3 +98,4 @@ HangmanCanvas.prototype._winner = function() {
   };
   img.src = './images/awesome.png';
 };
+
