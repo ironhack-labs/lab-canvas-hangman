@@ -9,7 +9,9 @@ this.errorsLeft = 10;
 }
 
 Hangman.prototype._getWord = function () {
-  return this.words[Math.floor(Math.floor()*this.words.length)];
+  var array = this.words;
+  var i = Math.floor(Math.random()*array.length);
+  return array[i];
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
@@ -21,26 +23,28 @@ Hangman.prototype._checkIfLetter = function(keyCode) {
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
-if (this.letters.includes(key)) {
-  return true;
-} else {
-  return false;
-}
+ if (this.letters.includes(key)) {
+   return false;
+ } else {
+   return true;
+ }
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
-if (this._checkClickedLetters(key) === false){
   this.guessedLetter += i;
-}
-this._checkWinner();
+  this._checkWinner();
 };
 
 Hangman.prototype._addWrongLetter = function (letter){
-
+  if (this._checkClickedLetters(key)){
+    this.errorsLeft -= 1;
+  }
 };
 
 Hangman.prototype._checkGameOver = function() {
-
+if(this.errorsLeft === 0) {
+  return true;
+}
 };
 
 Hangman.prototype._checkWinner = function() {
