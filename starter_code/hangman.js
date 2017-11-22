@@ -3,7 +3,7 @@ var hangman;
 function Hangman() {
 this.words = ["table","house","ironhack","meatballs","blitzkrieg"];
 this.secretWord = "";
-this.letters = [];
+this.letters = ["I","R"];
 this.guessedLetter = "";
 this.errorsLeft = 10;
 }
@@ -31,26 +31,35 @@ Hangman.prototype._checkClickedLetters = function(key) {
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
-  this.guessedLetter += i;
+  this.guessedLetter += this.letters[i];
   this._checkWinner();
 };
 
 Hangman.prototype._addWrongLetter = function (letter){
-  if (this._checkClickedLetters(key)){
     this.errorsLeft -= 1;
-  }
 };
 
 Hangman.prototype._checkGameOver = function() {
 if(this.errorsLeft === 0) {
   return true;
+} else {
+  return false;
 }
 };
 
 Hangman.prototype._checkWinner = function() {
-  if(this.secretWord.length === this.letters.length){
-    return true;
-  }
+  var secretWordFiltered = this.secretWord.split("").filter(function(elem, index, self) {
+    return index == self.indexOf(elem);});
+
+  var guessedLetterFiltered = this.guessedLetter.split("").filter(function(elem, index, self) {
+    return index == self.indexOf(elem);});
+
+
+if (secretWordFiltered.length === guessedLetterFiltered.length) {
+  return true;
+} else {
+  return false;
+}
 };
 
 document.getElementById("start-game-button").onclick = function(){
