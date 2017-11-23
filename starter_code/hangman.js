@@ -1,15 +1,30 @@
-var hangman;
 
-function Hangman() {
 
-}
 
 Hangman.prototype._getWord = function () {
-
+  return this.words[Math.floor( Math.random()*this.words.length )];
 };
 
 Hangman.prototype._checkIfLetter = function(keyCode) {
+  return isNaN(keyCode);
+};
 
+var hangman;
+
+function Hangman() {
+this.words = ["hola", "adios"];
+this.secretWord = "";
+this.letters =[];
+this.guessedLetter = "";
+this.errorsLeft = 10;
+}
+
+Hangman.prototype._getWord = function () {
+  return this.words[Math.floor( Math.random()*this.words.length )];
+};
+
+Hangman.prototype._checkIfLetter = function(keyCode) {
+  return isNaN(keyCode);
 };
 
 Hangman.prototype._checkClickedLetters = function(key) {
