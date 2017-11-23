@@ -30,7 +30,8 @@ Hangman.prototype._checkClickedLetters = function(keyCode) {
 };
 
 Hangman.prototype._addCorrectLetter = function(i){
-
+if (event.keyCode === this.words.length);
+return true;
 };
 
 Hangman.prototype._addWrongLetter = function (letter){
