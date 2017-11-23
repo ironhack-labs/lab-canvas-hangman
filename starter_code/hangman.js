@@ -20,7 +20,7 @@ Hangman.prototype._checkIfLetter = function(keyCode) {
 
 };
 
-Hangman.prototype._checkClickedLetters = function(keyCode) {
+Hangman.prototype._checkClickedLetters = function(key) {
   if (event.keyCode >= 65 && event.keyCode <= 99) {
    return true;
  }
@@ -35,11 +35,17 @@ return true;
 };
 
 Hangman.prototype._addWrongLetter = function (letter){
-
+if (this.errorsLeft == 0);
+return ("Game is over");
 };
 
 Hangman.prototype._checkGameOver = function() {
-
+if (this.errorsLeft == 0) {
+return true;
+}
+else {
+  return false;
+  }
 };
 
 Hangman.prototype._checkWinner = function() {
