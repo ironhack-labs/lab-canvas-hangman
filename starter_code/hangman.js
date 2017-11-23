@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["PELOTA", "BOTELLA", "MANTEL", "CINTURON", "CUADRO"];
+  this.words = ["PELOTA", "NUTELA", "MANTEL", "SUELO", "CUADRO", "ARMARIO", "COCODRILO", "HIGIENICO", "CHANCLETA", "TORNADO"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
@@ -51,10 +51,17 @@ function _sortString(strin) {
   return strin.split('').sort().join('');
 }
 
+function _getRepeatWordsPositions(str,key) {
+  var indices = [];
+  for (var i = 0; i < str.length; i++) {
+    if (str[i] === key) indices.push(i);
+  }
+  return indices;
+}
+
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
   hangman.secretWord = hangman._getWord();
-  alert(hangman.secretWord);
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
 };
@@ -62,20 +69,22 @@ document.getElementById("start-game-button").onclick = function() {
 
 document.onkeydown = function(e) {
   if (hangman._checkIfLetter(e.keyCode)) {
-    var theKeyPress=String.fromCharCode(e.keyCode);
+    var theKeyPress = String.fromCharCode(e.keyCode);
     if (hangman._checkClickedLetters(theKeyPress)) {
       hangman.letters.push(theKeyPress);
-      //Tengo que ver que la tecla pulsada esta en la solucion
-      if(hangman.secretWord.includes(theKeyPress)){
-        hangman._addCorrectLetter(hangman.secretWord.indexOf(theKeyPress));
-        hangmanCanvas._writeCorrectLetter(hangman.secretWord.indexOf(theKeyPress));
-        if(hangman._checkWinner()){
+      if (hangman.secretWord.includes(theKeyPress)) {
+        var wordRepeat=_getRepeatWordsPositions(hangman.secretWord,theKeyPress);
+        for(var i=0;i<wordRepeat.length;i++){
+          hangman._addCorrectLetter(wordRepeat[i]);
+          hangmanCanvas._writeCorrectLetter(wordRepeat[i]);
+        }
+        if (hangman._checkWinner()) {
           hangmanCanvas._winner();
         }
-      }else{
+      } else {
         hangman._addWrongLetter(theKeyPress);
-        hangmanCanvas._writeWrongLetter(theKeyPress,hangman.errorsLeft);
-        if(hangman._checkGameOver()){
+        hangmanCanvas._writeWrongLetter(theKeyPress, hangman.errorsLeft);
+        if (hangman._checkGameOver()) {
           hangmanCanvas._gameOver();
         }
       }
