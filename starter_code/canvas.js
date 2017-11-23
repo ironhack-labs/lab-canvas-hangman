@@ -16,7 +16,7 @@ var errorsDraw = [
   { type: "line",     x1: 500, y1: 250, x2: 580, y2: 300 }
 ];
 
-function HangmanCanvas(secretWord) {
+function HangmanCanvas(secretWord) {  
   this.ctx = document.getElementById("hangman").getContext('2d');
   this.secretWord = secretWord;
   this._createBoard();
