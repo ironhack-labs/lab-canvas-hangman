@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["Hola"];
+  this.words = ["Hola", "Madrid", "Barcelona", "Londres"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
@@ -62,9 +62,18 @@ Hangman.prototype._checkWinner = function() {
 
 document.getElementById("start-game-button").onclick = function(){
   hangman = new Hangman();
+  hangman.secretWord = hangman._getWord();
+
+  canvas = new HangmanCanvas(hangman.secretWord);
+
+  canvas._createBoard();
+  canvas._drawLines();
+
 };
 
 
 document.onkeydown = function(e) {
+  console.log(e.key);
 
+  console.log(hangman._checkIfLetter(e.keyCode));
 };
