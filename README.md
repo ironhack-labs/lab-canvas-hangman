@@ -32,7 +32,7 @@ Open the `SpecRunner.html` to check them.
 
 ### Hangman Constructor
 
-First, of at all let's create or Hangman constructor. It should have the following properties:
+First, of at all let's create our Hangman constructor. It should have the following properties:
 
 - **words**. An array where we will store all the words that the player need to guess. We will take one of them randomly.
 - **secretWord**. Here we will store the word chosen for each game.
@@ -42,19 +42,19 @@ First, of at all let's create or Hangman constructor. It should have the followi
 
 ### Prototypes properties
 
-- `_getWrod()`. Returns a random word from our array `words`.
-- `checkIfLetter`. This function should check if the key the user type is a letter.
-- `_checkClickedLetters`. Checks if the pressed letter already pressed and return `true` if it was not or `false` in the opposite case.
-- `_checkGameOver`. Returns a bolean value, `true` if the users lose, and `false` in any other case.
-- `_checkWinner`. Check if the users win and return a boolean value.
-- `_addCorrectLetter`. Adds to `guessedLetter` variable, the letter that was pressed. Also, should checks if the users win.
-- `_addWrongLetter`. Should substrac one from the variable `errorsLeft` and check if the game is over.
+- `getWord()`. Returns a random word from our array `words`.
+- `checkIfLetter`. This function should check if the key the user has typed is a letter.
+- `checkClickedLetters`. Checks if the pressed letter has already been pressed and returns true if it was not or false in the opposite case.
+- `checkGameOver`. Returns a bolean value, `true` if the users lose, and `false` in any other case.
+- `checkWinner`. Check if the users win and return a boolean value.
+- `addCorrectLetter`. Adds to the `guessedLetter` variable the letter that was pressed. Also, it should check if the user wins.
+- `addWrongLetter`. Should subtract one from the variable `errorsLeft` and check if the game is over.
 
 ## 2. Second Iteration: Draw in Canvas
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_3e1e1919b29ba77e77cdcec2ed7b92c5.png)
 
-Now we need to start drawing the hangman in order to finish our game! As we say, we will do it in a different file separating it from the logic.
+Now we need to start drawing the hangman in order to finish our game! As we said, we will do it in a different file separating it from the logic.
 
 Let´s create a constructor `HangmanCanvas` and store in a variable our `canvas`. After storing it, we should get the context. Remember `getContext('2d')`. We also want to store in a variable the secret word.
 
@@ -72,7 +72,7 @@ Every time a user clicks the keyboard, after checking if the letter was not alre
 
 ### Draw the Hangman
 
-The last task, we need to draw **THE HANGMAN**. You can notice the draw is componed of lines and one circle. Go ahead and think how can we do it :wink:
+The last task, we need to draw **THE HANGMAN**. You can notice the drawing is composed of lines and one circle. Go ahead and think how can we do it :wink:
 
 ## Bonus Iteration
 
