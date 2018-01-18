@@ -1,4 +1,3 @@
-var hangman;
 
 function Hangman() {
   this.words = ["Paella","Ordenador","Libreta","Bocadillo"];
@@ -9,7 +8,7 @@ function Hangman() {
 }
 
 Hangman.prototype.getWord = function () {
-  return this.words[Math.floor(Math.random()) * this.words.length];
+  return this.words[Math.floor((Math.random()) * this.words.length)];
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
@@ -48,6 +47,9 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord();
+  canvas = new HangmanCanvas();
+  canvas.drawLines();
 };
 
 
