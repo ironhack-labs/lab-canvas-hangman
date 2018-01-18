@@ -1,24 +1,32 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ["culo", "caca", "pedo"];
+  this.secretWord = (this.words[0]);
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function () {
+  return this.words[Math.floor(Math.random()*this.words.length)];
+};
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  return keyCode >= 65 && keyCode <= 90
+}
 
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+    return typeof key == "string";
+}
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
+Hangman.prototype.addCorrectLetter = function (i) {
+  if (this.secretWord.includes(this.secretWord[i])) {
+    this.guessedLetter=this.secretWord[i].toUpperCase();
+  } else {
+    return false;
+  }
+};
 
 // Hangman.prototype.addWrongLetter = function (letter) {
 
@@ -32,11 +40,13 @@ var hangman;
 
 // };
 
-document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
-};
+// document.getElementById('start-game-button').onclick = function () {
+//   hangman = new Hangman();
+// };
 
 
-document.onkeydown = function (e) {
+// document.onkeydown = function (e) {
 
-};
+// };
+
+
