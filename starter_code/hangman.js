@@ -1,20 +1,41 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+	this.words = [];
+	this.secretWord = "";
+	this.letters = [];
+	this.guessedLetter = "";
+	this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function () {
+	return this.secretWord;
+};
+Hangman.prototype.checkIfLetter = function (keyCode) {
+	if ((typeof(keyCode) === "number") && (keyCode < 57)){
+		return false;
+	} else{ 
+		return true;
+	}
 
-// Hangman.prototype.getWord = function () {
+};
 
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+	this.letters.push(key);
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+	for(var i = 0; i < this.letters.length; i++){
+		if(this.letters[i].includes(this.secretWord)){
+			return false;
+		}
+		else if(key === this.secretWord){
+			return true;
+		}
+	}
 
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
+/*	if(letters.push(key) ){
+	
+	}*/
+};
 
 // Hangman.prototype.addCorrectLetter = function (i) {
 
