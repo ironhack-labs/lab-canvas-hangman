@@ -65,7 +65,7 @@ describe('Hangman Game', function () {
     });
     it('checkClickedLetters should return a boolean', function () {
       hangman.letters.push('I');
-      expect(typeof (hangman.checkIfLetter('N'))).toBe('boolean');
+      expect(typeof (hangman.checkClickedLetters('N'))).toBe('boolean');
     });
 
     it('checkClickedLetters should return true', function () {
