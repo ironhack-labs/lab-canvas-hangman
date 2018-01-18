@@ -7,7 +7,6 @@ function Hangman() {
 	this.guessedLetter = "";
 	this.errorsLeft = 10;
 }
-
 Hangman.prototype.getWord = function () {
 	return this.secretWord;
 };
@@ -19,27 +18,22 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 	}
 
 };
-
 Hangman.prototype.checkClickedLetters = function (key) {
-	this.letters.push(key);
-
-	for(var i = 0; i < this.letters.length; i++){
-		if(this.letters[i].includes(this.secretWord)){
-			return false;
-		}
-		else if(key === this.secretWord){
-			return true;
-		}
-	}
-
-/*	if(letters.push(key) ){
 	
-	}*/
+	if (this.letters.indexOf(key) == -1){
+		
+		this.letters.push(key);
+		return true;
+
+	}else{
+		return false;
+	}
+		
 };
+Hangman.prototype.addCorrectLetter = function (i) {
 
-// Hangman.prototype.addCorrectLetter = function (i) {
 
-// };
+};
 
 // Hangman.prototype.addWrongLetter = function (letter) {
 
