@@ -2,6 +2,7 @@
 function HangmanCanvas(secretWord) {
   var self = this;
   self.ctx = document.getElementById('hangman').getContext('2d');
+  self.secretWord = secretWord;
 }
 
 HangmanCanvas.prototype.createBoard = function () {
@@ -13,10 +14,13 @@ HangmanCanvas.prototype.createBoard = function () {
 
 HangmanCanvas.prototype.drawLines = function () {
   var self = this;
+  self.
+  for (var i = 0; i > self.secretWord.length; i++) {
   self.ctx.beginPath();
-  self.ctx.moveTo(500, 300);
-  self.ctx.lineTo(550, 300);
+  self.ctx.moveTo(230 + (i * 50), 600);
+  self.ctx.lineTo(550, 600);
   self.ctx.stroke();
+  }
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {

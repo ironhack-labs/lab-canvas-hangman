@@ -1,6 +1,7 @@
 'use strict'
 
-var hangman = new HangmanCanvas();
+var hangman;
+var canvas;
 
 function Hangman() {
   var self = this;
@@ -68,8 +69,11 @@ Hangman.prototype.checkWinner = function () {
   }
 };
 
+
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  canvas = new HangmanCanvas(hangman.getWord);
+  canvas.drawLines();
 };
 
 
