@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+      expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
@@ -92,6 +92,8 @@ describe('Hangman Game', function () {
       hangman.secretWord = 'Ironhack';
       hangman.addCorrectLetter(1);
       expect(hangman.guessedLetter).toEqual('R');
+
+      
     });
   });
 

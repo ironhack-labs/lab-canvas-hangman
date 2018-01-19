@@ -1,3 +1,9 @@
+ 
+ 
+var self = this
+self.width = window.innerWidth;
+self.height = window.innerHeight;
+  
 
 function HangmanCanvas(secretWord) {
   this.ctx = document.getElementById('hangman').getContext('2d');
