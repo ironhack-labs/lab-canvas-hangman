@@ -1,24 +1,36 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+ this.words = ['IRONHACK', 'NODEJS', 'JAVASCRIPT', 'METEOR', 'ANGULAR', 'BARCELONA', 'MADRID', 'MIAMI', 'HTML'];
+ this.secretWord = '';
+ this.letters = [];
+ this.guessedLetter = '';
+ this.errorsLeft = 10;
+//  this.secretWord =this.getWord();
 
-// }
+}
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.getWord = function () {
+  var randomNumber = Math.floor(Math.random()* this.words.length);
 
-// };
+  return this.words[randomNumber];
+};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.checkIfLetter = function (keyCode) {
+    return keyCode > 64 && keyCode < 91;
+};
 
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+    if (this.letters.includes(key)) {
+      return false;
+    } else {
+      return true;
+    }
+};
 
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
+Hangman.prototype.addCorrectLetter = function (i) {
+  this.guessedLetter = this.guessedLetter + i;
+};
 
 // Hangman.prototype.addWrongLetter = function (letter) {
 
