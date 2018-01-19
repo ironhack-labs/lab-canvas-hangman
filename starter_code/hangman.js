@@ -50,8 +50,10 @@ Hangman.prototype.checkClickedLetters = function (key) {
 
 Hangman.prototype.addCorrectLetter = function (key) {
   var self = this;
- 
-  return;
+  var result = '';
+  if (self.guessedLetter.indexOf(key) === self.secretWord.indexOf(key)){
+    return result += self.guessedLetter;
+  }
     
 
 };
