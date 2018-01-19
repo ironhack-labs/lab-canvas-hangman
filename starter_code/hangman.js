@@ -1,24 +1,62 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
 
-// }
+ this.words = [];
+ this.secretWord = '';
+ this.letters = [];
+ this.guessedLetter = '';
+ this.errorsLeft = 10;
 
-// Hangman.prototype.getWord = function () {
+}
 
-// };
+Hangman.prototype.getWord = function () {
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+  var self = this;
 
-// };
+  var newWord = ""; 
+    //if word has some word
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+    if(self.words > 0) {
+      return newWord = self.words[Math.floor(Math.random()*self.words.length)];
+    }
 
-// };
+  return newWord;
+};
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+Hangman.prototype.checkIfLetter = function (keyCode) {
 
-// };
+   if (keyCode > 65 && keyCode < 90){
+    return true;
+  } else if(keyCode > 97 && keyCode < 122 ) {
+    return true;
+  } else {
+    return false;
+  }
+
+};
+
+Hangman.prototype.checkClickedLetters = function (key) {
+  var self = this;
+  
+  if(self.letters.indexOf(key) === -1){
+    return true;
+  }
+  else {
+    return false;
+  }
+
+};
+
+Hangman.prototype.addCorrectLetter = function (key) {
+  var self = this;
+
+  if(self.guessedLetter.indexOf(key) === self.secretWord.indexOf(key)){
+    return self.guessedLetter.indexOf(key) + self.secretWord.indexOf(key);
+  }
+    
+
+};
 
 // Hangman.prototype.addWrongLetter = function (letter) {
 
