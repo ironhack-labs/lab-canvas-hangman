@@ -1,6 +1,6 @@
 
 var hangman;
-
+var hCanvas;
 function Hangman() {
   this.words = ["house", "cat", "table", "truck"];
   this.secretWord = this.words[0];
@@ -8,6 +8,7 @@ function Hangman() {
   this.guessedLetter = "";
   this.errorLeft = 10;
   
+
 }
 
 
@@ -70,6 +71,8 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hCanvas = new HangmanCanvas();
+  hCanvas.drawLines();
 };
 
 
