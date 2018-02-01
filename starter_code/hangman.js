@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-  this.words=[];
+  this.words=['IRONHACK', 'GAMES'];
   this.secretWord="";
   this.letters=[];
   this.guessedLetter="";
@@ -36,11 +36,13 @@ Hangman.prototype.checkClickedLetters = function (key) {
 // Adds to the guessedLetter variable the letter that was pressed. Also, it should check if the user wins.
 Hangman.prototype.addCorrectLetter = function (i) {
         this.guessedLetter += String.fromCharCode(i);
+        this.letters.push(String.fromCharCode(i));
         this.checkWinner();
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
         this.errorsLeft -= 1;
+        this.letters.push(letter);
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -61,14 +63,6 @@ Hangman.prototype.checkWinner = function () {
      }
 
  } 
-  
-//   if(this.secretWord.includes(this.guessedLetter)){
-//           return true;
-//         }
-//         else{
-//           return false;
-//         }
-// };
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
