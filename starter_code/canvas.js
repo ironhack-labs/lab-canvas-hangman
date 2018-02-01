@@ -8,7 +8,9 @@ HangmanCanvas.prototype.createBoard = function () {
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-
+  for (var i = 0; i < secretWord.length; i++) {
+    getWord[i]= "_";
+  };
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {

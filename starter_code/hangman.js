@@ -1,20 +1,40 @@
+
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ["escapology", "brightwork", "verkrampte", "protectrix"];
+  // this.secretWord = "";
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+  this.secretWord = this.getWord();
 
-// }
+};
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.getWord = function () {
+  var secretWord = Math.floor(Math.random() * this.words.length);
+  return this.words[secretWord];
+};
 
-// };
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  if (keyCode >= 65 && keyCode <= 90) {
+    return true;
+  } else {
+    return false;
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+  };
+    
+  
+};
 
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+  
+  if( this.letters.indexOf(key) === -1){
+    return true;
+  } else {
+    return false;
+  };
+};
 
 // Hangman.prototype.addCorrectLetter = function (i) {
 
