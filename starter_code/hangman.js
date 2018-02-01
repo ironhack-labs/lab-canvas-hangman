@@ -3,21 +3,22 @@ var hangman;
 
 function Hangman() {
   this.words = ["escapology", "brightwork", "verkrampte", "protectrix"];
-  this.secretWord = "";
+  // this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
+  this.secretWord = this.getWord();
 
 };
 
 Hangman.prototype.getWord = function () {
-  secretWord = this.words[Math.floor(Math.random() * words.length)];
+  var secretWord = Math.floor(Math.random() * this.words.length);
+  return this.words[secretWord];
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
-  if (event.keyCode >= 65 && event.keyCode <= 90) {
+  if (keyCode >= 65 && keyCode <= 90) {
     return true;
-    continue;
   } else {
     return false;
 
@@ -27,12 +28,12 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
-  if ( guessLetter === secretWord[i]){
-    getWord[i]= secretWord[i];
+  
+  if( this.letters.indexOf(key) === -1){
+    return true;
   } else {
-    this.errorseft -= this.errorsLeft
+    return false;
   };
-
 };
 
 // Hangman.prototype.addCorrectLetter = function (i) {
