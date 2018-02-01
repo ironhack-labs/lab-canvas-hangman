@@ -8,7 +8,8 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+      console.log(hangman.words.length)
+      expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
