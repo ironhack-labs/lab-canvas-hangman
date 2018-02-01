@@ -15,24 +15,30 @@ HangmanCanvas.prototype.drawLines = function () {
      
   this.ctx.beginPath();
   //Set Line Dash to 15px and Whitespace to 5 px for Each Segment
-  this.ctx.setLineDash([15, 5]);
+  this.ctx.setLineDash([25, 5]);
   //Start Point of Word
-  this.ctx.moveTo(200, 500);
+  this.ctx.moveTo(350, 550);
   //Length of Word in Pixels
-  var x = this.secretWord.length * 20;
-  this.ctx.lineTo(x, 500);
+  var x = this.secretWord.length * 30;
+  this.ctx.lineTo((350 +x), 550);
   this.ctx.stroke();
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {  
-        var y = 200 + (20 * index);
-        this.ctx.font= '16px Arial';
-        this.ctx.fillText((this.secretWord[index]), y, 500)
+        var y = 350 + (30 * index);
+        this.ctx.font= '24px Arial';
+        this.ctx.fillText((this.secretWord[index]), y, 550)
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-  this.ctx.font= '16px Arial';
-  var x = 500;
+  // var space=0
+  // var x = 700;
+  // for(var i; i<letter.length; i++){
+  //   this.ctx.fillText(letter[i], x+space, 50)
+  //   space+=5;
+
+  this.ctx.font= '24px Arial';
+  var x = 675 + (25 * (10 - errorsLeft));
   this.ctx.fillText(letter, x, 50)
 };
 
@@ -44,7 +50,9 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
           case 'triangle': 
           this.ctx.beginPath();
           this.ctx.moveTo(x, y);
+          //Left Side
           this.ctx.lineTo((x-50), (y+50));
+          //Bottom
           this.ctx.lineTo((x+100), (y+50));
           this.ctx.lineTo(x, y);
           this.ctx.stroke();
@@ -82,9 +90,9 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+  this.ctx.fillText("You Lose!", 0, 50);
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  this.ctx.fillText("You Win!", 0, 50);
 };
