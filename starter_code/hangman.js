@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-  this.words=['IRONHACK', 'GAMES'];
+  this.words=['IRONHACK', 'GAMES', 'PLAY', 'SPORTS', 'MIAMI', 'HEAT'];
   this.secretWord="";
   this.letters=[];
   this.guessedLetter="";
@@ -30,7 +30,6 @@ Hangman.prototype.checkClickedLetters = function (key) {
       else{
         return true;
       }
-
 };
 
 // Adds to the guessedLetter variable the letter that was pressed. Also, it should check if the user wins.
@@ -71,8 +70,9 @@ document.getElementById('start-game-button').onclick = function () {
   hangman.getWord();
   canvas = new HangmanCanvas(hangman.secretWord);
 
-  canvas.drawHangman('triangle');
-  canvas.drawHangman('lines');
+  // canvas.drawHangman('triangle');
+  // canvas.drawHangman('lines');
+  canvas.createBoard();
   
   canvas.drawLines();
 };
@@ -93,6 +93,7 @@ document.onkeydown = function (e) {
       hangman.checkClickedLetters(key)===true){
       hangman.addWrongLetter(key);
       canvas.writeWrongLetter(key, hangman.errorsLeft);
+      canvas.drawHangman(hangman.errorsLeft);
       
       //Print "You Lose!"
       if( hangman.checkGameOver() === true){
