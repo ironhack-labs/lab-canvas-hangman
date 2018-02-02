@@ -59,7 +59,6 @@ document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines();
-  hangmanCanvas.drawHangman("hola");
 };
 
 
