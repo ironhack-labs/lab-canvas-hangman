@@ -21,7 +21,7 @@ HangmanCanvas.prototype.createBoard = function () {
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
 
-    //Draw Draw Lines
+    //Draw Solid Lines
     this.ctx.beginPath();
           this.ctx.moveTo(x,y)
           this.ctx.lineTo(x, y-500);

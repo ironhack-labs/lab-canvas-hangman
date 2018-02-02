@@ -82,7 +82,7 @@ document.onkeydown = function (e) {
       var key = String.fromCharCode(e.keyCode);
        //If Letter is In SecretWord and Passes Checks
       if(hangman.secretWord.includes(key) && hangman.checkIfLetter(e.keyCode)===true && 
-      hangman.checkClickedLetters(key)===true){
+      hangman.checkClickedLetters(key)===true &&  hangman.checkGameOver() === false ){
      //Add Letter to guessedLetter and Print Letter to Screen
       hangman.addCorrectLetter(e.keyCode);
       canvas.writeCorrectLetter(hangman.secretWord.indexOf(key))
@@ -90,7 +90,7 @@ document.onkeydown = function (e) {
     }
     else{
       if(hangman.checkIfLetter(e.keyCode)===true && 
-      hangman.checkClickedLetters(key)===true){
+      hangman.checkClickedLetters(key)===true && hangman.checkGameOver() === false){
       hangman.addWrongLetter(key);
       canvas.writeWrongLetter(key, hangman.errorsLeft);
       canvas.drawHangman(hangman.errorsLeft);
