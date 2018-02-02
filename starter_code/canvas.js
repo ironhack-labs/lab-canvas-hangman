@@ -4,11 +4,12 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  this.ctx;
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-
+  
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
