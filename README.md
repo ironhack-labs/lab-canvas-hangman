@@ -8,9 +8,9 @@ In this exercise, we are going to create the classic game [Hangman](https://en.w
 
 ![](https://i.imgur.com/wrQrY1T.png)
 
-As we have learned, we can't confront the whole game without splitting it up into smaller steps. We will split it up into three different parts: structure, logic, and game layout. This technique is known as **incremental build.**
+As we have learned, we can't put together the whole game without splitting it up into smaller steps. We will split it up into three different parts: structure, logic, and game layout. This technique is known as **incremental build.**
 
-We will separate the game logic from the iteration with the `canvas`. We should be able to play from the console first and then add the graphics.p
+We will separate the game logic from the iteration with the `canvas`. We should be able to play from the console first and then add the graphics.
 
 ### Requirements
 
@@ -20,7 +20,7 @@ We will separate the game logic from the iteration with the `canvas`. We should 
 
 ## 1. First iteration: Game Logic
 
-:::info
+Info:
 In order to do the game logic, we add some **Jasmine** tests to help you. Navigate to:
 
 ```htmlmixed=
@@ -28,7 +28,6 @@ starter_code
   |___ jasmine
 ```
 Open the `SpecRunner.html` to check them.
-:::
 
 ### Hangman Constructor
 

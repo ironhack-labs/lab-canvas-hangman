@@ -14,9 +14,20 @@
   <div style="text-align:center; margin: 50px 0px;">
     <button id="start-game-button">START GAME</button>
   </div>
+  <div>
+    <input id="user-input" type="text">
+    <button id="submit-button" type="submit">Submit</button>
+  </div>
+  <div>
+    <span id="life-counter"></span>
+    <span id="answer"></span>
+  </div>
+
+
   <div style="text-align:center;">
     <canvas id="hangman" height="800px" width="1200px"></canvas>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.js"></script>
   <script type="text/javascript" src="canvas.js"></script>
   <script type="text/javascript" src="hangman.js"></script>
 </body>
