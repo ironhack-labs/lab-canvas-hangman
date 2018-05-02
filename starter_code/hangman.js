@@ -67,6 +67,8 @@ document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas = new HangmanCanvas(hangman.getWord());
   hangmanCanvas.createBoard();
   console.log(hangman.secretWord)
+
+  this.remove();
 };
 
 document.onkeydown = function (e) {
