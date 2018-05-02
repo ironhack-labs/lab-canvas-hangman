@@ -70,6 +70,26 @@ document.getElementById('start-game-button').onclick = function () {
 
   this.remove();
 };
+document.onkeyup = function(){
+
+  setTimeout(function(){
+
+    if(hangman.errorsLeft <= 1){
+      hangmanCanvas.gameOver()
+    }
+
+    // console.log(hangman.guessedLetter.length)
+    // console.log(hangman.secretWord.length);
+
+    if(hangman.secretWord.length == hangman.guessedLetter.length ){
+      hangmanCanvas.winner();
+    }
+  },300)
+
+
+
+}
+
 
 document.onkeydown = function (e) {
 
@@ -88,19 +108,7 @@ document.onkeydown = function (e) {
             hangman.addCorrectLetter(letter);
             hangmanCanvas.writeCorrectLetter(letterIndex);
           }
-          setTimeout(function(){
 
-            if(hangman.errorsLeft <= 1){
-              hangmanCanvas.gameOver()
-            }
-    
-            // console.log(hangman.guessedLetter.length)
-            // console.log(hangman.secretWord.length);
-    
-            if(hangman.secretWord.length == hangman.guessedLetter.length ){
-              hangmanCanvas.winner();
-            }
-          },300)
     
   
         }
