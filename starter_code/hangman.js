@@ -41,7 +41,7 @@ Hangman.prototype.checkGameOver = function () {
 Hangman.prototype.checkWinner = function () {
   for(let i=0; i<this.secretWord.length; i++){
     console.log(i);
-    if(hangman.guessedLetter.indexOf(hangman.secretWord[i].toUpperCase())<0){
+    if(this.guessedLetter.indexOf(this.secretWord[i].toUpperCase())<0){
       console.log("nonono"+hangman.secretWord[i]+"Guessed"+hangman.guessedLetter+"index"+hangman.guessedLetter.indexOf(hangman.secretWord[i]));
       return false;
     }
