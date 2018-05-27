@@ -2,7 +2,7 @@ var hangman;
 var hangmanCanvas;
 
 function Hangman(){
-  this.words=["ironhack","mouse","auto","ciudad","bitcoin","ethereum"];
+  this.words=["ironhack","mouse","auto","ciudad","bitcoin","ethereum","amor","hiphop","hipopotamo"];
   this.secretWord="";
   this.letters=[];
   this.guessedLetter="";
@@ -35,16 +35,18 @@ Hangman.prototype.addWrongLetter = function (letter) {
 };
 
 Hangman.prototype.checkGameOver = function () {
-
   return this.errorsLeft===0 ? true:false;
 };  
 
 Hangman.prototype.checkWinner = function () {
   for(let i=0; i<this.secretWord.length; i++){
-    if(this.guessedLetter.indexOf(this.secretWord[i])==-1){
+    console.log(i);
+    if(hangman.guessedLetter.indexOf(hangman.secretWord[i].toUpperCase())<0){
+      console.log("nonono"+hangman.secretWord[i]+"Guessed"+hangman.guessedLetter+"index"+hangman.guessedLetter.indexOf(hangman.secretWord[i]));
       return false;
     }
   }
+  console.log("sisisisi");
   return true;
 };
 
@@ -54,38 +56,45 @@ document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas=new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines();
-  
-
 };
 
 
 document.onkeydown = function (e) {
-  console.log(e);
-  if(hangman.checkIfLetter(e.keyCode)){
-    
-    if(hangman.checkClickedLetters(e.key)){
-      hangman.letters.push(e.key);
-      console.log(hangman.letters);
-      if(hangman.secretWord.indexOf(e.key)>=0){
-        let startIndex=0;
-        let idx=0;
-        while((idx=hangman.secretWord.indexOf(e.key,startIndex))>-1){
-          hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key));
-          hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(e.key));
-          startIndex=idx+1;  
-        }
-        console.log("si existe: "+hangman.guessedLetter);
-      } else{
-        hangman.addWrongLetter(e.key);
-        hangmanCanvas.writeWrongLetter(e.key,hangman.errorsLeft);
-      }
-    }else{
-      //hangman.letters.push(e.key);
-      //console.log(letter);
-    }
-    
-
-  }else{
-    console.log("no"+e.key);
+  
+ if(hangman.errorsLeft<0){
+    hangmanCanvas.gameOver();
+  }else if(hangman.checkWinner()){
+    hangmanCanvas.winner();
   }
+  else{
+    if(hangman.checkIfLetter(e.keyCode)){
+      if(hangman.checkClickedLetters(e.key)){
+        hangman.letters.push(e.key);
+        console.log(hangman.letters);
+        if(hangman.secretWord.indexOf(e.key)>=0){
+          let startIndex=0;
+          let idx=0;
+          while((idx=hangman.secretWord.indexOf(e.key,startIndex))>-1){
+            hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key));
+            hangmanCanvas.writeCorrectLetter(idx);
+            startIndex=idx+1;  
+            
+          }
+          if(hangman.checkWinner())hangmanCanvas.winner();
+          console.log("si existe: "+hangman.guessedLetter);
+        } else{
+          hangman.addWrongLetter(e.key);
+          
+          (hangman.checkGameOver())?hangmanCanvas.gameOver():hangmanCanvas.writeWrongLetter(e.key,hangman.errorsLeft);
+        }
+      }else{
+        //hangman.letters.push(e.key);
+        //console.log(letter);
+      }
+      
+    }else{
+      console.log("no"+e.key);
+    }
+  }
+  
 };
