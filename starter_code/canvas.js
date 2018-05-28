@@ -1,5 +1,6 @@
 
 function HangmanCanvas(secretWord) {
+  
   this.ctx = document.getElementById('hangman').getContext('2d');
 }
 
