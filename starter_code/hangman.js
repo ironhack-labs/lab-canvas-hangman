@@ -1,16 +1,31 @@
 var hangman;
 
 // function Hangman() {
-
-// }
+function Hangman(words, secretWord, letters, guessedLetter, errorsLeft) {
+  this.words = [];
+  this.secretWord = "";
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+}
 
 // Hangman.prototype.getWord = function () {
+var words = ["un", "deux", "trois", "quatre", "cinq"];
+// //console.log(words.length); 
+// var index = [Math.floor(Math.random() * (words.length))];
+// console.log(index);
+// var secretWord = words[index];
+// console.log(secretWord);
 
-// };
 
+Hangman.prototype.getWord = function () {
+    this.secretWord = this.words[Math.floor(Math.random() * (this.words.length))];
+    return ""+this.secretWord+"";
+};
+    
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
-// };
+//};
 
 // Hangman.prototype.checkClickedLetters = function (key) {
 
