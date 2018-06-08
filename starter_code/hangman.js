@@ -1,20 +1,34 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = [];
+  this.secretWord = ('undefined');
+  this.letters = [];
+  this.guessedLetters = "";
+  this.errorsLeft = "";
+  this.keyCode = "";
 
-// }
+}
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.getWord = function () {
+  return this.words;
+};
 
-// };
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  if (keyCode == "") {
+    return false;
+  } else {
+    return false;
+  }
+};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+  if (key == keyCode) {
+    return false;
+  }else {
+    return true;
+  }
+};
 
 // Hangman.prototype.addCorrectLetter = function (i) {
 
