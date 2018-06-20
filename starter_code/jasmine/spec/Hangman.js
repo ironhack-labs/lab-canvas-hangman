@@ -9,6 +9,7 @@ describe('Hangman Game', function () {
     });
     it('There should be at least one word to pick', function () {
       // expect(hangman.words.length).toBeGreater(2);
+      expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
