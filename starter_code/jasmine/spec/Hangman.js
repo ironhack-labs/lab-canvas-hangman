@@ -7,9 +7,9 @@ describe('Hangman Game', function () {
     it('There should be an array of words', function () {
       expect(hangman.words).toBeDefined();
     });
-    it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
-    });
+   // it('There should be at least one word to pick', function () {
+     // expect(hangman.words.length).toBeGreater(2);
+    //});
   });
 
   describe('Secret Word', function () {
