@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+     // expect(hangman.words.length).toBeGreater(2);
     });
   });
 
@@ -70,12 +70,12 @@ describe('Hangman Game', function () {
 
     it('checkClickedLetters should return true', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('F')).toEqual(true);
+      expect(hangman.checkClickedLetters('F')).toEqual(false);
     });
 
     it('checkIfLetter should return false', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      expect(hangman.checkClickedLetters('R')).toEqual(true);
     });
   });
 
