@@ -1,24 +1,37 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ["hello","goodnight","sleep","tired","javascript"];
+  this.secretWord = "";
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function (words){
+  return this.words[Math.floor(Math.random()*(this.words.length))]
+  }
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  	if (keyCode>64 && keyCode<91) {
+  		return true
+  	} else {
+		return false
+  	}
+  };
 
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+      if (this.guessedLetter == this.letters){
+      	return false
+      }else{
+      	return true
+      }
+  };
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.addCorrectLetter = function (i) {
 
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
+return i+
+ };
 
 // Hangman.prototype.addWrongLetter = function (letter) {
 
