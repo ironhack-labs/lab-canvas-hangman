@@ -1,4 +1,5 @@
 var hangman;
+var canvas;
 
 function Hangman() {
   this.words = ["Longitud", "Rocas", "Acorde", "Equipo", "Mujer"];
@@ -58,6 +59,8 @@ Hangman.prototype.checkWinner = function() {
 
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  canvas = new HangmanCanvas(hangman.getWord());
+  canvas.createBoard();
 };
 
 document.onkeydown = function(e) {};
