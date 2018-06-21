@@ -1,15 +1,15 @@
 var hangman;
 function Hangman() {
-  this.words = [""];
+  this.words = ["table", "window", "apple", "chair", "computer"];
   this.secretWord = "Ironhack";
   this.letters = [];
   this.guessedLetter = "";
-  this.errorsLeft = 7;
+  this.errorsLeft = 4;
 }
 
 Hangman.prototype.getWord = function() {
   var word = this.words[Math.floor(Math.random() * this.words.length)];
-  return word;
+  this.secretWord = word;
 };
 
 Hangman.prototype.checkIfLetter = function(keyCode) {
@@ -55,7 +55,9 @@ Hangman.prototype.checkWinner = function() {
 };
 
 document.getElementById("start-game-button").onclick = function() {
-  hangman = new Hangman();
+ 
+  hangmanCanvas = new HangmanCanvas();
+  hangmanCanvas.createBoard();
 };
 
 document.onkeydown = function(e) {};
