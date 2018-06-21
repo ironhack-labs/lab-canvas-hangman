@@ -100,8 +100,7 @@ HangmanCanvas.prototype.gameOver = function() {
 };
 
 HangmanCanvas.prototype.winner = function() {
-  alert("Has Ganado");
-  this.cleanCanvas();
+  window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 };
 
 function printBase() {
