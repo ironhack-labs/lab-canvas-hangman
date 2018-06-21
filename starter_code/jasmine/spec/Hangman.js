@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+      expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
@@ -65,7 +65,7 @@ describe('Hangman Game', function () {
     });
     it('checkClickedLetters should return a boolean', function () {
       hangman.letters.push('I');
-      expect(typeof (hangman.checkIfLetter('N'))).toBe('boolean');
+      expect(typeof (hangman.checkClickedLetters('N'))).toBe('boolean');
     });
 
     it('checkClickedLetters should return true', function () {
@@ -83,7 +83,7 @@ describe('Hangman Game', function () {
     it('addCorrectLetter should be a function', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
-    it('addCorrectLetter should receive a number', function () {
+    it('addCorrectLetter should receive a string', function () {
       var key = 'N';
       hangman.checkClickedLetters(key);
       expect(typeof (key)).toBe('string');
@@ -138,6 +138,7 @@ describe('Hangman Game', function () {
     it('checkWinner should return true if we guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
       hangman.guessedLetter = 'KHARCNIO';
+      console.log(hangman.checkWinner());
       expect(hangman.checkWinner()).toEqual(true);
     });
     it('checkWinner should return true if we guess all letters', function () {
