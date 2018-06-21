@@ -1,32 +1,39 @@
 
-function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
-}
 
-HangmanCanvas.prototype.createBoard = function () {
 
-};
+  function HangmanCanvas(secretWord) {
+    this.ctx = document.getElementById('hangman').getContext('2d');
+    this.createBoard();
+  }
 
-HangmanCanvas.prototype.drawLines = function () {
+  HangmanCanvas.prototype.createBoard = function () {
+    this.ctx.clearRect(0, 0, 1200, 800);
+    this.ctx.fillRect(0, 0, 1200, 800);
+  };
 
-};
+  HangmanCanvas.prototype.drawLines = function () {
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
+  };
 
-};
+  HangmanCanvas.prototype.writeCorrectLetter = function (index) {
 
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
+  };
 
-};
+  HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
 
-HangmanCanvas.prototype.drawHangman = function (shape) {
+  };
 
-};
+  HangmanCanvas.prototype.drawHangman = function (shape) {
 
-HangmanCanvas.prototype.gameOver = function () {
+  };
 
-};
+  HangmanCanvas.prototype.gameOver = function () {
 
-HangmanCanvas.prototype.winner = function () {
+  };
 
-};
+  HangmanCanvas.prototype.winner = function () {
+
+  };
+
+
+
