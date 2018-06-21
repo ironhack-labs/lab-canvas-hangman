@@ -1,12 +1,15 @@
 var hangman;
+function Hangman() {
+  this.words = [];
+  this.secretWord = '';
+  this.letters = '';
+  this.guessedLetter = '';
+  this.errorsLeft = 0;
+}
 
-// function Hangman() {
-
-// }
-
-// Hangman.prototype.getWord = function () {
-
-// };
+Hangman.prototype.getWord = function () {
+  return this.words[Math.floor(Math.random()*this.words.length)];
+};
 
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
