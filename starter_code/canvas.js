@@ -5,10 +5,18 @@ function HangmanCanvas(secretWord) {
 
 HangmanCanvas.prototype.createBoard = function () {
 
+  this.ctx.strokeRect(0,0,1200,800);
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-
+  var xInit = 350;
+  var yInit = 600;
+  for (var i = 0; i<this.secretWord.length; i++){
+  this.ctx.beginPath();
+  this.ctx.moveTo(xInit,yInit);
+  this.ctx.lineTo(xInit+50,yInit);
+  xInit += 60;
+  }
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
