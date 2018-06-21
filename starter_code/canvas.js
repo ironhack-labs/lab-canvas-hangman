@@ -88,15 +88,20 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 
 HangmanCanvas.prototype.gameOver = function () {
   this.ctx.clearRect(0, 0,1200 ,600 );
+  var that=this;
   var img = new Image();
-  img.src = './images/gameover.png';
-  this.ctx.drawImage(img,0,0,1200,600);
+  img.onload = function() {
+    that.ctx.drawImage(img, 0, 0,800,600);
+  };
+  img.src = 'images/gameover.png';
 };
 
 HangmanCanvas.prototype.winner = function () {
   this.ctx.clearRect(0, 0,1200 ,600 );
+  var that=this;
   var img = new Image();
-  img.src='./images/awesome.png';
-  console.log(img);
-  this.ctx.drawImage(img,0,0,800,600);
+  img.onload = function() {
+    that.ctx.drawImage(img, 0, 0,800,600);
+  };
+  img.src='images/awesome.png';
 };

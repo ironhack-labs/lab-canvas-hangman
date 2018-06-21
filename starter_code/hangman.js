@@ -74,24 +74,27 @@ document.getElementById('start-game-button').onclick = function () {
 }
 document.onkeydown = function (e) {
   if (hangman.checkIfLetter(e)) {
-    var key= e.key;
-    if (hangman.secretWord.includes(key)) {
-      var index = hangman.secretWord.indexOf(key);
-      hangman.addCorrectLetter(index);
-      hangman.newCanvas.writeCorrectLetter(index);
-      if (hangman.checkWinner()){
-        console.log('winwin');
-        hangman.newCanvas.winner();
-      }
-    } else {
-      hangman.addWrongLetter(key);
-      hangman.newCanvas.writeWrongLetter(key,hangman.errorsLeft);
-      hangman.newCanvas.drawHangman(8-hangman.errorsLeft);
-      if (hangman.checkGameOver()){
-        hangman.newCanvas.gameOver();
+    var key = e.key;
+    if (hangman.checkClickedLetters(key)) {
+      hangman.letters.push(key);
+      if (hangman.secretWord.includes(key)) {
+        var index = hangman.secretWord.indexOf(key);
+        hangman.addCorrectLetter(index);
+        hangman.newCanvas.writeCorrectLetter(index);
+        if (hangman.checkWinner()) {
+          console.log('winwin');
+          hangman.newCanvas.winner();
+        }
+      } else {
+        hangman.addWrongLetter(key);
+        hangman.newCanvas.writeWrongLetter(key, hangman.errorsLeft);
+        hangman.newCanvas.drawHangman(8 - hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          hangman.newCanvas.gameOver();
+        }
       }
     }
   } else {
-    alert ("please put a letter");
+    alert("please put a letter");
   }
 };
