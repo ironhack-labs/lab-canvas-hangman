@@ -1,42 +1,66 @@
 var hangman;
+var canvas;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ["Longitud", "Rocas", "Acorde", "Equipo", "Mujer"];
+  this.secretWord = "";
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function() {
+  var number = Math.floor(Math.random() * this.words.length);
+  this.secretWord = this.words[number];
+  return this.secretWord;
+};
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function(keyCode) {
+  if (keyCode >= 65 && keyCode <= 90) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-// };
+Hangman.prototype.checkClickedLetters = function(key) {
+  if (this.letters.includes(key)) {
+    return false;
+  } else {
+    return true;
+  }
+};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.addCorrectLetter = function(i) {
+  this.guessedLetter += this.secretWord[i].toUpperCase();
+  return this.checkWinner();
+};
 
-// };
+Hangman.prototype.addWrongLetter = function(letter) {
+  this.errorsLeft -= 1;
+  return this.checkGameOver();
+};
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+Hangman.prototype.checkGameOver = function() {
+  if (this.errorsLeft === 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-// };
+Hangman.prototype.checkWinner = function() {
+  if (this.secretWord.length === this.guessedLetter.length) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
-
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  canvas = new HangmanCanvas(hangman.getWord());
+  canvas.createBoard();
 };
 
-
-document.onkeydown = function (e) {
-
-};
+document.onkeydown = function(e) {};
