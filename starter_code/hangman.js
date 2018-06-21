@@ -1,8 +1,8 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
 
-// }
+}
 
 // Hangman.prototype.getWord = function () {
 
