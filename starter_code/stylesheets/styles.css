@@ -1,6 +1,3 @@
-.game-logo {
-
-}
 
 #start-game-button {
   border: 0;
@@ -13,5 +10,6 @@
 }
 
 #hangman {
-  text-align: center;
+  width: 60%;
+  height: 100%;
 }
