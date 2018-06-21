@@ -4,7 +4,10 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  var boton = 
+  
+  ctx.fillStyle = 'white';
+  ctx.font = '18px serif';
 };
 
 HangmanCanvas.prototype.drawLines = function () {
