@@ -42,20 +42,24 @@ Hangman.prototype.addCorrectLetter = function (testLetter) {
     console.log(i);
     hangmanCanvas.writeCorrectLetter(index);
   }
+  if (this.secretWord.length === this.guessedLetters.length){
+    hangmanCanvas.drawLeftLeg();
+    alert("you won!")
+    hangman = new Hangman();
+    hangmanCanvas = new HangmanCanvas(hangman.getWord());
+    hangmanCanvas.createBoard();
+    hangmanCanvas.drawLines();
+  }
 }  
 
 Hangman.prototype.addWrongLetter = function (testLetter) {
   var result = 0;
   for (i=0;i<this.secretWord.length;i++){
-    // console.log(this.secretWord[i].toUpperCase());
-    // console.log(testLetter.toUpperCase());
-    // console.log((this.secretWord[i].toUpperCase() !== testLetter.toUpperCase()));
     if(this.secretWord[i].toUpperCase() === testLetter.toUpperCase()){
      result = 1;
     }
   }
-  if(!result){
-    // console.log(result);
+  if(!result && hangman.checkIfLetter(testLetter)){
     this.errorsLeft -=1
     hangmanCanvas.writeWrongLetter(testLetter.toUpperCase(),this.errorsLeft);
   }
@@ -78,6 +82,11 @@ Hangman.prototype.addWrongLetter = function (testLetter) {
       break;
     case 0:
       hangmanCanvas.drawLeftLeg();
+      alert("game over!")
+      hangman = new Hangman();
+      hangmanCanvas = new HangmanCanvas(hangman.getWord());
+      hangmanCanvas.createBoard();
+      hangmanCanvas.drawLines();
       break;
     default:
       break;
@@ -85,7 +94,7 @@ Hangman.prototype.addWrongLetter = function (testLetter) {
 
 };
 
-Hangman.prototype.checkGameOver = function () {
+Hangman.prototype.checkGameOver = function () { //Not using this one, I check in the addWrongLetter method.
   return !(this.errorsLeft > 0);
 };
 

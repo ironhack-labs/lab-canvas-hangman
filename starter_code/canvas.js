@@ -6,7 +6,8 @@ function HangmanCanvas(secretWord) {
 
 HangmanCanvas.prototype.createBoard = function () {
 
-this.ctx.clearRect(0, 0, 600, 300);
+this.ctx.clearRect(0, 0, 1200, 800);
+
 
 this.ctx.moveTo(300,0);
 this.ctx.lineTo(600,0);
