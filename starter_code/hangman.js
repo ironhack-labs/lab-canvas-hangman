@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-this.words = ['officer', 'banana', 'potato', 'monkey', 'pirate', 'bucket', 'bottle', 'dragon'];
+this.words = ['washington', 'nevada', 'oregon', 'texas', 'kentucky', 'alabama', 'virginia', 'colorado', 'illinois', 'maryland', 'florida', 'georgia'];
 this.secretWord = "";
 this.letters = [];
 this.guessedLetters = "";
@@ -55,9 +55,8 @@ Hangman.prototype.checkGameOver = function () {
 Hangman.prototype.checkWinner = function () {
   for(var i = 0; i < this.secretWord.length; i++ ) {
     if(this.secretWord.includes(this.guessedLetters[i])){
-
-    } else {
       console.log(this.guessedLetters[i]);
+    } else {
       return false;
     }
   }
@@ -76,11 +75,26 @@ Hangman.prototype.setSecretWord = function(secretWord) {
   $(".secret-word").html(secretWordHTML);
 };
 
+Hangman.prototype.removeDuplicateLetters = function(word) {
+  temp = [];
+  word.split('').forEach(function(ltr){
+    if(temp.indexOf(ltr) === -1) {
+      temp.push(ltr);
+    }
+  });
+  return temp;
+}
+
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
   hangman.secretWord = hangman.getWord();
   hangman.setSecretWord(hangman.secretWord);
   canvas = new HangmanCanvas();
+  //disable start-game button to prevent multiple clicks
+  $(this).prop('disabled', true);
+  //remove duplicate letters for checking purposes
+  hangman.secretWord = hangman.removeDuplicateLetters(hangman.secretWord);
+  console.log(hangman.secretWord);
 };
 
 document.onkeydown = function (e) {
