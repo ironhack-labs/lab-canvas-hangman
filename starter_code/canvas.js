@@ -44,7 +44,7 @@ HangmanCanvas.prototype.drawLines = function() {
     if (p.checkClickedLetters){
       p.addCorrectLetter
     }
-  //}
+  }
   //Cabeza
   this.ctx.beginPath();
   this.ctx.arc(600, 300, 50, 0, 2 * Math.PI, true);
