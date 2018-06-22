@@ -1,17 +1,17 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["IRONHACK", "TELEFONO", "CASA"];
+  this.words = ["IRONHACK", "TELEFONO", "CASA", "Animal", "Perro", "Ingeniero"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
-  this.hangmancanvas = new HangmanCanvas();
+  this.hangmancanvas = new HangmanCanvas(this.getWord());
 }
 
 Hangman.prototype.getWord = function () {
   if (this.words.length > 0){
-    return (this.words[Math.floor(Math.random(this.words.length))]);
+    return (this.words[Math.floor(Math.random()*this.words.length)]);
   } else {
     return "";
   }
@@ -62,6 +62,9 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+
+
+  
 };
 
 
