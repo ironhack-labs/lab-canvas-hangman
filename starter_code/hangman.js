@@ -3,41 +3,50 @@ var hangman;
 function Hangman() {
   this.words = ['tacos', 'tlayudas', 'pozole'];
   this.secretWord = '';
-  this.letters = [];
-  this.guessedLetter = '';
+  this.letters = [];        //letters guessed incorrectly
+  this.guessedLetter = '';  //letters guessed correctly
   this.errorsLeft = 10;
 }
 
+//returns current secret word
 Hangman.prototype.getWord = function(){
   var random = Math.floor(Math.random() * this.words.length);
   this.secretWord = this.words[random];
   return this.secretWord;
-};
+}; 
 
+//checks if user has typed letter; returns boolean
 Hangman.prototype.checkIfLetter = function (keyCode) {
   return (keyCode >= 65 && keyCode <= 90);
 };
 
+//check if letter is new; returns boolean
 Hangman.prototype.checkClickedLetters = function (key) {
     if (this.guessedLetter.includes(key)) {
       return false;
     } else return true;
 };
 
-Hangman.prototype.addCorrectLetter = function (i) {
-  this.guessedLetter += i;
-  return this.checkWinner();
+//adds correct letter to guessed string and checks if won; returns boolean
+Hangman.prototype.addCorrectLetter = function (ltr) {
+  this.guessedLetter += ltr;
+  var index = this.secretWord.indexOf(ltr);
+  canvitas.writeCorrectLetter(index);
 };
 
+//subtracts from errorsleft and checks if game over; returns boolean
 Hangman.prototype.addWrongLetter = function (letter) {
-    this.secretWord.forEach(function(i) {
-        this.letters.push(letter);
         this.errorsLeft --;
-        return this.checkGameOver();
-        }
-    )
+        if (!this.checkGameOver()) this.letters.push(letter);
+        canvitas.writeWrongLetter(letter,errorsLeft);
+        var shapes = [head,body,leftLeg,rightLeg,leftArm,rightArm];
+        var numWrong = letters.length;
+        var shape = shapes[numWrong];
+        canvitas.drawHangman(shape);
+        return this.checkGameOver;
   }
 
+  //checks if game over; returns boolean
 Hangman.prototype.checkGameOver = function () {
     if (this.errorsLeft < 1) return true;
     else return false;
@@ -46,17 +55,11 @@ Hangman.prototype.checkGameOver = function () {
 Hangman.prototype.checkWinner = function () {
   var secretArray = this.secretWord.split('');
   var guessedArray = this.guessedLetter.split('');
-  secretArray.sort();
-  guessedArray.sort();
-
-  for (i=0; i<secretArray.length; i++) {
-    if (secretArray[i] !== guessedArray[i]) {
-      return false;
-    } else {
-      return true;
-    }
-}
+  if (secretArray.length === guessedArray.length) return true;
+  else return false;
 };
+
+
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
@@ -68,25 +71,13 @@ document.onkeydown = function (e) {
   var isLetter = hangman.checkIfLetter(e.keyCode);
   var canGuess = hangman.checkClickedLetters(keyPressed);
   if (isLetter && canGuess) {
-    if (this.secretWord.contains(keyPressed)) return true;
+    if (hangman.secretWord.contains(keyPressed)) {
+      hangman.addCorrectLetter(keyPressed);
+      return true;
+  } else {
+    return false;
   }
-
-  if (this.checkIfLetter(e)) {
-    if (!this.checkClickedLetters(keyPressed)) {
-      this.secretWord.forEach(function(i) {
-        if (keyPressed === i) {
-          this.guessedLetter += keyPressed;
-          var secretSplit = this.secretWord.split('');
-          var index = secretSplit.indexOf(keyPressed);
-          canvitas.writeCorrectLetter(index);
-          return;
-        } else {
-          this.errorsLeft -= 1;
-          canvitas.writeWrongLetter(keyPressed,this.errorsLeft);
-        }
-    })
-    }
-  } 
+}
 };
 
-var hangman = new Hangman();
+//need to add correctly guessed letter to board or wrong guess to board
