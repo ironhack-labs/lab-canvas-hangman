@@ -92,12 +92,14 @@ HangmanCanvas.prototype.drawLines = function () {
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
   this.ctx.font="25px Arial";
+  console.log('---------', 'inside writecorrectletter');
+  console.log(index);
   this.ctx.fillText(hangman.secretWord[index].toUpperCase(), 360 + (index*25), 60);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   this.ctx.font="25px Arial";
-  this.ctx.fillText(letter, 360 + ((10-errorsLeft)*25), 250);
+  this.ctx.fillText(letter, 260 + ((10-errorsLeft)*25), 250);
 };
 
 HangmanCanvas.prototype.drawHangman = function (shape) {

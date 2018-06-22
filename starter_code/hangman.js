@@ -6,7 +6,7 @@ function Hangman() {
   this.secretWord = '';
   this.letters = [];
   this.guessedLetters = '';
-  this.errorsLeft = 10;
+  this.errorsLeft = 6;
 }
 
 Hangman.prototype.getWord = function () {
@@ -30,16 +30,17 @@ Hangman.prototype.checkClickedLetters = function (key) {
 
 Hangman.prototype.addCorrectLetter = function (testLetter) {
   var result = 0;
-  var i;
+  var index;
   for (i=0;i<this.secretWord.length;i++){
     if(this.secretWord[i].toUpperCase() === testLetter.toUpperCase()){
       result = 1;
+      index = i;
     }
   }
   if (result){
     this.guessedLetters +=1
-    // console.log(i);
-    hangmanCanvas.writeCorrectLetter(i);
+    console.log(i);
+    hangmanCanvas.writeCorrectLetter(index);
   }
 }  
 
@@ -49,15 +50,39 @@ Hangman.prototype.addWrongLetter = function (testLetter) {
     // console.log(this.secretWord[i].toUpperCase());
     // console.log(testLetter.toUpperCase());
     // console.log((this.secretWord[i].toUpperCase() !== testLetter.toUpperCase()));
-    if(this.secretWord[i].toUpperCase() !== testLetter.toUpperCase()){
+    if(this.secretWord[i].toUpperCase() === testLetter.toUpperCase()){
      result = 1;
     }
   }
-  if(result){
+  if(!result){
     // console.log(result);
     this.errorsLeft -=1
     hangmanCanvas.writeWrongLetter(testLetter.toUpperCase(),this.errorsLeft);
   }
+
+  switch (this.errorsLeft) {
+    case 5:
+      hangmanCanvas.drawHead();
+      break;
+    case 4:
+      hangmanCanvas.drawBody();
+      break;
+    case 3:
+      hangmanCanvas.drawRightHand();
+      break;
+    case 2:
+      hangmanCanvas.drawLeftHand();
+      break;
+    case 1:
+      hangmanCanvas.drawRightLeg();
+      break;
+    case 0:
+      hangmanCanvas.drawLeftLeg();
+      break;
+    default:
+      break;
+  }
+
 };
 
 Hangman.prototype.checkGameOver = function () {
