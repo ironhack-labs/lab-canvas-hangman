@@ -1,5 +1,7 @@
 function HangmanCanvas() {
   this.ctx = document.getElementById('hangman').getContext('2d');
+
+  this.ctx.clearRect(0, 0, 1200, 800);
   
   //Support
   this.ctx.beginPath();
