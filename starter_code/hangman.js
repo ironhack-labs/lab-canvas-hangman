@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-this.words = ['office', 'banana', 'potato', 'monkey', 'pirate', 'bucket', 'bottle', 'dragon'];
+this.words = ['officer', 'banana', 'potato', 'monkey', 'pirate', 'bucket', 'bottle', 'dragon'];
 this.secretWord = "";
 this.letters = [];
 this.guessedLetters = "";
@@ -40,22 +40,30 @@ Hangman.prototype.addWrongLetter = function (ltr) {
   if(this.secretWord.indexOf(ltr) === -1){
     this.errorsLeft--;
     canvas.drawNextBodyPart(this.errorsLeft);
-    return this.checkGameOver();
+    this.checkGameOver();
   }
 };
 
 Hangman.prototype.checkGameOver = function () {
-  return this.errorsLeft >= 0;
+  if(this.errorsLeft <= 0) {
+    $('#image-lose').toggleClass('image-shown').toggleClass('image-hidden');
+    $('.end-of-game').toggleClass('image-shown').toggleClass('image-hidden');
+    document.onkeydown = function (e) {}
+  }
 };
 
 Hangman.prototype.checkWinner = function () {
-  for(var i = 0; i < this.guessedLetters.length; i++ ) {
+  for(var i = 0; i < this.secretWord.length; i++ ) {
     if(this.secretWord.includes(this.guessedLetters[i])){
 
     } else {
+      console.log(this.guessedLetters[i]);
       return false;
     }
   }
+  $('#image-win').toggleClass('image-shown').toggleClass('image-hidden');
+  $('.end-of-game').toggleClass('image-shown').toggleClass('image-hidden');
+  document.onkeydown = function (e) {}
   return true;
 };
 

@@ -1,26 +1,26 @@
 function HangmanCanvas() {
   this.ctx = document.getElementById('hangman').getContext('2d');
+  
+  //Support
+  this.ctx.beginPath();
+  this.ctx.moveTo(50, 500);
+  this.ctx.lineTo(150, 500);
+  this.ctx.lineTo(100, 450);
+  this.ctx.lineTo(50, 500);  
+  this.ctx.moveTo(100, 450);
+  this.ctx.lineTo(100, 100);
+  this.ctx.lineTo(300, 50);
+  this.ctx.lineTo(300, 100);
+  this.ctx.stroke();
 
-   //Support
-   this.ctx.beginPath();
-   this.ctx.moveTo(50, 500);
-   this.ctx.lineTo(150, 500);
-   this.ctx.lineTo(100, 450);
-   this.ctx.lineTo(50, 500);  
-   this.ctx.moveTo(100, 450);
-   this.ctx.lineTo(100, 100);
-   this.ctx.lineTo(300, 50);
-   this.ctx.lineTo(300, 100);
-   this.ctx.stroke();
- 
-   //Box
-   this.ctx.beginPath();
-   this.ctx.moveTo(50, 500);
-   this.ctx.lineTo(350, 500);
-   this.ctx.lineTo(350, 550);
-   this.ctx.lineTo(50, 550);
-   this.ctx.lineTo(50, 500);
-   this.ctx.stroke();
+  //Box
+  this.ctx.beginPath();
+  this.ctx.moveTo(50, 500);
+  this.ctx.lineTo(350, 500);
+  this.ctx.lineTo(350, 550);
+  this.ctx.lineTo(50, 550);
+  this.ctx.lineTo(50, 500);
+  this.ctx.stroke();
 }
 
 HangmanCanvas.prototype.drawNextBodyPart = function(counter) {
@@ -104,36 +104,3 @@ HangmanCanvas.prototype.drawTears = function() {
   this.ctx.lineTo(320, 125);
   this.ctx.stroke();
 }
-
-
-
-
-
-HangmanCanvas.prototype.createBoard = function () {
-
-
-};
-
-HangmanCanvas.prototype.drawLines = function () {
-  
-};
-
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-  
-};
-
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-  
-};
-
-HangmanCanvas.prototype.drawHangman = function (shape) {
-  
-};
-
-HangmanCanvas.prototype.gameOver = function () {
-  
-};
-
-HangmanCanvas.prototype.winner = function () {
-  
-};
