@@ -50,7 +50,7 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should return true', function () {
-      expect(hangman.checkIfLetter(76)).toEqual(true);
+      expect(hangman.checkIfLetter("a")).toEqual(true);
     });
   });
 
@@ -70,12 +70,12 @@ describe('Hangman Game', function () {
 
     it('checkClickedLetters should return true', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('F')).toEqual(true);
+      expect(hangman.checkClickedLetters('P')).toEqual(true);
     });
 
     it('checkIfLetter should return false', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      expect(hangman.checkClickedLetters('N')).toEqual(false);
     });
   });
 
@@ -90,8 +90,8 @@ describe('Hangman Game', function () {
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
-      hangman.addCorrectLetter(1);
-      expect(hangman.guessedLetter).toEqual('R');
+      hangman.addCorrectLetter('r');
+      expect(hangman.guessedLetters).toEqual('r');
     });
   });
 
@@ -137,12 +137,12 @@ describe('Hangman Game', function () {
     });
     it('checkWinner should return true if we guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
-      hangman.guessedLetter = 'KHARCNIO';
+      hangman.guessedLetters = 'KHARCNIO';
       expect(hangman.checkWinner()).toEqual(true);
     });
     it('checkWinner should return true if we guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
-      hangman.guessedLetter = 'KHARCN';
+      hangman.guessedLetters = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
     });
   });
