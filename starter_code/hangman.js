@@ -28,6 +28,7 @@ Hangman.prototype.addCorrectLetter = function (letter) {
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
+  console.log(this.letters);
   this.letters.push(letter);
   this.errorsLeft--;
   return this.checkGameOver();

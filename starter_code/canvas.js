@@ -189,8 +189,7 @@ function addLetter(letter) {
   var isCorrect = hangman.checkIfCorrect(letter);
 
   if (isCorrect) {
-    var win = hangman.addCorrectLetter(letter);
-    printLetter(letter);
+    var win = printLetter(letter);
   } else {
     var lose = hangman.addWrongLetter(letter);
     var errorsLeft = hangman.errorsLeft;
@@ -201,11 +200,14 @@ function addLetter(letter) {
 }
 
 function printLetter(letter) {
+  var result;
   for (var i = 0; i < secretWord.length; i++) {
     if (secretWord[i] == letter) {
+      result = hangman.addCorrectLetter(letter)
       game.writeCorrectLetter(i);
     }
   }
+  return result;
 }
 
 function checkStatus(win, lose) {
@@ -222,9 +224,10 @@ startBtn.addEventListener("click", event => {
   game.createBoard();
 
   window.addEventListener("keydown", event => {
-    var letter = event.key;
+    var letter = event.key.toUpperCase();
     var isLetter = hangman.checkIfLetter(event.keyCode);
     var avalibleLetter = hangman.checkClickedLetters(letter);
+    
     if (isLetter && avalibleLetter) {
       addLetter(letter.toUpperCase());
     }
