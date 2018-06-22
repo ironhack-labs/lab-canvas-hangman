@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="stylesheets/styles.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 <body>
@@ -14,8 +15,17 @@
   <div style="text-align:center; margin: 50px 0px;">
     <button id="start-game-button">START GAME</button>
   </div>
-  <div style="text-align:center;">
+  <div class="end-of-game image-hidden">
+    <img id="image-lose" class="image-hidden" src="images/gameover.png" alt="">
+    <img id="image-win" class="image-hidden" src="images/awesome.png" alt="">
+  </div>
+  <div class="canvas-container" style="text-align:center;">
     <canvas id="hangman" height="800px" width="1200px"></canvas>
+    <div class="answer-box">
+      <ul class="secret-word noselect">
+        <!-- li tags containing each letter of the secret word will be inserted here at the beginning of the game -->
+      </ul>   
+    </div>
   </div>
   <script type="text/javascript" src="canvas.js"></script>
   <script type="text/javascript" src="hangman.js"></script>
