@@ -12,6 +12,17 @@
   border-radius: 5px;
 }
 
+#start-game-button:focus {outline-color: #32cd32 ;}
+
 #hangman {
   text-align: center;
+}
+
+canvas {
+  border: 10px solid #BAC600;
+}
+
+img {
+  width: 600px;
+  height: 210px;
 }
