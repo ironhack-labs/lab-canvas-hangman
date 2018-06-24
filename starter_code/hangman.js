@@ -1,70 +1,68 @@
 var hangman;
 
- function Hangman() {
-  this.words = ["dfokdo", "ffsdf", "dddg"];
-  this.secretWord = "";
-  this.letters = [];
-  this.guessedLetter = "";
-  this.errorsLeft = 10;
+function Hangman() {
+	this.words = ["france", "perou", "coupe", "monde"];
+	this.secretWord = "coupe";
+	this.letters = [];
+	this.guessedLetter = "";
+	this.errorsLeft = 10;
+}
 
-   }
+Hangman.prototype.getWord = function () {
+	return this.words[Math.floor(Math.random()* this.words.length)]
+};
 
- Hangman.prototype.getWord = function () {
-    return this.words[Math.floor(Math.random() * (this.words.length))];
- };
+Hangman.prototype.checkIfLetter = function (keyCode) {
+	return 65 < keyCode && 90 > keyCode;
+};
 
- Hangman.prototype.checkIfLetter = function (keyCode) {
- return 65 < keyCode && 90 > keyCode;
- }
- 
- Hangman.prototype.checkClickedLetters = function (key) {
+
+
+Hangman.prototype.checkClickedLetters = function (key) {
+	return this.letters.indexOf(key) === -1;
+};
+
+Hangman.prototype.addCorrectLetter = function (i) {
+	this.guessedLetter += this.secretWord[i].toUpperCase();
+	this.checkWinner();};
+
+Hangman.prototype.addWrongLetter = function (letter) {
+	if (!this.secretWord.includes(letter)) {
+    this.errorsLeft--;
+    this.checkGameOver();
+  } 
   
-  return this.letters.indexOf(key) === -1;
-
-
 };
 
- Hangman.prototype.addCorrectLetter = function (i) {
-  this.guessedLetter += this.secretWord[i].toUpperCase();
-  this.checkWinner();
- };
+Hangman.prototype.checkGameOver = function () {
+	return this.errorsLeft === 0;
+};
+
+Hangman.prototype.checkWinner = function () {
+  return this.guessedLetter.length === this.secretWord.length;
+};
 
 
 
- Hangman.prototype.addWrongLetter = function (letter) {
-   this.letters.push(letter);
-  if (!this.secretWord.includes(letter)) {
-    return this.errorsLeft--;
-  }
-  this.checkGameOver();
- };
-
-
-
- Hangman.prototype.checkGameOver = function () {
-    if (this.errorsLeft === 0) {
-      return true;
-    }
-    return false;
- };
-
- Hangman.prototype.checkWinner = function () {
-   if (this.guessedLetter.length === this.secretWord.length) {
-     return true;
-   }
-   return false;
-
- };
-
-
-
- document.getElementById('start-game-button').onclick = function () {
+document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
-  hangmanCtx = new HangmanCanvas(this.secretWord);
+  hangmanCtx = new HangmanCanvas(hangman.secretWord);
   hangmanCtx.createBoard();
+  hangmanCtx.drawLines();
 };
+
 
 
 document.onkeydown = function (e) {
+  if (hangmanCtx.secretWord.includes(e.key)) {
+    hangmanCtx.writeCorrectLetter(hangmanCtx.secretWord.indexOf(e.key));
+    hangmanCtx.winner();
 
-};
+  } else {
+    hangmanCtx.writeWrongLetter(e.key, hangman.errorsLeft);
+    hangman.addWrongLetter();
+    hangmanCtx.drawHangman(hangman.errorsLeft);
+  }
+
+
+}; 
