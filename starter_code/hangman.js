@@ -1,5 +1,5 @@
 function Hangman() {
-  this.words = [ "Tee", "Shirt"];
+  this.words = ["Tree", "Shirt"];
   this.secretWord = "";
   this.letters = [];
   this.errorsLeft = 10;
@@ -43,6 +43,9 @@ Hangman.prototype.checkWinner = function() {
   return this.guessedLetter.length === this.secretWord.length;
 };
 
+
+
+
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
   hangman.getWord();
@@ -50,36 +53,44 @@ document.getElementById("start-game-button").onclick = function() {
   console.log("Start:" + hangman.secretWord);
   //DRAWINGS
   hang.createBoard();
- 
+  // hang.writeCorrectLetter(1);
 };
-
-
-
-
-
-
 
 document.onkeydown = function(e) {
   var letter = e.key;
   var keycode = e.keyCode;
   if (hangman.checkIfLetter(keycode)) {
+    /// CHECK IF IT WAS ALREADY PUSHED------
     if (hangman.checkClickedLetters(letter)) {
-      hangman.letters.push(letter);
-      for (let i = 0; i < hangman.secretWord.length; i++) {
-        if (hangman.secretWord[i] === letter) {
- 
-          var index = i;
-          hangman.addCorrectLetter(index);
+      //CHECK IF LETTER IS IN WORD
+      if (hangman.verify(letter)) {
+        //CORRECT GUESS
+        for (let i = 0; i < hangman.secretWord.length; i++) {
+          if (hangman.secretWord[i] === letter) {
+            var index = i;
+            hang.writeCorrectLetter(index);
+            hangman.addCorrectLetter(index);
+            if (hangman.checkWinner()) {
+              alert("Winner!");
+            }
+          }
+        }
+        /////INCORRECT GUESS -----------------
+      } else {
+        console.log("ClickedLetters = neg");
+        hangman.letters.push(letter);
+        hang.writeWrongLetter(letter, hangman.errorsLeft);
+        hang.drawHangman(hangman.errorsLeft);
+        hangman.addWrongLetter(letter);
+        if (hangman.checkGameOver()) {
+          alert("LOSER!!");
         }
       }
     } else {
-      hangman.addWrongLetter(letter);
+      alert("You Guessed that already");
     }
-    if (hangman.checkWinner()) {
-      alert("Winner!");
-    }
-    if (hangman.checkGameOver()) {
-      alert("LOSER!!");
-    }
+  } else {
+    alert("Lower Case LETTERS Only Please");
   }
- };
+  //END OF KEYDOWN;
+};
