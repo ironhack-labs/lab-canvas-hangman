@@ -43,9 +43,6 @@ Hangman.prototype.checkWinner = function() {
   return this.guessedLetter.length === this.secretWord.length;
 };
 
-
-
-
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
   hangman.getWord();
@@ -59,38 +56,40 @@ document.getElementById("start-game-button").onclick = function() {
 document.onkeydown = function(e) {
   var letter = e.key;
   var keycode = e.keyCode;
-  if (hangman.checkIfLetter(keycode)) {
-    /// CHECK IF IT WAS ALREADY PUSHED------
-    if (hangman.checkClickedLetters(letter)) {
-      //CHECK IF LETTER IS IN WORD
-      if (hangman.verify(letter)) {
-        //CORRECT GUESS
-        for (let i = 0; i < hangman.secretWord.length; i++) {
-          if (hangman.secretWord[i] === letter) {
-            var index = i;
-            hang.writeCorrectLetter(index);
-            hangman.addCorrectLetter(index);
-            if (hangman.checkWinner()) {
-              alert("Winner!");
+  if (hangman.errorsLeft > 0) {
+    if (hangman.checkIfLetter(keycode)) {
+      /// CHECK IF IT WAS ALREADY PUSHED------
+      if (hangman.checkClickedLetters(letter)) {
+        //CHECK IF LETTER IS IN WORD
+        if (hangman.verify(letter)) {
+          //CORRECT GUESS
+          for (let i = 0; i < hangman.secretWord.length; i++) {
+            if (hangman.secretWord[i] === letter) {
+              var index = i;
+              hang.writeCorrectLetter(index);
+              hangman.addCorrectLetter(index);
+              if (hangman.checkWinner()) {
+                alert("Winner!");
+              }
             }
           }
+          /////INCORRECT GUESS -----------------
+        } else {
+          console.log("ClickedLetters = neg");
+          hangman.letters.push(letter);
+          hang.writeWrongLetter(letter, hangman.errorsLeft);
+          hang.drawHangman(hangman.errorsLeft);
+          hangman.addWrongLetter(letter);
+          if (hangman.checkGameOver()) {
+            alert("LOSER!!");
+          }
         }
-        /////INCORRECT GUESS -----------------
       } else {
-        console.log("ClickedLetters = neg");
-        hangman.letters.push(letter);
-        hang.writeWrongLetter(letter, hangman.errorsLeft);
-        hang.drawHangman(hangman.errorsLeft);
-        hangman.addWrongLetter(letter);
-        if (hangman.checkGameOver()) {
-          alert("LOSER!!");
-        }
+        alert("You Guessed that already");
       }
     } else {
-      alert("You Guessed that already");
+      alert("Lower Case LETTERS Only Please");
     }
-  } else {
-    alert("Lower Case LETTERS Only Please");
   }
   //END OF KEYDOWN;
 };
