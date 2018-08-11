@@ -1,13 +1,12 @@
 
 
 function Hangman() {
- this.words = ["Hearth", "Tree", "Ballon"];
+ this.words = ["Hearth", "Tree", "Ballon", "Ironhack", "explicit", "impact", "tire", "ghostwriter", "stretch", "consider"];
  this.secretWord = "";
  this.letters = [];
  this.errorsLeft = 10;
  this.guessedLetter = "";
 }
-
 
 Hangman.prototype.getWord = function () {
  var index = Math.floor(Math.random()*this.words.length);
@@ -54,10 +53,9 @@ Hangman.prototype.addWrongLetter = function (letter) {
     }
  
 
- //also do a for loop in CheckWinner, to check wether every letter in the secret 
- // word is there in guessed Letters, so you do not need the double letters at the end
-
-// document.getElementById('start-game-button').onclick = 
+document.getElementById('start-game-button').onclick = function() {
+    newGame();
+}
 
 var hangmanCanvas;
 
@@ -67,6 +65,63 @@ function newGame() {
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines();
+
+  document.onkeydown = function (e) {
+    var letter = e.key;
+    var keycode = e.keyCode;
+    console.log(e.key);
+    if (hangman.checkIfLetter(keycode)) {
+        if (hangman.checkClickedLetters(letter)) {
+            hangman.letters.push(letter);
+            if (hangman.verify(letter))
+            {for(var i=0; i<hangman.secretWord.length;i++) {
+                if (hangman.secretWord[i] === letter) {
+                 hangman.addCorrectLetter(i)}
+                }
+               }
+            else {hangman.addWrongLetter(letter)}  
+   
+           }
+         }
+    if (hangman.checkWinner()) {
+      winGame();
+    }
+    if (hangman.checkGameOver()) {
+      loseGame();}
+};
+}
+
+function loseGame() {
+  
+   var backgroundGameOver = new Image();
+   backgroundGameOver.src = "images/gameover.png";
+  document.onkeydown = function (e) {}
+  hangmanCanvas.ctx.fillStyle = "white";
+  setTimeout(function() {hangmanCanvas.ctx.fillRect(0,0,hangmanCanvas.width, hangmanCanvas.height)}, 2000);
+  setTimeout(function() {
+    hangmanCanvas.ctx.drawImage(backgroundGameOver, 0,0,hangmanCanvas.width,hangmanCanvas.height)}, 2000);
+  setTimeout(function() {
+    hangmanCanvas.ctx.fillStyle = "black";
+    hangmanCanvas.ctx.fillText("secret word: ", 30, 50)
+    hangmanCanvas.ctx.fillText(hangman.secretWord, 30, 100)
+  }, 2000)
+}
+
+function winGame() {
+  
+  var backgroundGameOver = new Image();
+  backgroundGameOver.src = "images/awesome.png";
+ document.onkeydown = function (e) {}
+
+ hangmanCanvas.ctx.fillStyle = "white";
+ setTimeout(function() {hangmanCanvas.ctx.fillRect(0,0,hangmanCanvas.width, hangmanCanvas.height)}, 2000);
+ setTimeout(function() {
+   hangmanCanvas.ctx.drawImage(backgroundGameOver, 0,0,hangmanCanvas.width,hangmanCanvas.height)}, 2000);
+ setTimeout(function() {
+     hangmanCanvas.ctx.fillStyle = "black";
+    hangmanCanvas.ctx.fillText("secret word: ", 30, 50)
+    hangmanCanvas.ctx.fillText(hangman.secretWord, 30, 100)
+ }, 2000)
 }
 
 
@@ -96,25 +151,4 @@ function newGame() {
   //  }};
 
 
- document.onkeydown = function (e) {
-     var letter = e.key;
-     var keycode = e.keyCode;
-     console.log(e.key);
-     if (hangman.checkIfLetter(keycode)) {
-         if (hangman.checkClickedLetters(letter)) {
-             hangman.letters.push(letter);
-             if (hangman.verify(letter))
-                hangman.addCorrectLetter(hangman.secretWord.indexOf(letter));
-             else {hangman.addWrongLetter(letter)}  
-         }
-        
-       }
-     if (hangman.checkWinner()) {
-       console.log("Win")
-       newGame();
-     }
-    if (hangman.checkGameOver()) {
-     console.log("Lose, new Game")
-    
-     newGame();}
- };
+

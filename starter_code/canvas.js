@@ -1,8 +1,10 @@
 
 function HangmanCanvas(secretWord) {
   this.ctx = document.getElementById('hangman').getContext('2d');
+  this.canvas = document.getElementById('hangman');
+  this.width = this.canvas.width;
+  this.height = this.canvas.height;
   this.secretWord = secretWord;
-  
 }
 
 HangmanCanvas.prototype.createBoard = function () {
@@ -130,9 +132,15 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+  var backgroundGameOver = new Image();
+  backgroundGameOver.src = "images/gameover.png";
+  this.ctx.drawImage(backgroundGameOver, 0,0,this.width,this.height);
+ 
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  var backgroundWinner = new Image();
+  backgroundWinner.src = "images/awesome.png";
+  this.ctx.drawImage(backgroundWinner, 0,0,this.width,this.height);
+  
 };
