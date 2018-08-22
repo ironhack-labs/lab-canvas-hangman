@@ -5,6 +5,9 @@ function HangmanCanvas(secretWord) {
 
 HangmanCanvas.prototype.createBoard = function () {
 
+  this.ctx.fillRect(100, 100, 200, 200);
+
+
 };
 
 HangmanCanvas.prototype.drawLines = function () {
