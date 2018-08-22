@@ -1,14 +1,15 @@
 
 function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
+  this.canvas = document.getElementById('hangman');
+  this.ctx = this.canvas.getContext('2d');
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  ctx.clearRect(0,0,canvas.width, canvas.heigth);
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-
+  
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
