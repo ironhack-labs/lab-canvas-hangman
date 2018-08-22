@@ -4,10 +4,15 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  this.ctx.clearRect(0,0,1200,800); 
+  this.ctx.strokeRect(0,0,1200,800)
 };
 
 HangmanCanvas.prototype.drawLines = function () {
+this.ctx.beginPath();
+
+console.log(this.secretWord)
+
 
 };
 
@@ -30,3 +35,10 @@ HangmanCanvas.prototype.gameOver = function () {
 HangmanCanvas.prototype.winner = function () {
 
 };
+
+
+var nuevo = new HangmanCanvas;
+nuevo.createBoard();
+nuevo.drawLines();
+
+
