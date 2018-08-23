@@ -15,9 +15,13 @@
     <button id="start-game-button">START GAME</button>
   </div>
   <div style="text-align:center;">
-    <canvas id="hangman" height="800px" width="1200px"></canvas>
+    <canvas id="hangman" height="500px" width="800px"></canvas>
   </div>
   <script type="text/javascript" src="canvas.js"></script>
   <script type="text/javascript" src="hangman.js"></script>
+  <script type="text/javascript">
+    var canvas = new HangmanCanvas('IronHack');
+    canvas.createBoard();
+  </script>
 </body>
 </html>

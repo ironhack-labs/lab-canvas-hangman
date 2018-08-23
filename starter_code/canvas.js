@@ -4,7 +4,27 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
+  this.ctx.beginPath();
+  this.ctx.moveTo(50,468);
+  this.ctx.lineTo(150,468);
+  this.ctx.lineTo(100,437);
+  this.ctx.lineTo(50,468);
+  this.ctx.stroke();
 
+  this.ctx.beginPath();
+  this.ctx.moveTo(100,437);
+  this.ctx.lineTo(100,125);
+  this.ctx.stroke();
+
+  this.ctx.beginPath();
+  this.ctx.moveTo(100,125);
+  this.ctx.lineTo(250,125);
+  this.ctx.stroke();
+
+  this.ctx.beginPath();
+  this.ctx.moveTo(250,125);
+  this.ctx.lineTo(250,187);
+  this.ctx.stroke();
 };
 
 HangmanCanvas.prototype.drawLines = function () {
