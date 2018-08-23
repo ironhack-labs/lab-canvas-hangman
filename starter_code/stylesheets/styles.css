@@ -1,6 +1,17 @@
 .game-logo {
 
 }
+.game-over {
+  display: none;
+}
+
+.you-won {
+  display: none;
+}
+
+/* canvas {
+  border: 1px solid red;
+} */
 
 #start-game-button {
   border: 0;
