@@ -57,25 +57,33 @@ class HangmanGame{
 
   checkGameOver() {
     if (this.errorCount == 6){
-      var myDrawing = $('canvas');
-      myDrawing.hide()
-      var gameOver = $('.game-over');
-      gameOver.show()
       setTimeout(function(){
-        alert('Game Over')
+        var myDrawing = $('canvas');
+        myDrawing.hide()
+        var gameOver = $('.game-over');
+        gameOver.show()
+        setTimeout(function(){
+          alert('Game Over')
+          gameOver.hide()
+          var startLogo = $('.start');
+          startLogo.show()
+          }, 2000);
         }, 2000);
     }
   }
   checkWinner() {
-    console.log(this.guessedLetters.length)
-    console.log(this.letterArray.length)
     if (this.guessedLetters.length == this.letterArray.length){
-      var wonGame = $('.you-won');
-      wonGame.show()
-      var myDrawing = $('canvas');
-      myDrawing.hide()
       setTimeout(function(){
-        alert('Congratulations! YOU WON!!!!!')
+        var wonGame = $('.you-won');
+        wonGame.show()
+        var myDrawing = $('canvas');
+        myDrawing.hide()
+        setTimeout(function(){
+          wonGame.hide()
+          var startLogo = $('.start');
+          startLogo.show()
+          alert('Congratulations! YOU WON!!!!!')
+          }, 2000);
         }, 2000);
     }
   }
@@ -98,6 +106,8 @@ document.getElementById('start-game-button').onclick = function () {
   hangman.thecanvas = hangCanv;
   var startLogo = $('.start');
   startLogo.hide()
+  var myDrawing = $('canvas');
+  myDrawing.show()
 };
 
  

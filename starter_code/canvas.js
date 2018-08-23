@@ -2,6 +2,7 @@ class HangmanCanvas{
   constructor(secret) {
   this.secret = secret;
   this.ctx = document.getElementById('hangman').getContext('2d')
+  this.ctx.clearRect(0,0,1080,1080);
   this.drawLines(secret);
   }
 drawTriangle(){
