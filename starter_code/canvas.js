@@ -7,27 +7,27 @@ class HangmanCanvas{
 drawTriangle(){
   // console.log(this)
   this.ctx.beginPath();
-  this.ctx.moveTo(150, 650); //top
-  this.ctx.lineTo(200, 700); //right bottom
-  this.ctx.lineTo(100, 700); //left bottom
-  this.ctx.lineTo(150, 650); //top
+  this.ctx.moveTo(150, 550); //top
+  this.ctx.lineTo(200, 600); //right bottom
+  this.ctx.lineTo(100, 600); //left bottom
+  this.ctx.lineTo(150, 550); //top
   this.ctx.stroke();
 }
 
 drawPole(){
   // console.log('pole')
   this.ctx.beginPath();
-  this.ctx.moveTo(150, 650);
-  this.ctx.lineTo(150, 150);
-  this.ctx.lineTo(350, 150);
-  this.ctx.lineTo(350, 200);
+  this.ctx.moveTo(150, 550);
+  this.ctx.lineTo(150, 50);
+  this.ctx.lineTo(350, 50);
+  this.ctx.lineTo(350, 100);
   this.ctx.stroke(); 
 }
 
 drawHead() {
   this.ctx.beginPath();
   var x = 350; // x coordinate
-  var y = 250; // y coordinate
+  var y = 150; // y coordinate
   var radius = 50; // Arc radius
   var startAngle = 0; // Starting point on circle
   var endAngle = Math.PI*2; // End point on circle
@@ -37,22 +37,22 @@ drawHead() {
 
 drawBody() {
   this.ctx.beginPath();
-  this.ctx.moveTo(350, 300);
-  this.ctx.lineTo(350, 500);
+  this.ctx.moveTo(350, 200);
+  this.ctx.lineTo(350, 400);
   this.ctx.stroke(); 
 }
 
 drawArms(){
   this.ctx.beginPath();
-  this.ctx.moveTo(300, 400);
-  this.ctx.lineTo(400, 400);
+  this.ctx.moveTo(300, 300);
+  this.ctx.lineTo(400, 300);
   this.ctx.stroke(); 
 }
 drawLegs() {
   this.ctx.beginPath();
-  this.ctx.moveTo(300, 600);
-  this.ctx.lineTo(350, 500);
-  this.ctx.lineTo(400, 600);
+  this.ctx.moveTo(300, 500);
+  this.ctx.lineTo(350, 400);
+  this.ctx.lineTo(400, 500);
   this.ctx.stroke(); 
 }
 drawIt(index){
@@ -63,7 +63,7 @@ drawIt(index){
 drawLines(word){
   let numLines = word.length;
   let x=410;
-  let y=700;
+  let y=600;
   let lineLength=50;
   let lineSeparation=70;
     for (let i=0; i<word.length; i++){
@@ -78,13 +78,13 @@ drawLines(word){
     let lineSeparation=70;
     this.ctx.font = '48px serif';
     this.ctx.fillStyle = 'blue';
-    this.ctx.fillText(letter, 420+(index*lineSeparation), 680);
+    this.ctx.fillText(letter, 420+(index*lineSeparation), 580);
   }
   drawWrongLetters(letter,index){
     let lineSeparation=50;
     this.ctx.font = '48px serif';
     this.ctx.fillStyle = 'red';
-    this.ctx.fillText(letter, 500+(lineSeparation*index), 480);
+    this.ctx.fillText(letter, 500+(lineSeparation*index), 380);
   }
 } // end of HangmanCanvas
 

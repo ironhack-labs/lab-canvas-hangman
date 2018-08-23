@@ -57,6 +57,8 @@ class HangmanGame{
 
   checkGameOver() {
     if (this.errorCount == 6){
+      var myDrawing = $('canvas');
+      myDrawing.hide()
       var gameOver = $('.game-over');
       gameOver.show()
       setTimeout(function(){
@@ -70,6 +72,8 @@ class HangmanGame{
     if (this.guessedLetters.length == this.letterArray.length){
       var wonGame = $('.you-won');
       wonGame.show()
+      var myDrawing = $('canvas');
+      myDrawing.hide()
       setTimeout(function(){
         alert('Congratulations! YOU WON!!!!!')
         }, 2000);
@@ -92,6 +96,8 @@ document.getElementById('start-game-button').onclick = function () {
   hangman = new HangmanGame(words);
   hangCanv = new HangmanCanvas(hangman.secretWord)
   hangman.thecanvas = hangCanv;
+  var startLogo = $('.start');
+  startLogo.hide()
 };
 
  
