@@ -1,27 +1,33 @@
 var hangman;
 var board;
 var gameStatus = 'inactive';
+var x = 200;
+var y = 650;
 
 function Hangman() {
   this.words = [
+    'Vermont',
+    'Gonzalo',
+    'Development',
+    'JavaScript',
+    'Canvas',
     'Perro',
     'Ironhack',
     'Parangaricutirimicuaro',
     'Adarce',
     'Cencido',
     'Dingolondango',
-    'Esplín',
-    'Flébil',
+    'Esplin',
+    'Flebil',
     'Lampo',
     'Hialino',
-    'Íncola',
+    'Incola',
     'Jarifo',
     'Mador',
     'Nefelibata',
     'Giste',
-    'Ñiquiñaque',
     'Ojienjuto',
-    'Plúrimo',
+    'Plurimo',
     'Raquear',
     'Satis',
     'Brizar',
@@ -36,6 +42,7 @@ function Hangman() {
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
+  this.secretWordArray = [];
 }
 
 Hangman.prototype.getWord = function () {
@@ -77,8 +84,6 @@ Hangman.prototype.checkWinner = function () {
 };
 
 document.getElementById('start-game-button').onclick = function () {
-  var x = 200;
-  var y = 650;
   hangman = new Hangman();
   board = new HangmanCanvas(hangman.getWord());
   board.createBoard(x, y);
@@ -92,13 +97,14 @@ document.onkeydown = function (e) {
     if (hangman.checkIfLetter(e.keyCode)){
       if(hangman.checkClickedLetters(e.key)){
         hangman.addCorrectLetter(e.key);
+        board.writeCorrectLetter(e.key, x, y);
         if (hangman.checkWinner()){
           board.winner();
           gameStatus = 'inactive';
         }
       } else {
         hangman.addWrongLetter(e.key);
-        board.writeWrongLetter(hangman.letters,hangman.errorsLeft);
+        board.writeWrongLetter(hangman.letters,hangman.errorsLeft, x, y);
         if (hangman.checkGameOver()){
           board.gameOver();
           gameStatus = 'inactive';
