@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["Cheese", "JavaScript", "Spotify", "Facebook"];
+  this.words = ["Cheese", "JavaScript", "Spotify", "Facebook", "Internet", "WhatsApp"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
@@ -19,25 +19,12 @@ Hangman.prototype.checkIfLetter = function(keyCode) {
 };
 
 Hangman.prototype.checkClickedLetters = function(key) {
-  return !this.letters.includes(key.toUpperCase());
+  return !this.letters.includes(key);
 };
 
 Hangman.prototype.addCorrectLetter = function(i) {
   var letter = String.fromCharCode(i).toUpperCase();
-  if (this.secretWord.includes(letter)) {
-    //en caso de que aparezca una letra más de una vez
-    for (var i = 0; i < this.secretWord.length; i++) {
-      if (this.secretWord[i] === letter) {
-        this.letters.push(letter);
-        this.guessedLetter += letter;
-        //imprimir letra en posicion
-        hangmanCanvas.writeCorrectLetter(i);
-      }
-    }
-    this.checkWinner();
-    return true;
-  }
-  return false;
+  return this.secretWord.includes(letter);
 };
 
 Hangman.prototype.addWrongLetter = function(letter) {
@@ -63,14 +50,32 @@ document.getElementById("start-game-button").onclick = function() {
 
 document.onkeydown = function(e) {
   var keyCode = e.keyCode;
-  var letter = e.key;
+  var letter = e.key.toUpperCase();
   if (hangman.checkIfLetter(keyCode)) {
-    console.log('entre 1');
     if (hangman.checkClickedLetters(letter)) {
-      console.log('entre 2');
-      if (!hangman.addCorrectLetter(keyCode)) {
-        console.log('entre 3');
+      if (hangman.addCorrectLetter(keyCode)) {
+        //en caso de que aparezca una letra más de una vez
+        for (var i = 0; i < hangman.secretWord.length; i++) {
+          if (hangman.secretWord[i] === letter) {
+            hangman.letters.push(letter);
+            hangman.guessedLetter += letter;
+            //imprimir letra en posicion
+            hangmanCanvas.writeCorrectLetter(i);
+          }
+        }
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+      } else {
         hangman.addWrongLetter(letter);
+        hangmanCanvas.writeWrongLetter(
+          letter,
+          hangman.errorsLeft
+        );
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver();
+        }
       }
     }
   }
