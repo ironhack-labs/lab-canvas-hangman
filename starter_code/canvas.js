@@ -1,47 +1,50 @@
 function HangmanCanvas(secretWord) {
-  this.canvas = document.getElementById('hangman');
-  this.ctx = this.canvas.getContext('2d');
-
-  // Color para trabajar el canvas
-  ctx.fillStyle = "#FF0000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  this.canvas = document.getElementById("hangman");
+  this.ctx = this.canvas.getContext("2d");
+  this.secretWord = secretWord;
 }
 
-
-HangmanCanvas.prototype.createBoard = function () {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+HangmanCanvas.prototype.createBoard = function() {
+  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  this.ctx.fillStyle = "gray";
+  this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 };
 
-HangmanCanvas.prototype.drawLines = function () {
-
+HangmanCanvas.prototype.drawLines = function() {
+  var x = 600;
+  var y = 700;
+  for (var i = 0; i < this.secretWord.length; i++) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
+    this.ctx.lineTo(x + 25, y);
+    this.ctx.lineWidth = 4;
+    this.ctx.stroke();
+    x += 50;
+  }
 };
 
-
-
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-
+HangmanCanvas.prototype.writeCorrectLetter = function(index) {
+  //obtener posicion a imprimir
+  var letter = this.secretWord[index];
+  console.log(letter);
+  this.ctx.beginPath();
+  //this.ctx.moveTo(600, 700);
+  //this.ctx.font = '48px serif';
+  //this.ctx.fillText(letter, 400+index*25, 680);
+  this.ctx.fillText("Peter", 800, 450, 200);
 };
 
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
+HangmanCanvas.prototype.writeWrongLetter = function(letter, errorsLeft) {};
 
-};
+HangmanCanvas.prototype.drawHangman = function(shape) {};
 
-HangmanCanvas.prototype.drawHangman = function (shape) {
+HangmanCanvas.prototype.gameOver = function() {};
 
-};
-
-HangmanCanvas.prototype.gameOver = function () {
-
-};
-
-HangmanCanvas.prototype.winner = function () {
-
-};
-
+HangmanCanvas.prototype.winner = function() {};
 
 
 //-------------- Funciones para dibujar cada linea del Ahorcado----------
-HangmanCanvas("Hola") //Eliminar-- Lama al contexto para probar el dibujo
+/* HangmanCanvas("Hola") //Eliminar-- Lama al contexto para probar el dibujo
 
 var line01 = function () {
   ctx.beginPath();
@@ -122,5 +125,4 @@ line06();
 line07();
 line08();
 line09();
-line10();
-
+line10(); */
