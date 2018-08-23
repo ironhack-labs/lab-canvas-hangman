@@ -1,12 +1,41 @@
 var hangman;
+var board;
+var gameStatus = 'inactive';
 
 function Hangman() {
-  this.words = ['perro', 'ironhack', 'parangaricutirimicuaro'];
+  this.words = [
+    'Perro',
+    'Ironhack',
+    'Parangaricutirimicuaro',
+    'Adarce',
+    'Cencido',
+    'Dingolondango',
+    'Esplín',
+    'Flébil',
+    'Lampo',
+    'Hialino',
+    'Íncola',
+    'Jarifo',
+    'Mador',
+    'Nefelibata',
+    'Giste',
+    'Ñiquiñaque',
+    'Ojienjuto',
+    'Plúrimo',
+    'Raquear',
+    'Satis',
+    'Brizar',
+    'Tronga',
+    'Uxoricidio',
+    'Venusto',
+    'Yactura',
+    'Zullenco',
+    'Quillotra'
+  ];
   this.secretWord = '';
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
-
 }
 
 Hangman.prototype.getWord = function () {
@@ -18,17 +47,20 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
-  return this.letters.includes(key) ? false : true;
+  return !this.secretWord.includes(key) ? false : true;
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-  this.guessedLetter += i;
-  this.letters.push(i);
+  if (!this.guessedLetter.includes(i)){
+    this.guessedLetter += i;
+  }
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
-  this.errorsLeft --;
-  this.letters.push(letter);
+  if (!this.letters.includes(letter)){
+    this.errorsLeft --;
+    this.letters.push(letter);
+  } 
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -37,7 +69,7 @@ Hangman.prototype.checkGameOver = function () {
 
 Hangman.prototype.checkWinner = function () {
   for(i=0; i<this.secretWord.length;i++){
-    if(!this.secretWord.includes(this.guessedLetter[i])){
+    if(!this.guessedLetter.includes(this.secretWord[i])){
       return false;
     }    
   }
@@ -45,14 +77,35 @@ Hangman.prototype.checkWinner = function () {
 };
 
 document.getElementById('start-game-button').onclick = function () {
-  console.log('clicked')
+  var x = 200;
+  var y = 650;
   hangman = new Hangman();
-  var board = new HangmanCanvas(hangman.getWord());
-  board.createBoard();
+  board = new HangmanCanvas(hangman.getWord());
+  board.createBoard(x, y);
+  board.drawLines(x, y);
   console.log(hangman.secretWord);
+  gameStatus = 'active';
 };
 
-
 document.onkeydown = function (e) {
-
+  if (gameStatus === 'active'){
+    if (hangman.checkIfLetter(e.keyCode)){
+      if(hangman.checkClickedLetters(e.key)){
+        hangman.addCorrectLetter(e.key);
+        if (hangman.checkWinner()){
+          board.winner();
+          gameStatus = 'inactive';
+        }
+      } else {
+        hangman.addWrongLetter(e.key);
+        board.writeWrongLetter(hangman.letters,hangman.errorsLeft);
+        if (hangman.checkGameOver()){
+          board.gameOver();
+          gameStatus = 'inactive';
+        }
+      }
+    } else {
+      console.log('Not a letter');
+    }
+  }
 };
