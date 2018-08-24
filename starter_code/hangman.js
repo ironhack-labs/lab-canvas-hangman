@@ -1,7 +1,8 @@
-var hangman;
+var hangman = new Hangman();
+var canvas = new HangmanCanvas(hangman.getWord());    
 
 function Hangman() {
-  this.words=["uno","dos", "tres"];
+  this.words=["IronHack","JavaScript", "Developer"];
   this.secretWord='';
   this.letters=[];
   this.guessedLetter='';
@@ -32,14 +33,16 @@ Hangman.prototype.checkClickedLetters = function (key) {
 Hangman.prototype.addCorrectLetter = function (i) {
   console.log("que esto",String.fromCharCode(i))
   if (this.checkIfLetter(i) && this.checkClickedLetters(i)){
-    this.guessedLetter = String.fromCharCode(i);
+    this.guessedLetter += String.fromCharCode(i);
+    this.letters.push(String.fromCharCode(i));
   } 
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
   if (!this.letters.includes(letter)){
+    this.letters.push(letter);
     this.errorsLeft -=1;
-    }
+  }
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -58,9 +61,18 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  document.getElementById("img").style.display = 'none';
+  document.getElementById("start-game-button").style.display = 'none';
+  canvas.createBoard();
+  canvas.drawLines();
 };
 
 
 document.onkeydown = function (e) {
-
+  if(hangman.checkIfLetter(e.keyCode)){
+    let letter = String.fromCharCode(e.keyCode);
+    if(!hangman.checkClickedLetters(letter)){
+      if()
+    }
+  }
 };
