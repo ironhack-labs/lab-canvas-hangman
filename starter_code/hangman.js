@@ -4,7 +4,6 @@ let wordsArr = [
   "car",
   "garage",
   "moisten",
-  "dogwalker",
   "ironhack",
   "partake",
   "insert",
@@ -81,6 +80,7 @@ class Hangman {
       console.log("Game Over Man");
       setTimeout(() => {
         alert("YOU ARE HANGED");
+        location.reload()
       }, 20);
       return true;
     }
@@ -91,6 +91,7 @@ class Hangman {
       setTimeout(() => {
         alert("THE GOVERNOR HAS SET YOU FREE!");
         alert("TO CLARIFY: BECAUSE YOU ARE A GREAT SPELLER");
+        location.reload()
       }, 20);
       return true;
     } else {
