@@ -40,16 +40,19 @@ HangmanCanvas.prototype.drawLines = function () {
   });
 };
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-
+HangmanCanvas.prototype.writeCorrectLetter = function (index, letter) {
+  let x = 200 + (index*50), y=468;
+  this.ctx.font = '30px serif';
+  this.ctx.fillText(letter,x,y);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-
+  let x = 500 + (errorsLeft*50), y=187;
+  this.ctx.font = '30px serif';
+  this.ctx.fillText(letter,x,y);
 };
 
 HangmanCanvas.prototype.drawHangman = function (shape) {
-
   this.ctx.beginPath();
   switch(shape){
     case "head":

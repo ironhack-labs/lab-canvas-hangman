@@ -1,17 +1,14 @@
-var hangman = new Hangman();
-var canvas = new HangmanCanvas(hangman.getWord());    
-
 function Hangman() {
   this.words=["IronHack","JavaScript", "Developer"];
   this.secretWord='';
   this.letters=[];
   this.guessedLetter='';
-  this.errorsLeft = 10;
+  this.errorsLeft = 8;
 }
 
 Hangman.prototype.getWord = function () {
   var numero = Math.floor(Math.random()*this.words.length);
-  this.secretWord = this.words[numero].toString();
+  this.secretWord = this.words[numero].toString().toUpperCase();
   return this.secretWord;
 };
 
@@ -23,7 +20,8 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
-  if (this.letters.includes(key)){
+  var letra = String.fromCharCode(key);
+  if (this.letters.includes(letra)){
     return false;
   }else{
     return true;
@@ -31,17 +29,16 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-  console.log("que esto",String.fromCharCode(i))
-  if (this.checkIfLetter(i) && this.checkClickedLetters(i)){
-    this.guessedLetter += String.fromCharCode(i);
+  this.guessedLetter = this.guessedLetter + String.fromCharCode(i);
+  if(!this.checkClickedLetters(i)){    
     this.letters.push(String.fromCharCode(i));
   } 
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
+  this.errorsLeft -= 1;
   if (!this.letters.includes(letter)){
     this.letters.push(letter);
-    this.errorsLeft -=1;
   }
 };
 
@@ -59,8 +56,12 @@ Hangman.prototype.checkWinner = function () {
     return false;
 };
 
-document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+var hangman = new Hangman();
+var secrete = hangman.getWord();
+var canvas = new HangmanCanvas(secrete);    
+
+
+document.getElementById('start-game-button').onclick = function () {  
   document.getElementById("img").style.display = 'none';
   document.getElementById("start-game-button").style.display = 'none';
   canvas.createBoard();
@@ -69,10 +70,46 @@ document.getElementById('start-game-button').onclick = function () {
 
 
 document.onkeydown = function (e) {
-  if(hangman.checkIfLetter(e.keyCode)){
-    let letter = String.fromCharCode(e.keyCode);
-    if(!hangman.checkClickedLetters(letter)){
-      if()
-    }
+  if(hangman.checkIfLetter(e.keyCode)){      
+      let letter = String.fromCharCode(e.keyCode);
+      if (hangman.secretWord.split('').includes(letter) ){
+        hangman.addCorrectLetter(e.keyCode);
+        canvas.writeCorrectLetter(hangman.guessedLetter.length-1,letter);  
+      }else{
+        hangman.addWrongLetter(letter);
+        canvas.writeWrongLetter(letter,hangman.letters.lastIndexOf(letter)); 
+        var shape = '';
+        switch(hangman.errorsLeft){
+          case 7:
+            shape = "head";
+            break;
+          case 6:
+            shape = "body";
+            break;
+          case 5:
+            shape = "leftLeg";
+            break;
+          case 4:
+            shape = "rightLeg";
+            break;
+          case 3:
+            shape = "leftArm";
+            break;
+          case 2:
+            shape = "rightArm";
+            break;
+          case 1:
+            shape = "tie";
+            break;
+          case 0:
+            shape = "die";
+            break;
+          default:
+            break;
+        }
+        canvas.drawHangman(shape);
+      }
+       
+      
   }
 };
