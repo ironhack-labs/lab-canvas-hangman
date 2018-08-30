@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+       expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
@@ -84,7 +84,7 @@ describe('Hangman Game', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
     it('addCorrectLetter should receive a number', function () {
-      var key = 'N';
+      var key = 'N'; 
       hangman.checkClickedLetters(key);
       expect(typeof (key)).toBe('string');
     });
