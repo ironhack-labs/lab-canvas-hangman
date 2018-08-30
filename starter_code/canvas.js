@@ -4,7 +4,7 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  
 };
 
 HangmanCanvas.prototype.drawLines = function () {
