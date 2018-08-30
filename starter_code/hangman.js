@@ -28,7 +28,7 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-this.guessedLetter = this.secretWord[i].toUpperCase();
+this.guessedLetter += this.secretWord[i].toUpperCase();
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
@@ -39,9 +39,16 @@ Hangman.prototype.checkGameOver = function () {
   return this.errorsLeft==0;
 };
 
-// Hangman.prototype.checkWinner = function () {
-
-// };
+Hangman.prototype.checkWinner = function () {
+  var self=this
+  var total = this.secretWord.toUpperCase().split('').reduce(function(acc,letter) {
+    if(self.guessedLetter.indexOf(letter) > -1){
+      return acc + 1
+    }
+    return 0
+  },0);
+  return total==this.secretWord.length;
+};
 
 // document.getElementById('start-game-button').onclick = function () {
 //   hangman = new Hangman();
