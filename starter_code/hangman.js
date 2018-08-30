@@ -1,16 +1,24 @@
 var hangman;
 
 function Hangman() {
-	this.words = [];
+	this.words = ['m','e','t','a'];
 	this.secretWord = "";
 	this.letters = [];
 	this.guessedLetter = "";
 	this.errorsLeft = 10;
 }
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.getWord = function () {
+	var position = Math.floor(Math.random() * this.words.length);
+	var word = ""; 
 
-// };
+	if(this.words[position] === "") {
+		return word;
+	}else{
+		word = this.words[position];
+		return word;
+	}
+};
 
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
