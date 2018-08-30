@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-	this.words = ['meta', 'juego', 'alfalfa'];
+	this.words = ['meta', 'juego', 'Ironhack'];
 	this.secretWord = "";
 	this.letters = [];
 	this.guessedLetter = "";
@@ -37,13 +37,13 @@ Hangman.prototype.checkClickedLetters = function (key) {
 	}
 };
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+Hangman.prototype.addCorrectLetter = function (i) {
+	this.guessedLetter += this.secretWord[i].toLocaleUpperCase();
+};
 
-// };
+Hangman.prototype.addWrongLetter = function (letter) {
 
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
+};
 
 // Hangman.prototype.checkGameOver = function () {
 
