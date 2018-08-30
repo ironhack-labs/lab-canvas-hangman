@@ -56,6 +56,7 @@ Hangman.prototype.checkWinner = function() {
 
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas();
 };
 
 document.onkeydown = function(e) {};
