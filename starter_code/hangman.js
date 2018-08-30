@@ -55,9 +55,14 @@ Hangman.prototype.checkGameOver = function () {
 	}
 };
 
-// Hangman.prototype.checkWinner = function () {
-
-// };
+Hangman.prototype.checkWinner = function () {
+	if (this.guessedLetter.length === this.secretWord.length) {
+		return true;
+	}
+	else {
+		return false;
+	}
+};
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
