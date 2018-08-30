@@ -1,7 +1,8 @@
 var hangman;
+var canvas;
 
 function Hangman() {
-  this.words = ["Cyrill", "Mario", "Ironhack"],
+  this.words = ["cyril", "mario", "ironhack"],
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
@@ -13,7 +14,7 @@ Hangman.prototype.getWord = function () {
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
-  return keyCode >= 65 && keyCode <= 90;
+  return keyCode >= 97 && keyCode <= 122 || keyCode >= 65 && keyCode <= 90;
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
@@ -53,12 +54,33 @@ document.getElementById('start-game-button').onclick = function () {
   document.getElementById('start-game-button').style.display="none";
   hangman = new Hangman();
   hangman.secretWord = hangman.getWord();
-  var canvas=new HangmanCanvas(hangman.secretWord);
+  canvas = new HangmanCanvas(hangman.secretWord);
   canvas.createBoard();
   canvas.drawLines();
 };
 
+document.onkeyup = function() {
+  canvas.winner();
+  canvas.gameOver();
+}
 
 document.onkeydown = function (e) {
-
+  var letterCode = e.key.charCodeAt(0);
+  var letter = e.key;
+  if(hangman.checkIfLetter(letterCode)){
+    if(hangman.checkClickedLetters(letter)){
+      hangman.letters.push(letter)
+      if(canvas.secretWord.includes(letter)){
+        var index = hangman.secretWord.indexOf(letter);
+        hangman.addCorrectLetter(index);
+        canvas.writeCorrectLetter(index);
+      } else {
+        hangman.addWrongLetter(letter);
+        canvas.writeWrongLetter(letter, hangman.errorsLeft);
+        canvas.drawHangman(9-hangman.errorsLeft);
+      }
+    }
+  }
+  
+  
 };

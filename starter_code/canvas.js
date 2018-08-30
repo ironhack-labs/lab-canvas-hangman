@@ -41,16 +41,16 @@ HangmanCanvas.prototype.createBoard = function () {
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-  for (var i=0; i<this.secretWord.length;i++){
-    this.ctx.moveTo(150+i*38,500);
-    this.ctx.lineTo(150+(i+1)*28,500);
+  for (var i=0; i<=this.secretWord.length;i++){
+    this.ctx.lineTo(180+30*(i+1)+20*i,500);
+    this.ctx.moveTo(180+50*(i+1),500);
     this.ctx.stroke();
   }
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
   this.ctx.font="28px serif";
-  this.ctx.fillText(this.secretWord[i], 150 + index*38, 490);
+  this.ctx.fillText(this.secretWord[index], 240 + index*50, 490);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
@@ -72,15 +72,21 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
     this.ctx.stroke();
   } else {
     this.ctx.beginPath();
-    this.ctx.arc(this.errorsDraw[shape].x1, this.errorsDraw[shape].y1, this.errorsDraw[shape].r, 0, Math.PI*2, true);
+    this.ctx.arc(this.errorsDraw[shape].x2, this.errorsDraw[shape].y1, this.errorsDraw[shape].r, 0, Math.PI*2, true);
     this.ctx.stroke();
   }
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+ if (hangman.checkGameOver()){
+   alert("You lost! Try again.")
+ }
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  if (hangman.checkWinner()){
+    var img = new Image();
+    img.src="./images/awesome.png";
+    this.ctx.drawImage(img,100,100);
+  }
 };
