@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+      expect(hangman.words.length).toBeGreaterThan(2);
     });
   });
 
@@ -40,7 +40,7 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should return a boolean', function () {
-      var keyCode = 43;
+      var keyCode = 4 
       hangman.checkIfLetter(keyCode);
       expect(typeof (keyCode)).toBe('number');
     });
