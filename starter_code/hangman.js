@@ -2,7 +2,7 @@ var hangman;
 
 function Hangman() {
 	this.words = ['meta', 'juego', 'Ironhack'];
-	this.secretWord = "ironhack";
+	this.secretWord = this.getWord();
 	this.letters = [];
 	this.guessedLetter = "";
 	this.errorsLeft = 10;
@@ -66,11 +66,14 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  myCanvas.createBoard();
+  myCanvas.drawLines();
 };
 
 document.addEventListener('keydown', function(){});
 
 document.onkeydown = function (e) {
 	hangman.checkIfLetter(e.keyCode);
+
 
 }.bind(hangman);
