@@ -57,12 +57,14 @@ describe('Hangman Game', function () {
   describe('Check if the letter was already clicked', function () {
     it('checkClickedLetters should be a function', function () {
       expect(typeof (hangman.checkClickedLetters)).toBe('function');
-    });
+	});
+	
     it('checkClickedLetters should receive a string', function () {
       var key = 'P';
       hangman.checkClickedLetters(key);
       expect(typeof (key)).toBe('string');
-    });
+	});
+	
     it('checkClickedLetters should return a boolean', function () {
       hangman.letters.push('I');
       expect(typeof (hangman.checkIfLetter('N'))).toBe('boolean');

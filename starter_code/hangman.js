@@ -29,9 +29,13 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 	}
 };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+	if (this.letters.includes(key)) {
+		return false;
+	} else {
+		return true;
+	}
+};
 
 // Hangman.prototype.addCorrectLetter = function (i) {
 
