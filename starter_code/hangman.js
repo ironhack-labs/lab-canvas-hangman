@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-	this.words = ['m','e','t','a'];
+	this.words = ['meta', 'juego', 'alfalfa'];
 	this.secretWord = "";
 	this.letters = [];
 	this.guessedLetter = "";
@@ -20,9 +20,14 @@ Hangman.prototype.getWord = function () {
 	}
 };
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.checkIfLetter = function (keyCode) {
 
-// };
+	if (keyCode > 64 && keyCode < 91) {
+		return true;
+	} else {
+		return false;
+	}
+};
 
 // Hangman.prototype.checkClickedLetters = function (key) {
 
@@ -48,7 +53,9 @@ document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
 };
 
+document.addEventListener('keydown', function(){});
 
 document.onkeydown = function (e) {
+	hangman.checkIfLetter(e.keyCode);
 
-};
+}.bind(hangman);
