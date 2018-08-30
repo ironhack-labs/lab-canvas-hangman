@@ -43,12 +43,16 @@ Hangman.prototype.addCorrectLetter = function (i) {
 
 Hangman.prototype.addWrongLetter = function (letter) {
 	if(!letter.includes(this.secretWord)){
-		this.errorsLeft-1;
+		this.errorsLeft -= 1;
 	}
 };
 
 Hangman.prototype.checkGameOver = function () {
-
+	if(this.errorsLeft === 0){
+		return true;
+	} else {
+		return false;
+	}
 };
 
 // Hangman.prototype.checkWinner = function () {
