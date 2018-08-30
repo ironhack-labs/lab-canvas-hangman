@@ -12,6 +12,22 @@
   border-radius: 5px;
 }
 
-#hangman {
+#canvas {
+  text-align: center;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 200px;
+  align-items: center;
+}
+
+.letra{
+  border-bottom: 1px solid black;
+  width:50px;
+  height: 40px;
+  font-size: 40px;
   text-align: center;
 }

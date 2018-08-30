@@ -1,39 +1,84 @@
-var hangman;
 
-// function Hangman() {
 
-// }
+class Hangman {
+constructor (){
+this.words = ["hola","como","estas","adios","jp"]
+this.secretWord = ' '
+this.letters = []
+this.guessedLetter = ""
+this.arrayLetters =[]
+this.errorsLeft = 10
+}
+getWord () {
+  var self = this
+  var random = Math.floor(Math.random()*self.words.length)
+  return self.words[random]
+  }
 
-// Hangman.prototype.getWord = function () {
+checkIfLetter(keyCode){
+  if(keyCode >= 65 && keyCode <= 90){
+    return true
+  } return false
+}
 
-// };
+checkClickedLetters(key){
+  for(var letra of this.letters){
+    if(key === letra){
+      return false
+    } 
+  } return true
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+}
+addCorrectLetter(letra){
+   var self = this
+for(var j = 0; j<self.secretWord.length; j++){
+  if(self.secretWord[j]== letra){
+    self.arrayLetters.splice(j,1,letra)
+  }
+  }
+  self.guessedLetter = self.arrayLetters.join('')
+  self.checkWinner()
+}
 
-// };
+addWrongLetter(){
+  var self = this
+for(var j = 0; j<self.secretWord.length; j++){
+  if(self.secretWord[j]!= letra){
+    self.errorsLeft--
+  }
+  }
+  self.checkGameOver()
+}
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+checkGameOver(){
+  var self = this
+  if(self.errorsLeft === 0){
+    return true
+  }return false
+}
+checkWinner(){
+  var self = this
+  if(self.secretWord === self.guessedLetter){
+    return true
+  } return false
+}
 
-// };
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+}
+hangman = new Hangman();
+var seccion = document.getElementsByClassName("container")
 
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+  if(hangman.secretWord==" "){
+    hangman.secretWord = hangman.getWord()
+    for(var i = 0;i<hangman.secretWord.length;i++){
+      var letraDiv = document.createElement("div")
+      letraDiv.setAttribute("class","letra")
+      seccion[0].appendChild(letraDiv)
+    }
+  }
+
 };
 
 
