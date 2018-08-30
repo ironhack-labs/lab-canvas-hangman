@@ -2,7 +2,7 @@ var hangman;
 
 function Hangman() {
 	this.words = ['meta', 'juego', 'Ironhack'];
-	this.secretWord = "";
+	this.secretWord = "ironhack";
 	this.letters = [];
 	this.guessedLetter = "";
 	this.errorsLeft = 10;
@@ -42,12 +42,14 @@ Hangman.prototype.addCorrectLetter = function (i) {
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
-
+	if(!letter.includes(this.secretWord)){
+		this.errorsLeft-1;
+	}
 };
 
-// Hangman.prototype.checkGameOver = function () {
+Hangman.prototype.checkGameOver = function () {
 
-// };
+};
 
 // Hangman.prototype.checkWinner = function () {
 
