@@ -1,11 +1,12 @@
 var hangman;
+var canvas;
 
 function Hangman() {
   this.words = ["motocicleta", "ironhack","yamilet"]
   this.letters = [];
   this.guessedLetter = "";
   this.secretWord = "";
-  this.errorsLeft = 10;
+  this.errorsLeft = 9;
 }
 
 Hangman.prototype.getWord = function () {
@@ -40,6 +41,11 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  console.log(hangman);
+  canvas = new HangmanCanvas("IRONHACK");
+  console.log(canvas)
+  canvas.drawLines();
+    
 };
 
 
