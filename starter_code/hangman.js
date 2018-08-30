@@ -80,10 +80,7 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
-  console.log(hangman.getWord());
   var canvas = new HangmanCanvas(hangman.getWord());
-  console.log(canvas);
-  
   canvas.drawLines();
 };
 

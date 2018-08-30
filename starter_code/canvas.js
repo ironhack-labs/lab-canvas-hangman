@@ -37,15 +37,15 @@ function HangmanCanvas(secretWord) {
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-  //this.clearRect
+  
   this.drawLines();
 
 };
 
-HangmanCanvas.prototype.drawLines = function () { console.log('entra1');
+HangmanCanvas.prototype.drawLines = function () {
   var j = 0;
   for ( var i = 0; i < hangman.getWord().length; i++) {
-    console.log('entra');
+    
     this.ctx.beginPath();
     this.ctx.moveTo(250+j, 500);
     this.ctx.lineTo(300+j, 500); 
