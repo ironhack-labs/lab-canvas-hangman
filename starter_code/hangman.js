@@ -50,11 +50,27 @@ Hangman.prototype.checkWinner = function () {
   return total==this.secretWord.length;
 };
 
-// document.getElementById('start-game-button').onclick = function () {
-//   hangman = new Hangman();
-// };
+document.getElementById('start-game-button').onclick = function () {
+  console.log("start")
+  // document.getElementById()
+  hangman = new Hangman();
+  hangmanCanvas=new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.createBoard()
+  hangmanCanvas.drawLines()
+};
 
 
 document.onkeydown = function (e) {
+  console.log(e)
+  var isLetter=hangman.checkIfLetter(e.keyCode)
+  if(isLetter){
+    if(hangman.checkClickedLetters(e.key)){
+      hangman.letters.push(e.key.toUpperCase())
+    }else{
+      console.log(false)
+    }
+    // hangman.addCorrectLetter(e.keyCode)
+    // hangman.addWrongLetter(e.keyCode)
 
+  }
 };
