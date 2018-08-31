@@ -1,12 +1,20 @@
 var hangman;
 
-// function Hangman() {
+ function Hangman() {
+   this.palabras = ["Dinning", "Conservatory",
+    "Kitchen",
+    "Study",
+    "Library",
+    "Billiard",
+    "Lounge",
+    "Ballroom",  
+    ];
 
-// }
+ }
 
-// Hangman.prototype.getWord = function () {
-
-// };
+Hangman.prototype.getWord = function () {
+ var palabraRandom = hangman[Math.floor(Math.random()* hangman.length)];
+ };
 
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
