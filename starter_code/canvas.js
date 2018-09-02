@@ -1,32 +1,24 @@
+function draw() {
+  var canvas = document.getElementById('hangman');
+  var ctx = canvas.getContext('2d');
 
-function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
-}
+  ctx.beginPath();
 
-HangmanCanvas.prototype.createBoard = function () {
+  ctx.moveTo(300,400);
+  ctx.lineTo(500,400);
+  ctx.stroke();
 
-};
+  ctx.moveTo(400,400);
+  ctx.lineTo(400,100);
+  ctx.stroke();
 
-HangmanCanvas.prototype.drawLines = function () {
+  ctx.moveTo(400,100);
+  ctx.lineTo(500,100);
+  ctx.stroke();
 
-};
+  ctx.moveTo(500,100);
+  ctx.lineTo(500,130);
+  ctx.stroke()
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-
-};
-
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-
-};
-
-HangmanCanvas.prototype.drawHangman = function (shape) {
-
-};
-
-HangmanCanvas.prototype.gameOver = function () {
-
-};
-
-HangmanCanvas.prototype.winner = function () {
-
-};
+  }
+  draw()
