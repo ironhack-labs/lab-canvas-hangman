@@ -73,7 +73,7 @@ describe('Hangman Game', function () {
       expect(hangman.checkClickedLetters('F')).toEqual(true);
     });
 
-    it('checkIfLetter should return false', function () {
+    it('checkClickedLetters should return false', function () {
       hangman.letters.push('I', 'R', 'P');
       expect(hangman.checkClickedLetters('R')).toEqual(false);
     });
