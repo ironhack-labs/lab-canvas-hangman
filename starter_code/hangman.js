@@ -1,28 +1,47 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ["Ironhack"];
+  this.secretWord = "";
+  this.letters = [];
+  this.guessedLetters = "";
+  this.errorsLeft = 10;
+ }
 
-// }
+ Hangman.prototype.getWord = function () {
+  this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
+  return this.secretWord.toUpperCase();
+ };
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
+if (keyCode >= 65 && keyCode <= 90) {
+  return true;
+} else {
+  return false;
+}
+   };
+  
 
-// };
+Hangman.prototype.checkClickedLetters = function (key) {
+  if (this.letters.includes(key)) {
+    return false;
+  }
+  else {
+    return true;
+  }};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.addCorrectLetter = function(letter) {
+if (this.secretWord.indexOf(letter) > -1) {
+  this.guessedLetters += letter;
+}
+ };
 
-// };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+Hangman.prototype.addWrongLetter = function (letter) {
+    this.letters.push(letter);
+    this.errorsLeft -= 1;
+  };
 
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
 
 // Hangman.prototype.checkGameOver = function () {
 
