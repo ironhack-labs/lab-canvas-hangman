@@ -132,23 +132,23 @@ HangmanCanvas.prototype.drawHangman = function(shape) {
 };
 
 HangmanCanvas.prototype.gameOver = function() {
-  /* this.createBoard()
+   this.createBoard()
   var img = new Image();
 
   img.onload = function() {
-this.ctx.drawImage(img, 0, 0);
+    hangmanCanvas.ctx.drawImage(img, 0, 0,1200,800);
 };
-img.src = "./images/gameover.png"; */
+img.src = "./images/gameover.png"; 
 };
 
 HangmanCanvas.prototype.winner = function() {
-  /*this.createBoard()
+  this.createBoard()
   var img = new Image();
 
   img.onload = function() {
-    this.ctx.drawImage(img, 0, 0);
+    hangmanCanvas.ctx.drawImage(img, 0, 0,1200,800);
     };
     img.src="./images/awesome.png";
- */
+ 
 
        };
