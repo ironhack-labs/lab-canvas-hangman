@@ -7,7 +7,7 @@ function HangmanCanvas(secretWord) {
 
 HangmanCanvas.prototype.createBoard = function () {
   this.ctx.clearRect(0,0,document.getElementById('hangman').width, document.getElementById('hangman').height)
-
+  //document.querySelector(".canvas").innerHTML = '<canvas id="hangman" height="800px" width="1200px"></canvas>'
 };
 
 HangmanCanvas.prototype.drawLines = function () {
