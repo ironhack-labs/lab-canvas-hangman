@@ -33,13 +33,13 @@ Hangman.prototype.checkClickedLetters = function(key) {
 };
 
 Hangman.prototype.addCorrectLetter = function(i) {
-  this.guessedLetter += this.secretWord[i];
-  this.checkGameOver();
+  this.guessedLetter += this.secretWord[i].toUpperCase();
+  this.checkWinner();
 };
 
 Hangman.prototype.addWrongLetter = function(letter) {
-  this.errorsLeft--;
-  this.checkGameOver();
+  this.errorsLeft-- ;
+  this.checkWinner();
 };
 
 Hangman.prototype.checkGameOver = function() {
@@ -52,17 +52,15 @@ Hangman.prototype.checkGameOver = function() {
 
 Hangman.prototype.checkWinner = function() {
   var result = true;
-  for (i = 0; i++; i < this.secretWord.length) {
-    var check = this.guessedLetter.findIndex(l => l == this.secretWord[i]);
+  for (var i = 0; i < this.secretWord.length; i++ ) {
+    var check = this.guessedLetter.indexOf(this.secretWord[i].toUpperCase());
     if (check == -1) {
-      result = false;
+      return false;
     } else {
       result = true;
     }
   }
   return result;
-  // if (this.guessedLetter.length == this.secretWord.length) {return true;}
-  // else {return false;}
 };
 
 document.getElementById("start-game-button").onclick = function() {
