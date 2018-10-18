@@ -70,6 +70,7 @@ describe('Hangman Game', function () {
 
     it('checkClickedLetters should return true', function () {
       hangman.letters.push('I', 'R', 'P');
+      console.log()
       expect(hangman.checkClickedLetters('F')).toEqual(true);
     });
 
