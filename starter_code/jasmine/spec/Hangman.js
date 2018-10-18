@@ -84,7 +84,7 @@ describe('Hangman Game', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
     it('addCorrectLetter should receive a number', function () {
-      var key = 'N';
+      var key = 8;
       hangman.checkClickedLetters(key);
       expect(typeof (key)).toBe('string');
     });
