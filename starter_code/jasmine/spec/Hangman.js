@@ -145,5 +145,15 @@ describe('Hangman Game', function () {
       hangman.guessedLetter = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
     });
+    it('checkWinner should return true if we guess all letters', function () {
+      hangman.secretWord = 'TREE';
+      hangman.guessedLetter = 'RET';
+      expect(hangman.checkWinner()).toEqual(true);
+    });
+    it('checkWinner should return true if we guess all letters', function () {
+      hangman.secretWord = 'TREE';
+      hangman.guessedLetter = 'ER';
+      expect(hangman.checkWinner()).toEqual(false);
+    });
   });
 });
