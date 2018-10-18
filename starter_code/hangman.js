@@ -51,16 +51,13 @@ Hangman.prototype.checkGameOver = function() {
 };
 
 Hangman.prototype.checkWinner = function() {
-  var result = true;
   for (var i = 0; i < this.secretWord.length; i++ ) {
     var check = this.guessedLetter.indexOf(this.secretWord[i].toUpperCase());
     if (check == -1) {
       return false;
-    } else {
-      result = true;
-    }
+    } 
   }
-  return result;
+  return true;
 };
 
 document.getElementById("start-game-button").onclick = function() {
