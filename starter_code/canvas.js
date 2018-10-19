@@ -1,6 +1,13 @@
 
-function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
+class HangmanCanvas {
+  constructor(secretWord){
+    this.canvas = document.getElementById('hangman');
+    this.ctx = this.canvas.getContext('2d');
+  }
+  
+  createBoard() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 }
 
 HangmanCanvas.prototype.createBoard = function () {
@@ -30,3 +37,6 @@ HangmanCanvas.prototype.gameOver = function () {
 HangmanCanvas.prototype.winner = function () {
 
 };
+
+
+

@@ -42,7 +42,6 @@ class Hangman {
   }
 
   addCorrectLetter(index){
-    console.log(index);
     this.guessedLetter += this.secretWord[index].toUpperCase();
     console.log(this.guessedLetter);
   }

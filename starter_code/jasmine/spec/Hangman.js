@@ -86,7 +86,7 @@ describe('Hangman Game', function () {
     it('addCorrectLetter should receive a number', function () {
       var key = 8;
       hangman.checkClickedLetters(key);
-      expect(typeof (key)).toBe('string');
+      expect(typeof (key)).toBe('number');
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
