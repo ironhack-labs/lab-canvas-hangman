@@ -1,9 +1,17 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["titi", "toto"];
-  this.secretWord = "";
-  this.letters = ["R"];
+  this.words = [
+    "Ironman",
+    "Toto",
+    "HelloWorld!",
+    "Ironhack",
+    "Javascript",
+    "Cable",
+    "Hulk"
+  ];
+  this.secretWord = this.getWord();
+  this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
 }
@@ -61,6 +69,14 @@ Hangman.prototype.checkWinner = function() {
 
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+
+  hangman.letters.push(hangman.secretWord[0]);
+  hangman.letters.push(hangman.secretWord[hangman.secretWord.length - 1]);
+
+  var hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines();
+  //hangmanCanvas.drawHangman();
 };
 
 document.onkeydown = function(e) {};
