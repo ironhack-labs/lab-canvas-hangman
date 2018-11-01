@@ -1,5 +1,5 @@
 .game-logo {
-
+  
 }
 
 #start-game-button {
@@ -7,11 +7,31 @@
   box-shadow: 0;
   background: linear-gradient(to bottom, #9DA400, #BAC600);
   color: #fff;
-  padding: 20px 40px;
-  font-size: 30px;
+  padding: 12px 24px;
+  font-size: 20px;
   border-radius: 5px;
 }
 
 #hangman {
   text-align: center;
+}
+
+.enterLetterHere {
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+label {
+  font-size: 22px;
+}
+
+input {
+  font-size: 36px;
+  width: 50px;
+}
+
+.theRandomSecretWord {
+  color: white;
 }

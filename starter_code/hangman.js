@@ -1,42 +1,12 @@
-var hangman;
-
-// function Hangman() {
-
-// }
-
-// Hangman.prototype.getWord = function () {
-
-// };
-
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
-
+let characters = ["Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo", "Bambi", "The Lion King", "Aladdin", "Cinderella", "Sleeping Beauty", "Mulan", "Beauty and the Beast"];
+let newGame;
+  
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
-};
+      newGame = new HangmanCanvas();
+      newGame.getWord(characters);
+  };
 
 
-document.onkeydown = function (e) {
+  document.onkeydown = function(e) {
 
-};
+  };
