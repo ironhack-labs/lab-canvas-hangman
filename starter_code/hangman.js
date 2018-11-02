@@ -61,6 +61,7 @@ class Hangman {
       img.onload = function() {
       theCanvas.context.drawImage(img, 400, 200, 250*1.4, 250)};
       img.src = "./images/awesome.png";
+
     }
   };
 
@@ -69,16 +70,23 @@ class Hangman {
 document.getElementById('start-game-button').onclick = function () {
   theGame = new Hangman();
   theCanvas = new HangmanCanvas(theGame);
-  console.log(theCanvas);
-  console.log(theGame);
 };
 
 
 document.onkeypress = function (e) {
-  console.log(e.keyCode);
+  if(theGame) {
+  if (theGame.correctLetters.length === 0 || theGame.errors === 0) {
+    if(e.keyCode === 32) {
+      theCanvas.context.clearRect(0, 0, 1200, 800)
+      theGame = new Hangman();
+      theCanvas = new HangmanCanvas(theGame);
+    }
+    return
+  }
   if ((e.keyCode >= 97 && e.keyCode <= 122) || (e.keyCode >= 65 && e.keyCode <= 90)) {
     theGame.checkClickedLetters(e.key);
     theGame.checkWinner();
     theGame.checkGameOver();
   }
+}
 };
