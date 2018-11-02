@@ -1,42 +1,84 @@
-var hangman;
 
-// function Hangman() {
+let theGame;
+let theCanvas;
 
-// }
+class Hangman {
+  constructor() {
+    this.words = ["sphygmomanometer", "notebook", "traveler", "subterfuge", "submarine", "house", "cellphone", "socks", "hand", "dog", "board", "punch", "bag", "chair", "tree", "stop", "sweater", "computer", "javascript", "ironhack"];
+    this.chosenWord = "";
+    this.typedLetters = [];
+    this.correctLetters = [];
+    this.errors = 10;
+    this.getWord();
+    this.correctLettersCreator();
+    this.xIndex =[];
+  }
 
-// Hangman.prototype.getWord = function () {
+  getWord() {
+    let randomIndex = Math.floor(Math.random() * this.words.length);
+    this.chosenWord = this.words[randomIndex];
+  };
 
-// };
+  correctLettersCreator() {
+    this.correctLetters = this.chosenWord.split("");
+  }
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+  checkClickedLetters(keyPressed) {
+  if (this.typedLetters.indexOf(keyPressed.toLowerCase()) === -1) {
+      this.typedLetters.push(keyPressed.toLowerCase());
+      this.checkIfCorrect(keyPressed);
+      theCanvas.writeCorrectLetter(keyPressed);
+      this.xIndex = [];
+      return true
+    } return false
+  };
 
-// };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+  checkIfCorrect(keyPressed) {
+    if (this.correctLetters.indexOf(keyPressed.toLowerCase()) === -1) {
+      this.errors--
+      theCanvas.writeWrongLetter(keyPressed);
+      return
+    } 
+    for (let i = keyPressed.toLowerCase(); (this.correctLetters.indexOf(i) !== -1);) {
+      this.xIndex.push(this.correctLetters.indexOf(i));
+      this.correctLetters.splice(this.correctLetters.indexOf(i), 1)
+    }
+    } 
 
-// };
+  checkGameOver() {
+    if (this.errors === 0) {
+      let img = new Image();
+      img.onload = function() {
+      theCanvas.context.drawImage(img, 400, 200, 250*1.4, 250)};
+      img.src = "./images/gameover.png";
+    }
+  };
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+  checkWinner() {
+    if(this.correctLetters.length === 0) {
+      let img = new Image();
+      img.onload = function() {
+      theCanvas.context.drawImage(img, 400, 200, 250*1.4, 250)};
+      img.src = "./images/awesome.png";
+    }
+  };
 
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+};
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+  theGame = new Hangman();
+  theCanvas = new HangmanCanvas(theGame);
+  console.log(theCanvas);
+  console.log(theGame);
 };
 
 
-document.onkeydown = function (e) {
-
+document.onkeypress = function (e) {
+  console.log(e.keyCode);
+  if ((e.keyCode >= 97 && e.keyCode <= 122) || (e.keyCode >= 65 && e.keyCode <= 90)) {
+    theGame.checkClickedLetters(e.key);
+    theGame.checkWinner();
+    theGame.checkGameOver();
+  }
 };
