@@ -16,22 +16,6 @@
   text-align: center;
 }
 
-.enterLetterHere {
-  display: flex;
-  justify-content: center;
-  font-family: sans-serif;
-  text-align: center;
-}
-
-label {
-  font-size: 22px;
-}
-
-input {
-  font-size: 36px;
-  width: 50px;
-}
-
 .theRandomSecretWord {
   color: white;
 }
