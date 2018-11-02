@@ -2,15 +2,17 @@ var hangman;
 
 
 
+
 class Hangman {
   constructor(){
-    this.listOfWords = ["Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Blitzcrank", "Brand", "Caitlyn", "Cassiopeia", "Cho'gath", "Corki", "Dr. Mundo", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Irelia", "Janna", "Jarvan IV", "Jax", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kennen", "Kog'Maw", "LeBlanc", "Lee Sin", "Leona", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Pantheon", "Poppy", "Rammus", "Renekton", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Talon", "Taric", "Teemo", "Tristana", "Trundle", "Trydamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xerath", "Xin Zhao", "Yorick", "Ziggs", "Zilean"];
+    this.listOfWords = ["ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "blitzcrank", "brand", "caitlyn", "cassiopeia", "corki", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gragas", "graves", "hecarim", "heimerdinger", "irelia", "janna", "jax", "karma", "karthus", "kassadin", "katarina", "kayle", "kennen", "leBlanc", "leona", "lulu", "lux", "malphite", "malzahar", "maokai", "mordekaiser", "morgana", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "pantheon", "poppy", "rammus", "renekton", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "talon", "taric", "teemo", "tristana", "trundle", "trydamere", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "viktor", "vladimir", "volibear", "warwick", "wukong", "xerath", "yorick", "ziggs", "zilean"];
 
     this.secretWord = '';
     this.lettersUsed = new Array();
     this.lettersFailed = new Array();
-    this.lettersGuessed = '';
-    this.errorsLeft = 11;
+    this.lettersGuessed = new Array();
+    this.comparativeArray = new Array();
+    this.errorsLeft = 10;
   }
 
   takeRandomName() {
@@ -19,37 +21,38 @@ class Hangman {
 
     this.secretWord = this.listOfWords[randomNumber];
   }
-
-  checkIfALetterWasClicked(textInt) {
   
-    let letters = /^[A-Za-z]+$/;
-
-    if(textInt.match(letters)) {
-      alert('Your name have accepted : you can try another');
-      return true;
-    } else {
-      alert('Please input alphabet characters only');
-      return false;
-    }
-  }
-
   checkIfLetterIsRepeated(event){
 
     let pressedKey = String.fromCharCode(event.which);
-
+    
     if (pressedKey.match(/[a-zA-Z\.]/)){
+
       let stringOfThePressedKey = pressedKey;
       console.log(stringOfThePressedKey);
 
-      if(hangman.lettersUsed.indexOf(stringOfThePressedKey) !== -1){
+      if(hangman.lettersUsed.indexOf(stringOfThePressedKey) !== -1 && hangman.secretWord.indexOf(stringOfThePressedKey) == -1) {
         alert('this letter has alrady been used');
+        this.errorsLeft += 1;
+
+      }else if(hangman.lettersUsed.indexOf(stringOfThePressedKey) !== -1){  //Si la letra pulsada esta en la lista de letras ya usadas
+        alert('this letter has alrady been used');
+
+      } else if(hangman.secretWord.indexOf(stringOfThePressedKey) !== -1){
+        hangman.lettersUsed.push(stringOfThePressedKey);
+        hangman.lettersGuessed.push(stringOfThePressedKey);
+
       } else {
         hangman.lettersUsed.push(stringOfThePressedKey);
       };
+    } else {
+      alert('Please input alphabet characters only');
+      this.errorsLeft += 1;
+      return false;
     };
   };
 
-  checkIfTheGameIsOver(event) {
+  checkNumberOfMistakesLeft(event) {
 
     console.log(event.key)
 
@@ -58,10 +61,25 @@ class Hangman {
     };
 
     if(this.errorsLeft == 0) {
-      alert('You looser, the game is over');
+      alert('You looser, the game is over. Press OK to begin another game');
       hangman = new Hangman();
+      hangman.takeRandomName();
+      console.log(hangman.secretWord);
     }
 
+  };
+
+  checkIfPlayerHasOneTheGame() {
+
+    for(let i = 0; i < this.secretWord.length; i++){
+      if(this.comparativeArray.indexOf(this.secretWord[i]) == -1){
+        this.comparativeArray.push(this.secretWord[i]);
+      };
+    };
+
+    if(hangman.lettersGuessed.length === this.comparativeArray.length){
+      alert('You have won the game. You are a true League of Legends fan! FOR DEMACIA!!');
+    };
   };
 };
 
@@ -69,12 +87,13 @@ document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
   hangman.takeRandomName();
   console.log(hangman.secretWord);
-  // hangman.checkIfTheGameIsOver();
+  
 };
 
 $(document).keypress(function(e){
   hangman.checkIfLetterIsRepeated(e);
-  hangman.checkIfTheGameIsOver(e);
+  hangman.checkIfPlayerHasOneTheGame();
+  hangman.checkNumberOfMistakesLeft(e);
   console.log(hangman.errorsLeft);
 });
 
