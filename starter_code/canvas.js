@@ -1,3 +1,7 @@
+//DrawLines function follows game animator constructor
+//begin path
+//move to
+// line to
 
 function HangmanCanvas(secretWord) {
   this.ctx = document.getElementById('hangman').getContext('2d');
