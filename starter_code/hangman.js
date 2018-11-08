@@ -1,15 +1,16 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["JAVASCRIPT","DOM","IRONHACK"]
-  this.secretWord = "IRONHACK"
+  this.words = ["HOLA","DOM","MON","CARLOS","IRON","HACK"]
+  this.secretWord = ""
   this.letters = []
   this.guessedLetter = ""
-  this.errorsLeft = 10
+  this.errorsLeft = 5
 }
 
 Hangman.prototype.getWord = function () {
-  return "hola"
+  var word = this.words[Math.floor(Math.random() * this.words.length)]
+  return word
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
@@ -27,13 +28,33 @@ Hangman.prototype.checkClickedLetters = function (key) {
       return false
 };
 
+Hangman.prototype.addLetter = function (key) {
+  if(this.checkClickedLetters(key)) {
+    this.letters.push(key)
+  }
+}
+
 Hangman.prototype.addCorrectLetter = function (i) {
   var letter = this.secretWord.substr(i,1).toUpperCase()
+  console.log(letter)
   this.guessedLetter += letter
+  console.log("guessed: " + this.guessedLetter)
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
   this.errorsLeft--
+  console.log("Errores: " + this.errorsLeft)
+};
+
+Hangman.prototype.checkLetterIndex = function (letter) {
+  var i = this.secretWord.indexOf(letter)
+  if(i === -1){
+    this.addWrongLetter(letter)
+    return false
+  } else {
+    this.addCorrectLetter(i)
+    return true
+  }
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -52,9 +73,43 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord()
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord)
+  hangmanCanvas.createBoard()
+  hangmanCanvas.drawLines()
+  hangmanCanvas.drawHanger()
 };
 
 
 document.onkeydown = function (e) {
-
+  var keyCode = e.keyCode
+  var key = String.fromCharCode(keyCode)
+  if(hangman.checkIfLetter(keyCode)){
+    // console.log("letra")
+    if(!hangman.checkClickedLetters(key)){
+      console.log("escribe otra, esa ya fue")
+    } else {
+      hangman.addLetter(key)
+      if(hangman.checkLetterIndex(key))
+      {
+        //Escribir letra -> Implementar
+        //Checar si ya ganó
+        if(hangman.checkWinner())
+        {
+          alert("Ganaste!")
+        }
+      }
+      else {
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
+        if(hangman.checkGameOver())
+        {
+          alert("Perdiste")
+        }
+      }
+      console.log("Ahí la llevas ,escribe otra letra")
+    }
+  } 
+  else {
+    console.log("escribe una letra")
+  }
 };
