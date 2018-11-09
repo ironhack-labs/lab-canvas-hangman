@@ -50,10 +50,10 @@ Hangman.prototype.checkLetterIndex = function (letter) {
   var i = this.secretWord.indexOf(letter)
   if(i === -1){
     this.addWrongLetter(letter)
-    return false
+    return i
   } else {
     this.addCorrectLetter(i)
-    return true
+    return i
   }
 };
 
@@ -78,21 +78,25 @@ document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas.createBoard()
   hangmanCanvas.drawLines()
   hangmanCanvas.drawHanger()
+  hangmanCanvas.drawContainer()
 };
 
 
 document.onkeydown = function (e) {
   var keyCode = e.keyCode
   var key = String.fromCharCode(keyCode)
+  var indexLetter = -1
   if(hangman.checkIfLetter(keyCode)){
     // console.log("letra")
     if(!hangman.checkClickedLetters(key)){
       console.log("escribe otra, esa ya fue")
     } else {
       hangman.addLetter(key)
-      if(hangman.checkLetterIndex(key))
+      indexLetter = hangman.checkLetterIndex(key)
+      if(indexLetter > -1)
       {
         //Escribir letra -> Implementar
+        hangmanCanvas.writeCorrectLetter(indexLetter)
         //Checar si ya ganó
         if(hangman.checkWinner())
         {
@@ -101,6 +105,7 @@ document.onkeydown = function (e) {
       }
       else {
         hangmanCanvas.drawHangman(hangman.errorsLeft)
+        hangmanCanvas.writeWrongLetter(key)
         if(hangman.checkGameOver())
         {
           alert("Perdiste")

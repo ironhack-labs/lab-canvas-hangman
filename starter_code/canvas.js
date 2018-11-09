@@ -16,6 +16,8 @@ function HangmanCanvas(secretWord) {
     this.ctx.stroke()
     this.ctx.closePath()
   }
+
+  this.xWrongLetter = 0
 }
 
 HangmanCanvas.prototype.createBoard = function () {
@@ -24,7 +26,7 @@ HangmanCanvas.prototype.createBoard = function () {
 
 HangmanCanvas.prototype.drawLines = function () {
   var x = 500
-  var y = 100
+  var y = 150
   var lineW = 50
   var space = 10
   console.log(this.secretWord)
@@ -34,12 +36,30 @@ HangmanCanvas.prototype.drawLines = function () {
   }
 };
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
+HangmanCanvas.prototype.drawContainer = function () {
+  //Contenedor letras
+  this.ctx.strokeStyle = "rgba(12,120,10,0)"
+  this.ctx.lineWidth = 5
+  this.ctx.strokeRect(450,100,400,50)
+}
 
+HangmanCanvas.prototype.writeCorrectLetter = function (index) {
+  var xLetter = 500 + index*60
+  var yLetter = 150
+  var letter = this.secretWord.charAt(index)
+  this.ctx.font = "bold 40px Avenir"
+  this.ctx.fillStyle = "black"
+  this.ctx.fillText(letter,xLetter,yLetter)
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-
+  var xLetter = 500 + this.xWrongLetter*60
+  var yLetter = 250
+  // var letter = this.secretWord.charAt(index)
+  this.ctx.font = "bold 40px Avenir"
+  this.ctx.fillStyle = "red"
+  this.ctx.fillText(letter,xLetter,yLetter)
+  this.xWrongLetter++
 };
 
 HangmanCanvas.prototype.drawHangman = function (shape) {
