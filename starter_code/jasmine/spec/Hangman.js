@@ -8,7 +8,7 @@ describe('Hangman Game', function () {
       expect(hangman.words).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      // expect(hangman.words.length).toBeGreater(2);
+      expect(hangman.words.length).toBeGreater(0);
     });
   });
 
@@ -22,6 +22,10 @@ describe('Hangman Game', function () {
     });
 
     it('getWord should return a string', function () {
+      expect(typeof (hangman.getWord())).toBe('string');
+    });
+
+    it('getWord should return a random element of words array', function () {
       expect(typeof (hangman.getWord())).toBe('string');
     });
 
@@ -42,6 +46,7 @@ describe('Hangman Game', function () {
     it('checkIfLetter should return a boolean', function () {
       var keyCode = 43;
       hangman.checkIfLetter(keyCode);
+      //expect(hangman.checkIfLetter().toBe('boolean');
       expect(typeof (keyCode)).toBe('number');
     });
 
@@ -65,17 +70,17 @@ describe('Hangman Game', function () {
     });
     it('checkClickedLetters should return a boolean', function () {
       hangman.letters.push('I');
-      expect(typeof (hangman.checkIfLetter('N'))).toBe('boolean');
+      expect(typeof (hangman.checkClickedLetters('N'))).toBe('boolean');
     });
 
     it('checkClickedLetters should return true', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('F')).toEqual(true);
+      expect(hangman.checkClickedLetters('F')).toEqual(false);
     });
 
-    it('checkIfLetter should return false', function () {
+    it('checkClickedLetters should return false', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      expect(hangman.checkClickedLetters('R')).toEqual(true);
     });
   });
 
@@ -84,14 +89,14 @@ describe('Hangman Game', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
     it('addCorrectLetter should receive a number', function () {
-      var key = 'N';
-      hangman.checkClickedLetters(key);
-      expect(typeof (key)).toBe('string');
+      var i = 3;
+      hangman.addCorrectLetter(i);
+      expect(typeof (i)).toBe('number');
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
       hangman.addCorrectLetter(1);
-      expect(hangman.guessedLetter).toEqual('R');
+      expect(hangman.guessedLetter).toEqual('r');
     });
   });
 
@@ -118,11 +123,11 @@ describe('Hangman Game', function () {
     it('checkGameOver should return a boolean', function () {
       expect(typeof (hangman.checkGameOver())).toBe('boolean');
     });
-    it('checkGameOver should return false if the errorsLeft is 0', function () {
+    it('checkGameOver should return true if the errorsLeft is 0', function () {
       hangman.errorsLeft = 0;
       expect(hangman.checkGameOver()).toEqual(true);
     });
-    it('checkGameOver should return false if the errorsLeft is 0', function () {
+    it('checkGameOver should return false if the errorsLeft is greater than 0', function () {
       hangman.errorsLeft = 5;
       expect(hangman.checkGameOver()).toEqual(false);
     });
