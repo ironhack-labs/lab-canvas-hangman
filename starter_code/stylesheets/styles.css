@@ -1,5 +1,13 @@
-.game-logo {
+* {
+  font-family: monospace;
+}
 
+.game-logo {
+  width: 200px;
+}
+
+#guesses {
+  font-size: 30px;
 }
 
 #start-game-button {
@@ -8,10 +16,31 @@
   background: linear-gradient(to bottom, #9DA400, #BAC600);
   color: #fff;
   padding: 20px 40px;
-  font-size: 30px;
+  font-size: 16px;
   border-radius: 5px;
 }
 
 #hangman {
   text-align: center;
 }
+
+.hide {
+  display: none;
+}
+
+#result {
+  display: flex;
+  justify-content: center;
+}
+
+#winner img {
+  height: 300px;
+}
+
+#over img {
+  height: 300px;
+}
+
+/* canvas {
+  border: 1px #ccc solid;
+} */

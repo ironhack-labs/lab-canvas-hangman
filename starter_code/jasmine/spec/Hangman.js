@@ -75,7 +75,7 @@ describe('Hangman Game', function () {
 
     it('checkIfLetter should return false', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      expect(hangman.checkClickedLetters('P')).toEqual(false);
     });
   });
 
@@ -91,7 +91,7 @@ describe('Hangman Game', function () {
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
       hangman.addCorrectLetter(1);
-      expect(hangman.guessedLetter).toEqual('R');
+      expect(hangman.guessedLetter).toEqual('r');
     });
   });
 
