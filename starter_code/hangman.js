@@ -1,28 +1,64 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ['ironhack', 'leon', 'tigre', 'perro', 'pollollon'];
+  this.secretWord = secretWord;
+  this.letters = [];
+  this.guessedLetters = '';
+  this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function () {
+  this.words[Math.floor(Math.random)*this.words.length}
+};
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
 
-// };
+  if(keyCode > 90 && keyCode < 65  ) {
+   return this.letters.push(String.fromCharCode(keyCode))
+  }else{
+    return false
+  }
+};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.checkClickedLetters = function (key) {
+  this.letters.forEach(function(letter){
+    if(key === letter){
+      return true
+    }else{
+      return false
+    }
+  })
+};
 
-// };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+Hangman.prototype.addCorrectLetter = function () {
+  this.secretWord.forEach(function(word){
+      for(x = 0; x < word.length; x++){
+        if(word.charAt(x) === this.letters){
+          return this.guessedLetters = word.charAt(x);
+        }
+      }
+    })
 
-// };
+      if(this.secretWord.length === this.guessedLetters.length){
+        return 'YOU WON'
+      }
+};
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+Hangman.prototype.addWrongLetter = function (letter) {
+  this.secretWord.forEach(function(word){
+    for(i = 0; i < word.length; i++){
+      if(word.charAt(i) !== this.letters){
+        return this.errorsLeft -= 1;
+      }
+    }
+  })
 
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
+  if(this.errorsLeft === 0){
+    return "GAME OVERRRRR"
+  }
+};
 
 // Hangman.prototype.checkGameOver = function () {
 
