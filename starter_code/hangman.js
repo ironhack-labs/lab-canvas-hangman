@@ -4,7 +4,7 @@ class Hangman {
   constructor(secretWord){
     this.ctx = document.getElementById('hangman').getContext('2d');
 
-    this.characters = ["Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo", "Bambi", "The Lion King", "Aladdin", "Cinderella", "Sleeping Beauty", "Mulan", "Beauty and the Beast"];
+    this.characters = ["snow white and the seven dwarfs", "pinocchio", "dumbo", "bambi", "the lion king", "aladdin", "cinderella", "sleeping beauty", "mulan", "beauty and the beast"];
     this.secretWord = "";
     this.lettersOfTheSecretWord = [];
     this.guessedLetters = [];
@@ -19,34 +19,36 @@ class Hangman {
       this.secretWord = randomCharacter;
 
           console.log(this.secretWord);
-          console.log(this.lettersOfTheSecretWord);      
+               
       }
       
     checkIfThisIsALetter(e){
       if(event.keyCode >= 65  && event.keyCode <= 90){
-        console.log("yes, it is a letter");
         this.guessedLetters.push(event.key);
         return true;
-      } 
-        console.log("not a letter");  
+      }  
         return false;
     }
 
-    evaluateGuess(theGuess){
+    evaluateGuess(e){
       this.lettersOfTheSecretWord = this.secretWord.split('');
-        console.log(this.lettersOfTheSecretWord);
 
-      for(let i = 0; i < this.lettersOfTheSecretWord.length; i++)
+      for(let i = 0; i < this.lettersOfTheSecretWord.length; i++){
 
-      if(event.key === this.lettersOfTheSecretWord.value){
+      if(event.key === this.lettersOfTheSecretWord[i]){
         this.correctGuess.push(event.key);
-        console.log(this.correctGuess);
-
-      } else {
-        this.incorrectGuess.push(event.key);
-        console.log(this.incorrectGuess);
+        console.log("correct    " + this.correctGuess);
+        console.log("right key   " + event.key)
+        
       }
+      else {
+        this.incorrectGuess.push(event.key);
+        console.log("incorrect    " + this.incorrectGuess);
+        console.log("wrong key   " + event.key)
+        
+      } 
     }
+  }
 
 
 
@@ -54,18 +56,18 @@ class Hangman {
 
 
 
+    //logic starts here
+
   document.getElementById('start-game-button').onclick = function() {
       newGame = new Hangman();
       newGame.getWord(newGame.secretWord);
   };
 
 
-  document.onkeydown = function(event) {
-        console.log("Should be the letter of the key you are hitting", event.key);
+  document.onkeydown = function(e) {
     newGame.checkIfThisIsALetter(event.key)
-        console.log("array that holds ALL letters", newGame.guessedLetters);
     newGame.evaluateGuess(event.key)
-        console.log("correct guess array", newGame.correctGuess);
-        console.log("incorrect guess array", newGame.incorrectGuess);
   }
     
+
+  // logic ends here
