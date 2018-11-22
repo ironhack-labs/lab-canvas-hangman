@@ -165,9 +165,6 @@ document.onkeydown = function (e) {
           break;
       }
 
-
-      //Timeout para que se alcanze a ver el ultimo pie antes de que el juego termine si es que perdiste
-
       //Vemos si todavia se pude seguir jugando
       if (hangman.checkGameOver()) {
 
