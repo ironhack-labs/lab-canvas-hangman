@@ -3,11 +3,12 @@ var canvas;
 
 function Hangman() {
 
-  this.words = ["hola", "iphone"];
+  this.words = ["mundo", "auto", "alien", "viento"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
+  this.millisecondsToWait = 500;
 
 }
 
@@ -35,14 +36,14 @@ Hangman.prototype.checkClickedLetters = function (key) {
 
 Hangman.prototype.addCorrectLetter = function (i) {
   this.guessedLetter += this.secretWord[i].toUpperCase();
-  this.checkWinner();
+
   return this.guessedLetter;
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
-  this.letters.push(letter);
+
   this.errorsLeft--;
-  this.checkGameOver();
+
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -53,33 +54,30 @@ Hangman.prototype.checkGameOver = function () {
   }
 };
 
-
 Hangman.prototype.verify = function (letter) {
   return this.secretWord.includes(letter);
 };
 
-
-
 Hangman.prototype.checkWinner = function () {
-  for (var i = 0; i < this.secretWord.length; i++) {
-    if (this.guessedLetter.includes(this.secretWord[i])) {
-      continue;
-    } else {
-      return false;
-    }
+
+  if (this.guessedLetter.length === this.secretWord.length) {
+    return true;
   }
-  return true;
+
+
 };
 
 document.getElementById('start-game-button').onclick = function () {
+
   hangman = new Hangman();
   canvas = new HangmanCanvas(hangman.getWord());
   canvas.drawLines();
+  // canvas.createBoard();
+
 
 };
 
 document.onkeydown = function (e) {
-
 
 
   //Si la tecla que se presionó no es una letra, da una alerta
@@ -97,16 +95,90 @@ document.onkeydown = function (e) {
 
     //Si la tecla que presionamos corresponde a Secret Word la pintamos en el Lugar que le corresponde
     if (hangman.verify(e.key)) {
-      for (var i = 0; i < hangman.secretWord.length; i++) {
+      for (var i = 0; i <= hangman.secretWord.length; i++) {
         if (hangman.secretWord[i] === e.key) {
-         
+
           canvas.writeCorrectLetter(i);
           hangman.addCorrectLetter(i);
           if (hangman.checkWinner()) {
-            alert("Winner!");
+
+            setTimeout(function () {
+              alert("Winner!!!");
+              location.reload();
+            }, this.millisecondsToWait);
+
           }
         }
       }
+    } else {
+
+      //Llamamos errors left
+      hangman.addWrongLetter();
+
+
+      // Agregamos letras erroneas
+      canvas.writeWrongLetter(e.key, hangman.errorsLeft);
+
+      // //Comenzamos a dibujar Hangman
+      switch (hangman.errorsLeft) {
+        case 9:
+          canvas.drawHangman("base");
+          break;
+
+        case 8:
+          canvas.drawHangman("pole");
+          break;
+
+        case 7:
+          canvas.drawHangman("horizontal");
+          break;
+
+        case 6:
+          canvas.drawHangman("down");
+          break;
+
+        case 5:
+          canvas.drawHangman("head");
+          break;
+
+        case 4:
+          canvas.drawHangman("body");
+          break;
+
+        case 3:
+          canvas.drawHangman("leftHand");
+          break;
+
+        case 2:
+          canvas.drawHangman("rightHand");
+          break;
+
+        case 1:
+          canvas.drawHangman("leftFoot");
+          break;
+
+        case 0:
+          canvas.drawHangman("rightFoot");
+          break;
+
+        default:
+          break;
+      }
+
+
+      //Timeout para que se alcanze a ver el ultimo pie antes de que el juego termine si es que perdiste
+      setTimeout(function () {
+        //Vemos si todavia se pude seguir jugando
+        if (hangman.checkGameOver()) {
+          alert("Game Over");
+          location.reload();
+          return;
+        }
+      }, this.millisecondsToWait);
+
+
+
+
     }
   }
 };
