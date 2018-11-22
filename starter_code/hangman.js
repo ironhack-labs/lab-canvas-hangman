@@ -1,7 +1,8 @@
 var hangman;
 
+
 function Hangman() {
-  this.words = ["hola", "adios"];
+  this.words = ["hola", "adios", "ironhack", "miami", "paris", "mexico"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
