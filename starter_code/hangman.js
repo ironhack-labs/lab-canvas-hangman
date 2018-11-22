@@ -3,7 +3,7 @@ var canvas;
 
 function Hangman() {
 
-  this.words = ["hola", "Iphone"];
+  this.words = ["hola", "iphone"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
