@@ -32,17 +32,30 @@ Hangman.prototype.addCorrectLetter = function (i) {
   return this.guessedLetter = this.secretWord[i].toUpperCase();
 };
 
-// Hangman.prototype.addWrongLetter = function (letter) {
+Hangman.prototype.addWrongLetter = function (letter) {
+  this.letters.push(this.letter)
+  this.errorsLeft--;
+  if(this.errorsLeft === 0){
+    return this.checkGameOver
+  }
+  return this.errorsLeft
+};
 
-// };
+Hangman.prototype.checkGameOver = function () {
+  if(this.errorsLeft === 0){
+    return true
+  } else{
+    return false
+  }
+};
 
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+Hangman.prototype.checkWinner = function () {
+  if(this.secretWord.indexOf(this.guessedLetter) && this.secretWord.length === this.guessedLetter.length){
+    return true
+  } else {
+    return false
+  }
+};
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
