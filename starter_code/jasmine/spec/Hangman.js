@@ -79,6 +79,9 @@ describe('Hangman Game', function () {
     });
   });
 
+
+
+
   describe('Add correct letters', function () {
     it('addCorrectLetter should be a function', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
@@ -95,6 +98,11 @@ describe('Hangman Game', function () {
     });
   });
 
+
+
+
+
+  
   describe('Wrong letters', function () {
     it('addWrongLetter should be a function', function () {
       expect(typeof (hangman.addWrongLetter)).toBe('function');
