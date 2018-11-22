@@ -54,8 +54,13 @@ Hangman.prototype.checkGameOver = function () {
   }
 };
 
-Hangman.prototype.verify = function (letter) {
-  return this.secretWord.includes(letter);
+Hangman.prototype.containsLetter = function (letter) {
+
+  if (this.secretWord.includes(letter)) {
+      return true;
+  }else{
+    return false;
+  }
 };
 
 Hangman.prototype.checkWinner = function () {
@@ -94,7 +99,7 @@ document.onkeydown = function (e) {
     hangman.letters.push(e.keyCode);
 
     //Si la tecla que presionamos corresponde a Secret Word la pintamos en el Lugar que le corresponde
-    if (hangman.verify(e.key)) {
+    if (hangman.containsLetter(e.key)) {
       for (var i = 0; i <= hangman.secretWord.length; i++) {
         if (hangman.secretWord[i] === e.key) {
 
