@@ -136,9 +136,17 @@ HangmanCanvas.prototype.drawHangman = function (errorsLeft) {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+  let img = new Image();
+  img.src = "images/gameover.png";
+  img.onload = function() {
+    hangmanCanvas.ctx.drawImage(img, 200, 300,);
+  }
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  let img = new Image();
+  img.src = "images/awesome.png";
+  img.onload = function() {
+    hangmanCanvas.ctx.drawImage(img, 100, 100,);
+  }
 };

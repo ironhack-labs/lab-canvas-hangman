@@ -34,7 +34,7 @@ Hangman.prototype.checkClickedLetters = function (key) {
 Hangman.prototype.addCorrectLetter = function (i) {
   this.guessedLetter = this.guessedLetter + this.secretWord[i].toUpperCase();
   if (this.checkWinner()) {
-    alert("Congratulations! You won!");
+    hangmanCanvas.winner();
     this.finished = true;
   }
 };
@@ -42,7 +42,7 @@ Hangman.prototype.addCorrectLetter = function (i) {
 Hangman.prototype.addWrongLetter = function (letter) {
   this.errorsLeft--;
   if (this.checkGameOver()) {
-    alert("Game over! You lost!");
+    hangmanCanvas.gameOver();
     this.finished = true;
   }
 };
