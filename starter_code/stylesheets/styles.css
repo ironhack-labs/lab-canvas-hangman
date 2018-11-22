@@ -1,5 +1,5 @@
 .game-logo {
-
+  width:30%;
 }
 
 #start-game-button {
@@ -14,4 +14,12 @@
 
 #hangman {
   text-align: center;
+}
+
+.boton-false{
+  display: none;
+}
+
+.boton-true{
+  display: block;
 }
