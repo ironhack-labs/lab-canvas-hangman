@@ -3,12 +3,12 @@ var canvas;
 
 function Hangman() {
 
-  this.words = ["mundo", "auto", "alien", "viento"];
+  this.words = ["mundo", "auto", "alien", "viento", "tienda"];
   this.secretWord = "";
   this.letters = [];
   this.guessedLetter = "";
   this.errorsLeft = 10;
-  this.millisecondsToWait = 500;
+  // this.millisecondsToWait = 1;
 
 }
 
@@ -101,12 +101,8 @@ document.onkeydown = function (e) {
           canvas.writeCorrectLetter(i);
           hangman.addCorrectLetter(i);
           if (hangman.checkWinner()) {
-
-            setTimeout(function () {
-              alert("Winner!!!");
-              location.reload();
-            }, this.millisecondsToWait);
-
+            //Winner
+            canvas.winner();
           }
         }
       }
@@ -114,7 +110,6 @@ document.onkeydown = function (e) {
 
       //Llamamos errors left
       hangman.addWrongLetter();
-
 
       // Agregamos letras erroneas
       canvas.writeWrongLetter(e.key, hangman.errorsLeft);
@@ -167,17 +162,13 @@ document.onkeydown = function (e) {
 
 
       //Timeout para que se alcanze a ver el ultimo pie antes de que el juego termine si es que perdiste
-      setTimeout(function () {
-        //Vemos si todavia se pude seguir jugando
-        if (hangman.checkGameOver()) {
-          alert("Game Over");
-          location.reload();
-          return;
-        }
-      }, this.millisecondsToWait);
 
+      //Vemos si todavia se pude seguir jugando
+      if (hangman.checkGameOver()) {
 
-
+        //Game over si ya no tiene intentos
+        canvas.gameOver();
+      }
 
     }
   }

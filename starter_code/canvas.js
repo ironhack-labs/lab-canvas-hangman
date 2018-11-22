@@ -192,6 +192,7 @@ function drawRightHand(ctx) {
 
 }
 
+//Pie izquierdo
 function drawleftFoot(ctx) {
 
   ctx.beginPath();
@@ -202,6 +203,7 @@ function drawleftFoot(ctx) {
 
 }
 
+//Pie derecho
 function drawrightFoot(ctx) {
 
   ctx.beginPath();
@@ -216,11 +218,29 @@ function drawrightFoot(ctx) {
 
 
 
-
+//Imagen Game Over
 HangmanCanvas.prototype.gameOver = function () {
+
+  var context = this.ctx;
+  var img = new Image();
+
+  img.onload = function () {
+    context.drawImage(img, 500, 200, 500, 300);
+  };
+  img.src = 'images/gameover.png';
 
 };
 
+
+//Aqui pintaremos la imagen de you are awesome
 HangmanCanvas.prototype.winner = function () {
+
+  var context = this.ctx;
+  var img = new Image();
+
+  img.onload = function () {
+    context.drawImage(img, 500, 200, 500, 300);
+  };
+  img.src = 'images/awesome.png';
 
 };
