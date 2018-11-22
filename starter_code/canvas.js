@@ -45,12 +45,12 @@ HangmanCanvas.prototype.writeCorrectLetter = function (index) {
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
 
-  var worngLetterY = 600;
+  var worngLetterY = 100;
 
   this.ctx.font = "60px Arial";
   this.ctx.fillStyle = "black";
 
-  this.wrongX += 90;
+  this.wrongX += 60;
   this.ctx.fillText(letter.toUpperCase(), this.wrongX, worngLetterY, 195);
 
 };
