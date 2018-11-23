@@ -13,7 +13,7 @@ HangmanCanvas.prototype.createBoard = function () {
 
 HangmanCanvas.prototype.drawLines = function () {
   for (let i = 0; i < this.secretWord.length; i++) {
-    this.ctx.beginPath()
+    this.ctx.beginPath();
     let x = i * 50;
     this.ctx.moveTo(330 + x, 500);
     this.ctx.lineTo(370 + x, 500);
@@ -35,7 +35,7 @@ HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
 
 HangmanCanvas.prototype.drawHangman = function (shape) {
   this.ctx.fillStyle="black"
-  this.ctx.beginPath()
+  this.ctx.beginPath();
   switch (shape) {
     case 9:
       this.ctx.moveTo(60,440);
@@ -55,9 +55,9 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
       this.ctx.stroke();
       break;
     case 6:
-      this.ctx.moveTo(225,50)
-      this.ctx.lineTo(225,125)
-      this.ctx.stroke()
+      this.ctx.moveTo(225,50);
+      this.ctx.lineTo(225,125);
+      this.ctx.stroke();
       break;
     case 5:
       this.ctx.arc(225,150,25,0,Math.PI*2,true);
@@ -79,14 +79,14 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
       this.ctx.stroke();
       break;
     case 1:
-      this.ctx.moveTo(225,275)
-      this.ctx.lineTo(175,350)
-      this.ctx.stroke()
+      this.ctx.moveTo(225,275);
+      this.ctx.lineTo(175,350);
+      this.ctx.stroke();
       break;
     case 0:
       this.ctx.moveTo(225,275);
       this.ctx.lineTo(290, 350);
-      this.ctx.stroke()
+      this.ctx.stroke();
       break;
   }
 
@@ -96,12 +96,12 @@ HangmanCanvas.prototype.gameOver = function () {
   var loserImg = document.createElement('img');
   loserImg.src = "./images/gameover.png";
   //pintamos la imagen
-  this.ctx.drawImage(loserImg,350,0,500,400)
+  this.ctx.drawImage(loserImg,350,0,500,400);
 };
 
 HangmanCanvas.prototype.winner = function () {
   var winImg = document.createElement('img');
   winImg.src = "./images/awesome.png";
   //pintamos la imagen
-  this.ctx.drawImage(winImg,350,0,500,400)
+  this.ctx.drawImage(winImg,350,0,500,400);
 };
