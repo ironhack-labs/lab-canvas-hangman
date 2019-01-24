@@ -10,20 +10,29 @@ In this exercise, we are going to create the classic game [Hangman](https://en.w
 
 As we have learned, we can't confront the whole game without splitting it up into smaller steps. We will split it up into three different parts: structure, logic, and game layout. This technique is known as **incremental build.**
 
-We will separate the game logic from the iteration with the `canvas`. We should be able to play from the console first and then add the graphics.p
+We will separate the game logic from the iteration with the `canvas`. We should be able to play from the console first and then add the graphics.
 
-### Requirements
+## Requirements
 
-- [Fork this repo]()
-- Clone this repo into your `~/code/labs`
-- The images are also included in the repository
+- Fork this repo
+- Clone this repo
+
+## Submission
+
+Upon completion, run the following commands:
+```
+$ git add .
+$ git commit -m "done"
+$ git push origin master
+```
+Create Pull Request so your TAs can check up your work.
 
 ## 1. First iteration: Game Logic
 
 :::info
 In order to do the game logic, we add some **Jasmine** tests to help you. Navigate to:
 
-```htmlmixed=
+```bash
 starter_code
   |___ jasmine
 ```
@@ -45,7 +54,7 @@ First, of at all let's create our Hangman constructor. It should have the follow
 - `getWord()`. Returns a random word from our array `words`.
 - `checkIfLetter`. This function should check if the key the user has typed is a letter.
 - `checkClickedLetters`. Checks if the pressed letter has already been pressed and returns true if it was not or false in the opposite case.
-- `checkGameOver`. Returns a bolean value, `true` if the users lose, and `false` in any other case.
+- `checkGameOver`. Returns a boolean value, `true` if the users lose, and `false` in any other case.
 - `checkWinner`. Check if the users win and return a boolean value.
 - `addCorrectLetter`. Adds to the `guessedLetter` variable the letter that was pressed. Also, it should check if the user wins.
 - `addWrongLetter`. Should subtract one from the variable `errorsLeft` and check if the game is over.
@@ -79,3 +88,5 @@ The last task, we need to draw **THE HANGMAN**. You can notice the drawing is co
 Your game is finished! Anybody can play it, but we need to show them something when they win or lose, so go ahead and create two functions `gameOver` and `winner`, to display the images available on the `starter_code > images` folder.
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1dc0d7772d204da800d078c153c12e47.png)
+
+Happy coding! ❤️
