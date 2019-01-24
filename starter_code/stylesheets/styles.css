@@ -1,11 +1,12 @@
-.game-logo {
+@import url("https://fonts.googleapis.com/css?family=Gloria+Hallelujah%7CGochi+Hand%7CHandlee%7CJacques+Francois%7CJosefin+Slab%7CMajor+Mono+Display%7CPlayfair+Display+SC%7CQuicksand%7CSource+Code+Pro%7CVT323%7CVidaloka%7CZCOOL+KuaiLe");
 
+.game-logo {
 }
 
 #start-game-button {
   border: 0;
   box-shadow: 0;
-  background: linear-gradient(to bottom, #9DA400, #BAC600);
+  background: linear-gradient(to bottom, #9da400, #bac600);
   color: #fff;
   padding: 20px 40px;
   font-size: 30px;
