@@ -1,7 +1,7 @@
 var hangman;
 
 function Hangman() {
-this.words = ['Perua','Brasil','Italia','Francia','Noruega','Vietnam']
+this.words = ['Peru','Brasil','Italia','Francia','Noruega','Vietnam']
 this.secretWord = ''
 this.letters = []
 this.guessedLetter = ''
