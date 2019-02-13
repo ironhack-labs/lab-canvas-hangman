@@ -25,24 +25,44 @@ return !n
  };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-//this.guessedLetter += i
-//var res = this.secretWord.charAt(i)
 let letra = this.secretWord.charAt(i)
 this.guessedLetter += letra.toUpperCase()
  };
 
  Hangman.prototype.addWrongLetter = function (letter) {
-this.errorsLeft = this.errorsLeft -1;
- 
+this.errorsLeft = this.errorsLeft -1
 };
 
-// Hangman.prototype.checkGameOver = function () {
+ Hangman.prototype.checkGameOver = function () {
+if (this.errorsLeft == 0) return true
+else return false
+ };
 
-// };
+ // Funciòn para distinguir las letras de una palabra*******************
 
-// Hangman.prototype.checkWinner = function () {
+ function separaLetras (str){
+    var arreglo = str.toUpperCase().split('')
+    var cadena = []
+      arreglo = arreglo.sort()
+  function distinctLetters(i) {
+    if (i == 0 ) 
+          {cadena.push(arreglo [i])}
+    else if (i != 0 && arreglo [i] != arreglo [i-1]) 
+          {cadena.push(arreglo [i])}}
 
-// };
+  for (let i = 0; i< arreglo.length ; i++)
+  {distinctLetters(i)}
+ return cadena.join()
+}
+ // termina funcion****************************************************
+
+
+ Hangman.prototype.checkWinner = function () {
+
+if (separaLetras(this.guessedLetter) === separaLetras(this.secretWord))
+return true 
+else return false
+ };
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
@@ -52,3 +72,7 @@ document.getElementById('start-game-button').onclick = function () {
 document.onkeydown = function (e) {
 
 };
+
+
+
+
