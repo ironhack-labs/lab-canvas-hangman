@@ -70,12 +70,12 @@ describe('Hangman Game', function () {
 
     it('checkClickedLetters should return true', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('F')).toEqual(true);
+      expect(hangman.checkClickedLetters('F')).toEqual(false);
     });
 
-    it('checkIfLetter should return false', function () {
+    it('checkClickedLetters should return false', function () {
       hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      expect(hangman.checkClickedLetters('R')).toEqual(true);
     });
   });
 
@@ -140,7 +140,7 @@ describe('Hangman Game', function () {
       hangman.guessedLetter = 'KHARCNIO';
       expect(hangman.checkWinner()).toEqual(true);
     });
-    it('checkWinner should return true if we guess all letters', function () {
+    it('checkWinner should return false if we dont guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
       hangman.guessedLetter = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
