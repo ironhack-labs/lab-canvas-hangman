@@ -1,28 +1,40 @@
 var hangman;
 
-// function Hangman() {
+ function Hangman() {
+this.words = ["uno","dos","tres"];
+this.secretWord = "";
+this.letters = [];
+this.guessedLetter = "";
+this.errorsLeft = 10;
+ };
 
-// }
+ Hangman.prototype.getWord = function () {
+ var nro = Math.floor(Math.random() * this.words.length);
+ var palabra = this.words[nro];
+ return palabra;
+ };
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
+if (keyCode >= 65 && keyCode <= 90) {return true}
+ return false
+ };
 
-// };
+ Hangman.prototype.checkClickedLetters = function (key) {
+var n = this.letters.includes(key)
+return !n
+ };
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.addCorrectLetter = function (i) {
+//this.guessedLetter += i
+//var res = this.secretWord.charAt(i)
+let letra = this.secretWord.charAt(i)
+this.guessedLetter += letra.toUpperCase()
+ };
 
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
+ Hangman.prototype.addWrongLetter = function (letter) {
+this.errorsLeft = this.errorsLeft -1;
+ 
+};
 
 // Hangman.prototype.checkGameOver = function () {
 
