@@ -1,15 +1,16 @@
 var hangman;
 
 function Hangman() {
-  this.words = ["perro", "gato", "pulpo"];
+  this.words = ["perro", "gato", "pulpo", "tigre", "lagartija", "jirafa", "puercoespin", "jabali", "gallina", "pato", "tiburon", "ballena", "leon", "aguila", "serpiente", "dragon", "murcielago", "colibri", "vaca", "pollo", "caballo"];
   this.secretWord = "";
   this.letters = [];
-  this.guessedLetter = [];
+  this.guessedLetter = "";
   this.errorsLeft = 10;
 }
 
 Hangman.prototype.getWord = function () {
-  return this.words[Math.floor(Math.random(this.words.value) * this.words.length)];
+  this.secretWord = this.words[Math.floor(Math.random(this.words.value) * this.words.length)];
+  return this.secretWord;
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
@@ -29,9 +30,8 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-  if (this.secretWord.includes(i)) {
-    this.guessedLetter.push(i)
-  }
+  var upperCase = this.secretWord[i].toUpperCase()
+  return this.guessedLetter += upperCase;
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
@@ -49,18 +49,24 @@ Hangman.prototype.checkGameOver = function () {
 };
 
 Hangman.prototype.checkWinner = function () {
-  if (this.secretWord.includes(this.guessedLetter)) {
-    return true
-  } else {
-    return false
+  for (var i=0; i<this.secretWord.length; i++) {
+    if (this.guessedLetter.includes(this.secretWord[i])) {
+      return true
+    } else {
+      return false
+    }
   }
 };
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangman.getWord();
+  console.log("The secret word for this play is: " + hangman.secretWord);
+  var hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
 };
 
 
 document.onkeydown = function (e) {
-
+  
 };
