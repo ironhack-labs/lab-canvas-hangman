@@ -46,7 +46,7 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should return false', function () {
-      expect(hangman.checkIfLetter(43)).toEqual(false);
+      expect(hangman.checkIfLetter(48)).toEqual(false);
     });
 
     it('checkIfLetter should return true', function () {
