@@ -1,16 +1,22 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+  this.words = ['piña', 'pitufo', 'mollete', 'viena'];
+  this.secretWord = this.words[0];
+  this.letters = [];
+  this.guessedLetter;
+  this.errorsLeft = 10;
+}
 
-// }
+Hangman.prototype.getWord = function () {
+  var randomIndex = Math.floor( Math.random() * ( this.words.length) )
+  this.secretWord = this.words[randomIndex];
+  return this.secretWord;
+};
 
-// Hangman.prototype.getWord = function () {
-
-// };
-
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  return ( ( keyCode > 64 && keyCode < 91 ) || keyCode === 186 ); // 186 es el keyCode de la letra 'ñ'
+};
 
 // Hangman.prototype.checkClickedLetters = function (key) {
 
