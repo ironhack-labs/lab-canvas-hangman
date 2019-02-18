@@ -1,12 +1,15 @@
 var hangman;
 
-// function Hangman() {
+ function Hangman() {
+   this.words = ['prueba', 'otraprueba', 'terceraprueba'];
+   this.secretWord = '';
+   this.letter = [];
 
-// }
+}
 
-// Hangman.prototype.getWord = function () {
+ Hangman.prototype.getWord = function () {
 
-// };
+ };
 
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
