@@ -1,7 +1,7 @@
 var hangman;
 
  function Hangman() {
-   this.words = ['prueba', 'otraprueba', 'terceraprueba'];
+   this.words = ['ansiedad', 'frustracion', 'ironhack', 'programacion', 'estres', 'locura'];
    this.secretWord = '';
    this.letters = [];
    this.guessedLetter = '';
@@ -60,9 +60,18 @@ Hangman.prototype.checkWinner = function () {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  startGame();
 };
 
 
 document.onkeydown = function (e) {
 
 };
+
+
+function startGame(){
+  hangman.getWord();
+  canvasHang = new HangmanCanvas(hangman);
+  canvasHang.createBoard();
+  canvasHang.drawLines();
+}
