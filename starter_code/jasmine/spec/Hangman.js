@@ -30,6 +30,9 @@ describe('Hangman Game', function () {
     });
   });
 
+
+
+
   describe('Check if is a letter', function () {
     it('checkIfLetter should be a function', function () {
       expect(typeof (hangman.checkIfLetter)).toBe('function');
@@ -54,6 +57,10 @@ describe('Hangman Game', function () {
     });
   });
 
+
+
+
+  
   describe('Check if the letter was already clicked', function () {
     it('checkClickedLetters should be a function', function () {
       expect(typeof (hangman.checkClickedLetters)).toBe('function');
