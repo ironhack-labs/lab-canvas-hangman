@@ -1,12 +1,16 @@
 var hangman;
 
-// function Hangman() {
+ function Hangman() {
+  this.words = ['esternocleidomastoideo', 'zagal', 'almendruco'];
+  this.sercretWord = '';
+  this.letters = [];
+  this.guessedLetter = '';
+  this.errorsLeft = 10;
+ }
 
-// }
-
-// Hangman.prototype.getWord = function () {
-
-// };
+Hangman.prototype.getWord = function () {
+  return this.words[Math.floor(Math.random()) * this.words.length];
+};
 
 // Hangman.prototype.checkIfLetter = function (keyCode) {
 
