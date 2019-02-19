@@ -28,6 +28,7 @@ Hangman.prototype.addCorrectLetter = function (i) {
 
 Hangman.prototype.addWrongLetter = function (letter) {
   this.errorsLeft--;
+  this.letters.push(letter);
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -39,11 +40,20 @@ Hangman.prototype.checkWinner = function () {
   return (letterSet.size === this.guessedLetter.length) ? true : false
 };
 
+window.onload = function(){
+
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord()
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord)
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines(hangmanCanvas);
+  hangmanCanvas.drawHangman();
 };
 
 
 document.onkeydown = function (e) {
+
+};
 
 };
