@@ -18,17 +18,22 @@ Hangman.prototype.checkIfLetter = function (keyCode) {
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
-  return (this.letters.includes(key) === true) ? false : true
+  if (this.letters.includes(key) === true){
+    return false
+  } 
+  else {
+    this.letters.push(key);
+    return true}
 };
 
-Hangman.prototype.addCorrectLetter = function (i) {
-  this.guessedLetter += this.secretWord[i].toUpperCase();
-  return this.checkGameOver;
+Hangman.prototype.addCorrectLetter = function (key) {
+  this.guessedLetter += key
+  return this.checkWinner();
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
   this.errorsLeft--;
-  this.letters.push(letter);
+  return letter
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -48,12 +53,45 @@ document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas = new HangmanCanvas(hangman.secretWord)
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines(hangmanCanvas);
-  hangmanCanvas.drawHangman();
 };
 
 
 document.onkeydown = function (e) {
+  if (hangman.checkIfLetter(e.keyCode) === false) {
+    console.log("not a letter please press a letter")
+  }
+  else {
+    if (hangman.checkClickedLetters(e.key) === false){
+      console.log("that letter was pressed already")
+    }
+      else {
+        if (hangman.secretWord.includes(e.key)=== true){
+          console.log("la incluye")
+          if (hangman.addCorrectLetter(e.key) === false){
+            var checkString = hangman.secretWord
+            while (checkString.indexOf() != -1){
+              hangmanCanvas.writeCorrectLetter(checkString.indexOf(), e.key)
+              checkString.replace(e.key, " ");
+            }
+            if (hangman.checkWinner()=== true){return hangmanCanvas.winner()}
+          }
+          else{
 
+          }
+        }
+        else{
+          hangman.addWrongLetter(e.key);
+          hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
+          hangmanCanvas.drawHangman(hangman.errorsLeft);
+          if (hangman.checkGameOver() === true){
+            hangmanCanvas.gameOver();
+          }
+        }
+    }
+  }
+  
+  
+  
 };
 
 };
