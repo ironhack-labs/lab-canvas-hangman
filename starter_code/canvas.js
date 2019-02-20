@@ -1,5 +1,5 @@
 
-var wrongLetterBaseline = 740;
+var wrongLetterBaseline = 540;
 
 function HangmanCanvas(secretWord) {
   this.ctx = document.getElementById('hangman').getContext('2d');
@@ -25,7 +25,7 @@ HangmanCanvas.prototype.writeCorrectLetter = function (index, letter) {
   var baseline = 407;
   var position = 60;
   this.ctx.font = '49px serif';
-  this.ctx.fillText(letter.toUpperCase(), baseline + (index*position), 690);
+  this.ctx.fillText(letter, baseline + (index*position), 690);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
@@ -111,18 +111,20 @@ HangmanCanvas.prototype.drawHangman = function (num) {
 
 HangmanCanvas.prototype.gameOver = function () {
   this.ctx.clearRect(0, 0, 1200, 800);
+  var ctx = this.ctx
   var img = new Image();
   img.src = 'images/gameover.png';
   img.onload = function() {
-    this.ctx.drawImage(img, 200, 200, 400, 300);
+    ctx.drawImage(img, 300, 250, 600, 300);
   };
 };
 
 HangmanCanvas.prototype.winner = function () {
-  var ctx = this.ctx.clearRect(0, 0, 1200, 800);
+  this.ctx.clearRect(0, 0, 1200, 800);
+  var ctx = this.ctx
   var img = new Image();
   img.src = 'images/awesome.png';
   img.onload = function() {
-    ctx.drawImage(img, 200, 200, 400, 300);
+    ctx.drawImage(img, 350, 250, 500, 400);
   };
 };

@@ -27,7 +27,9 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (key) {
-  this.guessedLetter += key
+  if(this.guessedLetter.includes(key) === false){
+    this.guessedLetter += key
+  }
   return this.checkWinner();
 };
 
@@ -69,14 +71,13 @@ document.onkeydown = function (e) {
           console.log("la incluye")
           if (hangman.addCorrectLetter(e.key) === false){
             var checkString = hangman.secretWord
-            while (checkString.indexOf() != -1){
-              hangmanCanvas.writeCorrectLetter(checkString.indexOf(), e.key)
-              checkString.replace(e.key, " ");
+            while (checkString.indexOf(e.key) != -1){
+              hangmanCanvas.writeCorrectLetter(checkString.indexOf(e.key), e.key)
+              checkString = checkString.replace(e.key, " ");
             }
-            if (hangman.checkWinner()=== true){return hangmanCanvas.winner()}
           }
           else{
-
+            hangmanCanvas.winner()
           }
         }
         else{
