@@ -39,9 +39,6 @@ return false;
 
 }
 
-
-
-
  };
 
 Hangman.prototype.checkClickedLetters = function (key) {
@@ -50,49 +47,110 @@ Hangman.prototype.checkClickedLetters = function (key) {
   if(this.letters.indexOf(key.toUpperCase())===-1){
 
 
-return true;
+      return true;
 
 
-}else{
+  }else{
 
-return false;
+      return false;
 
-}
+  }
 
 
 };
 
  Hangman.prototype.addCorrectLetter = function (i) {
 
-  this.guessedLetter+=i;
-   
-  this.guessedLetter;//recorrer este array letra por letra y compararlo con el de la palabra elegida
-                     //si las letras estás al menos una vez ganas
+
+  //añadir letra si adivinada
+  var palabraCorrecta=this.secretWord;//palabra correcta
+
+  this.guessedLetter+=i;//añadir letra adivinada
+  console.log(this.guessedLetter);
+
+  if(palabraCorrecta.indexOf(i)!==-1){
+
+ 
+    this.guessedLetter+=i;//añadir letra adivinada
+    console.log(this.guessedLetter);
+
+  }  
 
 
-  if(){
 
-    return true;
+  this.checkWinner();
+  //hemos ganado?
 
-  }else{
+    
+ };
 
-    return false;
+ Hangman.prototype.addWrongLetter = function (letter) {
+
+  var palabraCorrecta=this.secretWord;//palabra correcta
+
+  if(palabraCorrecta.indexOf(letter)==-1){
+
+
+    this.errorsLeft--;
   }
+  
 
+this.checkGameOver();
+
+};
+
+ Hangman.prototype.checkGameOver = function () {
+
+
+    if(this.errorsLeft==0){
+
+      return true;
+      
+    }else{
+
+
+      return false;
+
+    }
 
  };
 
-// Hangman.prototype.addWrongLetter = function (letter) {
+ Hangman.prototype.checkWinner = function () {
 
-// };
+  var palabraCorrecta=this.secretWord;//palabra correcta
+  var acierto=0;
+  var letrasAdivinadas=this.guessedLetter;//letras adivinadas
+  
 
-// Hangman.prototype.checkGameOver = function () {
+  //hemos ganado?
 
-// };
+    for(i=0;i<palabraCorrecta.length;i++){
 
-// Hangman.prototype.checkWinner = function () {
 
-// };
+        if(letrasAdivinadas.indexOf(palabraCorrecta[i])!==-1){
+
+          acierto++;
+
+        }
+
+    }
+
+    if(acierto===palabraCorrecta.length){
+
+      
+        console.log('ACIERTO');
+        return true;
+
+    }else{
+
+      console.log('NOT YET');
+      return false;
+    }
+
+
+
+
+ };
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();

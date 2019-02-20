@@ -30,3 +30,5 @@ HangmanCanvas.prototype.gameOver = function () {
 HangmanCanvas.prototype.winner = function () {
 
 };
+
+
