@@ -1,9 +1,8 @@
 "use strict";
 
-
 function HangmanCanvas(secretWord) {
   this.ctx = document.getElementById('hangman').getContext('2d');
-}
+};
 
 HangmanCanvas.prototype.createBoard = function () {
   // clear whole canvas
@@ -11,37 +10,38 @@ HangmanCanvas.prototype.createBoard = function () {
   // draw lines secret word
   this.drawLines();
   this.ctx.font = "48px arial";
+  this.ctx.lineWidth = 3;
+  this.ctx.strokeStyle = "black";
 };
 
 HangmanCanvas.prototype.drawLines = function () {
-  var nrLines = hangman.secretWord.length;
-  console.log(nrLines);
-  // drawing lines
+  var nrLines = hangman.secretWord.length; 
+  // drawing lines. 50px wide with 10px inbetween
   var startX = 200;
   var startY = 650;
   this.ctx.beginPath();
-  this.ctx.moveTo(startX, startY);
+  this.ctx.moveTo(startX, startY); 
   for (var i = 0; i < nrLines; i++) {
     startX += 50;
     this.ctx.lineTo(startX, startY);
     startX += 10;
-    this.ctx.moveTo(startX, startY); // space between letters
+    this.ctx.moveTo(startX, startY);  
   }
-  this.ctx.strokeStyle = "black";
-  this.ctx.stroke();
+  this.ctx.stroke(); 
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index, letter) {
+  // index is an array of index-places of the correct letter in secretWord
   index.forEach(element => {
     this.ctx.beginPath();
     this.ctx.textAlign = "center"
-    // + 25 for center text (each line is 50px)
+    // + 25 for center text (each line is 50px wide)
     this.ctx.fillText(letter.toUpperCase(), 200 + 25 + 60 * element, 645);
     this.ctx.closePath();
   })
 };
 
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
+HangmanCanvas.prototype.writeWrongLetter = function (letter) {
   this.ctx.beginPath();
   this.ctx.textAlign = "start";
   this.ctx.clearRect(600, 150, 600, 80); // removing previous letters (overlapping letters became boldish)
@@ -49,9 +49,7 @@ HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   this.ctx.closePath();
 };
 
-HangmanCanvas.prototype.drawHangman = function (shape) {
-  console.log(shape);
-  this.ctx.lineWidth = 3;
+HangmanCanvas.prototype.drawHangman = function (shape) { 
   //this.ctx.beginPath();
   if (shape === 9) {
     this.ctx.moveTo(100, 620);
@@ -127,7 +125,7 @@ HangmanCanvas.prototype.winner = function () {
   var imgWin = new Image();
   var that = this;
   imgWin.onload = function () {
-    that.ctx.drawImage(imgWin, 50, 50);
+    that.ctx.drawImage(imgWin, 50, 0);
   }
   imgWin.src = "images/awesome.png";
   hangman.status = false;

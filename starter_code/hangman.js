@@ -3,9 +3,9 @@ var hangman; // define the variable global! (with startgame button it is given a
 var canvasGame;
 
 function Hangman() {
-  this.words = ["chronometer", "piano", "microwave","fedde","momo"];
+  this.words = ["chronometer", "headphones", "microwave", "fantastic", "ironhack"];
   this.secretWord = this.getWord();
-  this.letters = []; // storing already clicked letters
+  this.letters = []; // storing already clicked letters wrong
   this.guessedLetter = ''; // string to store letters clicked and guessed
   this.errorsLeft = 10; // -- when false letter
   this.status = true; // for ending key input check
@@ -18,10 +18,7 @@ Hangman.prototype.getWord = function () {
 
 Hangman.prototype.checkIfLetter = function (key) {
   // if is [a-z] + 1 character (no Alt, Shift) then return true, else false (i = case insensitive)
-  console.log(key.length);
   return ((key.match(/[a-z]/i) && key.length === 1) ? true : false);
-  // apparently keycode is a number of the iput (65-90 is a-z)
-  // return (keyCode >= 65 && keyCode <= 90 ? true : false);
 };
 
 Hangman.prototype.checkClickedLetters = function (key) {
@@ -30,12 +27,9 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (key) {
-  // input is the index of the secretword letter that is guessed correctly!!
- // 77 has to be fixed! convert i (index of letter) to the keycode?
-    this.guessedLetter += key;
-    console.log(this.guessedLetter);
-    this.checkWinner();
-   
+  // key is the pressed letter, e.g. "a"
+  this.guessedLetter += key; 
+  this.checkWinner();
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
@@ -54,23 +48,19 @@ Hangman.prototype.checkWinner = function () {
     if (!this.guessedLetter.includes(this.secretWord.charAt(i))) {
       return false;
     }
-  } // else, all letters are found!
-  console.log("you won!");
+  } // else, all letters are found! 
   canvasGame.winner();
   return true;
 };
- 
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
-  console.log(hangman);
-  canvasGame = new HangmanCanvas(hangman.secretWord);
-  console.log(canvasGame);
+  hangman = new Hangman(); 
+  canvasGame = new HangmanCanvas(hangman.secretWord); 
   canvasGame.createBoard();
 };
 
-
-document.addEventListener("keydown", function (e) { 
+document.addEventListener("keydown", function (e) {
+  // when game is lost/won, don't register key inputs
   if (hangman.status === false) {
     return;
   }
@@ -82,22 +72,22 @@ document.addEventListener("keydown", function (e) {
   if (!hangman.checkIfLetter(e.key)) {
     return alert("not a letter! (a-z)");
   };
-  // is the letter in the secret word?
-  console.log(hangman.secretWord.includes(e.key));
+  // is the letter in the secret word? 
   if (hangman.secretWord.includes(e.key)) {
     hangman.addCorrectLetter(e.key);
     // at which positions?
     var correct = [];
-    for (var i = 0; i < hangman.secretWord.length; i++) { 
-      if(e.key === hangman.secretWord.charAt(i)) {
-        correct.push(i); 
+    for (var i = 0; i < hangman.secretWord.length; i++) {
+      if (e.key === hangman.secretWord.charAt(i)) {
+        correct.push(i);
       };
     };
+    // write correct letter in the canvas
     canvasGame.writeCorrectLetter(correct, e.key);
-  } else { // false
-    hangman.letters += e.key; 
+  } else { // wrong letter
+    hangman.letters += e.key;
     hangman.addWrongLetter();
-    canvasGame.writeWrongLetter(hangman.letters, hangman.errorsLeft);
+    canvasGame.writeWrongLetter(hangman.letters);
     canvasGame.drawHangman(hangman.errorsLeft);
   };
 });
