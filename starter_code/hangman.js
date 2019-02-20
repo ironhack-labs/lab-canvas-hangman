@@ -1,16 +1,22 @@
 var hangman;
 
-// function Hangman() {
+function Hangman() {
+this.words = ['pepe', 'maria', 'javier'];
+this.secretWord = "";
+this.letters = [];
+this.guessedLetter = "";
+this.errorsLeft = "";
+}
 
-// }
+Hangman.prototype.getWord = function () {
+var randomNumber = Math.floor(Math.random()*this.words.length);
+this.secretWord = this.words[randomNumber];
+return this.secretWord;
+};
 
-// Hangman.prototype.getWord = function () {
+Hangman.prototype.checkIfLetter = function (keyCode) {
 
-// };
-
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
+};
 
 // Hangman.prototype.checkClickedLetters = function (key) {
 
