@@ -50,6 +50,7 @@ Hangman.prototype.checkWinner = function () {
 window.onload = function(){
 
 document.getElementById('start-game-button').onclick = function () {
+  wrongLetterBaseline = 540;
   hangman = new Hangman();
   hangman.secretWord = hangman.getWord()
   hangmanCanvas = new HangmanCanvas(hangman.secretWord)
