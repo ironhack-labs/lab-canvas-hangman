@@ -5,7 +5,7 @@ this.words = ['pepe', 'maria', 'javier'];
 this.secretWord = "";
 this.letters = [];
 this.guessedLetter = "";
-this.errorsLeft = "";
+this.errorsLeft = 10;
 }
 
 Hangman.prototype.getWord = function () {
@@ -15,12 +15,17 @@ return this.secretWord;
 };
 
 Hangman.prototype.checkIfLetter = function (keyCode) {
-
+if (keyCode >= 65 && keyCode <= 90) {
+return true;
+}
+else {
+return false;
+}
 };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+Hangman.prototype.checkClickedLetters = function (key) {
 
-// };
+};
 
 // Hangman.prototype.addCorrectLetter = function (i) {
 
