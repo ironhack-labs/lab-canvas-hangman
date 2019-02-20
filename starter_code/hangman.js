@@ -32,13 +32,11 @@ Hangman.prototype.checkClickedLetters = function (key) {
 
 Hangman.prototype.addCorrectLetter = function (letter) {
   this.guessedLetter = this.guessedLetter + letter;
-  this.checkWinner();
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
   this.letters.push(letter);
   this.errorsLeft --;
-  this.checkGameOver();
 };
 
 Hangman.prototype.checkGameOver = function () {
@@ -70,6 +68,7 @@ document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
   secretWord = hangman.secretWord;
   hangmanCanvas = new HangmanCanvas (secretWord);
+  hangmanCanvas.cleanBoard();
   hangmanCanvas.createBoard(secretWord);
 };
 
@@ -81,10 +80,16 @@ document.onkeydown = function (e) {
       if(hangman.checkLetter(letter)) {
         hangman.addCorrectLetter(letter);
         hangmanCanvas.writeCorrectLetter(secretWord,letter,0);
+        if(hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
       } else {
         hangman.addWrongLetter(letter);
         hangmanCanvas.writeWrongLetter(letter,hangman.errorsLeft);
         hangmanCanvas.drawHangman(10-hangman.errorsLeft);
+        if(hangman.checkGameOver()===true) {
+          hangmanCanvas.gameOver();
+        }
       }
     }
   }
