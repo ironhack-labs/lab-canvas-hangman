@@ -41,44 +41,89 @@ this.errorsLeft = 10;
 
 
 
-
+/*
 Hangman.prototype.checkIfLetter = function (keyCode) {
 
  var keyCode = prompt("Please Type a letter");
 
- /* $("prompt").keyup(function(e){
-    keyCode = $("prompt").val()
-    console.log(keyCode) */
 
     if (keyCode >= 65 && keyCode <= 90){
- //    if (keyCode = /[a-z]\D/) {
       true;
     } else {
      // alert("Please type a letter");
      false;
     }
+*/
+    //-----------------
+
+    Hangman.prototype.checkIfLetter = function (keyCode) {
+
+      //This function should check if the key the user has typed is a letter.
+
+      /*var key = prompt("Please type a letter");
+
+      key = codigo; */
+
+     // keyCode = keyCode.which || keyCode.keyCode;
+  
+     // console.log("Presionada: " + codigo);
+  
+      if(keyCode >= 65 && keyCode <= 90){
+    //   return String.fromCharCode(keyCode);
+      return true;
+      } else {
+        return false;
+      }
+    
+  };
+
+ Hangman.prototype.checkClickedLetters = function (key) {
+
+  //Checks if the pressed letter has already been pressed and returns true if it was not or false in the opposite case.
+ 
+  if (this.letters.includes(key)) {
+    return false;
+  } else {
+    return true;
+  }
 
  };
+ 
+Hangman.prototype.addCorrectLetter = function (i) {
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+// Adds to the guessedLetter variable the letter that was pressed. Also, it should check if the user wins.
 
-// };
+this.guessedLetter = this.guessedLetter + this.secretWord[i].toUpperCase();
+this.checkWinner();
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+};
 
-// };
+ Hangman.prototype.addWrongLetter = function (letter) {
+ // Should subtract one from the variable errorsLeft and check if the game is over.
+ this.errorsLeft--;
+// this.errorsLeft == this.errorsLeft.toUpperCase;
+ this.checkGameOver();
+ };
 
-// Hangman.prototype.addWrongLetter = function (letter) {
+Hangman.prototype.checkGameOver = function () {
+  //Returns a boolean value, true if the users lose, and false in any other case.
+  if (this.errorsLeft === 0) {
+    return true;
+  } else {
+    return false;
+  }
 
-// };
+};
 
-// Hangman.prototype.checkGameOver = function () {
+Hangman.prototype.checkWinner = function () {
+  //Check if the users win and return a boolean value.
+  if (this.guessedLetter.length == this.secretWord.length) {
+    return true;
+  } else {
+    return false;
+  }
 
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+ };
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
