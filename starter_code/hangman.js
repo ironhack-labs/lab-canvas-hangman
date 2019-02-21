@@ -83,20 +83,5 @@ document.getElementById('start-game-button').onclick = function () {
 
 
 document.onkeydown = function (e) {
-  if(hangman == undefined) return;
-  if(!(hangman.checkIfLetter(e.keyCode)) || hangman.checkGameOver() || hangman.checkWinner()) return;
-  if(hangman.checkClickedLetters(e.key)) 
-    var letter = hangman.checkLetter(e.key); 
-    if(letter.length > 0)
-    {
-      hangman.addCorrectLetter(e.key);
-      hangmanCanvas.writeCorrectLetter(letter);
-    }
-    else
-    {
-      hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
-      hangman.addWrongLetter(e.key);
-    }
-  }
 
 };
