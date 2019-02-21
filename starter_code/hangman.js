@@ -60,8 +60,8 @@ document.getElementById('start-game-button').onclick = function () {
 };
 
 document.addEventListener("keydown", function (e) {
-  // when game is lost/won, don't register key inputs
-  if (hangman.status === false) {
+  // when game is lost/won or not started yet, don't register key inputs
+  if (hangman === undefined || hangman.status === false) {
     return;
   }
   // not pressed before?
