@@ -1,5 +1,14 @@
-.game-logo {
+body div {
+  text-align: center;
+}
 
+#title {
+  padding: 15% 0;
+}
+
+.game-logo {
+  width: 20%;
+  margin-top: 20px;
 }
 
 #start-game-button {
@@ -7,11 +16,16 @@
   box-shadow: 0;
   background: linear-gradient(to bottom, #9DA400, #BAC600);
   color: #fff;
-  padding: 20px 40px;
-  font-size: 30px;
+  padding: 15px 30px;
+  font-size: 20px;
   border-radius: 5px;
+  margin-top: 50px;
 }
 
 #hangman {
   text-align: center;
+}
+
+#game {
+  display: none;
 }

@@ -7,6 +7,7 @@ function Hangman() {
   this.guessedLetter = '';
   this.errorsLeft = 10;
   this.secretWord = this.getWord();
+  this.hangmanCanvas = new HangmanCanvas(this.secretWord);
 }
 
 Hangman.prototype.getWord = function () {
@@ -23,6 +24,7 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
+  this.hangmanCanvas.writeCorrectLetter(i);
   this.guessedLetter += this.secretWord[i].toUpperCase();
   if (this.checkWinner()) { console.log('winner'); }
   if (this.checkWinner()) {
@@ -32,6 +34,7 @@ Hangman.prototype.addCorrectLetter = function (i) {
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
+  this.hangmanCanvas.writeWrongLetter(letter, this.errorsLeft);
   this.errorsLeft--;
   if (this.checkGameOver()) { console.log('looser'); }
   if (this.checkGameOver()) {
