@@ -24,7 +24,7 @@ class Hangman {
     }
   }
   checkClickedLetters(key) {
-    return this.letters.includes(key);
+    return !this.letters.includes(key);
   }
   addCorrectLetter(i) {
     this.guessedLetter += this.secretWord[i].toUpperCase();
@@ -83,7 +83,7 @@ document.onkeydown = e => {
     const letter = key.toUpperCase();
 
     if (hangman.checkIfLetter(keyCode)) {
-      if (!hangman.checkClickedLetters(letter)) {
+      if (hangman.checkClickedLetters(letter)) {
         const indexOfLetter = hangman.secretWord.indexOf(letter);
 
         if (indexOfLetter !== -1) {
