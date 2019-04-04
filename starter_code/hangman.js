@@ -54,7 +54,8 @@ document.getElementById('start-game-button').onclick = function () {
 
 document.onkeydown = function (e) {
   if (hangman !== undefined && hangmanCanvas.start === 0) {
-  if (hangman.checkIfLetter(e.keyCode)) {
+  debugger
+    if (hangman.checkIfLetter(e.keyCode)) {
     let up = e.key.toUpperCase()
     if (hangman.checkClickedLetters(up)) {
       hangman.letters.push(up)
