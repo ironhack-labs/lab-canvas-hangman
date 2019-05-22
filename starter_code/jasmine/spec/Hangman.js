@@ -21,7 +21,7 @@ describe('Juego hangman', function () {
 
         it('La funcion para tener una palabra random no regresa 2 veces la misma palabra', function () {
 
-
+            //Esto deberia hacerse con un array para probar que hasta n-1 intentos no hay repeticion
             let p1 = ConfigJuego.getRandomPalabra();
             let p2 = ConfigJuego.getRandomPalabra();
             let p3 = ConfigJuego.getRandomPalabra();
@@ -33,66 +33,46 @@ describe('Juego hangman', function () {
     });
 
 
-    describe('Proceso de Juego"', function () {
+    describe('Inicializacion  Juego"', function () {
 
         let juego = new Juego("ecologia");
 
 
-        it('Evaluacion de estado inicial - usando palabra ecologia', function () {
+        it('La palabra oculta se guarda y se cnvierte en un arrya de letras', function () {
 
             let palabra = juego.getPalabraOculta();
 
             expect(typeof palabra).toBe('string');
 
             //la palabra que usamos
-            expect(palabra === 'ecologia').toBeTruthy();
+            expect(palabra).toBe("ecologia");
 
             //la palabra oculta
-            expect(typeof juego.listaLetrasPalabraOculta).toBe('array');
+            expect(typeof juego.listaLetrasPalabraOculta).toBe('object');
             expect(juego.listaLetrasPalabraOculta.length).toBe(8);
             expect(juego.listaLetrasPalabraOculta.join('')).toBe("ecologia");
 
+        });
+
+
+        it('La palabra adivinada tiene el mismo numero de letras y se cera un arra', function () {
 
             //la palabra adivinada
-            expect(typeof juego.listaLetrasPalabraAdivinada).toBe('array');
+            expect(typeof juego.listaLetrasPalabraAdivinada).toBe('object');
             expect(juego.listaLetrasPalabraAdivinada.length).toBe(8);
-            expect(juego.listaLetrasPalabraOculta.join('')).toBe("________");
+            expect(juego.listaLetrasPalabraAdivinada.join('')).toBe("________");
+        });
 
+
+        it('Las letras intentadas son un array vacio', function () {
 
             //lista de letras intentadas
-            expect(typeof juego.listaLetrasIntentadas).toBe('array');
+            expect(typeof juego.listaLetrasIntentadas).toBe('object');
             expect(juego.listaLetrasIntentadas.length).toBe(0);
-
-
-            expect(typeof juego.listaLetrasPalabraAdivinada).toBe('array');
 
         });
 
     });
 
-
-    // describe('Check if is a letter', function () {
-    //     it('checkIfLetter should be a function', function () {
-    //         expect(typeof (juego.checkIfLetter)).toBe('function');
-    //     });
-    //
-    //     it('checkIfLetter should receive a number', function () {
-    //         expect(typeof (juego.checkIfLetter)).toBe('function');
-    //     });
-    //
-    //     it('checkIfLetter should return a boolean', function () {
-    //         var keyCode = 43;
-    //         juego.checkIfLetter(keyCode);
-    //         expect(typeof (keyCode)).toBe('number');
-    //     });
-    //
-    //     it('checkIfLetter should return false', function () {
-    //         expect(juego.checkIfLetter(43)).toEqual(false);
-    //     });
-    //
-    //     it('checkIfLetter should return true', function () {
-    //         expect(juego.checkIfLetter(76)).toEqual(true);
-    //     });
-    // });
 
 });

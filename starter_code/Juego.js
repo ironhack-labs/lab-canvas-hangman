@@ -22,19 +22,19 @@ const ConfigJuego = {
         getRandomPalabra: function () {
 
             function f(lista) {
-                let index = Math.floor( Math.random()* lista.length );
+                let index = Math.floor(Math.random() * lista.length);
                 return lista[index];
             }
 
-            if(this.listaPalabrasRandomProporcionadas.length===this.getlistaPalabrasPosibles().length){
-                this.listaPalabrasRandomProporcionadas.length=[];
+            if (this.listaPalabrasRandomProporcionadas.length === this.getlistaPalabrasPosibles().length) {
+                this.listaPalabrasRandomProporcionadas.length = [];
             }
 
-            let p=null;
-            do{
-                p=f(this.getlistaPalabrasPosibles());
+            let p = null;
+            do {
+                p = f(this.getlistaPalabrasPosibles());
 
-            }while ( this.listaPalabrasRandomProporcionadas.indexOf(p)>-1);
+            } while (this.listaPalabrasRandomProporcionadas.indexOf(p) > -1);
 
             this.listaPalabrasRandomProporcionadas.push(p);
 
@@ -107,15 +107,17 @@ class Juego {
             throw  Error("se requiere la palabra oculta");
         }
 
-        this.estado = EstadosJuego.before_play;
+        this.estado = ConfigJuego.estados.before_play;
 
-        this.palabraOculta = palabraOculta;
+        this.getPalabraOculta = () => {
+            return this.palabraOculta;
+        };
 
         this.listaLetrasIntentadas = [];
         this.listaLetrasPalabraOculta = palabraOculta.split('');
         this.listaLetrasPalabraAdivinada = this.listaLetrasPalabraOculta.map(letra => {
             return "_";
-        }).join('');
+        });
 
 
         this.numIntentos = 0;
@@ -123,9 +125,6 @@ class Juego {
         this.numMaximoIntentos = 7; /*  unp por cabeza, cuello, manos,piernas, tronco */
     }
 
-    getPalabraOculta() {
-        return this.palabraOculta;
-    }
 
     ejecutarJugada(letra) {
 
