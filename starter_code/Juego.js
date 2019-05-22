@@ -41,7 +41,8 @@ const ConfigJuego = {
             return p;
         },
 
-        listaPalabrasRandomProporcionadas: []
+        listaPalabrasRandomProporcionadas: [],
+        numMaximoIntentos: 7
 
     }
 ;
@@ -91,7 +92,7 @@ const FactoryResultadoTurno = {
     seguirJugando: (numIntentosRestantes) => {
         var m = new ResultadoTurno(
             true,
-            `El juego sigue`,
+            ``,
             numIntentosRestantes,
             ConfigJuego.estados.on_play)
         ;
@@ -110,8 +111,9 @@ class Juego {
         this.estado = ConfigJuego.estados.before_play;
 
         this.getPalabraOculta = () => {
-            return this.palabraOculta;
+            return palabraOculta;
         };
+
 
         this.listaLetrasIntentadas = [];
         this.listaLetrasPalabraOculta = palabraOculta.split('');
@@ -122,9 +124,12 @@ class Juego {
 
         this.numIntentos = 0;
         this.numAciertos = 0;
-        this.numMaximoIntentos = 7; /*  unp por cabeza, cuello, manos,piernas, tronco */
+
     }
 
+    getPalabraAdivinada() {
+        return this.listaLetrasPalabraAdivinada.join('');
+    }
 
     ejecutarJugada(letra) {
 
@@ -135,39 +140,50 @@ class Juego {
         });
 
         if (index > -1) {
-            return FactoryResultadoTurno.errorLetraRepetida(letra, this.numMaximoIntentos - this.numIntentos)
+            return FactoryResultadoTurno.errorLetraRepetida(letra, ConfigJuego.numMaximoIntentos - this.numIntentos)
         }
+
+        let numLetras = this.listaLetrasPalabraAdivinada.length;
 
         /* buscar si existe la letra en la palabra*/
 
+
         this.numIntentos++;
 
-        for (let i = 0; i < this.listaLetrasPalabraOculta.length; i++) {
+        /* no importa cuantas veces se repita la letra solo se aceirta una vez*/
+        let isLetraEsAcertada = false;
+
+        for (let i = 0; i < numLetras; i++) {
+
             if (letra === this.listaLetrasPalabraOculta[i]) {
 
                 //hay coincidencia - poner la letra adivinada
                 this.listaLetrasPalabraAdivinada[i] = letra;
-
-                this.numAciertos++;
+                isLetraEsAcertada = true;
             }
         }
 
-        //Evaluar si gano
+        if (isLetraEsAcertada) {
 
-        if (this.numAciertos === this.listaLetrasPalabraAdivinada.length) {
+            this.numAciertos++;
 
-            return FactoryResultadoTurno.jugadaGanadora();
+            //Evaluar si gano
+
+            if (this.numAciertos === numLetras) {
+                return FactoryResultadoTurno.jugadaGanadora();
+            }
 
         }
 
 
         //Evaluar si ya perdio
-        if (this.numIntentos === this.numMaximoIntentos) {
+        if (this.numIntentos === ConfigJuego.numMaximoIntentos) {
             return FactoryResultadoTurno.jugadaPerdedora();
         }
 
 
-        return FactoryResultadoTurno.seguirJugando(this.numMaximoIntentos - this.numIntentos);
+        let num = ConfigJuego.numMaximoIntentos - this.numIntentos;
+        return FactoryResultadoTurno.seguirJugando(num);
     }
 
 }

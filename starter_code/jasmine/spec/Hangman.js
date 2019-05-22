@@ -33,12 +33,12 @@ describe('Juego hangman', function () {
     });
 
 
-    describe('Inicializacion  Juego"', function () {
+    describe('Inicializacion  Juego', function () {
 
         let juego = new Juego("ecologia");
 
 
-        it('La palabra oculta se guarda y se cnvierte en un arrya de letras', function () {
+        it('La palabra oculta se guarda y se convierte en un array de letras', function () {
 
             let palabra = juego.getPalabraOculta();
 
@@ -47,7 +47,8 @@ describe('Juego hangman', function () {
             //la palabra que usamos
             expect(palabra).toBe("ecologia");
 
-            //la palabra oculta
+
+            //la palabra oculta como array
             expect(typeof juego.listaLetrasPalabraOculta).toBe('object');
             expect(juego.listaLetrasPalabraOculta.length).toBe(8);
             expect(juego.listaLetrasPalabraOculta.join('')).toBe("ecologia");
@@ -55,7 +56,13 @@ describe('Juego hangman', function () {
         });
 
 
-        it('La palabra adivinada tiene el mismo numero de letras y se cera un arra', function () {
+        it('La palabra adivinada tiene el mismo numero de letras que la oculta y se hace array', function () {
+
+            //la palabra oculta como string
+            expect(typeof juego.getPalabraAdivinada).toBe('function');
+            expect(typeof juego.getPalabraAdivinada()).toBe("string");
+            expect(juego.getPalabraAdivinada()).toBe("________");
+
 
             //la palabra adivinada
             expect(typeof juego.listaLetrasPalabraAdivinada).toBe('object');
@@ -71,6 +78,38 @@ describe('Juego hangman', function () {
             expect(juego.listaLetrasIntentadas.length).toBe(0);
 
         });
+
+    });
+
+    describe('Turno de Juego"', function () {
+
+        let palabraOcultaTest = "kilometro";
+
+        let juego = new Juego(palabraOcultaTest);
+
+
+        it('Jugada Letra no existe ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("x");
+
+            expect(typeof resultadoTurno).toBe('object');
+
+           /*el juego esta continuanco - fu 1er intento*/
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+            /* un inenro menos disponible r*/
+            expect(resultadoTurno.numIntentosRestantes).toBe( ConfigJuego.numMaximoIntentos-1);
+
+            /* la palabra adivinada sigue sin cambiar*/
+
+
+        });
+
+
+
 
     });
 
