@@ -5,27 +5,24 @@
  */
 
 
-
-
-
 const app = new Vue({
     el: '#app',
     data: {
-
-
-        juego:{
-            estado:'before_play',
-            palabraOculta:null,
-            palabraAdivinada:null,
-            numIntentos:0
-        }
+        juego:null
     },
     methods: {
         onClickStart(){
-
+            //incializar el juego
+            let palabra= ConfigJuego.getRandomPalabra();
+            this.juego=new Juego(palabra);
         }
     },
+    computed:{
+        getLista
+    }
+    ,
     mounted() {
+
 
     }
 });

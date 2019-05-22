@@ -1,8 +1,52 @@
 'use strict';
 
+
 /**
  * Created by David on 21/05/2019.
  */
+
+
+
+const ConfigJuego = {
+
+        estados: {
+            'before_play': 0,
+            'on_play': 1,
+            'end_win': 2,
+            'end_loose': 3
+        },
+        getlistaPalabrasPosibles: function () {
+            return ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'];
+        }
+        ,
+        getRandomPalabra: function () {
+
+            function f(lista) {
+                let index = Math.floor( Math.random()* lista.length );
+                return lista[index];
+            }
+
+            if(this.listaPalabrasRandomProporcionadas.length===this.getlistaPalabrasPosibles().length){
+                this.listaPalabrasRandomProporcionadas.length=[];
+            }
+
+            let p=null;
+            do{
+                p=f(this.getlistaPalabrasPosibles());
+
+            }while ( this.listaPalabrasRandomProporcionadas.indexOf(p)>-1);
+
+            this.listaPalabrasRandomProporcionadas.push(p);
+
+            return p;
+        },
+
+        listaPalabrasRandomProporcionadas: []
+
+    }
+;
+
+
 class ResultadoTurno {
     constructor(success, msg, numIntentosRestantes, estadoJuego) {
 
@@ -13,8 +57,6 @@ class ResultadoTurno {
     }
 }
 
-let EstadosJuego = {'before_play': 0, 'on_play': 1, 'end_win': 2, 'end_loose': 3};
-
 
 const FactoryResultadoTurno = {
     errorLetraRepetida: (letra, intentosRestantes,) => {
@@ -22,7 +64,7 @@ const FactoryResultadoTurno = {
             false,
             `La letra ${letra} ya se intentó anteriormente, intentar otra letra`,
             intentosRestantes,
-            EstadosJuego.on_play);
+            ConfigJuego.estados.on_play);
 
         return m;
     },
@@ -31,7 +73,7 @@ const FactoryResultadoTurno = {
             true,
             `Ganaste !!!`,
             0,
-            EstadosJuego.end_win)
+            ConfigJuego.estados.end_win)
         ;
 
         return m;
@@ -41,7 +83,7 @@ const FactoryResultadoTurno = {
             true,
             `Perdiste :( !!!`,
             0,
-            EstadosJuego.end_loose)
+            ConfigJuego.estados.end_loose)
         ;
 
         return m;
@@ -51,7 +93,7 @@ const FactoryResultadoTurno = {
             true,
             `El juego sigue`,
             numIntentosRestantes,
-            EstadosJuego.on_play)
+            ConfigJuego.estados.on_play)
         ;
 
         return m;
@@ -65,13 +107,13 @@ class Juego {
             throw  Error("se requiere la palabra oculta");
         }
 
-        this.estado = this.estados_juego.before_play;
+        this.estado = EstadosJuego.before_play;
 
         this.palabraOculta = palabraOculta;
 
         this.listaLetrasIntentadas = [];
-        this.listaLetrasPalabraOculta = palabraOculta.splice('');
-        this.listaLetrasPalabraAdivinada = lista.map(letra => {
+        this.listaLetrasPalabraOculta = palabraOculta.split('');
+        this.listaLetrasPalabraAdivinada = this.listaLetrasPalabraOculta.map(letra => {
             return "_";
         }).join('');
 
@@ -79,6 +121,10 @@ class Juego {
         this.numIntentos = 0;
         this.numAciertos = 0;
         this.numMaximoIntentos = 7; /*  unp por cabeza, cuello, manos,piernas, tronco */
+    }
+
+    getPalabraOculta() {
+        return this.palabraOculta;
     }
 
     ejecutarJugada(letra) {
@@ -126,14 +172,3 @@ class Juego {
     }
 
 }
-
-const OpcionesJuego = {
-
-    getlistaPalabras: function () {
-        return ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'];
-    },
-    getRandomPalabra: function () {
-        let index = Math.random(0, this.listaPalabras.length - 1);
-        return this.listaPalabras[index];
-    }
-};
