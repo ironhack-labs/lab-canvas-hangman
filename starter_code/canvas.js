@@ -40,14 +40,18 @@ HangmanCanvas.prototype.drawLines = function () {
 
 };
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-  let x = 199 + (index * 75);
-  let y = 740;
+HangmanCanvas.prototype.writeCorrectLetter = function (indeces) {
+  
+  for(let i = 0; i < indeces.length; i++){
+    let x = 199 + (indeces[i] * 75);
+    let y = 740;
 
-this.ctx.fillStyle = "black";
-this.ctx.textAlign = "center";
-this.ctx.font = "30px Arial";
-this.ctx.fillText(this.secretWord[index], x, y);
+    this.ctx.fillStyle = "black";
+    this.ctx.textAlign = "center";
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText(this.secretWord[indeces[i]], x, y);
+  }
+  
   
 };
 

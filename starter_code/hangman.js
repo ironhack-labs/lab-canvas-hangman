@@ -3,7 +3,7 @@
   }
 
   function Hangman(){
-    this.words = ['uno', 'trece', 'tres','dos'];
+    this.words = ['cacho', 'cacho', 'cacho','cacho'];
     this.secretWord = this.getWord();
     this.guessedLetter = '';
     this.letters = [];
@@ -69,7 +69,6 @@ document.getElementById('start-game-button').onclick = function () {
 
 document.onkeydown = function (e) {
   let secretWord = hangmanCanvas.secretWord;
-  console.log(secretWord)
 
  if(hangman.checkIfLetter(e.keyCode)){
    if(!hangman.checkClickedLetters(e.key)){
@@ -79,11 +78,16 @@ document.onkeydown = function (e) {
    else{
      //Tecla nueva
      if(secretWord.includes(e.key)){
-       //should write it in the position it corresponds
-       //should retrieve the index number
-      index = secretWord.indexOf(e.key);
-      console.log(index)
-      hangmanCanvas.writeCorrectLetter(index);
+
+      let indices= [], i;
+
+      for(i = 0; i < secretWord.length; i++) {
+      if (secretWord[i] === e.key) {
+        indices.push(i);
+      }
+      }
+
+      hangmanCanvas.writeCorrectLetter(indices);
      }
      else{
        //write the letter in the top right corner
