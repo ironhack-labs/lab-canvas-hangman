@@ -145,12 +145,12 @@ class Juego {
 
         let numLetras = this.listaLetrasPalabraAdivinada.length;
 
-        /* buscar si existe la letra en la palabra*/
 
-
+        /* registrar la letra intentada y contar intento*/
+        this.listaLetrasIntentadas.push(letra);
         this.numIntentos++;
 
-        /* no importa cuantas veces se repita la letra solo se aceirta una vez*/
+        /* ver si hay acierto - no importa cuantas veces se repita la letra solo se aceirta una vez*/
         let isLetraEsAcertada = false;
 
         for (let i = 0; i < numLetras; i++) {
