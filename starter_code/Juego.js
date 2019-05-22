@@ -129,8 +129,9 @@ class Juego {
 
 const OpcionesJuego = {
 
-    getlistaPalabras: ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'],
-
+    getlistaPalabras: function () {
+        return ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'];
+    },
     getRandomPalabra: function () {
         let index = Math.random(0, this.listaPalabras.length - 1);
         return this.listaPalabras[index];

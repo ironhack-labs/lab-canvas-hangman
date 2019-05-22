@@ -1,13 +1,13 @@
-describe('juego Game', function () {
-  var juego;
+describe('parametros iniciales', function () {
+
 
 
   describe('Words to Pick', function () {
     it('There should be an array of words', function () {
-      expect(OpcionesJuego.listaPalabras).toBeDefined();
+      expect(OpcionesJuego.getlistaPalabras).toBeDefined();
     });
     it('There should be at least one word to pick', function () {
-      expect(juego.words.length).toBeGreaterThan(2);
+      expect(OpcionesJuego.getlistaPalabras().length).toBeGreaterThan(2);
     });
   });
 
