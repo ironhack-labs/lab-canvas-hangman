@@ -123,7 +123,7 @@ class Juego {
 
 
         this.numError = 0;
-        this.numAciertos = 0;
+
 
     }
 
@@ -163,17 +163,24 @@ class Juego {
             }
         }
 
-        if (isLetraEsAcertada) {
 
-            this.numAciertos++;
+        if (isLetraEsAcertada) {
 
             //Evaluar si gano
 
-            if (this.numAciertos === numLetras) {
+            let numLetrasAdivinadas = this.listaLetrasPalabraAdivinada
+                .filter(letra => {
+                    return letra !== '_';
+                }).length;
+
+
+
+
+            if (numLetrasAdivinadas === numLetras) {
                 return FactoryResultadoTurno.jugadaGanadora();
             }
 
-        }else{
+        } else {
             this.numError++;
         }
 
@@ -182,7 +189,6 @@ class Juego {
         if (this.numError === ConfigJuego.numMaximoErrores) {
             return FactoryResultadoTurno.jugadaPerdedora();
         }
-
 
 
         return FactoryResultadoTurno.seguirJugando(this.numError);

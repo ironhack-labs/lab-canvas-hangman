@@ -84,9 +84,7 @@ describe('Juego hangman', function () {
             expect(juego.numError).toBe(0);
         });
 
-        it('El numero de aciertos del edo ini es 0', function () {
-            expect(juego.numAciertos).toBe(0);
-        });
+
 
 
     });
@@ -98,7 +96,7 @@ describe('Juego hangman', function () {
         let juego = new Juego(palabraOcultaTest);
 
 
-        it('Jugada Letra no existe - x', function () {
+        it('Jugada 1 - Letra no existe - x', function () {
 
             let resultadoTurno = juego.ejecutarJugada("x");
 
@@ -123,7 +121,7 @@ describe('Juego hangman', function () {
 
         });
 
-        it('Volver a juagar la misma letra - x ', function () {
+        it('Jugada 1 - Volver a juagar la misma letra - x ', function () {
 
             let resultadoTurno = juego.ejecutarJugada("x");
 
@@ -151,7 +149,8 @@ describe('Juego hangman', function () {
         });
 
 
-        it('Jugar letra con 1 coincidencia - s ', function () {
+        it('Jugar 2 - letra con 1 coincidencia - s ', function () {
+
 
             let resultadoTurno = juego.ejecutarJugada("s");
 
@@ -179,7 +178,8 @@ describe('Juego hangman', function () {
 
         });
 
-        it('Jugar letra con 2 coincidencia - c ', function () {
+        it('Jugada 3 - letra con 2 coincidencia - c ', function () {
+
 
             let resultadoTurno = juego.ejecutarJugada("c");
 
@@ -210,7 +210,7 @@ describe('Juego hangman', function () {
 
 
 
-        it('Jugar letra que non existe  -h ', function () {
+        it('Jugada 4 - letra que non existe  -h ', function () {
 
             let resultadoTurno = juego.ejecutarJugada("h");
 
@@ -232,9 +232,57 @@ describe('Juego hangman', function () {
 
             let pad = juego.getPalabraAdivinada();
             expect(pad).toBe("c_sc___");
-
-
         });
+
+
+
+        it('Jugada 5 - Jugar letra que existe  -d ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("d");
+
+            /* se almacena la letra en letras intentadas*/
+            expect(juego.listaLetrasIntentadas.length).toBe(5);
+            expect(juego.listaLetrasIntentadas[4]).toBe("d");
+
+
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+            /* el mimso numero de errores */
+            expect(resultadoTurno.numErrores).toBe(2);
+
+
+            /* la palabra adivinada no cambia*/
+
+            let pad = juego.getPalabraAdivinada();
+            expect(pad).toBe("c_sc_d_");
+        });
+
+        it('Jugada 6 - Jugada ganadora - a ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("a");
+
+            /* se almacena la letra en letras intentadas*/
+            expect(juego.listaLetrasIntentadas.length).toBe(6);
+            expect(juego.listaLetrasIntentadas[5]).toBe("a");
+
+
+            /*cambioo de estado del juego a ganador*/
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.end_win);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+
+            /* la palabra adivinada completa*/
+
+            let pad = juego.getPalabraAdivinada();
+            expect(pad).toBe("cascada");
+        });
+
+
     });
 
 
