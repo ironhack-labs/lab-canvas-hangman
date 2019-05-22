@@ -63,6 +63,11 @@ let hangman = new Hangman()
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas('ironhacker');
+
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines();
+  hangmanCanvas.writeCorrectLetter(1);
 };
 
 document.onkeydown = function (e) {
