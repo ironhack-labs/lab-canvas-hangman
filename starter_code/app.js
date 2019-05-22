@@ -12,7 +12,7 @@ const app = new Vue({
     el: '#app',
     data: {
 
-        listaPalabras:['perro','casa','gato','ganzo','mamut','avestruz','abejorro','tarantula'],
+
         juego:{
             estado:'before_play',
             palabraOculta:null,

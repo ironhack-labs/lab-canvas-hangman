@@ -16,7 +16,7 @@ class ResultadoTurno {
 let EstadosJuego = {'before_play': 0, 'on_play': 1, 'end_win': 2, 'end_loose': 3};
 
 
-let FactoryResultadoTurno = {
+const FactoryResultadoTurno = {
     errorLetraRepetida: (letra, intentosRestantes,) => {
         var m = new ResultadoTurno(
             false,
@@ -78,7 +78,7 @@ class Juego {
 
         this.numIntentos = 0;
         this.numAciertos = 0;
-        this.numMaximoIntentos =10;
+        this.numMaximoIntentos = 7; /*  unp por cabeza, cuello, manos,piernas, tronco */
     }
 
     ejecutarJugada(letra) {
@@ -126,3 +126,13 @@ class Juego {
     }
 
 }
+
+const OpcionesJuego = {
+
+    getlistaPalabras: ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'],
+
+    getRandomPalabra: function () {
+        let index = Math.random(0, this.listaPalabras.length - 1);
+        return this.listaPalabras[index];
+    }
+};
