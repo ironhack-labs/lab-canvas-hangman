@@ -171,9 +171,8 @@ class Juego {
             let numLetrasAdivinadas = this.listaLetrasPalabraAdivinada
                 .filter(letra => {
                     return letra !== '_';
-                }).length;
-
-
+                })
+                .length;
 
 
             if (numLetrasAdivinadas === numLetras) {
@@ -187,7 +186,7 @@ class Juego {
 
         //Evaluar si ya perdio
         if (this.numError === ConfigJuego.numMaximoErrores) {
-            return FactoryResultadoTurno.jugadaPerdedora();
+            return FactoryResultadoTurno.jugadaPerdedora(this.numError);
         }
 
 

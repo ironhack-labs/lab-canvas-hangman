@@ -89,7 +89,7 @@ describe('Juego hangman', function () {
 
     });
 
-    describe('Turno de Juego - juego ganador', function () {
+    describe('Secuencia de Juego - juego ganador', function () {
 
         let palabraOcultaTest = "cascada";
 
@@ -286,4 +286,55 @@ describe('Juego hangman', function () {
     });
 
 
+    describe('Secuencia de Juego - juego perdedor', function () {
+
+        let palabraOcultaTest = "paz";
+
+        let juego = new Juego(palabraOcultaTest);
+
+
+        it(`Jugada 1 - Letra no existe - b`, function () {
+            let resultadoTurno = juego.ejecutarJugada('b');
+            expect(resultadoTurno.numErrores).toBe(1);
+        });
+
+        it(`Jugada 2 - Letra no existe - c`, function () {
+            let resultadoTurno = juego.ejecutarJugada('c');
+            expect(resultadoTurno.numErrores).toBe(2);
+        });
+
+        it(`Jugada 3 - Letra no existe - d`, function () {
+            let resultadoTurno = juego.ejecutarJugada('d');
+            expect(resultadoTurno.numErrores).toBe(3);
+        });
+
+        it(`Jugada 4 - Letra no existe - e`, function () {
+            let resultadoTurno = juego.ejecutarJugada('e');
+            expect(resultadoTurno.numErrores).toBe(4);
+        });
+
+        it(`Jugada 5 - Letra no existe - f`, function () {
+            let resultadoTurno = juego.ejecutarJugada('f');
+            expect(resultadoTurno.numErrores).toBe(5);
+        });
+
+        it(`Jugada 6 - Letra no existe - g`, function () {
+            let resultadoTurno = juego.ejecutarJugada('g');
+            expect(resultadoTurno.numErrores).toBe(6);
+        });
+
+        it('Jugada 7 Perdedora - Letra no existe - x', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("x");
+
+            expect(resultadoTurno.numErrores).toBe(7);
+            expect(resultadoTurno.estadoJuego ===ConfigJuego.estados.end_loose);
+
+        });
+
+
+
+    });
 });
+
+
