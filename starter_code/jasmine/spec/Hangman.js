@@ -77,11 +77,21 @@ describe('Juego hangman', function () {
             expect(typeof juego.listaLetrasIntentadas).toBe('object');
             expect(juego.listaLetrasIntentadas.length).toBe(0);
 
+
         });
+
+        it('El numero de errores del edo ini es 0', function () {
+            expect(juego.numError).toBe(0);
+        });
+
+        it('El numero de aciertos del edo ini es 0', function () {
+            expect(juego.numAciertos).toBe(0);
+        });
+
 
     });
 
-    describe('Turno de Juego"', function () {
+    describe('Turno de Juego - juego ganador', function () {
 
         let palabraOcultaTest = "cascada";
 
@@ -96,21 +106,16 @@ describe('Juego hangman', function () {
             expect(juego.listaLetrasIntentadas.length).toBe(1);
             expect(juego.listaLetrasIntentadas[0]).toBe("x");
 
-
-            /* se almacena la letra en letras intentadas*/
-            expect(juego.listaLetrasIntentadas.length).toBe(1);
-
             expect(typeof resultadoTurno).toBe('object');
 
 
-            /*el juego esta continuanco - 1er intento*/
             expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
 
             /* la juugada es exitosa porque no genero error*/
             expect(resultadoTurno.success).toBeTruthy();
 
             /* un inenro menos disponible r*/
-            expect(resultadoTurno.numIntentosRestantes).toBe(ConfigJuego.numMaximoIntentos - 1);
+            expect(resultadoTurno.numErrores).toBe(1);
 
             /* la palabra adivinada sigue sin cambiar 7 letas*/
             let pad = juego.getPalabraAdivinada();
@@ -122,7 +127,6 @@ describe('Juego hangman', function () {
 
             let resultadoTurno = juego.ejecutarJugada("x");
 
-            /*el juego esta continuanco - 2o intento*/
             expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
 
             /* la juugada no es exitosa */
@@ -138,8 +142,8 @@ describe('Juego hangman', function () {
             expect(juego.listaLetrasIntentadas[0]).toBe("x");
 
 
-            /* un inenro menos disponible r*/
-            expect(resultadoTurno.numIntentosRestantes).toBe(ConfigJuego.numMaximoIntentos - 1);
+            /* es el mimo numero de eeroes , no se conisderó como juegada */
+            expect(resultadoTurno.numErrores).toBe(1);
 
             /* la palabra adivinada sigue sin cambiar 7 letas*/
             let pad = juego.getPalabraAdivinada();
@@ -147,6 +151,90 @@ describe('Juego hangman', function () {
         });
 
 
+        it('Jugar letra con 1 coincidencia - s ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("s");
+
+            /* se almacena la letra en letras intentadas*/
+            expect(juego.listaLetrasIntentadas.length).toBe(2);
+            expect(juego.listaLetrasIntentadas[0]).toBe("x");
+            expect(juego.listaLetrasIntentadas[1]).toBe("s");
+
+
+
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+            /* solo hemos tenido un error r*/
+            expect(resultadoTurno.numErrores).toBe(1);
+
+            expect(juego.listaLetrasPalabraAdivinada[2]).toBe("s");
+
+
+            let pad = juego.getPalabraAdivinada();
+            expect(pad).toBe("__s____");
+
+
+        });
+
+        it('Jugar letra con 2 coincidencia - c ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("c");
+
+            /* se almacena la letra en letras intentadas*/
+            expect(juego.listaLetrasIntentadas.length).toBe(3);
+            expect(juego.listaLetrasIntentadas[0]).toBe("x");
+            expect(juego.listaLetrasIntentadas[1]).toBe("s");
+            expect(juego.listaLetrasIntentadas[2]).toBe("c");
+
+
+
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+            /* seguimos con un solo error*/
+            expect(resultadoTurno.numErrores).toBe(1);
+
+            expect(juego.listaLetrasPalabraAdivinada[2]).toBe("s");
+
+
+            let pad = juego.getPalabraAdivinada();
+            expect(pad).toBe("c_sc___");
+
+
+        });
+
+
+
+        it('Jugar letra que non existe  -h ', function () {
+
+            let resultadoTurno = juego.ejecutarJugada("h");
+
+            /* se almacena la letra en letras intentadas*/
+            expect(juego.listaLetrasIntentadas.length).toBe(4);
+            expect(juego.listaLetrasIntentadas[3]).toBe("h");
+
+
+            expect(resultadoTurno.estadoJuego).toBe(ConfigJuego.estados.on_play);
+
+            /* la juugada es exitosa porque no genero error*/
+            expect(resultadoTurno.success).toBeTruthy();
+
+            /*tenemos otro error*/
+            expect(resultadoTurno.numErrores).toBe(2);
+
+
+            /* la palabra adivinada no cambia*/
+
+            let pad = juego.getPalabraAdivinada();
+            expect(pad).toBe("c_sc___");
+
+
+        });
     });
 
 

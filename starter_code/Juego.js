@@ -42,58 +42,58 @@ const ConfigJuego = {
         },
 
         listaPalabrasRandomProporcionadas: [],
-        numMaximoIntentos: 7
+        numMaximoErrores: 7
 
     }
 ;
 
 
 class ResultadoTurno {
-    constructor(success, msg, numIntentosRestantes, estadoJuego) {
+    constructor(success, msg, numErrores, estadoJuego) {
 
         this.success = success;
         this.msg = msg;
-        this.numIntentosRestantes = numIntentosRestantes;
+        this.numErrores = numErrores;
         this.estadoJuego = estadoJuego;
     }
 }
 
 
 const FactoryResultadoTurno = {
-    errorLetraRepetida: (letra, intentosRestantes,) => {
+    errorLetraRepetida: (letra, numErrores,) => {
         var m = new ResultadoTurno(
             false,
             `La letra ${letra} ya se intentó anteriormente, intentar otra letra`,
-            intentosRestantes,
+            numErrores,
             ConfigJuego.estados.on_play);
 
         return m;
     },
-    jugadaGanadora: () => {
+    jugadaGanadora: (numErrores) => {
         var m = new ResultadoTurno(
             true,
             `Ganaste !!!`,
-            0,
+            numErrores,
             ConfigJuego.estados.end_win)
         ;
 
         return m;
     },
-    jugadaPerdedora: () => {
+    jugadaPerdedora: (numErrores) => {
         var m = new ResultadoTurno(
             true,
             `Perdiste :( !!!`,
-            0,
+            numErrores,
             ConfigJuego.estados.end_loose)
         ;
 
         return m;
     },
-    seguirJugando: (numIntentosRestantes) => {
+    seguirJugando: (numErrores) => {
         var m = new ResultadoTurno(
             true,
             ``,
-            numIntentosRestantes,
+            numErrores,
             ConfigJuego.estados.on_play)
         ;
 
@@ -122,7 +122,7 @@ class Juego {
         });
 
 
-        this.numIntentos = 0;
+        this.numError = 0;
         this.numAciertos = 0;
 
     }
@@ -140,7 +140,7 @@ class Juego {
         });
 
         if (index > -1) {
-            return FactoryResultadoTurno.errorLetraRepetida(letra, ConfigJuego.numMaximoIntentos - this.numIntentos)
+            return FactoryResultadoTurno.errorLetraRepetida(letra, this.numError)
         }
 
         let numLetras = this.listaLetrasPalabraAdivinada.length;
@@ -148,7 +148,7 @@ class Juego {
 
         /* registrar la letra intentada y contar intento*/
         this.listaLetrasIntentadas.push(letra);
-        this.numIntentos++;
+
 
         /* ver si hay acierto - no importa cuantas veces se repita la letra solo se aceirta una vez*/
         let isLetraEsAcertada = false;
@@ -173,17 +173,19 @@ class Juego {
                 return FactoryResultadoTurno.jugadaGanadora();
             }
 
+        }else{
+            this.numError++;
         }
 
 
         //Evaluar si ya perdio
-        if (this.numIntentos === ConfigJuego.numMaximoIntentos) {
+        if (this.numError === ConfigJuego.numMaximoErrores) {
             return FactoryResultadoTurno.jugadaPerdedora();
         }
 
 
-        let num = ConfigJuego.numMaximoIntentos - this.numIntentos;
-        return FactoryResultadoTurno.seguirJugando(num);
+
+        return FactoryResultadoTurno.seguirJugando(this.numError);
     }
 
 }
