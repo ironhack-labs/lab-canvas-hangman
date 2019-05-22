@@ -1,41 +1,69 @@
-var hangman;
+  let keyString = keyCode =>{
+    return String.fromCharCode(keyCode);
+  }
 
-// function Hangman() {
+  function Hangman(){
+    this.words = ['manzana', 'coche', 'microfono','ironhack'];
+    this.secretWord = this.getWord();
+    this.guessedLetter = '';
+    this.letters = [];
+    this.errorsLeft = 10;
+  }
 
-// }
+  Hangman.prototype.getWord = function () {
+    return this.words[Math.floor(Math.random() * this.words.length)];
+  }
 
-// Hangman.prototype.getWord = function () {
+  Hangman.prototype.checkIfLetter = function (keyCode){
+    let checkKeyString = keyString(keyCode).length === 1 && keyString(keyCode).match(/[a-z]/i);
+    if(checkKeyString != null){
+      return true;
+    }
+    return false;
+  }
+  Hangman.prototype.checkClickedLetters = function (key){
 
-// };
+      if(this.letters.includes(key)){
+        return false;
+      }
+        this.letters.push(key);
+        return true;
+    }
+  
+  
+  Hangman.prototype.checkGameOver = function (){
+    if(this.errorsLeft > 0){
+      return false;
+    }
+    else if(this.errorsLeft === 0){
+      return true;
+    }
+  }
+  Hangman.prototype.checkWinner = function (){
+    if(this.guessedLetter.length === this.secretWord.length && this.errorsLeft > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  Hangman.prototype.addCorrectLetter = function (i){
+    this.guessedLetter += this.secretWord[i].toUpperCase();
+    this.checkWinner();
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+    return this.guessedLetter;
+  }
+  Hangman.prototype.addWrongLetter = function (letter){
+    this.errorsLeft--;
+    return letter;
+  }
 
-// };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+let hangman = new Hangman()
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
 };
-
 
 document.onkeydown = function (e) {
 
