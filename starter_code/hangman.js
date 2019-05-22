@@ -3,7 +3,7 @@
   }
 
   function Hangman(){
-    this.words = ['manzana', 'coche', 'microfono','ironhack'];
+    this.words = ['uno', 'trece', 'tres','dos'];
     this.secretWord = this.getWord();
     this.guessedLetter = '';
     this.letters = [];
@@ -60,16 +60,36 @@
 
 
 let hangman = new Hangman()
+let hangmanCanvas = new HangmanCanvas(hangman.getWord());
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
-  hangmanCanvas = new HangmanCanvas('ironhacker');
-
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines();
-  hangmanCanvas.writeCorrectLetter(1);
 };
 
 document.onkeydown = function (e) {
+  let secretWord = hangmanCanvas.secretWord;
+  console.log(secretWord)
 
+ if(hangman.checkIfLetter(e.keyCode)){
+   if(!hangman.checkClickedLetters(e.key)){
+     //Tecla repetida
+     alert('¡La tecla ya ha sido seleccionada anteriormente, elige una nueva')
+   }
+   else{
+     //Tecla nueva
+     if(secretWord.includes(e.key)){
+       //should write it in the position it corresponds
+       //should retrieve the index number
+      index = secretWord.indexOf(e.key);
+      console.log(index)
+      hangmanCanvas.writeCorrectLetter(index);
+     }
+     else{
+       //write the letter in the top right corner
+     }
+   }
+ }
+ 
+ 
 };

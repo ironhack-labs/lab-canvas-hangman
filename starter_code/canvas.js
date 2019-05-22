@@ -47,7 +47,7 @@ HangmanCanvas.prototype.writeCorrectLetter = function (index) {
 this.ctx.fillStyle = "black";
 this.ctx.textAlign = "center";
 this.ctx.font = "30px Arial";
-this.ctx.fillText("A", x, y);
+this.ctx.fillText(this.secretWord[index], x, y);
   
 };
 
