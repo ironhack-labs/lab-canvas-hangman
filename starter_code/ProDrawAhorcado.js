@@ -104,12 +104,51 @@ let DrawAhorcado = {
 
     },
     error4: function () {
+        //brazo izquierdo
+        let ctx = this.getCtx();
 
+        this.configStroke();
+
+        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]*1.15);
+        ctx.lineTo(this.getTorsoIni()[0]*1.5, this.getTorsoFin()[1]*.8);
+
+        ctx.stroke();
+
+        return true;
     },
     error5: function () {
 
+        //brazo izquierdo
+        let ctx = this.getCtx();
+
+
+        this.configStroke();
+
+
+        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1]*.99);
+
+        ctx.lineTo(this.getTorsoFin()[0]*.5, this.getTorsoFin()[1]*1.4);
+
+        ctx.stroke();
+        return true;
+
+
     },
     error6: function () {
+
+        //brazo derecho
+        let ctx = this.getCtx();
+
+
+        this.configStroke();
+
+
+        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1]*.99);
+
+        ctx.lineTo(this.getTorsoFin()[0]*1.5, this.getTorsoFin()[1]*1.4);
+
+        ctx.stroke();
+        return true;
 
     },
     error7: function () {
