@@ -39,16 +39,16 @@ const app = new Vue({
         },
         async start() {
 
-            let palabra = ConfigJuego.getRandomPalabra();
+            /* animacion de salir y ocultar boton ********** */
             this.cssClassBotonStart = 'salidaBoton';
-
-
 
             await  AnimacionInterfaz.esperaLong();
 
             app.cssClassBotonStart = 'noDisplay';
 
+            /* configuracion del juego *************************** */
 
+            let palabra = ConfigJuego.getRandomPalabra();
 
             console.log('2');
 
