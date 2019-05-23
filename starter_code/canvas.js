@@ -1,6 +1,7 @@
 
 function HangmanCanvas(secretWord) {
   let canvas = document.getElementById("hangman");
+  this.word = '';
 
   canvas.width = window.innerWidth;
   canvas.heigth = window.innerHeight;
@@ -49,7 +50,9 @@ HangmanCanvas.prototype.writeCorrectLetter = function (indeces) {
     this.ctx.fillStyle = "black";
     this.ctx.textAlign = "center";
     this.ctx.font = "30px Arial";
-    this.ctx.fillText(this.secretWord[indeces[i]], x, y);
+    this.ctx.fillText(this.secretWord[indeces[i]].toUpperCase(), x, y);
+
+
   }
   
   
@@ -57,15 +60,21 @@ HangmanCanvas.prototype.writeCorrectLetter = function (indeces) {
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
 
-  for(let i = 0; i < indeces.length; i++){
-    let x = 199 + (indeces[i] * 75);
-    let y = 390;
+  
 
-    this.ctx.fillStyle = "black";
+    let x = 199
+    let y = 50;
+
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(0, 0, 1200, 70);
+    this.word += ' ' + letter;
+    this.ctx.fillStyle = "red";
     this.ctx.textAlign = "center";
     this.ctx.font = "30px Arial";
-    this.ctx.fillText(this.secretWord[indeces[i]], x, y);
-  }
+    this.ctx.fillText(this.word.toUpperCase(), x, y);
+    
+    
+  return letter;
 
 };
 
@@ -153,9 +162,11 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+  let image = document.getElementById('game-over');
+  this.ctx.drawImage(image, 50, 50);
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  let image = document.getElementById('winner');
+  this.ctx.drawImage(image, 50, 50);
 };

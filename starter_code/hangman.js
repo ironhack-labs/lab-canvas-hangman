@@ -1,13 +1,17 @@
+
+  
+
   let keyString = keyCode =>{
     return String.fromCharCode(keyCode);
   }
 
   function Hangman(){
-    this.words = ['coche', 'coche', 'coche','coche'];
+    this.words = ['microfono', 'ironhack', 'colores','cancion', 'perro', 'gato', 'orientar'];
     this.secretWord = this.getWord();
     this.guessedLetter = '';
     this.letters = [];
     this.errorsLeft = 10;
+    this.didBegin = false;
   }
 
   Hangman.prototype.getWord = function () {
@@ -41,6 +45,8 @@
   }
   Hangman.prototype.checkWinner = function (){
     if(this.guessedLetter.length === this.secretWord.length && this.errorsLeft > 0){
+      let hangmanCanvas = new HangmanCanvas(this.secretWord);
+      hangmanCanvas.winner();
       alert('Has ganado!')
       return true;
     }
@@ -61,21 +67,24 @@
 
   Hangman.prototype.gameOver = function (){
     //Game over
-    console.log('perdiste')
+    let hangmanCanvas = new HangmanCanvas(this.secretWord);
+    hangmanCanvas.gameOver();
     window.alert('Has perdido!')
   }
 
+  let hangman = new Hangman();
+  let hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-let hangman = new Hangman()
-let hangmanCanvas = new HangmanCanvas(hangman.getWord());
 
 document.getElementById('start-game-button').onclick = function () {
   hangmanCanvas.createBoard();
   hangmanCanvas.drawLines();
+  hangman.didBegin = true;
 };
 
 document.onkeydown = function (e) {
-  let secretWord = hangmanCanvas.secretWord;
+  if(hangman.didBegin && hangman.errorsLeft > 0){
+    let secretWord = hangmanCanvas.secretWord;
 
  if(hangman.checkIfLetter(e.keyCode)){
    if(!hangman.checkClickedLetters(e.key)){
@@ -100,7 +109,10 @@ document.onkeydown = function (e) {
      }
      else{
       //write the letter in the top right corner
+      hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
+
       hangman.addWrongLetter();
+
       let shape;
       shape = 'triangulo';
 
@@ -144,23 +156,16 @@ document.onkeydown = function (e) {
         shape = 'posteVertical';
         hangmanCanvas.drawHangman(shape);
       }
-
-      
-        
-    
-      
-      
-      
-      
-      
-      
-      
-      
-       //Start drawing
-       
      }
    }
  }
- 
+ else{
+   window.alert('Esta no es una tecla válida, elige una letra')
+ }
+  }
+  else{
+    window.alert('Favor de iniciar el juego')
+  }
+  
  
 };
