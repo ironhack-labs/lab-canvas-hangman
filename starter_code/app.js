@@ -26,7 +26,8 @@ const app = new Vue({
         juego: null,
         juego_estado: ConfigJuego.estados.before_play,
         isShowStar: true,
-        cssClassBotonStart: ''
+        cssClassBotonStart: '',
+        cssClassLogo:''
     },
     methods: {
         onClickStart() {
@@ -41,10 +42,14 @@ const app = new Vue({
 
             /* animacion de salir y ocultar boton ********** */
             this.cssClassBotonStart = 'salidaBoton';
+            this.cssClassLogo='salidaLogo';
 
             await  AnimacionInterfaz.esperaLong();
 
             app.cssClassBotonStart = 'noDisplay';
+            app.cssClassLogo = 'noDisplay';
+
+
 
             /* configuracion del juego *************************** */
 
@@ -74,8 +79,11 @@ const app = new Vue({
 
         getCssClassBotonStart() {
             return this.cssClassBotonStart;
-        }
+        },
 
+        getCssClassLogo(){
+            return this.cssClassLogo;
+        }
     }
     ,
     mounted() {
