@@ -20,21 +20,58 @@ let AnimacionInterfaz = {
     }
 };
 
+
+let DrawAhorcado = {
+    error1: function () {
+
+    },
+    error2: function () {
+
+    },
+    error3: function () {
+
+    },
+    error4: function () {
+
+    },
+    error5: function () {
+
+    },
+    error6: function () {
+
+    },
+    error7: function () {
+
+    },
+    fromNumError: function (numError) {
+
+        let lista = [
+            this.error1,
+            this.error2,
+            this.error3,
+            this.error4,
+            this.error5,
+            this.error6,
+            this.error7
+        ];
+
+        return lista[numError - 1]();
+
+
+    }
+};
+
 const app = new Vue({
     el: '#app',
     data: {
-        juego: null,
+        juego: {},
         juego_estado: ConfigJuego.estados.before_play,
-        isShowStar: true,
+        isShowCanvas: false,
         cssClassBotonStart: '',
-        cssClassLogo:''
+        cssClassLogo: '',
+        ctx: null
     },
     methods: {
-        onClickStart() {
-            //incializar el juego
-            let palabra = ConfigJuego.getRandomPalabra();
-            this.juego = new Juego(palabra);
-        },
         onKeyPress(event) {
             console.log(event);
         },
@@ -42,29 +79,23 @@ const app = new Vue({
 
             /* animacion de salir y ocultar boton ********** */
             this.cssClassBotonStart = 'salidaBoton';
-            this.cssClassLogo='salidaLogo';
+            this.cssClassLogo = 'salidaLogo';
 
-            await  AnimacionInterfaz.esperaLong();
+            await AnimacionInterfaz.esperaLong();
 
-            app.cssClassBotonStart = 'noDisplay';
-            app.cssClassLogo = 'noDisplay';
-
-
+            this.cssClassBotonStart = 'noDisplay';
+            this.cssClassLogo = 'noDisplay';
+            this.isShowCanvas = true;
 
             /* configuracion del juego *************************** */
+            // console.log('2');
 
             let palabra = ConfigJuego.getRandomPalabra();
 
-            console.log('2');
+            this.juego = new Juego(palabra);
+            this.juego_estado = this.juego.estado;
 
-
-            //
-            // await setTimeout( ()=>{
-            //     app.cssClassBotonStart='noDisplay';
-            //     return new Promise();
-            //     console.log(1);
-            // },1500) ;
-
+            // console.log('3');
 
 
         }
@@ -73,21 +104,34 @@ const app = new Vue({
         isShowCmdStart() {
             return this.juego_estado === ConfigJuego.estados.before_play;
         },
-        isShowCanvas() {
-
-        },
 
         getCssClassBotonStart() {
             return this.cssClassBotonStart;
         },
 
-        getCssClassLogo(){
+        getCssClassLogo() {
             return this.cssClassLogo;
+        },
+
+        getListaLetrasPalabraAdivinada() {
+            return this.juego.listaLetrasPalabraAdivinada;
+        },
+
+        getListaLetrasIntentadas() {
+            return this.juego.listaLetrasIntentadas;
         }
     }
     ,
     mounted() {
         this.cssClassBotonStart = 'entradaBoton';
+        let canvas = document.getElementById("hangman");
+        let ctx = canvas.getContext("2d");
+
+        this.ctx = ctx;
+
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 100);
+        ctx.stroke();
 
     }
 });

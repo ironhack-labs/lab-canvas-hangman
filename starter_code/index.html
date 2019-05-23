@@ -6,8 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/animate.css">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
     <title>Document</title>
 
+    <style>
+        body{
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
 </head>
 <body style="margin: 0; padding: 0">
 
@@ -25,7 +31,7 @@
              class="game-logo">
     </div>
 
-    <div style="text-align:center; margin-top: 70px"
+    <div style="text-align:center; margin-top: 30px"
          v-show="isShowCmdStart"
 
     >
@@ -37,14 +43,27 @@
         </button>
     </div>
 
-    <div style="text-align:center;"
+    <div style="text-align: center; font-size: 30px ">
+        <span v-for="letra in getListaLetrasPalabraAdivinada">
+        {{letra}}
+        </span>
+    </div>
 
+    <div style="text-align:center; position: relative; top:140px"
+         v-show="isShowCanvas"
     >
         <canvas id="hangman"
-                v-show="!isShowCmdStart"
-                style="background-color: red"
-                height="700px" width="1000px"></canvas>
+                style="border:5px solid red"
+                height="390px" width="400px"></canvas>
+
+        <div style="font-size: 14px; margin-top: 20px; color:#666;">
+            Letras intentadas:
+            <span v-for="letra in getListaLetrasIntentadas" style="margin-left: 5px">
+                {{letra}}
+            </span>
+        </div>
     </div>
+
 
 </div>
 
