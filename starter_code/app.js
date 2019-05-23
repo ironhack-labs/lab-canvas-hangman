@@ -4,63 +4,6 @@
  * Created by David on 21/05/2019.
  */
 
-let AnimacionInterfaz = {
-    esperaLong: async function () {
-
-
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                console.log('1');
-                resolve();
-            }, 1500)
-        });
-
-        await promise; // wait till the promise resolves (*)
-        return true;
-    }
-};
-
-
-let DrawAhorcado = {
-    error1: function () {
-
-    },
-    error2: function () {
-
-    },
-    error3: function () {
-
-    },
-    error4: function () {
-
-    },
-    error5: function () {
-
-    },
-    error6: function () {
-
-    },
-    error7: function () {
-
-    },
-    fromNumError: function (numError) {
-
-        let lista = [
-            this.error1,
-            this.error2,
-            this.error3,
-            this.error4,
-            this.error5,
-            this.error6,
-            this.error7
-        ];
-
-        return lista[numError - 1]();
-
-
-    }
-};
-
 const app = new Vue({
     el: '#app',
     data: {
