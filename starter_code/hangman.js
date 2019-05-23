@@ -3,7 +3,7 @@
   }
 
   function Hangman(){
-    this.words = ['cacho', 'cacho', 'cacho','cacho'];
+    this.words = ['coche', 'coche', 'coche','coche'];
     this.secretWord = this.getWord();
     this.guessedLetter = '';
     this.letters = [];
@@ -41,6 +41,7 @@
   }
   Hangman.prototype.checkWinner = function (){
     if(this.guessedLetter.length === this.secretWord.length && this.errorsLeft > 0){
+      alert('Has ganado!')
       return true;
     }
     else{
@@ -56,6 +57,12 @@
   Hangman.prototype.addWrongLetter = function (letter){
     this.errorsLeft--;
     return letter;
+  }
+
+  Hangman.prototype.gameOver = function (){
+    //Game over
+    console.log('perdiste')
+    window.alert('Has perdido!')
   }
 
 
@@ -84,13 +91,73 @@ document.onkeydown = function (e) {
       for(i = 0; i < secretWord.length; i++) {
       if (secretWord[i] === e.key) {
         indices.push(i);
+        hangman.addCorrectLetter(1);
       }
       }
 
       hangmanCanvas.writeCorrectLetter(indices);
+
      }
      else{
-       //write the letter in the top right corner
+      //write the letter in the top right corner
+      hangman.addWrongLetter();
+      let shape;
+      shape = 'triangulo';
+
+      hangmanCanvas.drawHangman(shape)
+
+       if(hangman.errorsLeft === 0){
+        shape = 'brazoDer';
+        hangman.gameOver();
+        hangmanCanvas.drawHangman(shape);
+       }
+       if(hangman.errorsLeft === 1){
+        shape = 'brazoIzq';
+        hangmanCanvas.drawHangman(shape);
+        
+      }
+      if(hangman.errorsLeft === 2){
+        shape = 'piernaDer';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 3){
+        shape = 'piernaIzq';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 4){
+        shape = 'tronco';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 5){
+        shape = 'cabeza';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 6){
+        shape = 'cuerda';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 7){
+        shape = 'posteHorizontal';
+        hangmanCanvas.drawHangman(shape);
+      }
+      if(hangman.errorsLeft === 8){
+        shape = 'posteVertical';
+        hangmanCanvas.drawHangman(shape);
+      }
+
+      
+        
+    
+      
+      
+      
+      
+      
+      
+      
+      
+       //Start drawing
+       
      }
    }
  }
