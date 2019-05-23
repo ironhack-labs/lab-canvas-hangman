@@ -26,7 +26,12 @@ let DrawAhorcado = {
     centroHead: {x: 100, y: 75},
     cuerpo: {
         radioHead: 40,
-        torso: 50
+        torso: 120,
+        brazo: 25,
+        anguloBrazo: Math.PI / 6,
+        pierna: 35,
+        anguloPierna: Math.PI / 7
+
     },
     ctx: null,
     configStroke: function () {
@@ -55,20 +60,47 @@ let DrawAhorcado = {
         return true;
 
     },
+    getTorsoIni:function(){
+        return [
+            this.centroHead.x,
+            this.centroHead.y + this.cuerpo.radioHead
+        ]
+    },
+    getTorsoFin:function(){
+        return [
+            this.centroHead.x,
+            this.centroHead.y + this.cuerpo.radioHead + this.cuerpo.torso
+        ]
+    },
     error2: function () {
         //cuello
         let ctx = this.getCtx();
 
 
         this.configStroke();
-        ctx.moveTo(this.centroHead.x, this.centroHead.y + this.cuerpo.radioHead);
-        let largo = this.centroHead.y + this.cuerpo.radioHead + this.cuerpo.torso;
-        ctx.lineTo(this.centroHead.x, largo);
-        ctx.stroke(); // Draw it
+
+        ctx.moveTo( this.getTorsoIni()[0], this.getTorsoIni()[1]);
+        ctx.lineTo(this.getTorsoFin()[0],this.getTorsoFin()[1]);
+
+        ctx.stroke();
         return true;
 
     },
     error3: function () {
+
+        //brazo izquierdo
+        let ctx = this.getCtx();
+
+
+        this.configStroke();
+
+
+        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]*1.15);
+
+        ctx.lineTo(this.getTorsoIni()[0]*.5, this.getTorsoFin()[1]*.8);
+
+        ctx.stroke();
+        return true;
 
     },
     error4: function () {
