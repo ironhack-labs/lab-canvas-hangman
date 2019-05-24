@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/animate.css">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+    <title>Document</title>
+
+    <style>
+        body{
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0" id="body">
+
+<div id="app"
+    style="
+    margin-top: 0px; height: 700px;
+    background-image: url('images/bg1.png'); background-repeat: no-repeat; background-position: center top"
+>
+    <div style="text-align:center; padding-top: 30px "
+
+    >
+        <img src="http://www.firstcomicsnews.com/wp-content/uploads/2016/09/Hangman-Logo-600x253.png"
+             alt=""
+             :class="getCssClassLogo"
+             class="game-logo">
+    </div>
+
+    <div style="text-align:center; margin-top: 30px"
+         v-show="isShowCmdStart"
+
+    >
+        <button id="start-game-button"
+                :class="getCssClassBotonStart"
+                @click="start"
+                style="cursor: pointer; ">
+            START GAME
+        </button>
+    </div>
+
+    <div style="text-align: center; font-size: 30px ">
+        <span v-for="letra in getListaLetrasPalabraAdivinada">
+        {{letra}}
+        </span>
+    </div>
+
+    <div style="text-align:center; position: relative; top:140px"
+         v-show="isShowCanvas"
+    >
+        <canvas id="hangman"
+                style=""
+                height="390px" width="400px"></canvas>
+
+        <div style="font-size: 14px; margin-top: 20px; color:#666;">
+            Letras intentadas:
+            <span v-for="letra in getListaLetrasIntentadas" style="margin-left: 5px">
+                {{letra}}
+            </span>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    'use strict';
+
+    /**
+     * Created by David on 23/05/2019.
+     */
+
+
+    let AnimacionInterfaz = {
+        esperaLong: async function () {
+
+
+            let promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('1');
+                    resolve();
+                }, 1500)
+            });
+
+            await promise; // wait till the promise resolves (*)
+            return true;
+        }
+    };
+
+
+    class ProDrawAhorcado {
+        constructor(idCanvas) {
+
+            this.centroHead = {x: 248, y: 117};
+            this.cuerpo = {
+                radioHead: 40,
+                torso: 120,
+                brazo: 65,
+                pierna: 95
+            };
+
+            this.canvas = document.getElementById(idCanvas);
+
+            this.ctx = this.canvas.getContext("2d");
+        }
+
+        configStroke() {
+            this.ctx.lineWidth = "8";
+            this.ctx.strokeStyle = "green";
+        }
+
+
+        error1() {
+            //La cabeza
+            let ctx = this.ctx;
+
+            ctx.beginPath();
+            this.configStroke();
+            ctx.arc(this.centroHead.x, this.centroHead.y, this.cuerpo.radioHead, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.stroke();
+            return true;
+
+        }
+
+        getTorsoIni() {
+            return [
+                this.centroHead.x,
+                this.centroHead.y + this.cuerpo.radioHead + 8
+            ];
+        }
+
+        getTorsoFin() {
+            return [
+                this.centroHead.x,
+                this.centroHead.y + this.cuerpo.radioHead + this.cuerpo.torso
+            ];
+        }
+
+
+        error2() {
+            //cuello
+            let ctx = this.ctx;
+
+
+            this.configStroke();
+
+            ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]);
+            ctx.lineTo(this.getTorsoFin()[0], this.getTorsoFin()[1]);
+
+            ctx.stroke();
+            return true;
+
+        }
+
+        error3() {
+
+            //brazo izquierdo
+            let ctx = this.ctx;
+
+            this.configStroke();
+
+
+            ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
+
+            ctx.lineTo(this.getTorsoIni()[0] - this.cuerpo.brazo, this.getTorsoFin()[1] * .8);
+
+            ctx.stroke();
+            return true;
+
+        }
+
+
+        error4() {
+            //brazo izquierdo
+            let ctx = this.ctx;
+
+            this.configStroke();
+
+            ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
+            ctx.lineTo(this.getTorsoIni()[0] + this.cuerpo.brazo, this.getTorsoFin()[1] * .8);
+
+            ctx.stroke();
+
+            return true;
+        }
+
+        error5() {
+
+            //pierna izquierdo
+            let ctx = this.ctx;
+
+
+            this.configStroke();
+
+
+            ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
+
+            ctx.lineTo(this.getTorsoFin()[0] - this.cuerpo.brazo, this.getTorsoFin()[1] * 1.4);
+
+            ctx.stroke();
+            return true;
+
+
+        }
+
+        error6() {
+
+            //pierna derecho
+            let ctx = this.ctx;
+
+
+            this.configStroke();
+
+
+            ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
+
+            ctx.lineTo(this.getTorsoFin()[0] +this.cuerpo.brazo, this.getTorsoFin()[1] * 1.4);
+
+            ctx.stroke();
+            return true;
+
+        }
+
+
+        fromNumError(numError) {
+
+            if (numError === 1) {
+                this.error1();
+            } else if (numError === 2) {
+                this.error2();
+            } else if (numError === 3) {
+                this.error3();
+            } else if (numError === 4) {
+                this.error4();
+            } else if (numError === 5) {
+                this.error5();
+            } else if (numError === 6) {
+                this.error6();
+            } else {
+                alert("no tenemos 7 error")
+            }
+
+        }
+
+        clear(){
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+
+    }
+
+    'use strict';
+
+
+    /**
+     * Created by David on 21/05/2019.
+     */
+
+
+
+    const ConfigJuego = {
+
+            estados: {
+                'before_play': 0,
+                'on_play': 1,
+                'end_win': 2,
+                'end_loose': 3
+            },
+            getlistaPalabrasPosibles: function () {
+                return ['perro', 'casa', 'gato', 'ganzo', 'mamut', 'avestruz', 'abejorro', 'tarantula'];
+            }
+            ,
+            getRandomPalabra: function () {
+
+                function f(lista) {
+                    let index = Math.floor(Math.random() * lista.length);
+                    return lista[index];
+                }
+
+                if (this.listaPalabrasRandomProporcionadas.length === this.getlistaPalabrasPosibles().length) {
+                    this.listaPalabrasRandomProporcionadas.length = [];
+                }
+
+                let p = null;
+                do {
+                    p = f(this.getlistaPalabrasPosibles());
+
+                } while (this.listaPalabrasRandomProporcionadas.indexOf(p) > -1);
+
+                this.listaPalabrasRandomProporcionadas.push(p);
+
+                return p;
+            },
+
+            listaPalabrasRandomProporcionadas: [],
+            numMaximoErrores: 6
+
+        }
+    ;
+
+
+    class ResultadoTurno {
+        constructor(success, msg, numErrores, estadoJuego) {
+
+            this.success = success;
+            this.msg = msg;
+            this.numErrores = numErrores;
+            this.estadoJuego = estadoJuego;
+        }
+    }
+
+
+    const FactoryResultadoTurno = {
+        errorLetraRepetida: (letra, numErrores,) => {
+            var m = new ResultadoTurno(
+                false,
+                `La letra ${letra} ya se intentó anteriormente, intentar otra letra`,
+                numErrores,
+                ConfigJuego.estados.on_play);
+
+            return m;
+        },
+        jugadaGanadora: (numErrores) => {
+            var m = new ResultadoTurno(
+                true,
+                `Ganaste !!!`,
+                numErrores,
+                ConfigJuego.estados.end_win)
+            ;
+
+            return m;
+        },
+        jugadaPerdedora: (numErrores) => {
+            var m = new ResultadoTurno(
+                true,
+                `Perdiste :( !!!`,
+                numErrores,
+                ConfigJuego.estados.end_loose)
+            ;
+
+            return m;
+        },
+        seguirJugando: (numErrores) => {
+            var m = new ResultadoTurno(
+                true,
+                ``,
+                numErrores,
+                ConfigJuego.estados.on_play)
+            ;
+
+            return m;
+        }
+    };
+
+    class Juego {
+        constructor(palabraOculta) {
+
+            if (palabraOculta === "" || palabraOculta === undefined) {
+                throw  Error("se requiere la palabra oculta");
+            }
+
+            this.estado=ConfigJuego.estados.on_play;
+            this.numError = 0;
+
+
+            this.getPalabraOculta = () => {
+                return palabraOculta;
+            };
+
+
+            this.listaLetrasIntentadas = [];
+            this.listaLetrasPalabraOculta = palabraOculta.split('');
+            this.listaLetrasPalabraAdivinada = this.listaLetrasPalabraOculta.map(letra => {
+                return "_";
+            });
+
+
+
+
+        }
+
+        getPalabraAdivinada() {
+            return this.listaLetrasPalabraAdivinada.join('');
+        }
+
+        ejecutarJugada(letra) {
+
+            /* buscar si hay coincidencia de letras*/
+
+            let index = this.listaLetrasIntentadas.findIndex(x => {
+                return x === letra;
+            });
+
+            if (index > -1) {
+                return FactoryResultadoTurno.errorLetraRepetida(letra, this.numError)
+            }
+
+            let numLetras = this.listaLetrasPalabraAdivinada.length;
+
+
+            /* registrar la letra intentada y contar intento*/
+            this.listaLetrasIntentadas.push(letra);
+
+
+            /* ver si hay acierto - no importa cuantas veces se repita la letra solo se aceirta una vez*/
+            let isLetraEsAcertada = false;
+
+            for (let i = 0; i < numLetras; i++) {
+
+                if (letra === this.listaLetrasPalabraOculta[i]) {
+
+                    //hay coincidencia - poner la letra adivinada
+                    this.listaLetrasPalabraAdivinada[i] = letra;
+                    isLetraEsAcertada = true;
+                }
+            }
+
+
+            if (isLetraEsAcertada) {
+
+                //Evaluar si gano
+
+                let numLetrasAdivinadas = this.listaLetrasPalabraAdivinada
+                    .filter(letra => {
+                        return letra !== '_';
+                    })
+                    .length;
+
+
+                if (numLetrasAdivinadas === numLetras) {
+                    return FactoryResultadoTurno.jugadaGanadora();
+                }
+
+            } else {
+                this.numError++;
+            }
+
+
+            //Evaluar si ya perdio
+            if (this.numError === ConfigJuego.numMaximoErrores) {
+                return FactoryResultadoTurno.jugadaPerdedora(this.numError);
+            }
+
+
+            return FactoryResultadoTurno.seguirJugando(this.numError);
+        }
+
+    }
+
+    'use strict';
+
+    /**
+     * Created by David on 21/05/2019.
+     */
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            juego: {},
+            proDraw: null,
+            juego_estado: ConfigJuego.estados.before_play,
+            isShowCanvas: false,
+            cssClassBotonStart: '',
+            cssClassLogo: ''
+        },
+        methods: {
+            getIsLetraMinusculaValida: function (letra) {
+
+                if (letra === "ñ") {
+                    return true;
+                }
+
+                var reg = /^[a-z]/;
+                return reg.test(letra)
+            },
+            onKeyPress($event) {
+
+                if(this.juego.estado !== ConfigJuego.estados.on_play){
+                    return;
+                }
+
+                let letra = $event.key.toString().toLocaleLowerCase();
+
+                //validar letra **********************************
+                if (!this.getIsLetraMinusculaValida(letra)) {
+                    return;
+                }
+
+                console.log(letra);
+
+                let numErrorsOld = this.juego.numError;
+                //enviar el evento al juego
+                let turnoJugado = this.juego.ejecutarJugada(letra);
+
+
+                this.estadoJuego = turnoJugado.estadoJuego;
+
+                if (turnoJugado.estadoJuego === ConfigJuego.estados.on_play) {
+
+                    let numErrorsNew = this.juego.numError;
+
+                    if (numErrorsNew !== numErrorsOld) {
+                        this.proDrawAhorcado.fromNumError(numErrorsNew);
+                    }
+
+                } else {
+
+                    if (turnoJugado.estadoJuego === ConfigJuego.estados.end_win) {
+                        alert("Ganaste");
+                    } else {
+                        alert("perdiste");
+                    }
+
+                    //reiniciar el juego
+                    this.proDrawAhorcado.clear();
+                    let palabra = ConfigJuego.getRandomPalabra();
+
+                    this.juego = new Juego(palabra);
+                    this.juego_estado = this.juego.estado;
+
+                }
+
+
+            },
+            async start() {
+
+                /* animacion de salir y ocultar boton ********** */
+                this.cssClassBotonStart = 'salidaBoton';
+                this.cssClassLogo = 'salidaLogo';
+
+                await AnimacionInterfaz.esperaLong();
+
+                this.cssClassBotonStart = 'noDisplay';
+                this.cssClassLogo = 'noDisplay';
+                this.isShowCanvas = true;
+
+                /* configuracion del juego *************************** */
+                // console.log('2');
+
+                let palabra = ConfigJuego.getRandomPalabra();
+
+                this.juego = new Juego(palabra);
+                this.juego_estado = this.juego.estado;
+
+                // console.log('3');
+
+
+            }
+        },
+        computed: {
+            isShowCmdStart() {
+                return this.juego_estado === ConfigJuego.estados.before_play;
+            },
+
+            getCssClassBotonStart() {
+                return this.cssClassBotonStart;
+            },
+
+            getCssClassLogo() {
+                return this.cssClassLogo;
+            },
+
+            getListaLetrasPalabraAdivinada() {
+                return this.juego.listaLetrasPalabraAdivinada;
+            },
+
+            getListaLetrasIntentadas() {
+                return this.juego.listaLetrasIntentadas;
+            }
+        }
+        ,
+        mounted() {
+            this.cssClassBotonStart = 'entradaBoton';
+            this.proDrawAhorcado = new ProDrawAhorcado('hangman');
+
+            let b=document.getElementById('body');
+            b.onkeydown=this.onKeyPress;
+
+        }
+    });
+</script>
+
+
+
+</body>
+</html>
