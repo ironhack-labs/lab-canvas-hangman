@@ -8,7 +8,7 @@ const app = new Vue({
     el: '#app',
     data: {
         juego: {},
-        proDraw:null,
+        proDraw: null,
         juego_estado: ConfigJuego.estados.before_play,
         isShowCanvas: false,
         cssClassBotonStart: '',
@@ -26,6 +26,10 @@ const app = new Vue({
         },
         onKeyPress($event) {
 
+            if(this.juego.estado !== ConfigJuego.estados.on_play){
+                return;
+            }
+
             let letra = $event.key.toString().toLocaleLowerCase();
 
             //validar letra **********************************
@@ -35,25 +39,31 @@ const app = new Vue({
 
             console.log(letra);
 
-            let numErrorsOld=this.juego.numError;
+            let numErrorsOld = this.juego.numError;
             //enviar el evento al juego
             let turnoJugado = this.juego.ejecutarJugada(letra);
 
 
+            this.estadoJuego = turnoJugado.estadoJuego;
 
-            this.estadoJuego=turnoJugado.estadoJuego;
+            if (turnoJugado.estadoJuego === ConfigJuego.estados.on_play) {
 
-            if(turnoJugado.estadoJuego===ConfigJuego.estados.end_win){
-                alert("Ganaste");
-            }else{
-                alert("perdiste");
+                let numErrorsNew = this.juego.numError;
+
+                if (numErrorsNew !== numErrorsOld) {
+                    this.proDrawAhorcado.fromNumError(numErrorsNew);
+                }
+
+            } else {
+
+                if (turnoJugado.estadoJuego === ConfigJuego.estados.end_win) {
+                    alert("Ganaste");
+                } else {
+                    alert("perdiste");
+                }
+
             }
 
-            let numErrorsNew=this.juego.numError;
-
-            if(numErrorsNew!==numErrorsOld){
-                ProDrawAhorcado.fromNumError( numErrorsNew);
-            }
 
         },
         async start() {
@@ -105,7 +115,10 @@ const app = new Vue({
     ,
     mounted() {
         this.cssClassBotonStart = 'entradaBoton';
-        this.proDrawAhorcado=new ProDrawAhorcado('hangman');
+        this.proDrawAhorcado = new ProDrawAhorcado('hangman');
+
+        let b=document.getElementById('body');
+        b.onkeydown=this.onKeyPress;
 
     }
 });

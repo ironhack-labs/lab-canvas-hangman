@@ -108,7 +108,9 @@ class Juego {
             throw  Error("se requiere la palabra oculta");
         }
 
-        this.estado = ConfigJuego.estados.before_play;
+        this.estado=ConfigJuego.estados.on_play;
+        this.numError = 0;
+
 
         this.getPalabraOculta = () => {
             return palabraOculta;
@@ -122,7 +124,6 @@ class Juego {
         });
 
 
-        this.numError = 0;
 
 
     }

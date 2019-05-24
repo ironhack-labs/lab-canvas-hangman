@@ -25,15 +25,12 @@ let AnimacionInterfaz = {
 class ProDrawAhorcado {
     constructor(idCanvas) {
 
-        this.centroHead = {x: 248, y: 82};
+        this.centroHead = {x: 248, y: 120};
         this.cuerpo = {
             radioHead: 40,
             torso: 120,
-            brazo: 25,
-            anguloBrazo: Math.PI / 6,
-            pierna: 35,
-            anguloPierna: Math.PI / 7
-
+            brazo: 65,
+            pierna: 95
         };
 
         var c = document.getElementById(idCanvas);
@@ -41,14 +38,13 @@ class ProDrawAhorcado {
         this.ctx = c.getContext("2d");
     }
 
-    configStroke () {
+    configStroke() {
         this.ctx.lineWidth = "8";
         this.ctx.strokeStyle = "green";
     }
 
 
-
-    error1 () {
+    error1() {
         //La cabeza
         let ctx = this.ctx;
 
@@ -61,10 +57,10 @@ class ProDrawAhorcado {
 
     }
 
-    getTorsoIni () {
+    getTorsoIni() {
         return [
             this.centroHead.x,
-            this.centroHead.y + this.cuerpo.radioHead +8
+            this.centroHead.y + this.cuerpo.radioHead + 8
         ];
     }
 
@@ -78,7 +74,7 @@ class ProDrawAhorcado {
 
     error2() {
         //cuello
-        let ctx =this.ctx;
+        let ctx = this.ctx;
 
 
         this.configStroke();
@@ -101,7 +97,7 @@ class ProDrawAhorcado {
 
         ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
 
-        ctx.lineTo(this.getTorsoIni()[0] * .5, this.getTorsoFin()[1] * .8);
+        ctx.lineTo(this.getTorsoIni()[0] - this.cuerpo.brazo, this.getTorsoFin()[1] * .8);
 
         ctx.stroke();
         return true;
@@ -109,42 +105,23 @@ class ProDrawAhorcado {
     }
 
 
-    error4 () {
+    error4() {
         //brazo izquierdo
-        let ctx =this.ctx;
+        let ctx = this.ctx;
 
         this.configStroke();
 
         ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
-        ctx.lineTo(this.getTorsoIni()[0] * 1.5, this.getTorsoFin()[1] * .8);
+        ctx.lineTo(this.getTorsoIni()[0] + this.cuerpo.brazo, this.getTorsoFin()[1] * .8);
 
         ctx.stroke();
 
         return true;
     }
 
-    error5 () {
+    error5() {
 
-        //brazo izquierdo
-        let ctx =this.ctx;
-
-
-        this.configStroke();
-
-
-        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
-
-        ctx.lineTo(this.getTorsoFin()[0] * .5, this.getTorsoFin()[1] * 1.4);
-
-        ctx.stroke();
-        return true;
-
-
-    }
-
-    error6 () {
-
-        //brazo derecho
+        //pierna izquierdo
         let ctx = this.ctx;
 
 
@@ -153,7 +130,26 @@ class ProDrawAhorcado {
 
         ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
 
-        ctx.lineTo(this.getTorsoFin()[0] * 1.5, this.getTorsoFin()[1] * 1.4);
+        ctx.lineTo(this.getTorsoFin()[0] - this.cuerpo.brazo, this.getTorsoFin()[1] * 1.4);
+
+        ctx.stroke();
+        return true;
+
+
+    }
+
+    error6() {
+
+        //pierna derecho
+        let ctx = this.ctx;
+
+
+        this.configStroke();
+
+
+        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
+
+        ctx.lineTo(this.getTorsoFin()[0] +this.cuerpo.brazo, this.getTorsoFin()[1] * 1.4);
 
         ctx.stroke();
         return true;
@@ -161,19 +157,25 @@ class ProDrawAhorcado {
     }
 
 
-    fromNumError (numError) {
+    fromNumError(numError) {
 
-        let lista = [
-            this.error1,
-            this.error2,
-            this.error3,
-            this.error4,
-            this.error5,
-            this.error6
+        if (numError === 1) {
+            this.error1();
+        } else if (numError === 2) {
+            this.error2();
+        } else if (numError === 3) {
+            this.error3();
+        } else if (numError === 4) {
+            this.error4();
+        } else if (numError === 5) {
+            this.error5();
+        } else if (numError === 6) {
+            this.error6();
+        } else {
+            alert("no tenemos 7 error")
+        }
 
-        ];
 
-        return lista[numError - 1]();
     }
 
 }
