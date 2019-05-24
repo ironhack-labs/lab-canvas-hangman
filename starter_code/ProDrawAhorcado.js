@@ -25,7 +25,7 @@ let AnimacionInterfaz = {
 class ProDrawAhorcado {
     constructor(idCanvas) {
 
-        this.centroHead = {x: 248, y: 120};
+        this.centroHead = {x: 248, y: 117};
         this.cuerpo = {
             radioHead: 40,
             torso: 120,
@@ -33,9 +33,9 @@ class ProDrawAhorcado {
             pierna: 95
         };
 
-        var c = document.getElementById(idCanvas);
+        this.canvas = document.getElementById(idCanvas);
 
-        this.ctx = c.getContext("2d");
+        this.ctx = this.canvas.getContext("2d");
     }
 
     configStroke() {
@@ -175,7 +175,10 @@ class ProDrawAhorcado {
             alert("no tenemos 7 error")
         }
 
+    }
 
+    clear(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
 }

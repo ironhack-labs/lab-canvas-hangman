@@ -42,7 +42,7 @@ const ConfigJuego = {
         },
 
         listaPalabrasRandomProporcionadas: [],
-        numMaximoErrores: 7
+        numMaximoErrores: 6
 
     }
 ;

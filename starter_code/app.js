@@ -62,6 +62,13 @@ const app = new Vue({
                     alert("perdiste");
                 }
 
+                //reiniciar el juego
+                this.proDrawAhorcado.clear();
+                let palabra = ConfigJuego.getRandomPalabra();
+
+                this.juego = new Juego(palabra);
+                this.juego_estado = this.juego.estado;
+
             }
 
 
