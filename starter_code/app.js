@@ -8,15 +8,53 @@ const app = new Vue({
     el: '#app',
     data: {
         juego: {},
+        proDraw:null,
         juego_estado: ConfigJuego.estados.before_play,
         isShowCanvas: false,
         cssClassBotonStart: '',
-        cssClassLogo: '',
-        ctx: null
+        cssClassLogo: ''
     },
     methods: {
-        onKeyPress(event) {
-            console.log(event);
+        getIsLetraMinusculaValida: function (letra) {
+
+            if (letra === "ñ") {
+                return true;
+            }
+
+            var reg = /^[a-z]/;
+            return reg.test(letra)
+        },
+        onKeyPress($event) {
+
+            let letra = $event.key.toString().toLocaleLowerCase();
+
+            //validar letra **********************************
+            if (!this.getIsLetraMinusculaValida(letra)) {
+                return;
+            }
+
+            console.log(letra);
+
+            let numErrorsOld=this.juego.numError;
+            //enviar el evento al juego
+            let turnoJugado = this.juego.ejecutarJugada(letra);
+
+
+
+            this.estadoJuego=turnoJugado.estadoJuego;
+
+            if(turnoJugado.estadoJuego===ConfigJuego.estados.end_win){
+                alert("Ganaste");
+            }else{
+                alert("perdiste");
+            }
+
+            let numErrorsNew=this.juego.numError;
+
+            if(numErrorsNew!==numErrorsOld){
+                ProDrawAhorcado.fromNumError( numErrorsNew);
+            }
+
         },
         async start() {
 
@@ -67,14 +105,7 @@ const app = new Vue({
     ,
     mounted() {
         this.cssClassBotonStart = 'entradaBoton';
-        let canvas = document.getElementById("hangman");
-        let ctx = canvas.getContext("2d");
-
-        this.ctx = ctx;
-
-        ctx.moveTo(0, 0);
-        ctx.lineTo(200, 100);
-        ctx.stroke();
+        this.proDrawAhorcado=new ProDrawAhorcado('hangman');
 
     }
 });

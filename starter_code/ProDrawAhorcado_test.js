@@ -4,10 +4,10 @@
  * Created by David on 23/05/2019.
  */
 
-DrawAhorcado.error1();
-DrawAhorcado.error2();
-DrawAhorcado.error3();
-DrawAhorcado.error4();
-DrawAhorcado.error5();
-DrawAhorcado.error6();
-DrawAhorcado.error7();
+ProDrawAhorcado.error1();
+ProDrawAhorcado.error2();
+ProDrawAhorcado.error3();
+ProDrawAhorcado.error4();
+ProDrawAhorcado.error5();
+ProDrawAhorcado.error6();
+ProDrawAhorcado.error7();

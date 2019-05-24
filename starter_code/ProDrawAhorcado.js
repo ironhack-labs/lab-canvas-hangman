@@ -22,35 +22,35 @@ let AnimacionInterfaz = {
 };
 
 
-let DrawAhorcado = {
-    centroHead: {x: 100, y: 75},
-    cuerpo: {
-        radioHead: 40,
-        torso: 120,
-        brazo: 25,
-        anguloBrazo: Math.PI / 6,
-        pierna: 35,
-        anguloPierna: Math.PI / 7
+class ProDrawAhorcado {
+    constructor(idCanvas) {
 
-    },
-    ctx: null,
-    configStroke: function () {
-        this.getCtx().lineWidth = "8";
-        this.getCtx().strokeStyle = "green";
-    },
-    getCtx: function () {
+        this.centroHead = {x: 248, y: 82};
+        this.cuerpo = {
+            radioHead: 40,
+            torso: 120,
+            brazo: 25,
+            anguloBrazo: Math.PI / 6,
+            pierna: 35,
+            anguloPierna: Math.PI / 7
 
-        if (this.ctx === null) {
-            var c = document.getElementById("hangman");
+        };
 
-            this.ctx = c.getContext("2d");
-        }
+        var c = document.getElementById(idCanvas);
 
-        return this.ctx;
-    },
-    error1: function () {
+        this.ctx = c.getContext("2d");
+    }
+
+    configStroke () {
+        this.ctx.lineWidth = "8";
+        this.ctx.strokeStyle = "green";
+    }
+
+
+
+    error1 () {
         //La cabeza
-        let ctx = this.getCtx();
+        let ctx = this.ctx;
 
         ctx.beginPath();
         this.configStroke();
@@ -59,102 +59,109 @@ let DrawAhorcado = {
         ctx.stroke();
         return true;
 
-    },
-    getTorsoIni:function(){
+    }
+
+    getTorsoIni () {
         return [
             this.centroHead.x,
-            this.centroHead.y + this.cuerpo.radioHead
-        ]
-    },
-    getTorsoFin:function(){
+            this.centroHead.y + this.cuerpo.radioHead +8
+        ];
+    }
+
+    getTorsoFin() {
         return [
             this.centroHead.x,
             this.centroHead.y + this.cuerpo.radioHead + this.cuerpo.torso
-        ]
-    },
-    error2: function () {
+        ];
+    }
+
+
+    error2() {
         //cuello
-        let ctx = this.getCtx();
+        let ctx =this.ctx;
 
 
         this.configStroke();
 
-        ctx.moveTo( this.getTorsoIni()[0], this.getTorsoIni()[1]);
-        ctx.lineTo(this.getTorsoFin()[0],this.getTorsoFin()[1]);
+        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]);
+        ctx.lineTo(this.getTorsoFin()[0], this.getTorsoFin()[1]);
 
         ctx.stroke();
         return true;
 
-    },
-    error3: function () {
+    }
+
+    error3() {
 
         //brazo izquierdo
-        let ctx = this.getCtx();
-
+        let ctx = this.ctx;
 
         this.configStroke();
 
 
-        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]*1.15);
+        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
 
-        ctx.lineTo(this.getTorsoIni()[0]*.5, this.getTorsoFin()[1]*.8);
+        ctx.lineTo(this.getTorsoIni()[0] * .5, this.getTorsoFin()[1] * .8);
 
         ctx.stroke();
         return true;
 
-    },
-    error4: function () {
+    }
+
+
+    error4 () {
         //brazo izquierdo
-        let ctx = this.getCtx();
+        let ctx =this.ctx;
 
         this.configStroke();
 
-        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1]*1.15);
-        ctx.lineTo(this.getTorsoIni()[0]*1.5, this.getTorsoFin()[1]*.8);
+        ctx.moveTo(this.getTorsoIni()[0], this.getTorsoIni()[1] * 1.15);
+        ctx.lineTo(this.getTorsoIni()[0] * 1.5, this.getTorsoFin()[1] * .8);
 
         ctx.stroke();
 
         return true;
-    },
-    error5: function () {
+    }
+
+    error5 () {
 
         //brazo izquierdo
-        let ctx = this.getCtx();
+        let ctx =this.ctx;
 
 
         this.configStroke();
 
 
-        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1]*.99);
+        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
 
-        ctx.lineTo(this.getTorsoFin()[0]*.5, this.getTorsoFin()[1]*1.4);
+        ctx.lineTo(this.getTorsoFin()[0] * .5, this.getTorsoFin()[1] * 1.4);
 
         ctx.stroke();
         return true;
 
 
-    },
-    error6: function () {
+    }
+
+    error6 () {
 
         //brazo derecho
-        let ctx = this.getCtx();
+        let ctx = this.ctx;
 
 
         this.configStroke();
 
 
-        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1]*.99);
+        ctx.moveTo(this.getTorsoFin()[0], this.getTorsoFin()[1] * .99);
 
-        ctx.lineTo(this.getTorsoFin()[0]*1.5, this.getTorsoFin()[1]*1.4);
+        ctx.lineTo(this.getTorsoFin()[0] * 1.5, this.getTorsoFin()[1] * 1.4);
 
         ctx.stroke();
         return true;
 
-    },
-    error7: function () {
+    }
 
-    },
-    fromNumError: function (numError) {
+
+    fromNumError (numError) {
 
         let lista = [
             this.error1,
@@ -162,12 +169,11 @@ let DrawAhorcado = {
             this.error3,
             this.error4,
             this.error5,
-            this.error6,
-            this.error7
+            this.error6
+
         ];
 
         return lista[numError - 1]();
-
-
     }
-};
+
+}
