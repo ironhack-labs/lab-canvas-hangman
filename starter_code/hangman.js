@@ -29,6 +29,7 @@ class Hangman {
     // checkGameOver. Returns a boolean value, true if the users lose, and false in any other case.
     if(this.errorsLeft === 0){
       console.log('Game Over');
+      window.alert('Game Over');
       return true;
     } else {
       return false;
@@ -52,8 +53,9 @@ class Hangman {
   }
   checkWinner(){
     // checkWinner. Check if the users win and return a boolean value.
+    // Compare uncoveredArray with secretWord. If they're the same, the player wins the game
     if(this.secretArray.every( e => this.uncoveredArray.includes(e) )){
-      // Compare uncoveredArray with secretWord. If they're the same, the player wins the game
+      // Arrays equal: Player has jut won the game
       return true;
     } else{
       // Player has not won yet
@@ -89,18 +91,21 @@ class Hangman {
           if(this.addCorrectLetter(input)){
             // addCorrectLetter checks if user won, in which case returns a true
             console.log('User has won');
+            window.alert('User has won');
             return true;
           }
         } else {
           // Input letter does not exist in the secretWord; call addWrongLetter
-          console.log(`letter ${input} not in word ${this.secretWord}` )   
+          console.log(`letter ${input} not in word ${this.secretWord}` );  
+          // window.alert(`letter ${input} not in word ${this.secretWord}` );  
           gameCanvas.drawHangman();
           return this.addWrongLetter();       
         }
 
       } else {
         //Return false if input letter has already been pressed
-        console.log(`letter ${input} has already been entered ${this.secretWord}` )  
+        console.log(`letter ${input} has already been entered ${this.secretWord}` ); 
+        // window.alert(`letter ${input} has already been entered ${this.secretWord}` );
         return false;
       }
     }
