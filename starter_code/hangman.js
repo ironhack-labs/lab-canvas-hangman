@@ -5,8 +5,8 @@ class Hangman {
   constructor() {
     this.guessedLetter = '';
     this.errorsLeft = 10;
-    // this.words = ['PERRO', 'GATO', 'ELEFANTE','BALLENA'];
-    this.words = ['PERRO'];
+    this.words = ['PERRO', 'GATO', 'ELEFANTE','BALLENA'];
+    // this.words = ['PERRO'];
     this.secretWord = '';
     this.secretArray = [];
     this.uncoveredArray = [];

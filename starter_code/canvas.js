@@ -12,20 +12,25 @@ class HangmanCanvas {
   }
 
   renderWord(){
-    // let gapWidth = 25;
-    // let charWidth = 50;
-    // let x1 = 100;
-    // let x2 = x1 + charWidth;
-    // let y = 400;
     let x = 199;
     let y = 390;
     hangman.uncoveredArray.forEach((item) => {
+      this.renderLetter(item, x, y);
       x += 50;
-      this.ctx.fillStyle = "black";
-      this.ctx.textAlign = "center";
-      this.ctx.font = "40px Arial";
-      this.ctx.fillText(item, x, y);
     });
+    x = 500;
+    y = 100;
+    // hangman.guessedLetter.split('').forEach((item) => {
+    //   this.renderLetter(item, x, y);
+    //   x += 50;
+    // });
+  }
+
+  renderLetter(letter, xCoord, yCoord){
+    this.ctx.fillStyle = "black";
+    this.ctx.textAlign = "center";
+    this.ctx.font = "40px Arial";
+    this.ctx.fillText(letter, xCoord, yCoord);
   }
 
   drawHangman(){
