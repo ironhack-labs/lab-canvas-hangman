@@ -1,5 +1,5 @@
 var hangman;
-
+var gameCanvas;
 // Hangman
 class Hangman {
   constructor() {
@@ -9,17 +9,19 @@ class Hangman {
     this.words = ['PERRO'];
     this.secretWord = '';
     this.secretArray = [];
-    this.letters = [];
+    this.uncoveredArray = [];
   }
   getWord() {
     // Returns a random word from our array words
      this.secretWord = this.words[Math.floor(Math.random()*this.words.length)];
      // Store our secret word in an array, so we can use it later in comparissons and such
      this.secretArray = this.secretWord.split('');
-     // Set an empty array in letters, so we can render it on screen later
-     this.secretArray.map(e=>this.letters.push('_'));
+     // Set an empty array in uncoveredArray, so we can render it on screen later
+     this.secretArray.map(e=>this.uncoveredArray.push('_'));
      console.log("secretArray", this.secretArray);
-     console.log("letters", this.letters);
+     console.log("uncoveredArray", this.uncoveredArray);
+     // Draw board on canvas
+     gameCanvas.renderWord();
      return this.secretWord;
   }
  
@@ -50,8 +52,8 @@ class Hangman {
   }
   checkWinner(){
     // checkWinner. Check if the users win and return a boolean value.
-    if(this.secretArray.every( e => this.letters.includes(e) )){
-      // Compare letters with secretWord. If they're the same, the player wins the game
+    if(this.secretArray.every( e => this.uncoveredArray.includes(e) )){
+      // Compare uncoveredArray with secretWord. If they're the same, the player wins the game
       return true;
     } else{
       // Player has not won yet
@@ -62,10 +64,11 @@ class Hangman {
   addCorrectLetter(input){
     // addCorrectLetter. Adds to the guessedLetter variable the letter that was pressed. Also, it should check if the user wins.
     this.guessedLetter += input;
-    // Add the letter in all places where it belongs to. Store it in the letters array the exact way it will be rendered on screen
-    // Let's cicle through our secretArray, so we can insert our input letter in the space it belongs to in the letters array
-    this.secretArray.map((e, index)=>e === input ? this.letters[index] = this.secretArray[index] : this.letters[index]);
-    console.log('this.letters', this.letters)
+    // Add the letter in all places where it belongs to. Store it in the uncoveredArray array the exact way it will be rendered on screen
+    // Let's cicle through our secretArray, so we can insert our input letter in the space it belongs to in the uncoveredArray array
+    this.secretArray.map((e, index)=>e === input ? this.uncoveredArray[index] = this.secretArray[index] : this.uncoveredArray[index]);
+    console.log('this.uncoveredArray', this.uncoveredArray)
+    gameCanvas.renderWord();
     return this.checkWinner();
   }
   addWrongLetter(){
@@ -91,6 +94,7 @@ class Hangman {
         } else {
           // Input letter does not exist in the secretWord; call addWrongLetter
           console.log(`letter ${input} not in word ${this.secretWord}` )   
+          gameCanvas.drawHangman();
           return this.addWrongLetter();       
         }
 
@@ -107,6 +111,7 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  gameCanvas = new HangmanCanvas(hangman.secretArray);
   hangman.getWord();
 };
 
