@@ -19,14 +19,13 @@ class HangmanCanvas {
     // let y = 400;
     let x = 199;
     let y = 390;
-    for (let i = 0; i < hangman.uncoveredArray.length; i++) {
+    hangman.uncoveredArray.forEach((item) => {
       x += 50;
       this.ctx.fillStyle = "black";
       this.ctx.textAlign = "center";
       this.ctx.font = "40px Arial";
-      this.ctx.fillText(hangman.uncoveredArray[i], x, y);
-      
-    }
+      this.ctx.fillText(item, x, y);
+    });
   }
 
   drawHangman(){
