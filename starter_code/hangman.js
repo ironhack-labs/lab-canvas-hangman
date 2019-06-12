@@ -1,16 +1,29 @@
 var hangman;
 
-// function Hangman() {
 
-// }
+function Hangman() {
+  this.words = ["cero", "uno", "dos"];
+  this.secretWord = "";
+  this.letters = [];
+  this.guessedLetter = ""
+  this.errorsLeft = () => {}
 
-// Hangman.prototype.getWord = function () {
+ }
 
-// };
+Hangman.prototype.getWord = function () {
+rnd = Math.floor(Math.random() * this.words.length)
+//console.log(rnd)
+return this.words[rnd]
+};
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
+Hangman.prototype.checkIfLetter = function (keyCode) {
+  
+  if (keyCode >64 && keyCode < 91) {
+    return true
+  } else {
+    return false
+  }
+ };
 
 // Hangman.prototype.checkClickedLetters = function (key) {
 
