@@ -19,8 +19,7 @@ HangmanCanvas.prototype.createBoard = function () {
 
 HangmanCanvas.prototype.drawLines = function (secretWord) {
   let aux = canvas.width / 4;
-  let noSpaceString = secretWord.replace(/\s/g, '');
-  for (let i = 0; i < noSpaceString.length; i++) {  
+  for (let i = 0; i < secretWord.length; i++) {  
     this.context.lineWidth = 10  
     this.context.beginPath()
     this.context.moveTo(aux, 700)
@@ -50,7 +49,7 @@ HangmanCanvas.prototype.winner = function () {
 
 };
 
-
 let hangmanCanvas = new HangmanCanvas()
+
 hangmanCanvas.createBoard()
 hangmanCanvas.drawLines('Edgar')
