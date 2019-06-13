@@ -1,14 +1,33 @@
+let canvas = document.getElementById('hangman');
+
 
 function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
+  this.context = document.getElementById('hangman').getContext('2d');
 }
 
 HangmanCanvas.prototype.createBoard = function () {
-
+  this.context.clearRect(0, 0, canvas.width, canvas.height)
+  this.context.lineWidth = 10
+  this.context.beginPath()
+  this.context.moveTo(0, 0)
+  this.context.lineTo(canvas.width, 0)
+  this.context.lineTo(canvas.width, canvas.height)
+  this.context.lineTo(0, canvas.height)
+  this.context.lineTo(0, 0)
+  this.context.stroke()
 };
 
-HangmanCanvas.prototype.drawLines = function () {
-
+HangmanCanvas.prototype.drawLines = function (secretWord) {
+  let aux = canvas.width / 4;
+  let noSpaceString = secretWord.replace(/\s/g, '');
+  for (let i = 0; i < noSpaceString.length; i++) {  
+    this.context.lineWidth = 10  
+    this.context.beginPath()
+    this.context.moveTo(aux, 700)
+    this.context.lineTo(aux+50, 700)
+    this.context.stroke()
+    aux += 70
+  }
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
@@ -30,3 +49,8 @@ HangmanCanvas.prototype.gameOver = function () {
 HangmanCanvas.prototype.winner = function () {
 
 };
+
+
+let hangmanCanvas = new HangmanCanvas()
+hangmanCanvas.createBoard()
+hangmanCanvas.drawLines('Edgar')
