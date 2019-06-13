@@ -42,7 +42,10 @@ Hangman.prototype.addWrongLetter = function(letter) {
 
   canvasHangman.writeWrongLetter(letter, this.errorsLeft);
   if (this.checkGameOver()) {
+    canvasHangman.drawHangman(0)
     canvasHangman.gameOver();
+  } else {
+    canvasHangman.drawHangman(this.errorsLeft)
   }
 };
 
@@ -76,6 +79,7 @@ document.onkeydown = function(e) {
           hangman.addWrongLetter(letra);
         }
       } else {
+        alert('Ya has seleccionado esa letra')
       }
 
       hangman.letters.push(letra);
