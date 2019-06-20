@@ -1,5 +1,23 @@
 var hangman;
 var ctx;
+var words = [
+	'lie',
+	'disgusted',
+	'puzzling',
+	'helpless',
+	'shop',
+	'fence',
+	'hover',
+	'summer',
+	'luxuriant',
+	'knowledgeable',
+	'supply',
+	'beginner',
+];
+var win = new Image(); // Create new <img> element
+var loose = new Image(); // Create new <img> element
+win.src = '/images/awesome.png';
+loose.src = '/images/gameover.png';
 
 class Hangman {
 	constructor(word) {
@@ -42,12 +60,13 @@ class Hangman {
 		if (this.lives > 0) {
 			if (this.checkWinner()) {
 				clearCanvas();
+				ctx.drawImage(win, 0, 0);
 				return true;
 			}
 			return true;
 		} else {
-			console.log('Game Over! no more lives');
 			clearCanvas();
+			ctx.drawImage(loose, 0, 0);
 			return false;
 		}
 	}
@@ -61,8 +80,6 @@ class Hangman {
 }
 
 function clearCanvas() {
-	console.log('Game over! you won!');
-	console.log(ctx.width, ctx.height);
 	ctx.clearRect(
 		0,
 		0,
@@ -209,8 +226,13 @@ function drawFace() {
 	ctx.stroke();
 }
 
+function getRandomWord() {
+	words.sort(() => Math.random() - 0.5);
+	return words[0];
+}
+
 document.getElementById('start-game-button').onclick = function() {
-	hangman = new Hangman('test');
+	hangman = new Hangman(getRandomWord());
 	ctx = document.getElementById('hangman').getContext('2d');
 };
 
