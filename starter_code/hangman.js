@@ -15,7 +15,6 @@ class Hangman {
     return this.secretWord;
   }
   checkIfLetter (key) {
-    console.log(`Voce digitou a ${key}`);
     if (key >= 65 && key <= 90) {
       let letra = String.fromCharCode(key).toLocaleUpperCase();
       this.checkClickedLetters(letra);
@@ -32,8 +31,7 @@ class Hangman {
       this.addCorrectLetter(posicao);
       return true;
     } else {
-      let posicao = this.secretWord.indexOf(letra);
-      this.addWrongLetter(posicao);
+      this.addWrongLetter(letra);
       return true;
     }
   }
@@ -55,15 +53,27 @@ class Hangman {
   }
   addCorrectLetter(key) {
     let letraConvertida = this.secretWord[key].toUpperCase();
+    let index = 0;
+    while (index != -1) {
+      let pos = this.secretWord.indexOf(letraConvertida, index);
+      if (pos >= 0) {
+        canvas.writeCorrectLetter(pos);
+        index = pos +1;
+      }
+      else
+        index = -1;
+    }
     this.letters.push(letraConvertida);
     this.guessedLetter += letraConvertida;
-    this.checkWinner();
+    if (this.checkWinner()) {
+      canvas.winner();
+    }
   }
   addWrongLetter(key) {
-    let letraConvertida = String.fromCharCode(key);
-    this.letters.push(letraConvertida);
+    this.letters.push(key);
     if (!this.checkGameOver())
       this.errorsLeft -= 1;
+    canvas.writeWrongLetter(key, this.errorsLeft);
   }
 }
 
