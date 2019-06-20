@@ -1,6 +1,6 @@
 class Hangman {
   constructor() {
-    this.words = ['ALBATROZ', 'CABIDE', 'PARIS', 'VACA']
+    this.words = ['ALGOZ', 'CABIDE', 'PARIS', 'VACUO']
     this.secretWord = '';
     this.letters = [];
     this.guessedLetter = '';
@@ -16,19 +16,22 @@ class Hangman {
     return letter > 64 && letter < 91
   }
   checkClickedLetters(letter) {
-    return !this.letters.includes(letter)
+    if (this.letters.includes(letter) === false) {
+      return true;
+    }
+    return false
   }
   addCorrectLetter(letter) {
-    if (this.secretWord.indexOf(letter.key)) {
-      this.guessedLetter += letter.key.toUpperCase()
+    console.log(this.secretWord.indexOf(letter))
+    if (this.secretWord.indexOf(letter) !== -1) {
+      this.guessedLetter += letter.toUpperCase()
       this.letters.push(letter)
+      return true 
     }
   }
   addWrongLetter(letter) {
-    if (this.secretWord.indexOf(letter)) {
-      this.errorsLeft -= 1;
-      this.letters.push(letter)
-    }
+    this.errorsLeft -= 1;
+    this.letters.push(letter)
     this.checkGameOver()
   }
   checkGameOver() {
@@ -51,11 +54,21 @@ document.getElementById('start-game-button').onclick = function () {
 
 document.onkeydown = function (e) {
   if (hangman.checkIfLetter(e.keyCode) === false) return alert("This is not a fucking letter, dumbass!")
-  if (hangman.checkClickedLetters(e.key) === false) {
-    return alert('test')
+  if (hangman.checkClickedLetters(e.key) === false) return alert('Pressed Already')
+
+  if (hangman.addCorrectLetter(e.key.toUpperCase())) {
+    gameInstance.writeCorrectLetter(e);
+    if(hangman.checkWinner()) {
+
+    }
+
+    return
   } else {
-    hangman.addCorrectLetter(e)
-    hangman.addWrongLetter(e)
+    hangman.addWrongLetter(e.key);
+    gameInstance.writeWrongLetter(e.key, hangman.errorsLeft)
+    if (checkGameOver(true)) {
+      gameInstance.gameOver();
+    }
   }
-    
+
 };
