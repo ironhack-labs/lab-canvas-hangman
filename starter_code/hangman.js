@@ -1,36 +1,45 @@
-var hangman;
+class Hangman {
+  constructor() {
+    this.words = ['eris', 'drew', 'raving', 'disco', 'breaks'];
+    this.secretWord = this.words[Math.floor(Math.random() * (this.words.length - 1))]
+    this.letters = [];
+    this.guessedLetter = '';
+    this.errorsLeft = 10;
+  }
 
-// function Hangman() {
+  getWord() {
+    return this.secretWord;
+  }
 
-// }
+  checkIfLetter(keyCode) {
+    return keyCode >= 65 && keyCode <= 90 ? true : false;
+  }
 
-// Hangman.prototype.getWord = function () {
+  checkClickedLetters(key) {
+    return this.letters.includes(key) ? false : true;
+  }
 
-// };
+  addCorrectLetter(i) {
+    return this.guessedLetter += this.secretWord[i].toLocaleUpperCase();
+  }
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+  addWrongLetter(letter) {
+    if(this.secretWord.indexOf(letter) === -1) {
+      return this.errorsLeft -= 1;
+    } 
+  }
 
-// };
+  checkGameOver() {
+    return this.errorsLeft === 0 ? true : false;
+  }
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+  checkWinner() {
+    return this.secretWord.toLocaleUpperCase().split('').sort().join('') === this.guessedLetter.toLocaleUpperCase().split('').sort().join('') 
+    ? true 
+    : false
+  }
 
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+}
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
@@ -38,5 +47,5 @@ document.getElementById('start-game-button').onclick = function () {
 
 
 document.onkeydown = function (e) {
-
+  
 };
