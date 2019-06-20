@@ -8,6 +8,13 @@ class HangmanCanvas {
 
 HangmanCanvas.prototype.createBoard = function () {
   this.ctx.beginPath();
+  this.ctx.fillStyle = 'white';
+  this.ctx.fillRect(0, 0, 1200, 800);
+  this.ctx.fill();
+  this.ctx.closePath();
+
+  this.ctx.fillStyle = 'black';
+  this.ctx.beginPath();
   this.ctx.lineWidth = 5;
   this.ctx.moveTo(0, 790);
   this.ctx.lineTo(200, 790);
@@ -97,12 +104,17 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
+  var img = document.getElementById("loser");
+  this.ctx.drawImage(img, 10, 10);
   let intervalId = setTimeout(() => {
     alert('You lose! :(');
   }, 100);
+
 };
 
 HangmanCanvas.prototype.winner = function () {
+  var img = document.getElementById("winner");
+  this.ctx.drawImage(img, 10, 10);
   let intervalId = setTimeout(() => {
     alert('You win! :)');
   }, 100);
