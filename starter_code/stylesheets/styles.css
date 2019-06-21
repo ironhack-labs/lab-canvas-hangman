@@ -15,3 +15,7 @@
 #hangman {
   text-align: center;
 }
+canvas {
+  background: #9DA400;
+  text-align: center;
+}

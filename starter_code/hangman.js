@@ -1,5 +1,5 @@
 var hangman;
-
+var hangmanCanvas;
 class Hangman {
   constructor() {
     this.words = ['palavra', 'bolsa', 'garrafa', 'celular'];
@@ -13,8 +13,6 @@ class Hangman {
 Hangman.prototype.getWord = function () {
   const i = Math.floor(Math.random() * this.words.length);
   this.secretWord = this.words[i];
-  console.log(this.secretWord);
-
   return this.secretWord;
 };
 
@@ -37,22 +35,22 @@ Hangman.prototype.checkClickedLetters = function (key) {
 };
 
 Hangman.prototype.addCorrectLetter = function (i) {
-  console.log(typeof this.guessedLetter);
-
   this.guessedLetter += i;
+  hangmanCanvas.writeCorrectLetter(i);
 };
 
 Hangman.prototype.addWrongLetter = function (letter) {
   this.errorsLeft -= 1;
+  hangmanCanvas.writeWrongLetter(letter, this.errorsLeft);
+  hangmanCanvas.drawHangman(this.errorsLeft);
+  this.checkGameOver();
 };
 
 Hangman.prototype.checkGameOver = function () {
-  if (this.errorsLeft > 1) {
-    this.addWrongLetter();
+  if (this.errorsLeft > 4) {
     return false;
   } else {
-    console.log('game Over');
-
+    hangmanCanvas.gameOver();
     return true;
   }
 };
@@ -62,21 +60,16 @@ Hangman.prototype.checkWinner = function (i) {
   const up = this.secretWord.toUpperCase().split('').sort();
 
   let unique = [...new Set(up)]
-  console.log(this.guessedLetter.length);
-
-
-
   if (up.includes(i)) {
     this.addCorrectLetter(i);
   } else {
-    if (this.checkGameOver()) {
-      return false;
-    }
+    this.addWrongLetter(this.letters[this.letters.length -1]) 
   }
 
-  let letras = this.guessedLetter.split('').sort();
+let letras = this.guessedLetter.split('').sort();
   if (unique.length === letras.length) {
     console.log('winner');
+    hangmanCanvas.winner();
     return true;
   } else {
     return false;
@@ -86,20 +79,22 @@ Hangman.prototype.checkWinner = function (i) {
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
   hangman.getWord();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
   start();
+  hangmanCanvas.drawLines();
 };
 
-function start() {
-  document.onkeydown = function (e) {
-    if (hangman.checkIfLetter(e.keyCode)) {
-      var key = String.fromCharCode(e.keyCode);
-      if (hangman.checkClickedLetters(key)) {
-        hangman.checkWinner(key);
-
+  function start(){
+    document.onkeydown = function (e) {
+      if (hangman.checkIfLetter(e.keyCode)) {
+        var key = String.fromCharCode(e.keyCode);
+        if (hangman.checkClickedLetters(key)) {
+          hangman.checkWinner(key);
+        }
       }
+    };
+  }
+  
 
-    }
 
-  };
-
-}
