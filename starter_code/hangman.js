@@ -6,10 +6,13 @@ class Hangman{
     this.correctLetters = [];
     this.errors = 0;
   }
-  getWord(secretWord){
+  getWord(words){
+    let secretWord = words[Math.floor(Math.random() * Math.floor(words.length))];
     let formatedSecretWord = secretWord.toLowerCase();
     this.letters = [...formatedSecretWord];
     this.secretWord = [...formatedSecretWord];
+    console.log(secretWord);
+    return secretWord;
   }
 
   getLetter(letter, letterKeyCode){
@@ -29,12 +32,10 @@ class Hangman{
           this.letters.splice(i, 1);
         }
       });
-      console.log(this.secretWord, this.correctLetters);
       return true;
     }else{
       this.guessedLetters.push(formatedLetter);
       this.errors = this.guessedLetters.length;
-      console.log(this.secretWord);
       return false;
     }
 

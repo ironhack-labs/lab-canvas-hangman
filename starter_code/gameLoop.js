@@ -1,9 +1,12 @@
+let words = ['love', 'concrete', 'passion', 'fruit', 'mango', 'movie', 'tropical', 
+              'beach', 'summer', 'alphabet', 'farmer', 'train', 'driver', 'diver'];
+
 document.getElementById('start-game-button').onclick = function(){
 
     let hangman = new Hangman();
-    hangman.getWord('loss');
+    let randomWord = hangman.getWord(words);
 
-    let hangmanCanvas = new HangmanCanvas('loss');
+    let hangmanCanvas = new HangmanCanvas(randomWord);
     hangmanCanvas.createBoard();
 
     document.onkeydown = function(e){
