@@ -162,7 +162,7 @@ document.querySelector('#start-game-button').addEventListener("click", function 
               image.src = "images/awesome.png";
               body.appendChild(image);
               let restartButton = document.createElement('button');
-              restartButton.setAttribute('style', 'position:absolute; bottom: 100px; left: 400px;')
+              restartButton.setAttribute('style', 'position:absolute; bottom: 50px; left: 400px;')
               restartButton.setAttribute('id', 'restart-button');
               restartButton.innerHTML = "Restart Game"
               restartButton.onclick = function () {
