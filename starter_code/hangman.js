@@ -21,16 +21,46 @@ class Hangman {
     }
     return false
   }
+
   addCorrectLetter(letter) {
-    if (this.secretWord.indexOf(letter) !== -1) {
-      this.guessedLetter = letter.toUpperCase()
+    let loop = this.secretWord.length;
+    if (this.secretWord.indexOf(letter.key) !== -1) {
+      for (let i = 0; i < loop; i += 1) {
+        if (this.secretWord[i] === letter.key.toUpperCase()) {
+          this.guessedLetter += letter.key.toUpperCase()
+        }
+      }
+      this.letters.push(letter)
       return true
     }
   }
+
   addWrongLetter(letter) {
     this.errorsLeft -= 1;
     this.letters.push(letter)
     this.checkGameOver()
+
+    switch(this.errorsLeft){
+      case 9:
+        return 'head'
+      break;
+      case 7:
+        return 'body'
+      break;
+      case 5:
+        return 'legLeft'
+      break;
+      case 4:
+        return 'legRigth'
+      break;
+      case 2:
+        return 'leftArm'
+      break;
+      case 1:
+        return 'rigthArm'
+        break;
+      default:
+    }
   }
   checkGameOver() {
     return this.errorsLeft === 0
@@ -54,10 +84,13 @@ document.onkeydown = function (e) {
   if (hangman.checkIfLetter(e.keyCode) === false) return alert("This is not a fucking letter, dumbass!")
   if (hangman.checkClickedLetters(e.key) === false) return alert('Pressed Already')
 
-  if (hangman.addCorrectLetter(e.key.toUpperCase())) {
+  if (hangman.addCorrectLetter(e)) {
     gameInstance.writeCorrectLetter(e);
-  } else {
-    hangman.addWrongLetter(e.key);
     gameInstance.writeWrongLetter(hangman.letters, hangman.errorsLeft)
+    gameInstance.winner(hangman.checkWinner());
+  } else {
+    gameInstance.drawHangman(hangman.addWrongLetter(e.key));
+    gameInstance.writeWrongLetter(hangman.letters, hangman.errorsLeft)
+    gameInstance.gameOver(hangman.checkGameOver());
   }
 };
