@@ -110,7 +110,7 @@ class HangmanCanvas{
   gameOver() {
     this.createBoard();
     let img = document.getElementById('loser')
-    this.ctx.drawImage(img, 150, 100);
+    this.ctx.drawImage(img, 300, 270);
     setTimeout(() => {
       
     }, 100);
@@ -119,7 +119,7 @@ class HangmanCanvas{
   winner() {
     this.createBoard();
     let img = document.getElementById('winner')
-    this.ctx.drawImage(img, 250, 250);
+    this.ctx.drawImage(img, 150, 100);
     setTimeout(() => {
     
     }, 100);
