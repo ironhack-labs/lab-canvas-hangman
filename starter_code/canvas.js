@@ -33,14 +33,12 @@ class HangmanCanvas {
   writeWrongLetter(w) {
     if (!this.secretWord.split('').includes(w.key)) {
       this.wrongLetters.push(w.key.toUpperCase());
-      // console.log(this.wrongLetters.length);
       this.ctx.fillText(w.key.toUpperCase(), 500 + (this.wrongLetters.length + 1) * 50, 200);
     }
 
 
   }
   drawHangman() {
-    console.log(this.wrongLetters);
     switch (this.wrongLetters.length) {
       case 1:
         this.ctx.beginPath();

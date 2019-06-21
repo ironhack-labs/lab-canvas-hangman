@@ -15,11 +15,7 @@ class Hangman {
   }
 
   checkIfLetter(char) {
-    console.log(`key code: ${char.keyCode}`);
     if (typeof (char.key) === 'string' && char.keyCode <= 90 && char.keyCode >= 65) {
-      // this.addCorrectLetter(char);
-      // this.addWrongLetter(char);
-      // this.letters.push(char.key.toUpperCase());
       return true;
     }
 
@@ -32,12 +28,7 @@ class Hangman {
   }
 
   checkGameOver() {
-    console.log(`Letters array: ${this.letters.length}`);
-    console.log(`Guessed Single Letters: ${this.guessedSingleLetter.length}`);
     let wrongLetters = this.letters.length - this.guessedSingleLetter.length;
-    console.log(wrongLetters);
-    // this.errorsLeft -= wrongLetters;
-    // console.log(this.errorsLeft);
     return wrongLetters < 10 ? false : true;
   }
 
@@ -46,8 +37,6 @@ class Hangman {
   }
 
   addCorrectLetter(x) {
-    console.log('terra');
-    // let char = this.secretWord[x];
     let secretWordArr = this.secretWord.toUpperCase().split('');
     for (let i = 0; i < secretWordArr.length; i += 1) {
       if (secretWordArr[i] === x.key.toUpperCase()) {
@@ -68,10 +57,6 @@ class Hangman {
     if (this.checkIfLetter(char) && !this.letters.includes(char.key.toUpperCase())) {
       this.letters.push(char.key.toUpperCase());
     }
-    // if (typeof (char) === 'string') {
-    //   this.errorsLeft -= 1
-    // }
-    // return false;
   }
 }
 
@@ -86,11 +71,7 @@ document.getElementById('start-game-button').onclick = function () {
 
 
 document.onkeydown = function (e) {
-  console.log(`é letra: ${hangman.checkIfLetter(e)}`);
-  console.log(`já clicou: ${hangman.checkClickedLetters(e)}`);
   hangman.checkIfLetter(e);
-  console.log(`gameOver? ${hangman.checkGameOver()}`);
-  console.log(hangman.letters);
 
   if (hangman.checkIfLetter(e) === true && hangman.checkClickedLetters(e) === false) {
     canvas.writeWrongLetter(e);
@@ -100,7 +81,6 @@ document.onkeydown = function (e) {
   if (hangman.checkIfLetter(e)) {
     hangman.addWrongLetter(e);
   }
-  console.log(hangman.letters);
   canvas.writeCorrectLetter(e);
   if (hangman.checkGameOver()) {
     canvas.gameOver();
