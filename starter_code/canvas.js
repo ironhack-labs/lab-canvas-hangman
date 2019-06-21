@@ -99,12 +99,13 @@ HangmanCanvas.prototype.drawLines = function () {
 HangmanCanvas.prototype.writeCorrectLetter = function (newLetter) {
   this.cx.font = '80px Roboto';
   let letter = this.word[newLetter];
-  cx.fillText(letter, 310, 600);
+  let position = 310
+  this.cx.fillText(letter, (position + 100) * index, 400);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   this.cx.font = '50px Roboto';
-  this.cx.fillText(letter, 700, 500);
+  this.cx.fillText(letter, 600 + (50 * (10 - errorsLeft)), 300)
   if (errorsLeft === 9) {
     this.drawHangman('first')
   } else if (errorsLeft === 8) {

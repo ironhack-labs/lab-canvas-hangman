@@ -30,7 +30,7 @@ class Hangman {
       addCorrectLetter(this.secretWord.indexOf(letter));
     } else {
       this.addWrongLetter(letter);
-      return true
+      return true;
     }
   }
 
@@ -40,10 +40,9 @@ class Hangman {
   }
 
   addWrongLetter (letter) {
+    this.errorsLeft -= 1;
     this.letters.push(letter);
-    console.log(canvas);
     canvas.writeWrongLetter(letter, this.errorsLeft);
-    return this.errorsLeft -= 1;
   }
 
   checkGameOver () {
