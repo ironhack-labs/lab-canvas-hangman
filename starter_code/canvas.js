@@ -6,7 +6,7 @@ class HangmanCanvas {
   }
 }
 
-// const connect = new Hangman();
+// let connect = new Hangman();
 
 HangmanCanvas.prototype.createBoard = function () {
   this.cx.beginPath();
@@ -103,8 +103,9 @@ HangmanCanvas.prototype.drawLines = function () {
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-  // connect.addCorrectLetter(index)
-  // this.cx.textFill()
+  this.cx.font = '80px Roboto';
+  let letter = this.word[index];
+  ctx.fillText(letter, 628, 380);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {

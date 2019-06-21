@@ -1,7 +1,7 @@
 class Hangman {
   constructor (words, secretWord, letters, guessedLetter, errorsLeft) {
-    this.words = ['cachorro', 'gato', 'rato'];
-    this.secretWord = 'dinheiro';
+    this.words = ['cachorro', 'gato', 'rato', 'dinheiro'];
+    this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = '';
     this.errorsLeft = 10;
@@ -32,11 +32,13 @@ class Hangman {
   }
 
   addCorrectLetter (i) {
-    this.guessedLetter += this.secretWord[i].toUpperCase()
+    let newLetter = this.guessedLetter += this.secretWord[i].toUpperCase();
+    canvas.writeCorrectLetter(newLetter);
   }
 
   addWrongLetter (letter) {
     this.letters.push(letter);
+    canvas.writeWrongLetter(letter, errorsLeft);
     return this.errorsLeft -= 1;
   }
 
@@ -50,6 +52,7 @@ class Hangman {
 
   checkWinner () {
     if (this.secretWord.split('').sort().toString() === this.guessedLetter.split('').sort().toString()) {
+      canvas.winner();
       return true
     }
     return false
@@ -61,9 +64,7 @@ document.getElementById('start-game-button').onclick = function () {
   const canvas = new HangmanCanvas();
   canvas.createBoard();
   canvas.drawLines();
-  canvas.writeCorrectLetter();
   canvas.drawHangman();
-  canvas.winner();
 };
 
 
