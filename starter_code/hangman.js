@@ -1,5 +1,3 @@
-
-// function Hangman() {
 class Hangman {
   constructor() {
     this.words = [
@@ -40,20 +38,7 @@ class Hangman {
   checkGameOver() {
     this.errorsLeft--;
     if (this.errorsLeft === 0) {
-      let body = document.getElementsByTagName('body')[0];
-      let image = document.createElement('img');
-      image.setAttribute('style', 'position:absolute; top:150px; left:150px; width: 75%; ');
-      image.src = "images/gameover.png";
-      body.appendChild(image);
-      let restartButton = document.createElement('button');
-      restartButton.setAttribute('style', 'position:absolute; bottom: 50px; left: 400px;')
-      restartButton.setAttribute('id', 'restart-button');
-      restartButton.innerHTML = "Restart Game"
-      restartButton.onclick = function () {
-        location.reload();
-      }
-
-      body.appendChild(restartButton);
+      return true
     }
   }
   checkWinner() {
@@ -65,16 +50,12 @@ class Hangman {
     return this.guessedLetter.length === secretArray.length;
   }
   addCorrectLetter(value) {
-    if (this.checkWinner()) {
-      console.log(`hi`)
-    }
-    if (this.secretWord.includes(value)) {
+    this.guessedLetter += value;
+  }
+  isCorrectLetter(keyPressed) {
+    if (this.secretWord.includes(keyPressed)) {
+      this.addCorrectLetter(keyPressed)
       return true;
-
     }
-
   }
 }
-
-
-

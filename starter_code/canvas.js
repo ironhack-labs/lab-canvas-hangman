@@ -142,8 +142,6 @@ let ourGame = new HangmanCanvas(hangman.secretWord);
 document.querySelector('#start-game-button').addEventListener("click", function () {
   document.querySelector('body :first-child').remove();
   document.querySelector('body :first-child').remove();
-
-
   ourGame.createBoard();
 
   setTimeout(function () {
@@ -151,8 +149,7 @@ document.querySelector('#start-game-button').addEventListener("click", function 
       console.log(e.key);
       if (hangman.checkIfLetter(e.key) && !hangman.checkClickedLetters(e.key)) {
         hangman.letters.push(e.key);
-        if (hangman.addCorrectLetter(e.key)) {
-          hangman.guessedLetter += e.key;
+        if (hangman.isCorrectLetter(e.key)) {
           ourGame.writeCorrectLetter(e.key);
           if (hangman.checkWinner()) {
             setTimeout(() => {
@@ -162,32 +159,35 @@ document.querySelector('#start-game-button').addEventListener("click", function 
               image.src = "images/awesome.png";
               body.appendChild(image);
               let restartButton = document.createElement('button');
-              restartButton.setAttribute('style', 'position:absolute; bottom: 50px; left: 400px;')
+              restartButton.setAttribute('style', 'position:absolute; bottom: -20px; left: 400px;')
               restartButton.setAttribute('id', 'restart-button');
               restartButton.innerHTML = "Restart Game"
               restartButton.onclick = function () {
                 location.reload();
               }
-
               body.appendChild(restartButton);
             }, 500)
           }
-          console.log("guessed correct " + hangman.guessedLetter);
         } else {
           ourGame.writeWrongLetter(e.key)
-          hangman.checkGameOver();
           ourGame.paintNextElement(hangman.errorsLeft);
+          if(hangman.checkGameOver()) {
+            let body = document.getElementsByTagName('body')[0];
+            let image = document.createElement('img');
+            image.setAttribute('style', 'position:absolute; top:150px; left:150px; width: 75%; ');
+            image.src = "images/gameover.png";
+            body.appendChild(image);
+            let restartButton = document.createElement('button');
+            restartButton.setAttribute('style', 'position:absolute; bottom: 50px; left: 400px;')
+            restartButton.setAttribute('id', 'restart-button');
+            restartButton.innerHTML = "Restart Game"
+            restartButton.onclick = function () {
+              location.reload();
+            }
+            body.appendChild(restartButton);
+          }
         }
       } // checks if key is valid not already pushed, then pushes key into "letters"
-
-
-
     }) // ending of keydown listener
-
   }, 500)
 })
-
-
-
-
-
