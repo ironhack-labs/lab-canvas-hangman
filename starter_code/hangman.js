@@ -8,7 +8,8 @@ class Hangman {
     this.secretWord = '';
     this.letters = '';
     this.guessedLetter = '';
-    this.errosLeft = 10;
+    this.wrongLetters = '';
+    this.errorsLeft = 10;
   }
 
   getWord(){
@@ -30,14 +31,16 @@ class Hangman {
   }
 
   addCorrectLetter(i){
-    if(this.guessedLetter.includes(i)){
+    if(!this.guessedLetter.includes(i)){
       this.guessedLetter += i;
     }
     return this.checkWinner()
   }
 
   addWrongLetter(letter){
-    this.errosLeft -= 1;
+    this.wrongLetters += letter;
+    console.log(this.errorsLeft)
+    this.errorsLeft -= 1;
     this.checkGameOver();
   }
 
@@ -46,7 +49,9 @@ class Hangman {
   }
 
   checkWinner(){
-    return this.secretWord.split('').sort().join('') === this.guessedLetter.split('').sort().join('') ? true : false
+    let lettersSecret = [...new Set(this.secretWord.split(''))];
+    console.log(this.guessedLetter.split('').sort().join(''), lettersSecret.sort().join('') )
+    return lettersSecret.sort().join('') === this.guessedLetter.split('').sort().join('') ? true : false
   }
 }
 
@@ -69,32 +74,35 @@ function getAllIndexes(arr, val) {
 
   document.onkeydown = function (e) {
     if(hangmanPlay.checkIfLetter(e.keyCode)) {
+
       if(hangmanPlay.checkClickedLetters(e.key.toLowerCase())) {
-        console.log(hangmanPlay.secretWord.includes(e.key.toLowerCase()))
+
         if(hangmanPlay.secretWord.includes(e.key.toLowerCase())) {
+          console.log('Right One!')
           arrayIndex = getAllIndexes(hangmanPlay.secretWord, e.key.toLowerCase());
-          if(getAllIndexes(hangmanPlay.secretWord, e.key.toLowerCase()).length > 1){
-            for (let l = 0; l < arrayIndex.length; l++) {
-              hangmanPlay.addCorrectLetter(arrayIndex[l])
-              kowns.writeCorrectLetter(arrayIndex[l])
-            }
+
+          for (let l = 0; l < arrayIndex.length; l++) {
+            hangmanPlay.addCorrectLetter(hangmanPlay.secretWord[arrayIndex[l]])
+            kowns.writeCorrectLetter(arrayIndex[l])
           }
-          hangmanPlay.addCorrectLetter(arrayIndex[0])
-          kowns.writeCorrectLetter(arrayIndex[0])
+
           if(hangmanPlay.checkWinner()){
             kowns.winner();
           }
+
         }
         else{
 
-          hangmanPlay.addWrongLetter()
+          console.log('Not in the word!')
+          hangmanPlay.addWrongLetter(e.key.toLowerCase())
           kowns.writeWrongLetter(e.key.toUpperCase(), hangmanPlay.errorsLeft)
           kowns.drawHangman(hangmanPlay.errorsLeft)
+
           if(hangmanPlay.checkGameOver()) 
           {
             kowns.gameOver();
           }
         }
-      }
-    }
+      } else console.log('Same letter clicked before!')
+    } else console.log('Not a letter!')
   }
