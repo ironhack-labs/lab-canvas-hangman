@@ -18,12 +18,6 @@ HangmanCanvas.prototype.createBoard = function () {
   this.cx.lineTo(190, 540);
   this.cx.moveTo(240, 600);
   this.cx.lineTo(190, 540);
-  this.cx.moveTo(190, 540);
-  this.cx.lineTo(190, 100);
-  this.cx.moveTo(190, 100);
-  this.cx.lineTo(450, 100);
-  this.cx.moveTo(450, 100);
-  this.cx.lineTo(450, 150);
   this.cx.stroke();
   this.cx.closePath();
 };
@@ -102,13 +96,15 @@ HangmanCanvas.prototype.drawLines = function () {
 
 };
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
+HangmanCanvas.prototype.writeCorrectLetter = function (newLetter) {
   this.cx.font = '80px Roboto';
-  let letter = this.word[index];
-  ctx.fillText(letter, 628, 380);
+  let letter = this.word[newLetter];
+  cx.fillText(letter, 310, 600);
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
+  this.cx.font = '50px Roboto';
+  this.cx.fillText(letter, 700, 500);
   if (errorsLeft === 9) {
     this.drawHangman('first')
   } else if (errorsLeft === 8) {
@@ -130,41 +126,78 @@ HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   }
 };
 
-HangmanCanvas.prototype.drawHangman = function () {
+HangmanCanvas.prototype.drawHangman = function (shape) {
+
+  if (shape === 'first') {
+    this.cx.beginPath();
+    this.cx.moveTo(190, 540);
+    this.cx.lineTo(190, 100);
+    this.cx.stroke();
+    this.cx.closePath();
+  }
+
+  if (shape === 'second') {
+    this.cx.beginPath();
+    this.cx.moveTo(190, 100);
+    this.cx.lineTo(450, 100);
+    this.cx.stroke();
+    this.cx.closePath();
+  }
+
+  if (shape === 'third') {
+    this.cx.beginPath();
+    this.cx.moveTo(450, 100);
+    this.cx.lineTo(450, 150);
+    this.cx.stroke();
+    this.cx.closePath();
+  }
+
+  if (shape === 'head') {
   this.cx.beginPath();
   this.cx.arc(450, 200, 50, 90, (Math.PI/180) * 90, true);
   this.cx.stroke();
   this.cx.closePath();
+  }
 
+  if (shape === 'body') {
   this.cx.beginPath();
   this.cx.moveTo(450, 250);
   this.cx.lineTo(450, 380);
   this.cx.stroke();
   this.cx.closePath();
+  }
 
+  if (shape === 'right arm') {
   this.cx.beginPath();
   this.cx.moveTo(450, 250);
   this.cx.lineTo(400, 300);
   this.cx.stroke();
   this.cx.closePath();
+  }
   
+  if (shape === 'left arm') {
   this.cx.beginPath();
   this.cx.moveTo(450, 250);
   this.cx.lineTo(500, 300);
   this.cx.stroke();
   this.cx.closePath();
+  }
 
+  if (shape === 'right leg') {
   this.cx.beginPath();
   this.cx.moveTo(450, 380);
   this.cx.lineTo(490, 480);
   this.cx.stroke();
   this.cx.closePath();
+  }
 
+  if (shape === 'left leg') {
   this.cx.beginPath();
   this.cx.moveTo(450, 380);
   this.cx.lineTo(420, 480);
   this.cx.stroke();
   this.cx.closePath();
+  }
 };
 
 HangmanCanvas.prototype.gameOver = function () {
