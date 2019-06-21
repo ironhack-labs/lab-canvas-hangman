@@ -17,19 +17,24 @@ class HangmanCanvas {
     }
   }
   writeCorrectLetter(index) {
-    let wordIndex = this.secretWord.indexOf(index.key.toUpperCase());
-    console.log(wordIndex)
-    let drawLetter = this.secretWord[wordIndex]
-    this.ctx.font = "60px Georgia";
-    this.ctx.fillText(drawLetter, 310 + wordIndex * 100, 740);
+    let loop = this.secretWord.length;
+    for (let i = 0; i < loop; i += 1) {
+      if (this.secretWord[i] === index.key.toUpperCase()) {
+        let drawLetter = this.secretWord[i]
+        this.ctx.font = "60px Georgia";
+        this.ctx.fillText(drawLetter, 310 + i * 100, 740);
+      }
+    }
   }
   writeWrongLetter(letter, errorsleft) {
-    this.ctx.font = "60px Georgia";
-    this.ctx.fillText(letter, 600 , 440);
+    let x = letter.join('-').toUpperCase()
+    this.ctx.font = "30px Georgia";
+    this.ctx.fillText(x, 600, 440);
+    this.ctx.fillText('Pressed Letters', 700, 400);
 
     this.ctx.font = "40px Georgia";
     this.ctx.fillText('Errors Left:', 700, 300);
-    this.ctx.clearRect(900, 100, 400, 400);
+    this.ctx.clearRect(900, 100, 400, 200);
     this.ctx.fillText(errorsleft, 900, 300);
   }
 
@@ -37,7 +42,13 @@ class HangmanCanvas {
 
   }
   gameOver() {
-    ctx.drawImage(url(images/gameover.png), 10, 10);
+
+    var img = new Image();
+    img.onload = function () {
+      context.drawImage(img, 75, 55, 150, 110);
+    }
+    img.src = "images/gameover.png"
+
   }
   winner() {
 

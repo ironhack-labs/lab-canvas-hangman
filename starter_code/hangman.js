@@ -1,6 +1,6 @@
 class Hangman {
   constructor() {
-    this.words = ['ALGOZ', 'CABIDE', 'PARIS', 'VACUO']
+    this.words = ['BELGA', 'ALBATROZ', 'BAZUCA', 'BOOLEAN', 'LAGOSTA']
     this.secretWord = '';
     this.letters = [];
     this.guessedLetter = '';
@@ -22,11 +22,9 @@ class Hangman {
     return false
   }
   addCorrectLetter(letter) {
-    console.log(this.secretWord.indexOf(letter))
     if (this.secretWord.indexOf(letter) !== -1) {
-      this.guessedLetter += letter.toUpperCase()
-      this.letters.push(letter)
-      return true 
+      this.guessedLetter = letter.toUpperCase()
+      return true
     }
   }
   addWrongLetter(letter) {
@@ -58,17 +56,8 @@ document.onkeydown = function (e) {
 
   if (hangman.addCorrectLetter(e.key.toUpperCase())) {
     gameInstance.writeCorrectLetter(e);
-    if(hangman.checkWinner()) {
-
-    }
-
-    return
   } else {
     hangman.addWrongLetter(e.key);
-    gameInstance.writeWrongLetter(e.key, hangman.errorsLeft)
-    if (checkGameOver(true)) {
-      gameInstance.gameOver();
-    }
+    gameInstance.writeWrongLetter(hangman.letters, hangman.errorsLeft)
   }
-
 };
