@@ -20,19 +20,24 @@ class Hangman{
       return;
     }
 
-    if(this.letters.includes(formatedLetter) || this.correctLetters.includes(formatedLetter)){
+    if(this.letters.includes(formatedLetter)){
       this.letters.forEach((l, i)=>{
         if(l == letter){
           this.correctLetters.push(letter);
+        }
+        if(l == this.correctLetters[i]){
           this.letters.splice(i, 1);
         }
       });
+      console.log(this.secretWord, this.correctLetters);
       return true;
     }else{
       this.guessedLetters.push(formatedLetter);
       this.errors = this.guessedLetters.length;
+      console.log(this.secretWord);
       return false;
     }
+
   }
 
   checkGameOver(){
