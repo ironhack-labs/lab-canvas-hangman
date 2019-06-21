@@ -2,7 +2,7 @@
 class HangmanCanvas {
   constructor(secretWord) {
    this.cx = document.getElementById('hangman').getContext('2d');
-   this.secretWord = 'dinheiro';
+   this.word = secretWord;
   }
 }
 
@@ -109,7 +109,25 @@ HangmanCanvas.prototype.writeCorrectLetter = function (index) {
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-
+  if (errorsLeft === 9) {
+    this.drawHangman('first')
+  } else if (errorsLeft === 8) {
+    this.drawHangman('second')
+  } else if (errorsLeft === 7) {
+    this.drawHangman('third')
+  } else if (errorsLeft === 6) {
+    this.drawHangman('head')
+  } else if (errorsLeft === 5) {
+    this.drawHangman('body')
+  } else if (errorsLeft === 4) {
+    this.drawHangman('right arm')
+  } else if (errorsLeft === 3) {
+    this.drawHangman('left arm')
+  } else if (errorsLeft === 2) {
+    this.drawHangman('right leg')
+  } else if (errorsLeft === 1) {
+    this.drawHangman('left leg')
+  }
 };
 
 HangmanCanvas.prototype.drawHangman = function () {
@@ -150,10 +168,10 @@ HangmanCanvas.prototype.drawHangman = function () {
 };
 
 HangmanCanvas.prototype.gameOver = function () {
-
+  alert('You lose!')
 };
 
 HangmanCanvas.prototype.winner = function () {
-
+  alert('You win!')
 };
 
