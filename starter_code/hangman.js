@@ -1,37 +1,45 @@
 
 class Hangman {
   constructor() {
-    this.words = ['batata']; //, 'assolan', 'aoculos'
+    this.words = ['batata', 'assolan', 'oculos', 'mico', ];
     this.secretWord = '';
     this.letters = [];
     this.guessedLetter = '';
     this.errorsLeft = 10;
   }
+
   getWord() {
     return this.words[Math.floor(Math.random() * this.words.length)];
   }
+
   checkIfLetter(letter) {
     return (letter >= 65 && letter <= 90);
   }
+
   checkClickedLetters(letter) {
     return this.letters.filter(element => element !== letter).length === this.letters.length;
   }
+
   checkGameOver() {
     return this.errorsLeft === 0;
   }
+
   checkWinner() {
     return [...new Set([...this.secretWord.toUpperCase()])].sort().join('') === this.guessedLetter.toUpperCase().split('').sort().join('');
   }
+
   addCorrectLetter(index) {
     this.guessedLetter += this.secretWord[index].toUpperCase();
     this.letters.push(this.secretWord[index].toUpperCase())
     return this.checkWinner();
   }
+
   addWrongLetter(letter) {
     this.letters.push(letter.toUpperCase());
     this.errorsLeft -= 1;
     return this.checkGameOver();
   }
+
   checkIfCorrectLetter(letter) {
     return this.secretWord.toUpperCase().split('').map((char, index) => {
       return letter === char ? index : -1;
@@ -47,6 +55,7 @@ document.getElementById('start-game-button').onclick = function () {
   canvas.createBoard();
   canvas.drawLines();
 };
+
 document.onkeydown = (e) => {
   const letter = String.fromCharCode(e.keyCode);
   if (hangman.checkIfLetter(e.keyCode)) {
@@ -74,5 +83,6 @@ document.onkeydown = (e) => {
     }
   }
 };
+
 let hangman;
 let canvas;

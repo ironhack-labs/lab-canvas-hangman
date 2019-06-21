@@ -135,18 +135,18 @@ class HangmanCanvas {
   }
 
   winner() {
-    let img = document.getElementById('winner');
+    let img = new Image();
+    img.src = './images/awesome.png';
     this.ctx.drawImage(img, 0, 0);
-    
-    
+
     setTimeout(() => {canvas.createBoard()}, 5000);
   }
   
   gameOver() {
-    let img = document.getElementById('loser');
+    let img = new Image();
+    img.src = './images/gameover.png';
     this.ctx.drawImage(img, 0, 0);
-    
-    
+
     setTimeout(() => {canvas.createBoard()}, 5000);
   }
   
