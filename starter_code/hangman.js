@@ -1,42 +1,75 @@
-var hangman;
+class Hangman {
+  constructor() {
+    this.words = ['javascript', 'baleia', 'elefante'];
+    this.secretWord = '';
+    this.letters = [];
+    this.guessedLetter = '';
+    this.errorsLeft = 10;
+  }
 
-// function Hangman() {
+  getWord() {
+    return this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
+  }
 
-// }
+  checkIfLetter(key) {
+    console.log(key)
+    if(key >= 65 && key <= 90) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-// Hangman.prototype.getWord = function () {
+  checkClickedLetters(str) {
+    if(this.letters.includes(str)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
-// };
+  checkGameOver() {
+    if(this.errorsLeft === 0) {
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+  checkWinner() {
+     let rightWord = this.secretWord.split('').sort().join('');
+     let checkWord = this.guessedLetter.split('').sort().join('');
+     if (rightWord === checkWord) {
+       return true;
+     } else return false;
+  }
 
-// };
+  
+  addCorrectLetter(i) {
+    return this.guessedLetter += this.secretWord[i].toUpperCase();
+    
+  }
 
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
+  addWrongLetter(key) {
+      let checkError = this.secretWord.split('');
+      if(!checkError.includes(key)) {
+        return this.errorsLeft -= 1;
+      } else {
+          return this.errorsLeft;
+      }
+  } 
+  
+}
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+  const hangman = new Hangman();
+  hangman.getWord();
+  const canvas = new HangmanCanvas(hangman.secretWord);
+  canvas.createBoard();
+  canvas.drawLines();
 };
 
 
 document.onkeydown = function (e) {
-
 };
