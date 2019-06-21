@@ -20,12 +20,13 @@ class Hangman {
   }
 
   checkClickedLetters (key) {
-    if (this.secretWord.includes(key)) {
-      addCorrectLetter(this.secretWord.indexOf(key));
-    }
     if (this.letters.includes(key)) {
       return false
+    } 
+    if (this.secretWord.includes(key)) {
+      addCorrectLetter(this.secretWord.indexOf(key));
     } else {
+      this.addWrongLetter(letter);
       return true
     }
   }
@@ -41,6 +42,7 @@ class Hangman {
 
   checkGameOver () {
     if (this.errorsLeft === 0) {
+      canvas.gameOver();
       return true
     } 
     return false
@@ -61,7 +63,6 @@ document.getElementById('start-game-button').onclick = function () {
   canvas.drawLines();
   canvas.writeCorrectLetter();
   canvas.drawHangman();
-  canvas.gameOver();
   canvas.winner();
 };
 
