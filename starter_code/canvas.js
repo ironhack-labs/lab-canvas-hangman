@@ -1,4 +1,4 @@
-var hangman = new Hangman();
+let hangman = new Hangman();
 
 class HangmanCanvas {
   constructor() {
@@ -15,8 +15,9 @@ class HangmanCanvas {
   drawLines() {
     let initX = 100;
     let lineY = 750;
-
+    let posArray = []
     for (let i = 0; i < hangman.secretWord.length; i++) {
+      posArray.push(initX);
       this.ctx.beginPath();
       this.ctx.moveTo(initX, lineY);
       this.ctx.lineTo(initX + 100, lineY);
@@ -24,17 +25,34 @@ class HangmanCanvas {
       this.ctx.closePath();
       initX += 150;
     }
+    return posArray;
   }
+
+  writeCorrectLetter(letter) {    
+    if(hangman.checkClickedLetters(letter)){
+      if(!hangman.secretWord.includes(letter)) {
+        return hangman.letters.push(letter);
+      } else {
+        let letterPos = hangman.secretWord.indexOf(letter);
+        this.ctx.beginPath();
+        this.ctx.fillText(letter, posArray[letterPos], 750);
+        this.ctx.closePath();
+        return hangman.addCorrectLetter(letterPos);
+      }
+    } 
+  }
+
+  // writeCorrectLetter(i) {
+  //   if (hangman.secretWord.includes(e.key)) {
+  //     hangman.addCorrectLetter(i);
+  //   } else {
+  //     return;
+  //   }
+  // }
 
   writeWrongLetter(letter, errorsLeft) {
     let initX = 650;
     let initY = 200;
-    for(let i = 0; i < hangman.letters.length; i++) {
-      this.ctx.font = "30px Arial";
-      this.ctx.fillText(letter, initX, initY);
-      initX += 40;
-    }
-    
   }
 
 }
@@ -49,20 +67,19 @@ class HangmanCanvas {
 
 //};
 
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
+// HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
 
-};
+// };
 
-HangmanCanvas.prototype.drawHangman = function (shape) {
+// HangmanCanvas.prototype.drawHangman = function (shape) {
 
-};
+// };
 
-HangmanCanvas.prototype.gameOver = function () {
+// HangmanCanvas.prototype.gameOver = function () {
 
-};
+// };
 
-HangmanCanvas.prototype.winner = function () {
+// HangmanCanvas.prototype.winner = function () {
 
-};
+// };
 
-const hangmanCanvas = new HangmanCanvas;

@@ -42,10 +42,16 @@ class Hangman {
 }
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+  var hangman = new Hangman();
+  const hangmanCanvas = new HangmanCanvas();
+  hangman.getWord();
+  hangmanCanvas.drawLines();
 };
 
 
 document.onkeydown = function (e) {
-  
+  const hangmanCanvas = new HangmanCanvas();
+  hangmanCanvas.writeCorrectLetter(e)
 };
+
+// var hangman = new Hangman();
