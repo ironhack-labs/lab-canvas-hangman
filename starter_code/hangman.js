@@ -20,7 +20,9 @@ class Hangman {
 
   // checkClickedLetters. Checks if the pressed letter has already been pressed and returns true if it was not or false in the opposite case.
   checkClickedLetters(letter) {
-    return !this.letters.includes(letter) ? true : false;
+    const notInclude = !this.letters.includes(letter)
+    if (notInclude) this.letters.push(letter)
+    return notInclude ? true : false;
   }
   
   addCorrectLetter(letter) {
