@@ -126,14 +126,14 @@ class HangmanCanvas {
   gameOver() {
     this.ctx.clearRect(0, 0, 1200, 500);
     const gameOverImg = new Image();
-    gameOverImg.src = './images/gameover.png'
-    this.ctx.drawImage(gameOverImg, 315, 0, 570, 240)
+    gameOverImg.src = './images/gameover.png';
+    gameOverImg.onload = () => this.ctx.drawImage(gameOverImg, 315, 0, 570, 240);
   }
 
   winner() {
     this.ctx.clearRect(0, 0, 1200, 500);
     const winnerImg = new Image();
-    winnerImg.src = './images/awesome.png'
-    this.ctx.drawImage(winnerImg, 247, 0, 705, 500)
+    winnerImg.src = './images/awesome.png';
+    winnerImg.onload = () => this.ctx.drawImage(winnerImg, 247, 0, 705, 500);
   }
 }

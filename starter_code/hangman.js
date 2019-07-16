@@ -26,7 +26,7 @@ class Hangman {
   
   addCorrectLetter(index) {
     this.guessedLetter += this.secretWord[index].toUpperCase()
-    this.checkGameOver()
+    this.checkWinner()
   }
   
   addWrongLetter() {
@@ -36,11 +36,15 @@ class Hangman {
   
   checkGameOver() {
     const gameOver = this.errorsLeft === 0
+    if (gameOver) setTimeout(() => canvas.gameOver(), 1500)
     return gameOver ? true : false
   }
 
   checkWinner() {
-    return this.secretWord.length === this.guessedLetter.length ? true : false
+    const winner = this.secretWord.length === this.guessedLetter.length
+    if (winner) setTimeout(() => canvas.winner(), 1500)
+    return winner ? true : false
+
   }
 }
 
@@ -52,42 +56,32 @@ document.getElementById('start-game-button').onclick = function () {
 };
 
 document.onkeydown = function (e) {
-  if (hangman.checkIfLetter(e.which)) {
-    if (hangman.checkClickedLetters(e.key)) {
-      if (hangman.secretWord.includes(e.key)) {
-        // correct letter
-        const indexes = [];
+  if (!hangman.checkGameOver() && !hangman.checkWinner()) {
+    if (hangman.checkIfLetter(e.which)) {
+      if (hangman.checkClickedLetters(e.key)) {
+        if (hangman.secretWord.includes(e.key)) {
+          // correct letter
+          const indexes = [];
 
-        for(let i = 0; i < hangman.secretWord.length; i++) {
-          if (hangman.secretWord[i] === e.key) {
-            indexes.push(i);
+          for(let i = 0; i < hangman.secretWord.length; i++) {
+            if (hangman.secretWord[i] === e.key) indexes.push(i);
           }
-        }
 
-        indexes.map(index => {
-          hangman.addCorrectLetter(index);
-          canvas.writeCorrectLetter(index);
-        })
+          indexes.map(index => {
+            hangman.addCorrectLetter(index);
+            canvas.writeCorrectLetter(index);
+          })
 
-        if (hangman.checkWinner()) {
-          setTimeout(() => canvas.winner(), 2000)
-          console.log('ganhou!')
+        } else {
+          // wrong letter
+          hangman.addWrongLetter();
+          canvas.writeWrongLetter(e.key, hangman.errorsLeft);
+          canvas.drawHangman(canvas.hangmanShape[9-hangman.errorsLeft])
         }
 
       } else {
-        // wrong letter
-        hangman.addWrongLetter();
-        canvas.writeWrongLetter(e.key, hangman.errorsLeft);
-        canvas.drawHangman(canvas.hangmanShape[9-hangman.errorsLeft])
-
-        if (hangman.checkGameOver()) {
-          setTimeout(() => canvas.gameOver(), 2000)
-          console.log('perdeu!')
-        }
+        alert('Repeated letter. Enter a diferent letter.')
       }
-
-    } else {
-      alert('Repeated letter. Enter a diferent letter.')
     }
   }
 };
