@@ -26,7 +26,7 @@ class HangmanCanvas {
       {
         this.ctx.beginPath();
         this.ctx.moveTo(x, 500);
-        this.ctx.lineTo(x + 35, 500);
+        this.ctx.lineTo(x + 34, 500);
         this.ctx.stroke();
         x += 55
       }
@@ -34,12 +34,12 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     let x = 200 + index * 55;
-    this.ctx.fillText(this.secretWord[index], x, 490);
+    this.ctx.fillText(this.secretWord[index].toUpperCase(), x, 490);
   }
 
   writeWrongLetter(letter, errorsLeft) {
     let x = 1050 + errorsLeft * -55;
-    this.ctx.fillText(letter, x, 150);
+    this.ctx.fillText(letter.toUpperCase(), x, 150);
   }
 
   drawHangman(shape) {
@@ -136,18 +136,4 @@ class HangmanCanvas {
     winnerImg.src = './images/awesome.png'
     this.ctx.drawImage(winnerImg, 247, 0, 705, 500)
   }
-}  
-
-// let canvas = new HangmanCanvas('DINHEIRO')
-
-// canvas.createBoard()
-
-// canvas.drawLines()
-
-// canvas.drawHangman('head')
-
-// canvas.writeCorrectLetter(2)
-
-// canvas.writeWrongLetter('B', 9)
-
-// canvas.gameOver();
+}
