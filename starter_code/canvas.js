@@ -5,7 +5,7 @@ class HangmanCanvas {
     this.secretWord = secretWord;
   }
   createBoard() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(0, 0, 1200, 800);
   }
   drawLines() {
     let x = 200;

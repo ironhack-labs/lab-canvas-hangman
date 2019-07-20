@@ -3,7 +3,7 @@ let canvas;
 
  class Hangman {
    constructor(words) {
-   this.words = ["sunshine", "moon", "tree"];
+   this.words = ["sunshine", "moon", "tree", "newspaper", "sea", "wood", "raindrops", "ladybug", "hedgehog", "Nice", "Vancoucer", "Berlin"];
    this.letters = [];
    this.guessedLetter = "";
    this.errorsLeft = 10;
@@ -68,8 +68,8 @@ checkWinner() {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
-  secretWord = hangman.getWord()
-  canvas = new HangmanCanvas(secretWord);
+  canvas = new HangmanCanvas(hangman.getWord());
+  canvas.createBoard()
   canvas.drawLines();
 };
 
