@@ -5,8 +5,7 @@ class HangmanCanvas {
     this.secretWord = secretWord;
   }
   createBoard() {
-    ctx.clearRect(0, 0, 1200, 800);
-    console.log("Hello")
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   drawLines() {
     let x = 200;
@@ -22,9 +21,25 @@ class HangmanCanvas {
       
     }
   }
-  writeCorrectLetter(index) {
+//WORK IN PROGRESS
+  // writeCorrectLetter(positionInWord) {
+  //   let x = 200;
+  //   let y = 600;
+
+  //   for(let i = 0; i < this.secretWord.length; i++){
+  //     if(positionInWord === 0){
+  //       this.ctx.font = '48px serif';
+  //       this.ctx.fillText(this.secretWord[positionInWord], x, y); 
+  //     }
+
+  //     else if (positionInWord > 0 && positionInWord === i){
+  //       this.ctx.font = '48px serif';
+  //       this.ctx.fillText(this.secretWord[positionInWord], x + i*100, y);
+  //     }
+  //   }
     
-  }
+  // }
+
   writeWrongLetter(letter, errorsLeft) {
     
   }

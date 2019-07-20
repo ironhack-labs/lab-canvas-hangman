@@ -30,6 +30,7 @@ checkIfLetter(keyCode) {
 checkClickedLetters(key) {
   if(this.letters.includes(key)){
     return false;
+  
   }
   else {
     return true;
@@ -67,14 +68,14 @@ checkWinner() {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
-  canvas = new HangmanCanvas(hangman.getWord())
+  secretWord = hangman.getWord()
+  canvas = new HangmanCanvas(secretWord);
+  canvas.drawLines();
 };
 
 
 document.onkeydown = function (e) {
-  if(!hangman.checkClickedLetters(e.key)){
-    
-  }
+  
 };
 
 
