@@ -1,6 +1,7 @@
 
 
 let hangman;
+let mycanvas;
 
 class Hangman {
   constructor(words) {
@@ -52,6 +53,10 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = function () {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord()
+  mycanvas = new HangmanCanvas(hangman.secretWord)
+  mycanvas.createBoard();
+  mycanvas.drawLines();
 };
 
 
