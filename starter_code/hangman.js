@@ -1,8 +1,28 @@
 var hangman;
 
-// function Hangman() {
+class Hangman {
+  constructor() {
+    this.words = ["filler", "crap", "bullshit"];
+    this.secretWord = "shit";
+    this.letters = [];
+  }
 
-// }
+  getWord() {
+    return "hola";
+  }
+
+  checkIfLetter(keyCode) {
+    if (keyCode > 64 && keyCode < 91) return true;
+    return false;
+  }
+
+  checkClickedLetters(letter) {
+    for (let i = 0; i < this.letters.length; i++) {
+      if (this.letters[i] === letter) return false;
+    }
+    return true;
+  }
+}
 
 // Hangman.prototype.getWord = function () {
 
@@ -32,11 +52,8 @@ var hangman;
 
 // };
 
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
 };
 
-
-document.onkeydown = function (e) {
-
-};
+document.onkeydown = function(e) {};
