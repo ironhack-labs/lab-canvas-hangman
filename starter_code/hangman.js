@@ -2,7 +2,13 @@ var hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["archaeopteryx", "renaissance", "encapsulation", "javascript", "retrospective"];
+    this.words = [
+      "archaeopteryx",
+      "renaissance",
+      "encapsulation",
+      "javascript",
+      "retrospective"
+    ];
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
@@ -61,55 +67,62 @@ class Hangman {
   */
 }
 
-Hangman.prototype.getWord = function () {
-  let random = Math.floor(Math.random()*this.words.length);
+Hangman.prototype.getWord = function() {
+  let random = Math.floor(Math.random() * this.words.length);
   return this.words[random];
 };
 
-Hangman.prototype.checkIfLetter = function (keyCode) {
+Hangman.prototype.checkIfLetter = function(keyCode) {
   if (keyCode > 64 && keyCode < 91) return true;
   return false;
 };
 
-Hangman.prototype.checkClickedLetters = function (key) {
+Hangman.prototype.checkClickedLetters = function(key) {
   for (let i = 0; i < this.letters.length; i++) {
     if (this.letters[i] === key) return false;
   }
   return true;
 };
 
-Hangman.prototype.addCorrectLetter = function (i) {
-  return this.guessedLetter = this.guessedLetter.concat(this.secretWord[i].toUpperCase());
+Hangman.prototype.addCorrectLetter = function(i) {
+  return (this.guessedLetter = this.guessedLetter.concat(
+    this.secretWord[i].toUpperCase()
+  ));
 };
 
-Hangman.prototype.addWrongLetter = function (letter) {
-  this.errorsLeft--
+Hangman.prototype.addWrongLetter = function(letter) {
+  this.errorsLeft--;
 };
 
-Hangman.prototype.checkGameOver = function () {
-  if( this.errorsLeft === 0 ) return true;
+Hangman.prototype.checkGameOver = function() {
+  if (this.errorsLeft === 0) return true;
   return false;
 };
 
-Hangman.prototype.checkWinner = function () {
+Hangman.prototype.checkWinner = function() {
   let uniqueLetters = this.uniqueCharacters(this.secretWord);
-  for ( let i = 0 ; i < this.guessedLetter.length ; i++ ) {
-    if ( !this.isPresent( this.guessedLetter[i] , this.secretWord ) ) return false;
+  for (let i = 0; i < this.guessedLetter.length; i++) {
+    if (!this.isPresent(this.guessedLetter[i], this.secretWord)) return false;
   }
-  if ( uniqueLetters.length !== this.guessedLetter.length ) return false;
+  if (uniqueLetters.length !== this.guessedLetter.length) return false;
   return true;
 };
 
 Hangman.prototype.uniqueCharacters = function(array) {
-  return array.split('').filter(function(item, i, ar){ return ar.indexOf(item) === i; }).join('');
-}
+  return array
+    .split("")
+    .filter(function(item, i, ar) {
+      return ar.indexOf(item) === i;
+    })
+    .join("");
+};
 
 Hangman.prototype.isPresent = function(letter, array) {
-  for ( let i = 0 ; i < array.length ; i++ ) {
-    if ( letter === array[i] ) return true;
+  for (let i = 0; i < array.length; i++) {
+    if (letter === array[i]) return true;
   }
   return false;
-}
+};
 
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
