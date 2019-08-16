@@ -68,6 +68,9 @@ $(document).ready(function() {
 });
 var b = document.getElementById("start-game-button");
 b.onclick = function() {
+  canvas.ctx.clearRect(0, 0, canvas.cnvs.width, canvas.cnvs.height);
+  secretw = hangman.getWord();
+
   console.log("clickity");
 };
 // document.getElementById("start-game-button").onclick = function() {
@@ -75,4 +78,9 @@ b.onclick = function() {
 //   hangman.getWord();
 // };
 
-document.onkeydown = function(e) {};
+document.onkeydown = function(e) {
+  if (!hangman.checkIfLetter(event.keyCode)) return;
+  let car = String.fromCharCode(event.keyCode);
+  if (secretw.indexOf(car) === -1) hangman.addWrongLetter(car);
+  hangman.addCorrectLetter(car);
+};
