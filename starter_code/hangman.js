@@ -126,6 +126,8 @@ Hangman.prototype.isPresent = function(letter, array) {
 
 document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  canvas = new HangmanCanvas();
+  canvas.createBoard();
 };
 
 document.onkeydown = function(e) {};
