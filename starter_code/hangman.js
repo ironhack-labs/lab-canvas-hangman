@@ -14,6 +14,7 @@ class Hangman {
     this.guessedLetter = "";
     this.errorsLeft = 6;
 		this.drawInstructions = ['rightLeg', 'leftLeg', 'rightArm', 'leftArm', 'body', 'head'];
+		this.uniqueLetters = "";
   }
 }
 
@@ -51,17 +52,15 @@ Hangman.prototype.checkGameOver = function() {
 };
 
 Hangman.prototype.checkWinner = function() {
-  let uniqueLetters = this.secretWord.toUpperCase();
-  if (uniqueLetters.length === this.guessedLetter.length) {
-    for (let i = 0; i < this.guessedLetter.length; i++) {
-      if ( uniqueLetters.indexOf(this.guessedLetter[i]) === -1 ) {
-        console.log(this.guessedLetter[i]);
-        return false;
-      }
+  this.uniqueLetters = this.uniqueCharacters(this.secretWord);
+	for (let i = 0; i < this.guessedLetter.length; i++) {
+    if ( this.secretWord.indexOf(this.guessedLetter[i]) === -1 ) {
+      console.log(this.guessedLetter[i]);
+      return false;
     }
-    return true;
   }
-  else return false;
+	if (this.uniqueLetters.length === this.guessedLetter.length) return true;
+	return false;
 };
 
 Hangman.prototype.uniqueCharacters = function(array) {
@@ -100,7 +99,7 @@ document.onkeydown = function(e) {
         let checkLetterIndex = hangman.secretWord.indexOf(clickedCharacter);
         console.log(clickedCharacter);
         if ( checkLetterIndex > -1 ) {
-          hangman.addCorrectLetter(checkLetterIndex);
+          if ( hangman.guessedLetter.indexOf(clickedCharacter) === -1 )hangman.addCorrectLetter(checkLetterIndex);
           for ( let i = 0 ; i < hangman.secretWord.length ; i++ ) {
             if ( hangman.secretWord[i] === hangman.secretWord[checkLetterIndex] ) {
               canvas.writeCorrectLetter(i);
