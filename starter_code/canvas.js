@@ -26,17 +26,18 @@ for(i=0; i < this.secretWord.length; i++) {
 };
 
 HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-let positionY = 290
-let positionX = 180 + (index * 32)
-this.ctx.font = "45px Arial"
+let positionY = 140
+let positionX = 300 + (index * 32)
+this.ctx.font = "35px Arial"
+this.ctx.fillStyle = '#111'
 this.ctx.fillText(this.secretWord[index], positionX, positionY)
 };
 
 HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   let positionY = 100
-  let positionX = 220 + (180-(errorsLeft*32))
+  let positionX = 100 + (180-(errorsLeft*32))
   this.ctx.fillStyle = "tomato"
-  this.ctx.font = "45px Arial"
+  this.ctx.font = "35px Arial"
   this.ctx.fillText(letter, positionX, positionY)
   positionY = 70
   //this.ctx.fillText(errorsLeft, positionX, positionY)
