@@ -15,3 +15,11 @@
 #hangman {
   text-align: center;
 }
+
+#gameover-img {
+  display: none
+}
+
+#awesome-img {
+  display: none
+}
