@@ -47,7 +47,7 @@ Hangman.prototype.checkClickedLetters = function(key) {
 }
 
 Hangman.prototype.addCorrectLetter = function(i) {
-  this.guessedLetter += this.secretWord[i].toUpperCase()
+  this.guessedLter += this.secretWord[i].toUpperCase()
   this.checkWinner()
 }
 
@@ -63,7 +63,7 @@ Hangman.prototype.checkGameOver = function() {
 
 Hangman.prototype.checkWinner = function() {
   for (var j = 0; j < this.secretWord.length; j++) {
-    if (this.guessedLetter.indexOf(this.secretWord[j]) === -1) return false
+    if (this.guessedLter.indexOf(this.secretWord[j]) === -1) return false
   }
   return true
 }
