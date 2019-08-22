@@ -189,17 +189,17 @@ HangmanCanvas.prototype.drawHangman = function (shape) {
 HangmanCanvas.prototype.gameOver = function () {
   console.log('You lose! :(')
   // El método es llamado, pero no pinta la imagen, no sé por qué :(
-  const img = new Image()
+  const img = document.getElementById('gameover')
   const proportion = 1200 / 800
-  img.src = 'images/gameover.png'
-  this.ctx.drawImage(img, 100, 100, 50 * proportion, 50)
+  // img.src = 'images/gameover.png'
+  this.ctx.drawImage(img, 315, 280)
 }
 
 HangmanCanvas.prototype.winner = function () {
   console.log('You win!')
   // El método es llamado, pero no pinta la imagen, no sé por qué :(
-  const img = new Image()
+  const img = document.getElementById('awesome')
   const proportion = 1200 / 800
-  img.src = 'images/awesome.png'
-  this.ctx.drawImage(img, 100, 100, 50 * proportion, 50)
+  // img.src = 'images/awesome.png'
+  this.ctx.drawImage(img, 164, 91)
 }
