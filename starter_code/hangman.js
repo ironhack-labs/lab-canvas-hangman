@@ -68,16 +68,31 @@ Hangman.prototype.checkWinner = function() {
   return true
 }
 
-document.getElementById('start-game-button').onclick = function() {
- 
-}
-
-
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines(); 
 };
 
-
-document.onkeydown = function (e) {
-
+document.onkeydown = function(e) {
+  if (hangman !== undefined && hangmanCanvas.start === 0) {
+    if (hangman.checkIfLetter(e.keyCode)) {
+      let up = e.key.toUpperCase();
+      if (hangman.checkClickedLetters(up)) {
+        hangman.letters.push(up);
+        if (hangman.secretWord.indexOf(up) >= 0) {
+          hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(up));
+          hangman.addCorrectLetter(hangman.secretWord.indexOf(up));
+          if (hangman.checkWinner()) {
+            hangmanCanvas.winner();
+          }
+        } else {
+          hangman.addWrongLetter();
+          hangmanCanvas.writeWrongLetter(up, hangman.errorsLeft);
+        }
+      }
+    }
+  }
 };
