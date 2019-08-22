@@ -36,7 +36,7 @@ HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
   let positionY = 100
   let positionX = 220 + (180-(errorsLeft*32))
   this.ctx.fillStyle = "tomato"
-  this.ctx.font = "45 Courier"
+  this.ctx.font = "45 Arial"
   this.ctx.fillText(letter, positionX, positionY)
   positionY = 140
   this.ctx.fillText(errorsLeft, positionX, positionY)
