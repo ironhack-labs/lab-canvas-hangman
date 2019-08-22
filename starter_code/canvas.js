@@ -10,7 +10,7 @@ ctx.beginPath()
 
 ctx.beginPath()
 // starting position is x=50, y=50
-ctx.moveTo(50, 50)
+ctx.moveTo(600, 80)
 // draw the line that has final coordinates x=250, y=50
 ctx.lineTo(250, 50)
 ctx.strokeStyle = 'black'
