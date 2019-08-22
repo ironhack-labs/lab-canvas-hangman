@@ -78,7 +78,7 @@ document.onkeydown = function(e) {
   if (hangman !== undefined && hangmanCanvas.start === 0) {
     if (hangman.checkIfLetter(e.keyCode)) {
       let up = e.key.toUpperCase()
-      if (hangman.checkClickedLetters(up)) {
+      if (hangman.checkClickedLetters(cxup)) {
         hangman.letters.push(up)
         if (hangman.secretWord.indexOf(up) >= 0) {
           hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(up))
