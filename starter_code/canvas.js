@@ -24,14 +24,20 @@ HangmanCanvas.prototype.drawLines = function() {
 }
 
 HangmanCanvas.prototype.writeCorrectLetter = function(index) {
-  this.ctx.beginPath()
-  this.ctx.moveTo(positionX, positionY)
-  this.ctx.lineTo(positionX + 30, positionY)
-  this.ctx.stroke()
-  this.ctx.closePath()
+  let positionY = 690
+  let positionX = 10 + 32 * index
+  this.ctx.fillStyle = 'black'
+  this.ctx.font = '45px Courier'
+  this.ctx.fillText(this.secretWord[index], positionX, positionY)
 }
 
-HangmanCanvas.prototype.writeWrongLetter = function(letter, errorsLeft) {}
+HangmanCanvas.prototype.writeWrongLetter = function(letter, errorsLeft) {
+  let positionY = 100
+  let positionX = 220 + (200 - 32 * errorsLeft)
+  this.ctx.fillStyle = 'red'
+  this.ctx.font = '45px Courier'
+  this.ctx.fillText(letter, positionX, positionY)
+}
 
 HangmanCanvas.prototype.drawHangman = function(shape) {}
 
