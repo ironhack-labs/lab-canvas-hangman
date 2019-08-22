@@ -1,32 +1,29 @@
-
-function HangmanCanvas(secretWord) {
-  this.ctx = document.getElementById('hangman').getContext('2d');
+function Hangman(secretWord) {
+  this.ctx = document.getElementById('hangman').getContext('2d')
 }
+this.ctx = document.getElementById('hangman').getContext('2d')
 
-HangmanCanvas.prototype.createBoard = function () {
+this.ctx.fillStyle = 'white'
+this.ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-};
+ctx.beginPath()
 
-HangmanCanvas.prototype.drawLines = function () {
+ctx.beginPath()
+// starting position is x=50, y=50
+ctx.moveTo(50, 50)
+// draw the line that has final coordinates x=250, y=50
+ctx.lineTo(250, 50)
+ctx.strokeStyle = 'black'
+ctx.lineWidth = 20
+// .stroke() executes the drawing
+ctx.stroke()
 
-};
+// start a new line from these coordinates: x=250, y=50
+ctx.moveTo(250, 50)
+// draw the line that has final coordinates x=250, y=100
+ctx.lineTo(250, 600)
+// .stroke() executes the drawing
+ctx.stroke()
 
-HangmanCanvas.prototype.writeCorrectLetter = function (index) {
-
-};
-
-HangmanCanvas.prototype.writeWrongLetter = function (letter, errorsLeft) {
-
-};
-
-HangmanCanvas.prototype.drawHangman = function (shape) {
-
-};
-
-HangmanCanvas.prototype.gameOver = function () {
-
-};
-
-HangmanCanvas.prototype.winner = function () {
-
-};
+// close the path
+ctx.closePath()
