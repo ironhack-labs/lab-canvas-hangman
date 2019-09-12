@@ -1,16 +1,18 @@
-// var hangman;
+let hangmanObj;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
     this.words = ["apple", "banana", "watermelon"];
-    this.secretWord = "BANANA";
-    this.letters = ["a", "b"];
+    this.secretWord = "";
+    this.letters = [""];
     this.guessedLetter = "";
     this.errorsLeft = 10;
   }
 
   getWord() {
     let index = Math.floor(Math.random()*this.words.length);
+    this.secretWord = this.words[index];
     return this.words[index];   
   }
 
@@ -30,9 +32,8 @@ class Hangman {
     return (this.secretWord.length === this.guessedLetter.length);
   }
 
-  addCorrectLetter(i) {
-    let arrSecretWord = this.secretWord.split("");    
-    this.guessedLetter += arrSecretWord[i].toUpperCase();
+  addCorrectLetter(i) {   
+    this.guessedLetter += this.secretWord[i].toUpperCase();
     return this.guessedLetter;
     // while (arrSecretWord.indexOf(String.fromCharCode(i)) !== -1){
     //   arrSecretWord.splice(arrSecretWord.indexOf(String.fromCharCode(i)), 1)
@@ -75,10 +76,24 @@ class Hangman {
 // };
 
 document.getElementById('start-game-button').onclick = function () {
-  hangman = new Hangman();
+  hangmanObj = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangmanObj.getWord());
+  hangmanCanvas.clearBoard();
+  hangmanCanvas.drawLines();
 };
 
 
 document.onkeydown = function (e) {
+  // console.log(hangmanObj)
+  if (!hangmanObj.checkIfLetter(e.keyCode)) {
+    return alert("Coloque um caractere válido!");
+  } else {
+      let char = String.fromCharCode(e.keyCode)
+      if (!hangmanObj.checkClickedLetters(char)) {
+        return alert("Caractere já digitado");
+      } else { 
 
+      }
+}
+    
 };
