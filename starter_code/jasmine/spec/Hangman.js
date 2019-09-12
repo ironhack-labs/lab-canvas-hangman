@@ -36,13 +36,13 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should receive a number', function () {
-      expect(typeof (hangman.checkIfLetter)).toBe('function');
-    });
-
-    it('checkIfLetter should return a boolean', function () {
       var keyCode = 43;
       hangman.checkIfLetter(keyCode);
       expect(typeof (keyCode)).toBe('number');
+    });
+
+    it('checkIfLetter should return a boolean', function () {
+      expect(typeof hangman.checkIfLetter(43)).toBe('boolean');
     });
 
     it('checkIfLetter should return false', function () {
@@ -84,9 +84,10 @@ describe('Hangman Game', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
     it('addCorrectLetter should receive a number', function () {
-      var key = 'N';
-      hangman.checkClickedLetters(key);
-      expect(typeof (key)).toBe('string');
+      hangman.secretWord = 'Ironhack';
+      var i = 1;
+      hangman.addCorrectLetter(i);
+      expect(typeof (i)).toBe('number');
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
