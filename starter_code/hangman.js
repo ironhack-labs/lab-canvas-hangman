@@ -1,42 +1,44 @@
-var hangman;
+let hangman;
 
-// function Hangman() {
+// class Hangman {
+//   constructor() {
+
+//   }
+
+//   getWord() {
+
+//   }
+
+//   checkIfLetter(keyCode) {
+
+//   }
+
+//   checkClickedLetters(key) {
+
+//   }
+
+//   addCorrectLetter(i) {
+
+//   }
+
+//   addWrongLetter(letter) {
+
+//   }
+
+//   checkGameOver() {
+
+//   }
+
+//   checkWinner() {
+
+//   }
 
 // }
 
-// Hangman.prototype.getWord = function () {
-
-// };
-
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
-
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
 };
 
-
-document.onkeydown = function (e) {
+document.onkeydown = (e) => {
 
 };
