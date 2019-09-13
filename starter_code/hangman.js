@@ -1,42 +1,69 @@
 var hangman;
 
-// function Hangman() {
+class Hangman {
+  constructor() {
+    this.words = ["Tijolo", "Familia", "ironhack","xicara","chocolate","relogio","televisao","react","javascript","canvas"];
+    this.secretWord = "";
+    this.letters = [];
+    this.guessedLetter = [];
+    this.errorsLeft = 10;
+    this.canvas;
+  }
+  canvasInit = word => {
+    this.canvas = new HangmanCanvas(word);
+  };
+  getWord = () => {
+    const word = this.words[Math.floor(Math.random() * this.words.length)].toUpperCase();
+    this.canvasInit(word);
+    return word;
+  };
+  // char code in Uppercase 41(A) a 5a(Z)
+  checkIfLetter = key => key >= 0x41 && key <= 0x5a;
 
-// }
+  checkClickedLetters = letter => {
+    return this.secretWord.includes(letter) && this.errorsLeft>0;
+  };
+  addCorrectLetter = key => {
+    this.guessedLetter += key;
+    this.letters.push(key);
+  };
+  addWrongLetter = key => {
+    this.guessedLetter += key;
+    this.errorsLeft -= 1;
+    
+  };
+  checkGameOver = () => !this.errorsLeft;
 
-// Hangman.prototype.getWord = function () {
+  checkWinner = () => [...new Set(this.secretWord.split(""))].length === this.letters.length;
+}
 
-// };
-
-// Hangman.prototype.checkIfLetter = function (keyCode) {
-
-// };
-
-// Hangman.prototype.checkClickedLetters = function (key) {
-
-// };
-
-// Hangman.prototype.addCorrectLetter = function (i) {
-
-// };
-
-// Hangman.prototype.addWrongLetter = function (letter) {
-
-// };
-
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
-
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById("start-game-button").onclick = function() {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord();
+  
+  hangman.canvas.createBoard();
 };
 
-
-document.onkeydown = function (e) {
-
+document.onkeydown = function(e) {
+  if (hangman.checkIfLetter(e.keyCode) && !hangman.checkWinner()) {
+    const upperCaseLetter = e.key.toUpperCase();
+    if (hangman.checkClickedLetters(upperCaseLetter)) {
+      if (!hangman.letters.includes(upperCaseLetter)) {
+        hangman.addCorrectLetter(upperCaseLetter);
+        hangman.canvas.writeCorrectLetter(upperCaseLetter)
+        if(hangman.checkWinner()){
+          hangman.canvas.winner();
+        }
+      }
+    } else {
+      
+      if (!hangman.guessedLetter.includes(upperCaseLetter)&& !hangman.checkGameOver()) {
+        hangman.addWrongLetter(upperCaseLetter);
+        hangman.canvas.drawHangman(hangman.errorsLeft)
+        hangman.canvas.writeWrongLetter(upperCaseLetter,hangman.errorsLeft+1);
+        
+      }
+    }
+    
+  }
 };
