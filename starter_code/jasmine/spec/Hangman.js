@@ -36,13 +36,13 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should receive a number', function () {
-      expect(typeof (hangman.checkIfLetter)).toBe('function');
-    });
-
-    it('checkIfLetter should return a boolean', function () {
       var keyCode = 43;
       hangman.checkIfLetter(keyCode);
       expect(typeof (keyCode)).toBe('number');
+    });
+
+    it('checkIfLetter should return a boolean', function () {
+      expect(typeof hangman.checkIfLetter(43)).toBe('boolean');
     });
 
     it('checkIfLetter should return false', function () {
@@ -73,7 +73,7 @@ describe('Hangman Game', function () {
       expect(hangman.checkClickedLetters('F')).toEqual(true);
     });
 
-    it('checkIfLetter should return false', function () {
+    it('checkClickedLetters should return false', function () {
       hangman.letters.push('I', 'R', 'P');
       expect(hangman.checkClickedLetters('R')).toEqual(false);
     });
@@ -84,9 +84,10 @@ describe('Hangman Game', function () {
       expect(typeof (hangman.addCorrectLetter)).toBe('function');
     });
     it('addCorrectLetter should receive a number', function () {
-      var key = 'N';
-      hangman.checkClickedLetters(key);
-      expect(typeof (key)).toBe('string');
+      hangman.secretWord = 'Ironhack';
+      var i = 1;
+      hangman.addCorrectLetter(i);
+      expect(typeof (i)).toBe('number');
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
@@ -118,11 +119,11 @@ describe('Hangman Game', function () {
     it('checkGameOver should return a boolean', function () {
       expect(typeof (hangman.checkGameOver())).toBe('boolean');
     });
-    it('checkGameOver should return false if the errorsLeft is 0', function () {
+    it('checkGameOver should return true if the errorsLeft is 0', function () {
       hangman.errorsLeft = 0;
       expect(hangman.checkGameOver()).toEqual(true);
     });
-    it('checkGameOver should return false if the errorsLeft is 0', function () {
+    it('checkGameOver should return false if the errorsLeft is not 0', function () {
       hangman.errorsLeft = 5;
       expect(hangman.checkGameOver()).toEqual(false);
     });
@@ -140,7 +141,7 @@ describe('Hangman Game', function () {
       hangman.guessedLetter = 'KHARCNIO';
       expect(hangman.checkWinner()).toEqual(true);
     });
-    it('checkWinner should return true if we guess all letters', function () {
+    it('checkWinner should return false if we not guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
       hangman.guessedLetter = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
