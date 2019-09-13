@@ -1,42 +1,79 @@
-var hangman;
+let hangman;
 
-// function Hangman() {
+ class Hangman {
+  constructor(words, secretWord, letters, guessedLetter, errorsLeft){
+this.words= ["vasco","gremio","flamengo"];
+this.secretWord="";
+this.letters=[];
+this.guessedLetter="";
+this.errorsLeft=10;
+  }
 
-// }
 
-// Hangman.prototype.getWord = function () {
+getWord(){
+ let selected = `this.words[Math.floor(Math.random() * this.words.lenght)]`
+return selected;
 
-// };
+ }
+checkIfLetter(keyCode) {
 
-// Hangman.prototype.checkIfLetter = function (keyCode) {
+if(keyCode>=65 && keyCode<=90 ){
+  return true;
+}else{
+  return false;
+}
+}
+ 
 
-// };
+checkClickedLetters(key) {
+if(this.letters.includes(key)){
+  return false;
+}else{
+  return true;
+}
+ };
 
-// Hangman.prototype.checkClickedLetters = function (key) {
+ addCorrectLetter(i) {
+ this.guessedLetter += this.secretWord[i].toUpperCase()
+ this.checkWinner()
 
-// };
+}
 
-// Hangman.prototype.addCorrectLetter = function (i) {
+ addWrongLetter(letter) {
+  this.errorsLeft -= 1
+  this.letters.push(letter);
+  this.checkGameOver()
+}
 
-// };
+checkGameOver() {
+  if(this.errorsLeft === 0) {
+    return true
+  } else {
+    return false
+  }
+}
 
-// Hangman.prototype.addWrongLetter = function (letter) {
+checkWinner() {
+  if (this.secretWord.length === this.guessedLetter.length) {
+    return true
+  } else {
+    return false
+  }
+};
+}
 
-// };
 
-// Hangman.prototype.checkGameOver = function () {
-
-// };
-
-// Hangman.prototype.checkWinner = function () {
-
-// };
-
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangman.getWord();
+  const hangmanBoard = new HangmanCanvas(hangman.secretWord)
+  hangmanBoard.createBoard()
+  hangmanBoard.drawLines()
 };
 
 
-document.onkeydown = function (e) {
-
+document.onkeydown = (e) => {
+  // if(checkGameOver()  && fjj) {
+  //   hangmanBoard.
+  // }
 };
