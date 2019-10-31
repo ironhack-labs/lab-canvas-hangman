@@ -3,6 +3,7 @@ class HangmanCanvas {
 		this.canvas = document.getElementById('hangman');
 		this.ctx = this.canvas.getContext('2d');
 		this.secretWord;
+		this.coordinates = [];
 	}
 
 	createBoard() {
