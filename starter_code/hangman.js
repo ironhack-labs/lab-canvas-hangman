@@ -1,52 +1,8 @@
-/*let hangman;
-
-// class Hangman {
-//   constructor() {
-
-//   }
-
-//   getWord() {
-
-//   }
-
-//   checkIfLetter(keyCode) {
-
-//   }
-
-//   checkClickedLetters(key) {
-
-//   }
-
-//   addCorrectLetter(i) {
-
-//   }
-
-//   addWrongLetter(letter) {
-
-//   }
-
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
-
-document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman();
-};
-
-document.onkeydown = (e) => {
-
-};*/
-var hangman;
+let hangman;
 
 // function Hangman() {
 function Hangman() {
-this.words = ['apple', 'pineapple', 'extra', 'javascript'];
+this.words = ['mantra', 'ometecutli', 'cande', 'preparing'];
 this.secretWord = '';
 this.letters = [];
 this.guessedLetter = '';
