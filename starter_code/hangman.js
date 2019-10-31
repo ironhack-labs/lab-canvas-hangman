@@ -58,8 +58,7 @@ document.getElementById('start-game-button').onclick = (e) => {
   let secretWord = 'Ironhack'
   let hangman = new Hangman();
   let hangmanCanvas = new HangmanCanvas(secretWord);
-  let key = e;
-  console.log(key)
+
   hangmanCanvas.createBoard()
   hangmanCanvas.drawHangman()
   hangmanCanvas.drawLines()
@@ -67,5 +66,8 @@ document.getElementById('start-game-button').onclick = (e) => {
 };
 
 document.onkeydown = (e) => {
-  console.log(e.target)
+  let key = e.keyCode;
+  if(hangman.checkIfLetter(key) && !hangman.checkClickedLetters(key)){
+    
+  }
 };
