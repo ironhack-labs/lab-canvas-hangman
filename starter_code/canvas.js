@@ -3,10 +3,10 @@ class HangmanCanvas {
 		this.canvas = document.getElementById('hangman');
 		this.ctx = this.canvas.getContext('2d');
 		this.secretWord;
-		this.img1 = new Image();
-		this.img1.src = './images/gameover.png';
-		this.img2 = new Image();
-		this.img2.src = './images/awesome.png';
+		// this.img1 = new Image();
+		// this.img1.src = './images/gameover.png';
+		// this.img2 = new Image();
+		// this.img2.src = './images/awesome.png';
 	}
 
 	createBoard() {
@@ -155,17 +155,18 @@ class HangmanCanvas {
 				break;
 		}
 	}
-
-	gameOver() {
-		console.log(this.img1.src);
-		this.img1.onload = function() {
-			this.ctx.drawImage(this.img1.src, 400, 100, 400, 300);
-		};
-	}
-
-	winner() {
-		this.img2.onload = function() {
-			this.ctx.drawImage(this.img2.src, 400, 100, 400, 300);
-		};
-	}
 }
+
+HangmanCanvas.prototype.gameOver = function() {
+	this.ctx.drawImage(img1, 400, 100, 400, 300);
+};
+
+HangmanCanvas.prototype.winner = function() {
+	this.ctx.drawImage(img2, 400, 100, 400, 300);
+};
+
+const img1 = new Image();
+img1.src = './images/gameover.png';
+
+const img2 = new Image();
+img2.src = './images/awesome.png';

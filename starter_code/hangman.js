@@ -50,10 +50,14 @@ document.getElementById('start-game-button').onclick = () => {
 };
 
 document.onkeydown = (e) => {
-	console.log(`${e.keyCode}`);
 	isCorrect = false;
 
-	if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key) && hangman.errorsLeft > 0) {
+	if (
+		hangman.checkIfLetter(e.keyCode) &&
+		hangman.checkClickedLetters(e.key) &&
+		hangman.errorsLeft > 0 &&
+		hangman.guessedLetter.includes(e.key) === false
+	) {
 		console.log('Loop');
 		for (let i = 0; i < canvas.secretWord.length; i++) {
 			if (String(e.key).toUpperCase() === canvas.secretWord[i]) {
@@ -75,4 +79,5 @@ document.onkeydown = (e) => {
 	} else if (hangman.checkWinner()) {
 		canvas.winner();
 	}
+	console.log(`${hangman.guessedLetter}`);
 };
