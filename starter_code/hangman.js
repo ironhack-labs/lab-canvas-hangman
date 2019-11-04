@@ -1,8 +1,6 @@
-let hangman;
-
 class Hangman {
 	constructor() {
-		this.words = [ 'javascript', 'platzi', 'tangamandapio', 'ironhack' ];
+		this.words = [ 'javascript', 'platzi', 'masorca', 'ironhack' ];
 		this.secretWord = '';
 		this.letters = [];
 		this.guessedLetter = '';
@@ -10,7 +8,7 @@ class Hangman {
 	}
 
 	getWord() {
-		return this.words[Math.floor(Math.random() * this.words.length)];
+		return this.words[Math.floor(Math.random() * this.words.length)].toUpperCase();
 	}
 
 	checkIfLetter(keyCode) {
@@ -22,12 +20,12 @@ class Hangman {
 	}
 
 	addCorrectLetter(i) {
-		let secretWordSplit = this.secretWord.split('');
-		this.guessedLetter += secretWordSplit[i].toUpperCase();
+		this.guessedLetter += this.secretWord[i].toUpperCase();
 	}
 
 	addWrongLetter(letter) {
 		this.errorsLeft--;
+		this.letters += letter;
 	}
 
 	checkGameOver() {
@@ -38,11 +36,43 @@ class Hangman {
 		return this.guessedLetter.length === this.secretWord.length ? true : false;
 	}
 }
+/**
+ * Game instances
+ */
+const hangman = new Hangman();
+const canvas = new HangmanCanvas();
+let isCorrect;
 
 document.getElementById('start-game-button').onclick = () => {
-	hangman = new Hangman();
-	let canvas = new HangmanCanvas();
+	hangman.secretWord = hangman.getWord();
+	canvas.secretWord = hangman.secretWord;
 	canvas.createBoard();
 };
 
-document.onkeydown = (e) => {};
+document.onkeydown = (e) => {
+	console.log(`${e.keyCode}`);
+	isCorrect = false;
+
+	if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key) && hangman.errorsLeft > 0) {
+		console.log('Loop');
+		for (let i = 0; i < canvas.secretWord.length; i++) {
+			if (String(e.key).toUpperCase() === canvas.secretWord[i]) {
+				hangman.addCorrectLetter(i);
+				canvas.writeCorrectLetter(i);
+				isCorrect = true;
+			}
+		}
+		if (!isCorrect) {
+			canvas.writeWrongLetter(String(e.key).toUpperCase(), hangman.errorsLeft);
+			hangman.addWrongLetter(String(e.key));
+			canvas.drawHangman(hangman.errorsLeft);
+			isCorrect = false;
+		}
+	}
+
+	if (hangman.checkGameOver()) {
+		canvas.gameOver();
+	} else if (hangman.checkWinner()) {
+		canvas.winner();
+	}
+};
