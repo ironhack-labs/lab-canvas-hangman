@@ -1,36 +1,19 @@
-
 class HangmanCanvas {
   constructor(secretWord) {
-    this.ctx = document.getElementById('hangman').getContext('2d');
-    
+    this.ctx = document.getElementById('hangman').getContext('2d')
   }
 
-  createBoard() {
+  createBoard() {}
 
-  }
+  drawLines() {}
 
-  drawLines() {
+  writeCorrectLetter(index) {}
 
-  }
+  writeWrongLetter(letter, errorsLeft) {}
 
-  writeCorrectLetter(index) {
+  drawHangman(shape) {}
 
-  }
+  gameOver() {}
 
-  writeWrongLetter(letter, errorsLeft) {
-
-  }
-
-  drawHangman(shape) {
-
-  }
-
-  gameOver() {
-
-  }
-
-  winner() {
-
-  }
-
+  winner() {}
 }
