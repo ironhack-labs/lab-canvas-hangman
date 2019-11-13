@@ -60,9 +60,12 @@ class Hangman {
     return false
    }
 
-//   checkWinner() {
-
-//   }
+   checkWinner() {
+     if (){
+      rerturn true
+     }
+    return false
+   }
 
  }
 
