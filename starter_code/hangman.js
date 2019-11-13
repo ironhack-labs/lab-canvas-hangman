@@ -49,9 +49,9 @@ class Hangman {
     this.guessedLetter += letterGuessedFromSecret[i].toUpperCase();
    }
 
-//   addWrongLetter(letter) {
-
-//   }
+   addWrongLetter(letter) {
+    this.errorsLeft -= 1
+   }
 
   checkGameOver() {
     `Returns a boolean value, true if the users lose, and false in any other case.`
