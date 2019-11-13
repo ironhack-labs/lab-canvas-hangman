@@ -53,9 +53,12 @@ class Hangman {
     this.errorsLeft -= 1
    }
 
-//   checkGameOver() {
-
-//   }
+   checkGameOver() {
+    if (this.errorsLeft == 0){
+      return true
+    }
+    return false
+   }
 
 //   checkWinner() {
 
