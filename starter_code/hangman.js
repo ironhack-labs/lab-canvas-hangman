@@ -50,13 +50,18 @@ class Hangman {
 
 //   }
 
-//   checkGameOver() {
+  checkGameOver() {
+    `Returns a boolean value, true if the users lose, and false in any other case.`
+    if (this.errorsLeft == 0){
+      return true;
+    }
+    return false;
+  }
 
-//   }
-
-//   checkWinner() {
-
-//   }
+  checkWinner() {
+    `Checks if the user wins and return a boolean value.`
+    return false;
+  }
 
  }
 
