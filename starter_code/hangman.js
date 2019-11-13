@@ -25,15 +25,9 @@ class Hangman {
     // return false
   
 
-  checkClickedLetters(key) {
-  `Checks if the pressed letter has already been pressed 
-  and returns true if it was not or false in the opposite case.`
-
-  if (this.letters.indexOf(key) != -1){
-    return false;
-  }
-  return true;
-   }
+ // checkClickedLetters(key) {
+  
+ //  }
 
 //   addCorrectLetter(i) {
 
