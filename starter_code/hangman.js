@@ -38,14 +38,15 @@ class Hangman {
     and returns true if it was not or false in the opposite case.`
 
     if (this.letters.indexOf(key) != -1){
-      this.letters.push(String.fromCharCode(key))
+      //this.letters.push(key)
       return false;
     }
     return true;
   }
 
    addCorrectLetter(i) {
-    this.guessedLetter += this.letters[i]
+    let letterGuessedFromSecret = this.secretWord.split('');
+    this.guessedLetter += letterGuessedFromSecret[i].toUpperCase();
    }
 
 //   addWrongLetter(letter) {
