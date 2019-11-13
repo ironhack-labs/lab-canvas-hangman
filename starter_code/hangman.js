@@ -2,15 +2,22 @@ let hangman;
 
 class Hangman {
    constructor() {
-    this.words = ['casa','perro','silla']
-    this.secretWord = this.words[Math.floor(Math.random()*this.words.length)]
+    this.words = ['casa','perro','silla'];
+    this.secretWord = "";
+    this.letters = [];
+    this.guessedLetter = "";
+    this.errorsLeft = 10;
    }
 
   getWord() {
-    return this.secretWord
+    `Returns a random word from our array words.`
+    let secretWord = this.words[Math.floor(Math.random()*this.words.length)];
+    this.secretWord = secretWord;
+    return secretWord;
   }
 
   checkIfLetter(keyCode) {
+    `Checks if the key the user has typed is a letter.`
     if (keyCode >= 65 && keyCode <= 90){
       return true
     }
@@ -25,9 +32,15 @@ class Hangman {
     // return false
   
 
- // checkClickedLetters(key) {
-  
- //  }
+  checkClickedLetters(key) {
+    `Checks if the pressed letter has already been pressed 
+    and returns true if it was not or false in the opposite case.`
+
+    if (this.letters.indexOf(key) != -1){
+      return false;
+    }
+    return true;
+  }
 
 //   addCorrectLetter(i) {
 
