@@ -1,44 +1,57 @@
 let hangman;
+class Hangman {
+ constructor() {
+ this.words = ["lentes" ,"carro " ,"jazz", "limon" ];
+ this.secretWord = "";
+ this.letters = [];
+ this.guessedLetter = "";
+ this.errorsLeft = 10;
+ this.letters
+ }
+  getWord() {
+    let chosenWord = this.words[Math.floor(Math.random()*this.words.length)];
+    return chosenWord;
+  }
 
-// class Hangman {
-//   constructor() {
+  checkIfLetter(keyCode) {
+    return (keyCode >= 65 && keyCode <= 90);
+  }
 
-//   }
+  checkClickedLetters(key) {
+    if(this.letters.indexOf(key) != -1) {
+      return false;
+    }
+    return true;
+  }
 
-//   getWord() {
+  checkWinner() {
+    if(this.guessedLetter.length == this.secretWord.length){
+      return true;
+    }
 
-//   }
+    return false;
+  }
 
-//   checkIfLetter(keyCode) {
+  addCorrectLetter(letter) {
+    this.guessedLetter += "letter";
+    return this.checkWinner();
+  }
 
-//   }
+  addWrongLetter(letter) {
+    this.errorsLeft--;
+  }
 
-//   checkClickedLetters(key) {
-
-//   }
-
-//   addCorrectLetter(i) {
-
-//   }
-
-//   addWrongLetter(letter) {
-
-//   }
-
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
+  checkGameOver() {
+    return (this.errorsLeft === 0);
+  }
+}
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangman.secretWord = hangman.getWord()
 };
 
 document.onkeydown = (e) => {
 
 };
+
