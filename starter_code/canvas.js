@@ -4,6 +4,7 @@ class HangmanCanvas {
     this.secretWord = secretWord;
     this.canvas = document.getElementById("hangman");
     this.ctx = this.canvas.getContext("2d");
+    this.ctx.font = "50px Arial";
     this.origin = [300, 700];
     this.hyphen = 50;
     this.blank = 20;
@@ -33,12 +34,15 @@ class HangmanCanvas {
     let x = this.origin[0] + (this.hyphen + this.blank) * index;
     let y = this.origin[1] - 10;
     let letter = this.secretWord[index];
-    
-    this.ctx.font = "50px Arial";
+
     this.ctx.fillText(letter, x, y);
   }
 
   writeWrongLetter(letter, errorsLeft) {
+    let x = this.origin[0] + 50*(17 - errorsLeft);
+    let y = this.origin[1] - 50*8;
+
+    this.ctx.fillText(letter, x, y);
 
   }
 
