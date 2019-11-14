@@ -24,21 +24,12 @@ class Hangman {
     }
     return false
   }
-    //Busca la letra tecleada dentro de la palabra secreta
-    // for (i=0; i<this.secretWord.length; i++){
-    //   if (keyCode = this.secretWord[i].keyCode){
-    //     return true
-    //   }
-    // }
-    // return false
   
-
   checkClickedLetters(key) {
     `Checks if the pressed letter has already been pressed 
     and returns true if it was not or false in the opposite case.`
 
     if (this.letters.indexOf(key) != -1){
-      //this.letters.push(key)
       return false;
     }
     return true;
@@ -63,7 +54,16 @@ class Hangman {
 
   checkWinner() {
     `Checks if the user wins and return a boolean value.`
-    return false;
+    let ans = false;
+    for (let i = 0; i < this.secretWord.length; i++){
+      if (this.guessedLetter.indexOf(this.secretWord[i]) == -1){
+        ans = false;
+        break;
+      } else {
+        ans = true;
+      }
+    }
+    return ans;
   }
 
  }
