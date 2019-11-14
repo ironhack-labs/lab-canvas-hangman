@@ -92,15 +92,14 @@ document.onkeydown = (e) => {
             index = hangman.secretWord.indexOf(letter, index + 1);
           }
           if (hangman.checkWinner()) {
-            // hangmanCanvas.winner();
+            setTimeout(hangmanCanvas.winner, 700);
           }
         } else {
           hangman.addWrongLetter(letter);
           hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+          hangmanCanvas.drawHangman(hangman.errorsLeft);
           if (hangman.checkGameOver()) {
-            // hangmanCanvas.gameOver();
-          } else {
-            // hangmanCanvas.drawHangman(hangman.errorsLeft);
+            setTimeout(hangmanCanvas.gameOver, 700);
           }
         }
         hangman.letters.push(letter);
