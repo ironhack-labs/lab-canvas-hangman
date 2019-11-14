@@ -12,7 +12,7 @@ class Hangman {
 
   getWord() {
     `Returns a random word from our array words.`
-    let secretWord = this.words[Math.floor(Math.random()*this.words.length)];
+    let secretWord = this.words[Math.floor(Math.random()*this.words.length)].toUpperCase();
     this.secretWord = secretWord;
     return secretWord;
   }
@@ -80,5 +80,34 @@ document.getElementById('start-game-button').onclick = () => {
 };
 
 document.onkeydown = (e) => {
+  if (!hangman.checkGameOver() && !hangman.checkWinner()){
+    if (hangman.checkIfLetter(e.keyCode)){
+      let letter = String.fromCharCode(e.keyCode);
+      if (hangman.checkClickedLetters(letter)){
+        if (hangman.secretWord.includes(letter)){
+          let index = hangman.secretWord.indexOf(letter);
+          while (index != -1 && index < hangman.secretWord.length) {
+            hangman.addCorrectLetter(index);
+            hangmanCanvas.writeCorrectLetter(index);
+            index = hangman.secretWord.indexOf(letter, index + 1);
+          }
+          if (hangman.checkWinner()) {
+            // hangmanCanvas.winner();
+          }
+        } else {
+          hangman.addWrongLetter(letter);
+          hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+          if (hangman.checkGameOver()) {
+            // hangmanCanvas.gameOver();
+          } else {
+            // hangmanCanvas.drawHangman(hangman.errorsLeft);
+          }
+        }
+        hangman.letters.push(letter);
+      } else {
+        alert("Choose another letter")
+      }
+    }
+  }
   
 };
