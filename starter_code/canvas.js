@@ -6,7 +6,9 @@ class HangmanCanvas {
   }
 
   createBoard() {
-
+    let canvas = document.querySelector('#hangman')
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillRect(0, 200, canvas.width, canvas.height);
   }
 
   drawLines() {

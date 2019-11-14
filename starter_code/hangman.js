@@ -69,9 +69,15 @@ class Hangman {
  }
 
 document.getElementById('start-game-button').onclick = () => {
+  
   hangman = new Hangman();
+  let wordToPlay = hangman.getWord();
+  console.log(wordToPlay)
+  hangmanCanvas = new HangmanCanvas(wordToPlay);
+  hangmanCanvas.createBoard();
+  
 };
 
 document.onkeydown = (e) => {
-
+  
 };
