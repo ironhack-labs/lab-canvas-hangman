@@ -3,6 +3,8 @@ class HangmanCanvas {
     this.ctx = document.getElementById('hangman').getContext('2d');
   }
 
+  getWord() {}
+
   createBoard() {}
 
   drawLines() {}
@@ -17,3 +19,4 @@ class HangmanCanvas {
 
   winner() {}
 }
+const hangman = new HangmanCanvas();
