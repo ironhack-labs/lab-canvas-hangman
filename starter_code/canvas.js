@@ -19,4 +19,3 @@ class HangmanCanvas {
 
   winner() {}
 }
-const hangman = new HangmanCanvas();
