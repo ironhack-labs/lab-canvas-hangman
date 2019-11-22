@@ -56,36 +56,13 @@ document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
 };
 hangman = new Hangman();
-// document.onkeydown = e => {
-//   // console.log(event.key);
-//   hangman.checkIfLetter(e.keyCode);
-//   hangman.checkClickedLetters(`${event.key}`);
-//   hangman.addCorrectLetter(event.key);
-//   hangman.addWrongLetter(event.key);
-// };
+document.onkeydown = e => {
+  // console.log(event.key);
+  hangman.checkIfLetter(e.keyCode);
+  hangman.checkClickedLetters(`${event.key}`);
+  hangman.addCorrectLetter(event.key);
+  hangman.addWrongLetter(event.key);
+};
 // document.addEventListener('keydown', function(event) {
 //   console.log(event.which);
 // });
-
-document.addEventListener('keydown', function(event) {
-  hangman.checkIfLetter(event.keyCode);
-  hangman.checkClickedLetters(`${event.key}`);
-  console.log(event);
-
-  document.body.innerHTML = `
-    &nbsp;&nbsp;&nbsp;
-    <b>which: ${event.which}</b>
-    <br>&nbsp;
-    <b>keyCode:</b> ${event.keyCode}
-    <br>&nbsp;&nbsp;&nbsp;
-    <b>shiftKey:</b> ${event.shiftKey}
-    </br>&nbsp;&nbsp;&nbsp;&nbsp;
-    <b>altKey:</b> ${event.altKey}
-    <br>&nbsp;&nbsp;&nbsp;
-    <b>ctrlKey:</b> ${event.ctrlKey}
-    <br>&nbsp;&nbsp;
-    <b>metaKey:</b> ${event.metaKey}
-    <br>&nbsp;&nbsp;
-    <b>key:</b> ${event.key}
-  `;
-});
