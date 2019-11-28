@@ -1,6 +1,6 @@
-class Hangman {
+class Hangman{
   constructor() {
-    this.words = ["word", "test", "other"];
+    this.words = ["word", "tested", "otherabcdef"];
     this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
@@ -41,11 +41,13 @@ class Hangman {
   }
 }
 
-/* document.getElementById('start-game-button').onclick = () => {
+document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  game = new HangmanCanvas(hangman.secretWord);
+  game.createBoard();
+  game.drawLines();
 };
 
 document.onkeydown = (e) => {
-
+  console.log(e.keyCode);
 };
-let hangman; */

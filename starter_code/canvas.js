@@ -4,7 +4,7 @@ let v = 600;
 class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById("hangman").getContext("2d");
-    this.secretWord = secretWord;
+    this.secretWord = hangman.secretWord;
   }
 
   createBoard() {
@@ -23,18 +23,15 @@ class HangmanCanvas {
       this.ctx.closePath();
       this.ctx.strokeStyle = "black";
       this.ctx.stroke();
-      console.log("hallo");
     }
-      
-      /* this.ctx.beginPath();
-      this.ctx.moveTo(530 + step * i, 600);
-      this.ctx.lineTo(560 + step * i, 600);
-      this.ctx.closePath();
-      this.ctx.strokeStyle = "red";
-      this.ctx.stroke(); */
   }
 
-  writeCorrectLetter(index) {}
+  writeCorrectLetter(index) {
+    let step = 60;
+    //hangman.checkIfLetter(keyCode);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText("A", 505+(step*index), 595);
+  }
 
   writeWrongLetter(letter, errorsLeft) {}
 
@@ -45,7 +42,8 @@ class HangmanCanvas {
   winner() {}
 }
 
-let hangman = new HangmanCanvas("Word");
+/* let hangman = new HangmanCanvas("Word");
 
 hangman.createBoard();
-hangman.drawLines();
+hangman.writeCorrectLetter(2);
+hangman.drawLines(); */
