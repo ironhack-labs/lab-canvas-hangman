@@ -3,6 +3,7 @@ let hangman;
 // class Hangman {
 //   constructor() {
 
+
 //   }
 
 //   getWord() {
