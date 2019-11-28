@@ -2,7 +2,7 @@ let hangman;
 
 // class Hangman {
 //   constructor() {
-
+g
 //   }
 
 //   getWord() {
