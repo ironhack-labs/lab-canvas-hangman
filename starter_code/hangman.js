@@ -1,44 +1,68 @@
 let hangman;
 
-// class Hangman {
-//   constructor() {
-g
-//   }
 
-//   getWord() {
 
-//   }
+class Hangman {
+constructor() {
+  this.words = ["Maus",  "Katze", "Vogel", "Schlange", "Leguan"];
+  this.secretWord = this.words[Math.floor(Math.random()*this.words.length)];
+  this.letters = [];
+  this.guessedLetter = "";
+  this.errorsLeft = 10;
+}
 
-//   checkIfLetter(keyCode) {
+  getWord() {
+  return this.secretWord;
+ }
 
-//   }
+ checkIfLetter(keyCode) {
+    let reg = new RegExp("[a-zA-Z]");
+    return (reg.test(String.fromCharCode(keyCode)));
+  }
 
-//   checkClickedLetters(key) {
+ checkClickedLetters(key) {
+   if (this.letters.includes(key)){
+     return false;
+   }else{
+    return true;
+   }
+ }
 
-//   }
+  addCorrectLetter(i) {
+  this.guessedLetter += this.secretWord[i].toUpperCase();
+  
+  }
 
-//   addCorrectLetter(i) {
+  addWrongLetter(letter) {
+    if(this.secretWord.indexOf(letter)=== -1){
+    this.errorsLeft-- ;
+    }
+   }
 
-//   }
+  checkGameOver() {
+   return this.errorsLeft === 0;
+  }
 
-//   addWrongLetter(letter) {
+  checkWinner() {
+      return this.secretWord.split('').every(letter => this.guessedLetter.includes(letter));
+}
+}
 
-//   }
 
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  let hangmanGame = new HangmanCanvas(hangman.secretWord);
+  hangmanGame.createBoard();
+  hangmanGame.drawLines();
+  console.log(hangmanGame.secretWord);
+  hangmanGame.writeCorrectLetter(4);
+  
+  document.onkeydown = (e) => {
+
+  };
+  
 };
 
-document.onkeydown = (e) => {
 
-};
+
