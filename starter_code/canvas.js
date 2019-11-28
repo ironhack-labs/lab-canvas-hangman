@@ -2,16 +2,25 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById('hangman').getContext('2d');
-    
+    this.secretWord=secretWord;
     
   }
 
   createBoard() {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 1000, 700);
+    this.ctx.fillStyle = "white";
+    this.ctx.fillRect(0, 0, 1000, 700);
   }
 
   drawLines() {
+
+    for(let i=0; i<this.secretWord.length; i++){
+      this.ctx.fillStyle="black";
+    this.ctx.font="25px Arial";
+
+this.ctx.fillText(`${this.secretWord}`, 10, 50);
+    }
+
+
     this.ctx.beginPath();
     this.ctx.moveTo(20,650);
     this.ctx.lineTo(220, 650);
@@ -25,6 +34,13 @@ class HangmanCanvas {
     this.ctx.lineTo(300, 100);
     this.ctx.closePath();
     this.ctx.stroke();
+    
+//text
+this.ctx.fillStyle="black";
+this.ctx.font="25px Arial";
+
+this.ctx.fillText(`${this.secretWord}`, 10, 50);
+
   }
 
   writeCorrectLetter(index) {

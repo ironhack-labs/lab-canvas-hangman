@@ -25,8 +25,11 @@ constructor() {
  }
   checkClickedLetters(key) {
     let vorhanden =this.letters.includes(key);
-    return !vorhanden;
-   
+    if(!vorhanden){
+      this.letters.push(key);
+    }
+    return !vorhanden;    
+    
    }
   addCorrectLetter(i) {
     this.guessedLetter+=this.secretWord[i].toUpperCase();
@@ -57,16 +60,17 @@ constructor() {
 document.getElementById('start-game-button').onclick = () => {
   
   hangman = new Hangman();
-  let canvasOne=new HangmanCanvas;
-  canvasOne.drawLines();
   hangman.getWord();
-  
+  let canvasOne=new HangmanCanvas(hangman.secretWord);
+  canvasOne.createBoard();
+  canvasOne.drawLines();
+  console.log(canvasOne.secretWord);
     
 };
 
 document.onkeydown = (e) => {
 hangman.checkIfLetter(e.keyCode);
 hangman.checkClickedLetters(e.key);
- 
+ console.log(hangman.letters)
   
 };
