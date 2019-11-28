@@ -69,13 +69,13 @@ describe('Hangman Game', function () {
     });
 
     it('checkClickedLetters should return true', function () {
-      hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('F')).toEqual(true);
+      hangman.letters.push('I', 'K', 'L');
+      expect(hangman.checkClickedLetters('L')).toEqual(true);
     });
 
     it('checkClickedLetters should return false', function () {
-      hangman.letters.push('I', 'R', 'P');
-      expect(hangman.checkClickedLetters('R')).toEqual(false);
+      hangman.letters.push('I', 'K', 'L');
+      expect(hangman.checkClickedLetters('P')).toEqual(false);
     });
   });
 
@@ -91,7 +91,7 @@ describe('Hangman Game', function () {
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
-      hangman.addCorrectLetter(1);
+      hangman.addCorrectLetter('R'); // 1
       expect(hangman.guessedLetter).toEqual('R');
     });
   });
