@@ -1,17 +1,15 @@
-let hangman
-
 class Hangman {
   constructor () {
-    this.words = ['foo', 'bar', 'muh']
-    this.secretWord = ''
-    this.letters = []
-    this.guessedLetter = ''
-    this.errorsLeft = 10
+    this.words = ['foo', 'bar', 'TEST', 'Jarvis', 'BLABLABLABLABLABLA'];
+    this.secretWord = '';
+    this.letters = [];
+    this.guessedLetter = '';
+    this.errorsLeft = 10;
   }
 
   getWord () {
     let secretIndex = Math.floor(Math.random() * this.words.length)
-    this.SecretWord = this.words[secretIndex]
+    this.secretWord = this.words[secretIndex]
     return this.secretWord
   }
 
@@ -64,7 +62,13 @@ class Hangman {
 }
 
 document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman()
+ let hangman = new Hangman()
+ hangman.getWord();
+ let hangmancanvas = new HangmanCanvas(hangman.secretWord);
+ hangmancanvas.createBoard();
+ console.log(hangman.secretWord);
+ hangmancanvas.drawLines();
+ 
 }
 
 document.onkeydown = e => {}
