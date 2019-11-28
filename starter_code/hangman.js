@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["Tomasz", "Karin", "Marco"];
+    this.words = ["Tamasz", "Kairin", "Maraco"];
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
@@ -12,7 +12,8 @@ class Hangman {
 
   getWord() {
     let secret = this.words[Math.floor(Math.random()*this.words.length)];
-    this.secretWord = secret;
+    this.secretWord = secret.toUpperCase(); 
+    console.log("Secret " + secret);
     return secret;
 
   }
@@ -29,8 +30,9 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    
+    console.log("Hello " + i + " " + this.secretWord + " " + this.secretWord[i]);
     this.guessedLetter += this.secretWord[i].toUpperCase();
+    hangmanCanvas.writeCorrectLetter(i);
       if (this.checkWinner())
         console.log('You won!')
     
@@ -38,6 +40,7 @@ class Hangman {
 
   addWrongLetter(letter) {
     this.errorsLeft -= 1;
+    hangmanCanvas.writeWrongLetter(letter);
     if (this.checkGameOver())
       console.log('Game Over!')
   }
@@ -49,12 +52,9 @@ class Hangman {
 
   checkWinner() {
     let secretLength = this.secretWord.length;
-    let guessedLength = this.guessedLetter.length;
 
     for(let i = 0; i<secretLength; i++){
-      //for (let k = 0; k < guessedLength; k++)
-        //if(this.secretWord[i] !== this.guessedLetter[k]) return false;
-        if(this.guessedLetter.indexOf(this.secretWord[i]) === -1) return false
+      if(this.guessedLetter.indexOf(this.secretWord[i]) === -1) return false
     } 
     return true;
   }
@@ -63,8 +63,23 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  
+  hangmanCanvas = new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.createBoard()
+  hangmanCanvas.drawLines()
+  
 };
 
 document.onkeydown = (e) => {
+  //hangman.addCorrectLetter(3);
+  console.log("Key pressed " + e.key);
+  
+  let keyPressed = e.key.toUpperCase();
+  hangman.letter.push(keyPressed);
+  for(let i = 0; i< hangman.secretWord.length; i++)
+    if (hangman.secretWord[i] === keyPressed)
+      hangman.addCorrectLetter(i);
 
+  if(hangman.secretWord.indexOf(keyPressed) === -1)
+      hangman.addWrongLetter(keyPressed);
 };
