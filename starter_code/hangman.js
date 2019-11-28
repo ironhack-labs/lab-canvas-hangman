@@ -1,3 +1,4 @@
+let hangman;
 class Hangman {
   constructor () {
     this.words = ['foo', 'bar', 'TEST', 'Jarvis', 'BLABLABLABLABLABLA'];
@@ -13,19 +14,23 @@ class Hangman {
     return this.secretWord
   }
 
-  checkIfLetter (keyCode) {
+  checkIfLetter(keyCode) {
     if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
+      console.log("Its a Letter");
       return true
     } else {
+      console.log("Its not a Letter");
       return false
     }
   }
 
   checkClickedLetters (key) {
-    let newLetter = key
     if (this.letters.includes(key)) {
+      console.log("allready klicked Letter");
       return false
     } else {
+      console.log("its a new Letter");
+      this.letters.push(key);
       return true
     }
   }
@@ -62,13 +67,17 @@ class Hangman {
 }
 
 document.getElementById('start-game-button').onclick = () => {
- let hangman = new Hangman()
+ hangman = new Hangman()
  hangman.getWord();
  let hangmancanvas = new HangmanCanvas(hangman.secretWord);
  hangmancanvas.createBoard();
  console.log(hangman.secretWord);
- hangmancanvas.drawLines();
- 
+ hangmancanvas.drawLines(); 
 }
 
-document.onkeydown = e => {}
+document.onkeydown = e => {
+  console.log(e.keyCode);
+  hangman.checkIfLetter(e.keyCode);
+  hangman.checkClickedLetters(e.key);
+  
+}

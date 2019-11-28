@@ -30,7 +30,7 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-
+   
   }
 
   writeWrongLetter(letter, errorsLeft) {
