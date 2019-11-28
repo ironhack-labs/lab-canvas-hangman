@@ -1,4 +1,4 @@
-class Hangman{
+class Hangman {
   constructor() {
     this.words = ["word", "tested", "otherabcdef"];
     this.secretWord = this.getWord();
@@ -41,13 +41,24 @@ class Hangman{
   }
 }
 
-document.getElementById('start-game-button').onclick = () => {
+document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
   game = new HangmanCanvas(hangman.secretWord);
   game.createBoard();
   game.drawLines();
-};
+  document.onkeydown = e => {
+    let clickedLetter = e.key;
+    let clickedLetterIndex = hangman.secretWord.indexOf(e.key);
 
-document.onkeydown = (e) => {
-  console.log(e.keyCode);
+    if (hangman.checkIfLetter(e.keyCode)) {
+      if (hangman.checkClickedLetters(clickedLetter)) {
+        hangman.letters.push(clickedLetter);
+        if (clickedLetterIndex >= 0) {
+          hangman.addCorrectLetter(clickedLetterIndex); //This is not working when a letter appears multiple times inside the secret word
+          console.log(hangman.guessedLetter);
+          game.writeCorrectLetter(clickedLetter.toUpperCase(), clickedLetterIndex);
+        }
+      }
+    }
+  };
 };

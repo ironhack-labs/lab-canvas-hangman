@@ -1,5 +1,4 @@
-let h = 540;
-let v = 600;
+let step = 60;
 
 class HangmanCanvas {
   constructor(secretWord) {
@@ -11,26 +10,18 @@ class HangmanCanvas {
     this.ctx.clearRect(0, 0, 1200, 800);
     this.ctx.lineWidth = 2.0;
   }
-
+ 
   drawLines() {
-    let i = 0;
-    let step = 60;
-
-    for (i=0; i<this.secretWord.length; i++) {
-      this.ctx.beginPath();
+     for (let i=0; i<this.secretWord.length; i++) {
       this.ctx.moveTo(500 + step * i, 600);
       this.ctx.lineTo(530 + step * i, 600);
-      this.ctx.closePath();
-      this.ctx.strokeStyle = "black";
       this.ctx.stroke();
     }
   }
 
-  writeCorrectLetter(index) {
-    let step = 60;
-    //hangman.checkIfLetter(keyCode);
+  writeCorrectLetter(letter, index) {
     this.ctx.font = "30px Arial";
-    this.ctx.fillText("A", 505+(step*index), 595);
+    this.ctx.fillText(letter, 505+(step*index), 595);
   }
 
   writeWrongLetter(letter, errorsLeft) {}
