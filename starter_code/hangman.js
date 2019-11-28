@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
 constructor() {
-  this.words =["hallo", "Wort", "wort"];
+  this.words =["IRON", "AUTO", "KATZE"];
   this.secretWord="";
   this.letters=[];
   this.guessedLetter="";
@@ -57,13 +57,16 @@ constructor() {
 document.getElementById('start-game-button').onclick = () => {
   
   hangman = new Hangman();
+  let canvasOne=new HangmanCanvas;
+  canvasOne.drawLines();
   hangman.getWord();
   
+    
 };
 
 document.onkeydown = (e) => {
- hangman.checkIfLetter(e.keyCode);
- hangman.checkClickedLetters(e.key);
+hangman.checkIfLetter(e.keyCode);
+hangman.checkClickedLetters(e.key);
  
   
 };
