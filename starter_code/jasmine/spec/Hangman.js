@@ -133,9 +133,7 @@ describe('Hangman Game', function () {
     it('checkWinner should be a function', function () {
       expect(typeof (hangman.checkWinner)).toBe('function');
     });
-    it('checkWinner should return a boolean', function () {
-      expect(typeof (hangman.checkWinner())).toBe('boolean');
-    });
+ 
     it('checkWinner should return true if we guess all letters', function () {
       hangman.secretWord = 'IRONHACK';
       hangman.guessedLetter = 'KHARCNIO';
