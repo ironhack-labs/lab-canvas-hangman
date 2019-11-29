@@ -1,4 +1,5 @@
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
@@ -62,17 +63,23 @@ class Hangman {
 }
 
 document.getElementById('start-game-button').onclick = () => {
+  document.getElementById('sgb-container').style.display = 'none';
+  activateKeys();
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.createBoard();
 };
 
-document.onkeydown = (e) => {
-  if( hangman !== undefined ) {
-    let validLetter = hangman.checkIfLetter( e.keyCode );
-    if( validLetter === true ) {
-      let newLetter = hangman.checkClickedLetters( e.keyCode );
-      hangman.addCorrectLetter(e.keyCode);
-    } else {
-      hangman.addWrongLetter(e.keyCode);
+function activateKeys(){
+  document.onkeydown = (e) => {
+    if( hangman !== undefined ) {
+      let validLetter = hangman.checkIfLetter( e.keyCode );
+      if( validLetter === true ) {
+        let newLetter = hangman.checkClickedLetters( e.keyCode );
+        hangman.addCorrectLetter(e.keyCode);
+      } else {
+        hangman.addWrongLetter(e.keyCode);
+      }
     }
   }
 };
