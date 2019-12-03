@@ -27,7 +27,10 @@ class Hangman {
   }
 
   addWrongLetter(letter) {
-
+    if(!this.secretWord.includes(letter)){
+      this.errorsLeft--;
+    }
+    this.checkGameOver()
   }
 
   checkGameOver() {
