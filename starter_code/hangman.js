@@ -40,9 +40,22 @@ class Hangman {
 		this.errorsLeft--;
 	}
 
-	checkGameOver() {}
+	checkGameOver() {
+		return this.errorsLeft === 0 ? true : false;
+	}
 
-	checkWinner() {}
+	checkWinner() {
+		if (this.guessedLetter.length !== this.secretWord.length) {
+			return false;
+		} else {
+			for (let i = 0; i < this.guessedLetter.length; i++) {
+				if (this.secretWord.indexOf(this.guessedLetter[i]) === -1) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
 }
 
 document.getElementById('start-game-button').onclick = () => {
