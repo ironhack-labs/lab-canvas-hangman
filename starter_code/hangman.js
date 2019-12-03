@@ -46,8 +46,6 @@ class Hangman {
   }
 }
 
-document.getElementById("start-game-button").onclick = () => {
-  hangman = new Hangman();
-};
+document.getElementById("start-game-button").onclick = () => {};
 
 document.onkeydown = e => {};
