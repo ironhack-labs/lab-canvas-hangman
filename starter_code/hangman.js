@@ -1,44 +1,54 @@
 let hangman;
 
-// class Hangman {
-//   constructor() {
+class Hangman {
+	constructor() {
+		this.words = [
+			'pepsi',
+			'cartier',
+			'ikea',
+			'siemens',
+			'prada',
+			'sprite',
+			'ebay',
+			'lancome',
+			'pampers',
+			'budweiser'
+		];
+		this.secretWord = this.getWord();
+		this.letters = [];
+		this.guessedLetter = '';
+		this.errorsLeft = 10;
+	}
 
-//   }
+	getWord() {
+		return this.words[Math.floor(Math.random() * this.words.length)];
+	}
 
-//   getWord() {
+	checkIfLetter(keyCode) {
+		return keyCode >= 65 && keyCode <= 90 ? true : false;
+	}
 
-//   }
+	checkClickedLetters(key) {
+		return !this.letters.includes(key);
+	}
 
-//   checkIfLetter(keyCode) {
+	addCorrectLetter(i) {
+		this.guessedLetter += this.secretWord[i].toUpperCase();
+	}
 
-//   }
+	addWrongLetter(letter) {
+		this.errorsLeft--;
+	}
 
-//   checkClickedLetters(key) {
+	checkGameOver() {}
 
-//   }
-
-//   addCorrectLetter(i) {
-
-//   }
-
-//   addWrongLetter(letter) {
-
-//   }
-
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
+	checkWinner() {}
+}
 
 document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman();
+	hangman = new Hangman();
 };
 
-document.onkeydown = (e) => {
-
+document.onkeydown = e => {
+	console.log(e.key);
 };
