@@ -39,7 +39,11 @@ class Hangman {
   }
 
   checkWinner() {
-
+    if(this.guessedLetter.length === this.secretWord.length){
+      return true
+    } else {
+      return false
+    }
   }
 
 }
