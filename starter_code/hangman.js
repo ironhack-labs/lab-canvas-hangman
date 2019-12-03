@@ -10,7 +10,8 @@ class Hangman {
   }
 
   getWord() {
-
+    let randomWord = Math.floor(Math.random()*this.words.length)
+    return this.words[randomWord]
   }
 
   checkIfLetter(keyCode) {
