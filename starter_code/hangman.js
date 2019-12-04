@@ -2,20 +2,41 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = []
-    this.secretWord;
-    this.letters = []
-    this.guessedLetter = ""
+    this.words = [
+      "sesame",
+      "bureaucracy",
+      "awful",
+      "taste",
+      "await",
+      "relation",
+      "invention",
+      "stub",
+      "picture",
+      "deployment",
+      "brush",
+      "pretension",
+      "silhouette",
+      "bandwagon",
+      "firstborn",
+      "timbre",
+      "subsystem",
+      "ceramic",
+      "moron",
+      "enjoy"
+    ];
+    this.secretWord = "";
+    this.letters = [];
+    this.guessedLetter = "";
     this.errorsLeft = 10;
   }
 
   getWord() {
-    let randomWord = Math.floor(Math.random()*this.words.length)
-    return this.words[randomWord]
+    let randomWord = Math.floor(Math.random() * this.words.length);
+    return this.words[randomWord];
   }
 
   checkIfLetter(keyCode) {
-    if(keyCode >= 65 && keyCode <= 90){
+    if (keyCode >= 65 && keyCode <= 90) {
       return true;
     } else {
       return false;
@@ -23,46 +44,41 @@ class Hangman {
   }
 
   checkClickedLetters(key) {
-    if (this.letters.indexOf(key) == -1){
+    if (this.letters.indexOf(key) == -1) {
       return true;
     } else {
       return false;
     }
   }
 
-  addCorrectLetter(i) {
-
-  }
+  addCorrectLetter(i) {}
 
   addWrongLetter(letter) {
-    if(!this.secretWord.includes(letter)){
+    if (!this.secretWord.includes(letter)) {
       this.errorsLeft--;
     }
-    this.checkGameOver()
+    this.checkGameOver();
   }
 
   checkGameOver() {
-    if(this.errorsLeft = 0){
-      return true
+    if ((this.errorsLeft = 0)) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
   checkWinner() {
-    if(this.guessedLetter.length === this.secretWord.length){
-      return true
+    if (this.guessedLetter.length === this.secretWord.length) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
-
 }
 
-document.getElementById('start-game-button').onclick = () => {
+document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
 };
 
-document.onkeydown = (e) => {
-
-};
+document.onkeydown = e => {};
