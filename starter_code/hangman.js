@@ -30,7 +30,7 @@ class Hangman {
     if(this.secretWord.includes(i)){
       this.guessedLetter += i;
       this.checkWinner();
-      return this.secretWord.indexOf(i);
+      console.log(this.guessedLetter)
     }
   }
 
@@ -71,15 +71,17 @@ document.onkeydown = (e) => {
     console.log('letter', letter)
     if(hangman.checkClickedLetters(letter) == true){
       if(hangman.secretWord.includes(letter)){
-        var indexKey = hangman.addCorrectLetter(letter);
-        hangmanCanvas.writeCorrectLetter(indexKey);
-        if(hangman.checkWinner() == true) hangmanCanvas.winner()
+        hangman.addCorrectLetter(letter);
+        hangmanCanvas.writeCorrectLetter(letter);
+        if(hangman.checkWinner() == true){
+          setTimeout(function(){ 
+            hangmanCanvas.winner()
+          }, 750);
+        }
       } else {
        hangman.addWrongLetter(letter);
        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft);
       }
     }
-  } else{
-    console.log('Debes incluir una letra')
-  }
+  } 
 };

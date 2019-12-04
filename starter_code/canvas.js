@@ -24,8 +24,17 @@ class HangmanCanvas {
     this.ctx.closePath();
   }
 
-  writeCorrectLetter(index) {
-    console.log('index', index)
+  writeCorrectLetter(letter) {
+    this.ctx.beginPath();
+    let xTrueLetter = 315;
+    this.ctx.font = '30px Arial'
+    for(let i = 0; i < this.secretWord.length; i++){
+      if(letter == this.secretWord[i]){
+        this.ctx.fillText(letter,xTrueLetter, 590)
+      }
+      xTrueLetter += 70;
+    }
+    this.ctx.closePath();
   }
 
   writeWrongLetter(letters, errorsLeft) {
@@ -135,7 +144,7 @@ class HangmanCanvas {
           this.ctx.closePath();
           setTimeout(function(){ 
             this.gameOver()
-          }.bind(this), 500);
+          }.bind(this), 750);
         break;
     }
 
@@ -143,11 +152,19 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    alert('has perdido')
+    let imgGameOver = new Image();
+    imgGameOver.src = 'images/gameover.png';
+    imgGameOver.onload = function(){
+    this.ctx.drawImage(imgGameOver,300,250)
+    }.bind(this)
   }
 
   winner() {
-    alert('has ganado')
+    let imgWinner = new Image();
+    imgWinner.src = 'images/awesome.png';
+    imgWinner.onload = function(){
+    this.ctx.drawImage(imgWinner,175,100)
+    }.bind(this)
   }
 
 }
