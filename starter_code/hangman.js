@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ['capucha','foca','laboratorio','termómetro','ambulancia','ambulancia', 'reputación', 'cultura', 'boca', 'cereales','terremoto', 'contrato', 'jamón'];
+    this.words = ['capucha','foca','laboratorio','pluma','ambulancia', 'calidad', 'cultura', 'boca', 'cereales','terremoto', 'contrato', 'libro'];
     this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = '';
@@ -10,7 +10,7 @@ class Hangman {
   }
 
   getWord() {
-    return this.words[Math.floor(Math.random()*this.words.length)]
+    return this.words[Math.floor(Math.random()*this.words.length)].toUpperCase();
   }
 
   checkIfLetter(keyCode) {
@@ -19,13 +19,19 @@ class Hangman {
   }
 
   checkClickedLetters(key) {
-    if(this.letters.includes(key)) return false;
-    return true;
+    if(this.letters.includes(key)){
+      return false;
+    } else {
+      return true;
+    }
   }
 
   addCorrectLetter(i) {
-    if(this.secretWord.includes(i)) this.guessedLetter += i;
-    this.checkWinner();
+    if(this.secretWord.includes(i)){
+      this.guessedLetter += i;
+      this.checkWinner();
+      return this.secretWord.indexOf(i);
+    }
   }
 
   addWrongLetter(letter) {
@@ -54,8 +60,26 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord)
+  console.log(hangman.secretWord)
+  hangmanCanvas.createBoard();
 };
 
 document.onkeydown = (e) => {
-
+  if(hangman.checkIfLetter(e.keyCode) === true ){
+    let letter = e.key.toUpperCase()
+    console.log('letter', letter)
+    if(hangman.checkClickedLetters(letter) == true){
+      if(hangman.secretWord.includes(letter)){
+        var indexKey = hangman.addCorrectLetter(letter);
+        hangmanCanvas.writeCorrectLetter(indexKey);
+        if(hangman.checkWinner() == true) hangmanCanvas.winner()
+      } else {
+       hangman.addWrongLetter(letter);
+       hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft);
+      }
+    }
+  } else{
+    console.log('Debes incluir una letra')
+  }
 };
