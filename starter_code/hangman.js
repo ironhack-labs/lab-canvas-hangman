@@ -15,6 +15,11 @@ class Hangman {
 
   checkIfLetter(keyCode) {
     this.letters.push(String.fromCharCode(keyCode))
+    if (this.secretWord.includes(String.fromCharCode(keyCode))) {
+      this.guessedLetter += String.fromCharCode(keyCode)
+    } else {
+      this.errorsLeft --;
+    }
     return (keyCode <= 90 && keyCode >= 65)
   }
 
@@ -30,9 +35,13 @@ class Hangman {
 
 //   }
 
-//   checkGameOver() {
-
-//   }
+  checkGameOver() {
+    if (this.errorsLeft > 0) {
+      return false
+    } else {
+      return true
+    }
+  }
 
 //   checkWinner() {
 
