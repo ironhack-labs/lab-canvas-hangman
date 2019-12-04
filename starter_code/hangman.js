@@ -14,12 +14,13 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
+    this.letters.push(String.fromCharCode(keyCode))
     return (keyCode <= 90 && keyCode >= 65)
   }
 
-//   checkClickedLetters(key) {
-
-//   }
+  checkClickedLetters(key) {
+    return !this.letters.includes(key)
+  }
 
 //   addCorrectLetter(i) {
 
