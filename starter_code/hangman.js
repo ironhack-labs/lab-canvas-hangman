@@ -14,12 +14,6 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    this.letters.push(String.fromCharCode(keyCode))
-    if (this.secretWord.includes(String.fromCharCode(keyCode))) {
-      this.guessedLetter += String.fromCharCode(keyCode)
-    } else {
-      this.errorsLeft --;
-    }
     return (keyCode <= 90 && keyCode >= 65)
   }
 
@@ -27,13 +21,14 @@ class Hangman {
     return !this.letters.includes(key)
   }
 
-//   addCorrectLetter(i) {
+  addCorrectLetter(i) {
+    this.guessedLetter += this.secretWord[i].toUpperCase()
+  }
 
-//   }
-
-//   addWrongLetter(letter) {
-
-//   }
+  addWrongLetter(letter) {
+    this.errorsLeft --;
+    this.checkGameOver();
+  }
 
   checkGameOver() {
     if (this.errorsLeft > 0) {
@@ -43,9 +38,21 @@ class Hangman {
     }
   }
 
-//   checkWinner() {
-
-//   }
+  checkWinner() {
+    let letters = this.guessedLetter.split("");
+    let result = false;
+    let count = 0;
+    letters.forEach( e => {
+      if (this.secretWord.includes(e)) {
+        result = true;
+        count ++;
+      };
+    })
+    if (count != this.secretWord.length) {
+      result = false;
+    }
+    return result;
+  }
 
 }
 
