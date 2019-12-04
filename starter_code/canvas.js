@@ -17,7 +17,6 @@ class HangmanCanvas {
       this.ctx.moveTo(xPosition,600);
       xPosition +=50;
       this.ctx.lineTo(xPosition,600);
-      this.ctx.strokeStyle = '#000000';
       this.ctx.stroke();
       xPosition += 20;
     }
@@ -68,7 +67,6 @@ class HangmanCanvas {
           this.ctx.moveTo(150,550);
           this.ctx.lineTo(150,100);
           this.ctx.lineWidth = 3;
-          this.ctx.strokeStyle = '#000000';
           this.ctx.stroke();
           this.ctx.closePath();
         break;
@@ -77,7 +75,6 @@ class HangmanCanvas {
           this.ctx.moveTo(150,100);
           this.ctx.lineTo(500,100);
           this.ctx.lineWidth = 3;
-          this.ctx.strokeStyle = '#000000';
           this.ctx.stroke();
           this.ctx.closePath();
         break;
@@ -86,19 +83,21 @@ class HangmanCanvas {
           this.ctx.moveTo(500,100);
           this.ctx.lineTo(500,150);
           this.ctx.lineWidth = 3;
-          this.ctx.strokeStyle = '#000000';
           this.ctx.stroke();
           this.ctx.closePath();
         break;
       case 5:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.arc(500,200, 50, 0, 2*Math.PI, true);
           this.ctx.lineWidth = 3;
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
         break;
       case 4:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.moveTo(500,250);
           this.ctx.lineTo(500,400);
@@ -106,8 +105,10 @@ class HangmanCanvas {
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
         break;
       case 3:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.moveTo(500,400);
           this.ctx.lineTo(450,500);
@@ -115,8 +116,10 @@ class HangmanCanvas {
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
         break;
       case 2:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.moveTo(500,400);
           this.ctx.lineTo(550,500);
@@ -124,8 +127,10 @@ class HangmanCanvas {
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
         break;
       case 1:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.moveTo(500,275);
           this.ctx.lineTo(450,350);
@@ -133,8 +138,10 @@ class HangmanCanvas {
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
         break;
       case 0:
+          this.ctx.save();
           this.ctx.beginPath();
           this.ctx.moveTo(500,275);
           this.ctx.lineTo(550,350);
@@ -142,6 +149,7 @@ class HangmanCanvas {
           this.ctx.strokeStyle = 'pink';
           this.ctx.stroke();
           this.ctx.closePath();
+          this.ctx.restore();
           setTimeout(function(){ 
             this.gameOver()
           }.bind(this), 750);

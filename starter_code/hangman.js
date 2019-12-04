@@ -27,11 +27,10 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    if(this.secretWord.includes(i)){
-      this.guessedLetter += i;
-      this.checkWinner();
-      console.log(this.guessedLetter)
-    }
+    //console.log(i)
+    this.guessedLetter += this.secretWord[i].toUpperCase()
+    this.checkWinner();
+    //console.log(this.guessedLetter)
   }
 
   addWrongLetter(letter) {
@@ -61,17 +60,17 @@ class Hangman {
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.secretWord)
-  console.log(hangman.secretWord)
+  //console.log(hangman.secretWord)
   hangmanCanvas.createBoard();
 };
 
 document.onkeydown = (e) => {
   if(hangman.checkIfLetter(e.keyCode) === true ){
     let letter = e.key.toUpperCase()
-    console.log('letter', letter)
+    //console.log('letter', letter)
     if(hangman.checkClickedLetters(letter) == true){
       if(hangman.secretWord.includes(letter)){
-        hangman.addCorrectLetter(letter);
+        hangman.addCorrectLetter(hangman.secretWord.indexOf(letter));
         hangmanCanvas.writeCorrectLetter(letter);
         if(hangman.checkWinner() == true){
           setTimeout(function(){ 
