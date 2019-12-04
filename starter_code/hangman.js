@@ -15,7 +15,11 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-
+    if(keyCode >= 65 && keyCode <= 90){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   checkClickedLetters(key) {
