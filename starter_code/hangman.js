@@ -13,9 +13,9 @@ class Hangman {
     return this.words[Math.floor(Math.random() * this.words.length)]
   }
 
-//   checkIfLetter(keyCode) {
-
-//   }
+  checkIfLetter(keyCode) {
+    return (keyCode <= 90 && keyCode >= 65)
+  }
 
 //   checkClickedLetters(key) {
 
