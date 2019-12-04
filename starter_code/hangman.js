@@ -23,7 +23,11 @@ class Hangman {
   }
 
   checkClickedLetters(key) {
-
+    if (this.letters.indexOf(key) == -1){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   addCorrectLetter(i) {
