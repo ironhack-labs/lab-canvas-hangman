@@ -3,7 +3,7 @@ class HangmanCanvas {
     this.ctx = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
     this.posX = 200;
-    this.posY = 300;
+    this.posY = 500;
   }
 
   createBoard() {

@@ -5,22 +5,14 @@ class Hangman {
   constructor() {
     this.words = [
       "sesame",
-      "bureaucracy",
       "awful",
       "taste",
       "await",
       "relation",
-      "invention",
       "stub",
       "picture",
-      "deployment",
       "brush",
-      "pretension",
-      "silhouette",
-      "bandwagon",
-      "firstborn",
       "timbre",
-      "subsystem",
       "ceramic",
       "moron",
       "enjoy"
