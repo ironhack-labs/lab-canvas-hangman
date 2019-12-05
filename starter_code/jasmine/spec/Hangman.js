@@ -91,7 +91,7 @@ describe('Hangman Game', function () {
     });
     it('addCorrectLetter should add letters to guessedLetter string', function () {
       hangman.secretWord = 'Ironhack';
-      hangman.addCorrectLetter(82);
+      hangman.addCorrectLetter(1);
       expect(hangman.guessedLetter).toEqual('R');
     });
   });

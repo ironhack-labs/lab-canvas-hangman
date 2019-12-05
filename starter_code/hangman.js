@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ['pepe','juan','francisco','torrebruno','topoyiyo']
+    this.words = ['PEPE','JUAN','FRANCISCO','TOPOYIYO','PECADOR']
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
@@ -26,8 +26,10 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    this.guessedLetter += String.fromCharCode(i);
-    this.checkWinner();
+    if(this.secretWord.includes(this.secretWord[i])){
+      this.guessedLetter += this.secretWord[i].toUpperCase();
+      this.checkWinner();
+    }
   }
 
   addWrongLetter(letter) {
