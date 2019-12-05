@@ -1,4 +1,5 @@
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
@@ -85,6 +86,8 @@ class Hangman {
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.drawLines();
 };
 document.addEventListener("keydown", function(e) {
   let keyCode = e.keyCode;
