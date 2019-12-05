@@ -20,7 +20,7 @@ document.onkeydown = e => {
   } else {
     let letterPressed = e.key.toUpperCase();
     if (
-      hangman.checkIfLetter(letterPressed.charCodeAt()) &&
+      hangman.checkIfLetter(e.keyCode) &&
       hangman.checkClickedLetters(letterPressed)
     ) {
       let gameStatus;

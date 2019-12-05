@@ -1,6 +1,12 @@
 class Hangman {
   constructor() {
-    this.words = ["caat"];
+    this.words = [
+      "JavaScript",
+      "CSS",
+      "Bootstrap",
+      "Development",
+      "Responsive"
+    ];
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
