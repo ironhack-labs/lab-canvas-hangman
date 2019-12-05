@@ -19,6 +19,7 @@ class Hangman {
     ];
     this.secretWord = "";
     this.letters = [];
+    this.wrongLetter = "";
     this.guessedLetter = "";
     this.errorsLeft = 10;
     this.key;
@@ -58,6 +59,7 @@ class Hangman {
 
   addWrongLetter() {
     this.letters.push(this.key);
+    this.wrongLetter += this.key;
     this.errorsLeft--;
     this.checkGameOver();
   }
@@ -94,6 +96,9 @@ document.addEventListener("keydown", function(e) {
       console.log(hangman.key.toLowerCase(), hangman.secretWord);
       hangman.addCorrectLetter();
       hangmanCanvas.writeCorrectLetter();
+    } else {
+      hangman.addWrongLetter();
+      hangmanCanvas.writeWrongLetter();
     }
   }
 });

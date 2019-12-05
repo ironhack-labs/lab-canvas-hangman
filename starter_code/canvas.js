@@ -31,7 +31,13 @@ class HangmanCanvas {
     this.ctx.fillText(hangman.key, letterPos, this.posY - 10);
   }
 
-  writeWrongLetter(letter, errorsLeft) {}
+  writeWrongLetter() {
+    let letterPosX = 500 + hangman.wrongLetter.length * 50;
+    let letterPosY = 200;
+    console.log("wrong letter");
+    this.ctx.font = "50px Arial";
+    this.ctx.fillText(hangman.key, letterPosX, letterPosY);
+  }
 
   drawHangman(shape) {}
 
