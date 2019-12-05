@@ -30,7 +30,6 @@ class HangmanCanvas {
 		for (let i = 0; i < this.secretWord.length; i++) {
 			if (this.secretWord[index] === this.secretWord[i]) {
 				instances.push(i);
-				// console.log(i, this.secretWord[i]);
 			}
 		}
 		instances.forEach(el => {
@@ -42,13 +41,14 @@ class HangmanCanvas {
 	writeWrongLetter(letter, errorsLeft) {
 		this.ctx.font = '25px Arial';
 		this.ctx.fillText(letter.toUpperCase(), this.wrongLetterX, 50);
-
 		this.wrongLetterX += 30;
-		console.log('errors left:', errorsLeft);
+
 		this.drawHangman(errorsLeft);
 	}
 
 	drawHangman(shape) {
+		this.ctx.beginPath();
+
 		switch (shape) {
 			case 9:
 				this.ctx.moveTo(180, 360);
@@ -56,40 +56,53 @@ class HangmanCanvas {
 				this.ctx.lineTo(100, 400);
 				this.ctx.lineTo(180, 360);
 				break;
+
 			case 8:
+				this.ctx.moveTo(180, 360);
 				this.ctx.lineTo(180, 10);
 				break;
+
 			case 7:
+				this.ctx.moveTo(180, 10);
 				this.ctx.lineTo(390, 10);
 				break;
+
 			case 6:
+				this.ctx.moveTo(390, 10);
 				this.ctx.lineTo(390, 30);
 				break;
+
 			case 5:
-				this.ctx.beginPath();
 				this.ctx.arc(390, 60, 30, Math.PI * 2, 0);
 				break;
+
 			case 4:
 				this.ctx.moveTo(390, 90);
 				this.ctx.lineTo(390, 240);
 				break;
+
 			case 3:
+				this.ctx.moveTo(390, 240);
 				this.ctx.lineTo(440, 270);
 				break;
+
 			case 2:
 				this.ctx.moveTo(390, 240);
 				this.ctx.lineTo(340, 270);
 				break;
+
 			case 1:
 				this.ctx.moveTo(390, 160);
 				this.ctx.lineTo(340, 120);
 				break;
+
 			case 0:
 				this.ctx.moveTo(390, 160);
 				this.ctx.lineTo(440, 120);
 		}
 		this.ctx.lineWidth = 2;
 		this.ctx.stroke();
+		this.ctx.closePath();
 	}
 
 	gameOver() {}
