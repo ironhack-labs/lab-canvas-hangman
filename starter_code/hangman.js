@@ -1,44 +1,59 @@
 let hangman;
 
-// class Hangman {
-//   constructor() {
+class Hangman {
+  constructor() {
+    this.words = ["Goku", "Shakira", "Pikachu"];
+    this.secretWord = "";
+    this.letters = [];
+    this.guessedLetter = "";
+    this.errorsLeft = 10;
+  }
 
-//   }
+  getWord() {
+    return this.words[Math.floor(Math.random() * this.words.length)];
+  }
 
-//   getWord() {
+  checkIfLetter(keyCode) {
+    if (keyCode >= 65 && keyCode <= 90) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-//   }
+  checkClickedLetters(key) {
+    return !this.letters.includes(key);
+  }
 
-//   checkIfLetter(keyCode) {
+  checkGameOver() {
+    if (this.errorsLeft === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-//   }
+  addCorrectLetter(i) {
+    let letter = this.secretWord[i];
+    this.guessedLetter += letter.toUpperCase();
+  }
 
-//   checkClickedLetters(key) {
+  addWrongLetter(letter) {
+    return (this.errorsLeft -= 1);
+  }
 
-//   }
+  checkWinner() {
+    let secretWord = [...this.secretWord].sort().join('');
+    let guessedLetter = [...this.guessedLetter].sort().join('');
+    // console.log(secretWord,guessedLetter)
+    return secretWord === guessedLetter;
+  }
 
-//   addCorrectLetter(i) {
 
-//   }
+}
 
-//   addWrongLetter(letter) {
-
-//   }
-
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
-
-document.getElementById('start-game-button').onclick = () => {
+document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
 };
 
-document.onkeydown = (e) => {
-
-};
+document.onkeydown = e => {};
