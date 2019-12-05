@@ -25,9 +25,10 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter() {
-    let letterPos = this.letterPosArray[hangman.index];
+    let letterPos = this.letterPosArray[hangman.index] + 10;
     console.log(hangman.key, this.letterPosArray, hangman.index);
-    this.ctx.fillText(hangman.key, letterPos, this.posY);
+    this.ctx.font = "50px Arial";
+    this.ctx.fillText(hangman.key, letterPos, this.posY - 10);
   }
 
   writeWrongLetter(letter, errorsLeft) {}
