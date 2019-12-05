@@ -105,7 +105,19 @@ class HangmanCanvas {
 		this.ctx.closePath();
 	}
 
-	gameOver() {}
+	gameOver() {
+		const img = new Image();
+		img.src = './images/gameover.png';
+		img.onload = () => {
+			this.ctx.drawImage(img, 450, 0, 300, 200);
+		};
+	}
 
-	winner() {}
+	winner() {
+		const img = new Image();
+		img.src = './images/awesome.png';
+		img.onload = () => {
+			this.ctx.drawImage(img, 350, 0, 500, 300);
+		};
+	}
 }
