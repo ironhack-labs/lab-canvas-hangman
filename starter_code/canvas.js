@@ -37,20 +37,27 @@ class HangmanCanvas {
       this.ctx.moveTo(x, y);
     }
 
+    this.ctx.fillStyle = "#000";
     this.ctx.stroke();
     this.ctx.closePath();
   }
 
   writeCorrectLetter(index) {
-    this.ctx.beginPath();
+    let letter = this.secretWord[index];
 
+    this.ctx.beginPath();
     this.ctx.fillStyle = "#0F0";
     this.ctx.font = "30px Arial";
-    this.ctx.fillText(
-      this.secretWord[index],
-      this.correctLetterPosition[index].x,
-      this.correctLetterPosition[index].y
-    );
+
+    for (let i = 0; i < this.secretWord.length; ++i) {
+      if (this.secretWord[i] === letter) {
+        this.ctx.fillText(
+          letter,
+          this.correctLetterPosition[i].x,
+          this.correctLetterPosition[i].y
+        );
+      }
+    }
 
     this.ctx.stroke();
     this.ctx.closePath();
@@ -77,80 +84,58 @@ class HangmanCanvas {
 
   drawHangman(shape) {
     this.ctx.beginPath();
-    let x = 0;
-    let y = 0;
 
     switch (shape) {
       case 10:
-        x = 100;
-        y = 500;
-        this.ctx.moveTo(x, y);
+        this.ctx.moveTo(100, 500);
         this.ctx.lineTo(300, 500);
         this.ctx.lineTo(200, 450);
         this.ctx.lineTo(100, 500);
         break;
 
       case 9:
-        x = 200;
-        y = 450;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x, y - 400);
+        this.ctx.moveTo(200, 450);
+        this.ctx.lineTo(200, 50);
         break;
 
       case 8:
-        x = 200;
-        y = 50;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x + 300, y);
+        this.ctx.moveTo(200, 50);
+        this.ctx.lineTo(500, 50);
         break;
 
       case 7:
-        x = 500;
-        y = 50;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(500, y + 20);
+        this.ctx.moveTo(500, 50);
+        this.ctx.lineTo(500, 70);
         break;
 
       case 6:
-        x = 500;
-        y = 70;
-        this.ctx.moveTo(x, y);
-        this.ctx.arc(x, y + 40, 40, 0, Math.PI * 2);
+        let radio = 40;
+        this.ctx.arc(500, 70 + radio, radio, Math.PI * 2, 0);
         break;
 
       case 5:
-        x = 500;
-        y = 150;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x, y + 150);
+        this.ctx.moveTo(500, 150);
+        this.ctx.lineTo(500, 300);
         break;
 
       case 4:
-        x = 500;
-        y = 300;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x - 70, y + 80);
+        this.ctx.moveTo(500, 300);
+        this.ctx.lineTo(430, 380);
         break;
 
       case 3:
-        x = 500;
-        y = 300;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x + 70, y + 80);
+        this.ctx.moveTo(500, 300);
+        this.ctx.lineTo(570, 380);
         break;
 
       case 2:
-        x = 500;
-        y = 200;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x - 100, y - 70);
+        this.ctx.moveTo(500, 200);
+        this.ctx.lineTo(400, 130);
         break;
 
       case 1:
-        x = 500;
-        y = 200;
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x + 100, y - 70);
+        this.ctx.moveTo(500, 200);
+        this.ctx.lineTo(600, 130);
         break;
     }
 
