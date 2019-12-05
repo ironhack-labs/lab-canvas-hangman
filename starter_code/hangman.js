@@ -32,6 +32,7 @@ class Hangman {
 
   getWord() {
     let randomWord = Math.floor(Math.random() * this.words.length);
+    this.secretWord = this.words[randomWord];
     return this.words[randomWord];
   }
 
@@ -51,7 +52,10 @@ class Hangman {
     }
   }
 
-  addCorrectLetter(i) {}
+  addCorrectLetter(i) {
+    this.guessedLetter += i;
+    this.checkGameOver();
+  }
 
   addWrongLetter(letter) {
     if (!this.secretWord.includes(letter)) {
@@ -61,7 +65,7 @@ class Hangman {
   }
 
   checkGameOver() {
-    if ((this.errorsLeft = 0)) {
+    if (this.errorsLeft === 0) {
       return true;
     } else {
       return false;
@@ -81,4 +85,6 @@ document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
 };
 
-document.onkeydown = e => {};
+document.onkeydown = e => {
+  console.log(e.code);
+};
