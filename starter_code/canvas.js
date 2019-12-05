@@ -42,15 +42,21 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-    this.ctx.beginPath();
+    let letter = this.secretWord[index];
 
+    this.ctx.beginPath();
     this.ctx.fillStyle = "#0F0";
     this.ctx.font = "30px Arial";
-    this.ctx.fillText(
-      this.secretWord[index],
-      this.correctLetterPosition[index].x,
-      this.correctLetterPosition[index].y
-    );
+
+    for (let i = 0; i < this.secretWord.length; ++i) {
+      if (this.secretWord[i] === letter) {
+        this.ctx.fillText(
+          letter,
+          this.correctLetterPosition[i].x,
+          this.correctLetterPosition[i].y
+        );
+      }
+    }
 
     this.ctx.stroke();
     this.ctx.closePath();

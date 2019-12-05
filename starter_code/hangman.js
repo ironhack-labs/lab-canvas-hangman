@@ -1,6 +1,6 @@
 class Hangman {
   constructor() {
-    this.words = ["cat"];
+    this.words = ["caat"];
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
@@ -21,7 +21,13 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    this.guessedLetter += this.secretWord[i].toUpperCase();
+    let letter = this.secretWord[i];
+
+    for (let j = 0; j < this.secretWord.length; ++j) {
+      if (this.secretWord[j] == letter) {
+        this.guessedLetter += letter.toUpperCase();
+      }
+    }
     return this.checkWinner();
   }
 
