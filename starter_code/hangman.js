@@ -50,7 +50,6 @@ class Hangman {
       }
       return uniqueArray;
     }
-    
     let orderedArraySecretWord = uniquifyArray(arraySecretWord).sort()
     let orderedArrayGuessedLetter = uniquifyArray(arrayGuessedLetter).sort()
     return orderedArraySecretWord.toString() == orderedArrayGuessedLetter.toString()
@@ -60,6 +59,7 @@ class Hangman {
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.drawLines();
 };
 
 document.onkeydown = (e) => {
@@ -70,8 +70,7 @@ document.onkeydown = (e) => {
     if (firstPosition >= 0){
       hangman.addCorrectLetter(firstPosition);
       hangmanCanvas.writeCorrectLetter(e.key.toUpperCase());
-      }
-    else {
+    } else {
       hangman.addWrongLetter(e.key.toUpperCase());
       hangmanCanvas.writeWrongLetter();
       hangmanCanvas.drawHangman();

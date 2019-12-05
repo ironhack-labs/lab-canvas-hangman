@@ -23,8 +23,8 @@ class HangmanCanvas {
 
   writeCorrectLetter(letter) {
     for (let i = 0; i < this.secretWord.length; i += 1){
-      if (letter.toUpperCase = this.secretWord[i].toUpperCase){
-      this.ctx.fillText(letter.toUpperCase,310 + 20*(2*i),770); 
+      if (letter.toUpperCase() === this.secretWord[i].toUpperCase()){
+      this.ctx.fillText(letter.toUpperCase(),310 + 20*(2*i),770); 
       }
     } 
   }
@@ -37,7 +37,7 @@ class HangmanCanvas {
   drawHangman() {
     switch (hangman.errorsLeft) {
 
-      case 10:
+      case 9:
       //triangle
       this.ctx.beginPath();
       this.ctx.moveTo(100,800);
@@ -47,7 +47,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 9:
+      case 8:
       //straight-line-up
       this.ctx.beginPath();
       this.ctx.moveTo(160,720);
@@ -55,7 +55,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 8:
+      case 7:
       //straight-line-across
       this.ctx.beginPath();
       this.ctx.moveTo(160,250);
@@ -63,7 +63,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 7:
+      case 6:
       //straight-line-down
       this.ctx.beginPath();
       this.ctx.moveTo(310,250);
@@ -71,14 +71,14 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 6:
+      case 5:
       //head
       this.ctx.beginPath();
       this.ctx.arc(310,310,30,0,Math.PI *2);
       this.ctx.stroke();
       break;
 
-      case 5:
+      case 4:
       //straight-line-down
       this.ctx.beginPath();
       this.ctx.moveTo(310,340);
@@ -86,7 +86,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 4:
+      case 3:
       //straight-left-arm
       this.ctx.beginPath();
       this.ctx.moveTo(310,400);
@@ -94,7 +94,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 3:
+      case 2:
       //straight-right-arm
       this.ctx.beginPath();
       this.ctx.moveTo(310,400);
@@ -102,7 +102,7 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
     
-      case 2:
+      case 1:
       //straight-left-leg
       this.ctx.beginPath();
       this.ctx.moveTo(310,450);
@@ -110,14 +110,13 @@ class HangmanCanvas {
       this.ctx.stroke();
       break;
 
-      case 1:
+      case 0:
       //straight-left-leg
       this.ctx.beginPath();
       this.ctx.moveTo(310,450);
       this.ctx.lineTo(360,500);
       this.ctx.stroke();
       break;
-      // case 0 is not called as game ends
       }
     }
   // gameOver() {
@@ -127,5 +126,5 @@ class HangmanCanvas {
   // }
 }
 
-const myCanvas = new HangmanCanvas ('Ironhack');
-myCanvas.drawLines();
+// const myCanvas = new HangmanCanvas ('Ironhack');
+// myCanvas.drawLines();
