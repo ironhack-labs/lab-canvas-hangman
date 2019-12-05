@@ -1,44 +1,64 @@
 let hangman;
 
-// class Hangman {
-//   constructor() {
+class Hangman {
+  constructor() {
+    this.words = ['abobora', 'elefante', 'javascript',];
+    this.secretWord = 'iroonhoackkkk';
+    this.letters = [];
+    this.guessedLetter = ''; // a, b
+    this.errorsLeft = 10;
+  }
 
-//   }
+  getWord() {
+     const randomWord = this.words[Math.floor(Math.random() * this.words.length)]
+     this.secretWord = randomWord;
+     return randomWord;
+  }
+// check se o input e uma letra
+checkIfLetter(keyCode) {
+  if (keyCode >= 65 && keyCode <= 90) {
+    return true
+  } else {
+    return false
+  }
+}
 
-//   getWord() {
+checkClickedLetters(key) {
+  if (this.letters.includes(key)) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-//   }
+  addCorrectLetter(i) {
+    // checa se input
+    // adicionar letter no array letters?
+     this.guessedLetter += this.secretWord[i].toUpperCase();
+  }
 
-//   checkIfLetter(keyCode) {
+  addWrongLetter(letter) {
+    this.errorsLeft -= 1;
+    // this.checkGameOver()
+    // subtrair 1 de this.errorsLeft
+    // chamar check game over
+  }
 
-//   }
+  checkGameOver() {
+    return this.errorsLeft === 0 ? true : false;
+  }
 
-//   checkClickedLetters(key) {
+  checkWinner() {
+    const secretWordArr = this.secretWord.split('')
+    let distinctWordsOfSecretWordArr = [];
+    secretWordArr.forEach( e => {
+      if (!distinctWordsOfSecretWordArr.includes(e)) {
+        distinctWordsOfSecretWordArr.push(e) 
+      }
+    })
+    return distinctWordsOfSecretWordArr.every( e => this.guessedLetter.includes(e))
+  }
+}
 
-//   }
-
-//   addCorrectLetter(i) {
-
-//   }
-
-//   addWrongLetter(letter) {
-
-//   }
-
-//   checkGameOver() {
-
-//   }
-
-//   checkWinner() {
-
-//   }
-
-// }
-
-document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman();
-};
-
-document.onkeydown = (e) => {
-
-};
+const forca = new Hangman();
+forca.checkWinner()
