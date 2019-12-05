@@ -53,7 +53,9 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    this.guessedLetter += i;
+    if (this.secretWord.includes(i)) {
+      this.guessedLetter += i;
+    }
     this.checkGameOver();
   }
 
@@ -84,7 +86,7 @@ class Hangman {
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
 };
-
-document.onkeydown = e => {
-  console.log(e.code);
-};
+document.addEventListener("keydown", function(e) {
+  let keyCode = e.keyCode;
+  let key = String.fromCharCode(keyCode);
+});
