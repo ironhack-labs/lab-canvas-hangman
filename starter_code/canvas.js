@@ -2,8 +2,9 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
-    this.posX = 200;
+    this.posX = 400;
     this.posY = 500;
+    this.letterPosArray = [];
   }
 
   createBoard() {
@@ -16,13 +17,18 @@ class HangmanCanvas {
     let line = 50;
     for (let i = 0; i < this.secretWord.length; i++) {
       this.posX += line + space;
+      this.letterPosArray.push(this.posX);
       this.ctx.moveTo(this.posX + space, this.posY);
       this.ctx.lineTo(this.posX + line, this.posY);
       this.ctx.stroke();
     }
   }
 
-  writeCorrectLetter(index) {}
+  writeCorrectLetter() {
+    let letterPos = this.letterPosArray[hangman.index];
+    console.log(hangman.key, this.letterPosArray, hangman.index);
+    this.ctx.fillText(hangman.key, letterPos, this.posY);
+  }
 
   writeWrongLetter(letter, errorsLeft) {}
 
