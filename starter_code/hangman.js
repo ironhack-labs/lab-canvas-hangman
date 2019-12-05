@@ -3,8 +3,8 @@ let hangman;
 class Hangman {
   constructor() {
     this.words = ['abobora', 'elefante', 'javascript',];
-    this.secretWord = 'iroonhoackkkk';
-    this.letters = [];
+    this.secretWord = ''; // this getWord();
+    this.letters = ['a','b','c','d','e','f','g','h','i','j']; // deixar vazio
     this.guessedLetter = ''; // a, b
     this.errorsLeft = 10;
   }
@@ -60,5 +60,14 @@ checkClickedLetters(key) {
   }
 }
 
-const forca = new Hangman();
-forca.checkWinner()
+document.getElementById('start-game-button').onclick = () => {
+  hangman = new Hangman();
+  // instanciar o hangman canvas.
+};
+
+document.onkeydown = (e) => {
+};
+
+// consologar o que esta recebendo no keydown.
+// usar as funcoes para tratar o input
+// 
