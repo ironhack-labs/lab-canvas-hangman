@@ -19,6 +19,7 @@ class Hangman {
 		this.letters = [];
 		this.guessedLetter = '';
 		this.errorsLeft = 10;
+		this.gameWon;
 	}
 
 	getWord() {
@@ -34,7 +35,11 @@ class Hangman {
 	}
 
 	addCorrectLetter(i) {
-		this.guessedLetter += this.secretWord[i].toUpperCase();
+		for (let j = 0; j < this.secretWord.length; j++) {
+			if (this.secretWord[i] === this.secretWord[j]) {
+				this.guessedLetter += this.secretWord[i].toUpperCase();
+			}
+		}
 		this.letters.push(this.secretWord[i]);
 		this.checkWinner();
 	}
@@ -46,20 +51,24 @@ class Hangman {
 	}
 
 	checkGameOver() {
-		return this.errorsLeft === 0 ? true : false;
+		// return this.errorsLeft === 0 ? true : false;
+		if (this.errorsLeft === 0) {
+			console.log('you lost');
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	checkWinner() {
-		if (this.guessedLetter.length < this.secretWord.length) return false;
-
-		let secretWordArr = this.secretWord.split('').sort();
-		let guessedWord = [];
-		this.guessedLetter.split('').sort().forEach(letter => {
-			if (secretWordArr.includes(letter) && !guessedWord.includes(letter)) {
-				guessedWord.push(letter);
-			}
-		});
-		return guessedWord.join('') === secretWordArr.join('');
+		if (this.guessedLetter.length < this.secretWord.length) {
+			console.log('you havent won yet');
+			return false;
+		} else {
+			console.log('you won!');
+			return true;
+		}
+		// return this.guessedLetter.length < this.secretWord.length ? false : true;
 	}
 }
 
