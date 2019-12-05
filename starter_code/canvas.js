@@ -3,6 +3,7 @@ class HangmanCanvas {
 		this.ctx = document.getElementById('hangman').getContext('2d');
 		this.secretWord = secretWord;
 		this.letterPosition = [];
+		this.wrongLetterX = 550;
 	}
 
 	createBoard() {
@@ -40,7 +41,10 @@ class HangmanCanvas {
 
 	writeWrongLetter(letter, errorsLeft) {
 		this.ctx.font = '25px Arial';
-		this.ctx.fillText(letter.toUpperCase(), firstPosition, 50);
+		this.ctx.fillText(letter.toUpperCase(), this.wrongLetterX, 50);
+
+		this.wrongLetterX += 30;
+		console.log('errors left:', errorsLeft);
 		this.drawHangman(errorsLeft);
 	}
 
