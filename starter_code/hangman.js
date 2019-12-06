@@ -4,18 +4,18 @@ let hangmanCanvas;
 class Hangman {
   constructor() {
     this.words = [
-      "sesame",
-      "awful",
-      "taste",
-      "await",
-      "relation",
-      "stub",
-      "picture",
-      "brush",
-      "timbre",
-      "ceramic",
-      "moron",
-      "enjoy"
+      ["sesame", "tall annual herbaceous plant"],
+      ["awful", "very bad or unpleasant"],
+      ["taste", "the ability to discern what is of good quality"],
+      ["await", "remain in readiness for a purpose"],
+      ["relation", "the way in which people are connected"],
+      ["stub", "a truncated remnant"],
+      ["picture", "an impression of something formed from a description"],
+      ["brush", "a light and fleeting touch"],
+      ["timbre", "the character or quality of a musical sound"],
+      ["ceramic", "permanently hardened by heat"],
+      ["moron", "a stupid person"],
+      ["enjoy", "take delight or pleasure in"]
     ];
     this.secretWord = "";
     this.letters = [];
