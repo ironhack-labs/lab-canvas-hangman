@@ -50,11 +50,19 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    console.log("this.key:", this.key);
     this.index.push(i);
     this.letters.push(this.key);
     this.guessedLetter += this.key;
     this.checkGameOver();
+    this.checkWinner();
+    console.log(
+      "key",
+      this.key,
+      "letters",
+      this.letters,
+      "guessed",
+      this.guessedLetter
+    );
   }
 
   addWrongLetter() {
@@ -74,6 +82,7 @@ class Hangman {
 
   checkWinner() {
     if (this.guessedLetter.length === this.secretWord.length) {
+      console.log("you win");
       return true;
     } else {
       return false;
@@ -94,14 +103,14 @@ document.addEventListener("keydown", function(e) {
   let isLetter = hangman.checkIfLetter();
   let newLetter = hangman.checkClickedLetters();
 
-  if (isLetter && newLetter) {
+  if (isLetter && newLetter && word.includes(letter)) {
     for (let i = 0; i < word.length; i++) {
       if (word[i] == letter) {
         hangman.addCorrectLetter(i);
         hangmanCanvas.writeCorrectLetter(i);
       }
     }
-  } else {
+  } else if (isLetter && newLetter) {
     hangman.addWrongLetter();
     hangmanCanvas.writeWrongLetter();
   }
