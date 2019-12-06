@@ -35,9 +35,8 @@ class Hangman {
     return this.secretWord;
   }
 
-  //Check if the key the used has typed is a letter
   checkIfLetter(keyCode) {
-    var inp = String.fromCharCode(keyCode);
+    let inp = String.fromCharCode(keyCode);
     return /[a-zA-Z]/.test(inp);
   }
 
@@ -48,14 +47,9 @@ class Hangman {
     );
   }
 
-  //Adds to the guessedLetter variable the letter that was pressed.
-  //Also, it should check if the user wins
   addCorrectLetter(i) {
-    if (this.checkIfLetter(i)) {
-      let letter = String.fromCharCode(i);
-      this.guessedLetter.concat(letter);
-      this.checkWinner();
-    }
+    this.guessedLetter = this.secretWord[i].toUpperCase();
+    this.checkWinner();
   }
 
   addWrongLetter(letter) {
