@@ -38,18 +38,22 @@ class Hangman {
   //Check if the key the used has typed is a letter
   checkIfLetter(keyCode) {
     var inp = String.fromCharCode(keyCode);
-    if (/[a-zA-Z]/.test(inp)) return true;
-    return false;
+    return /[a-zA-Z]/.test(inp);
   }
 
   checkClickedLetters(key) {
+    return !(
+      this.letters.includes(key.toUpperCase()) ||
+      this.letters.includes(key.toLowerCase())
+    );
+    /*
     if (
       this.letters.includes(key.toUpperCase()) ||
       this.letters.includes(key.toLowerCase())
     ) {
       return false;
     }
-    return true;
+    return true;*/
   }
 
   //Adds to the guessedLetter variable the letter that was pressed.
@@ -68,15 +72,11 @@ class Hangman {
   }
 
   checkGameOver() {
-    if (this.errorsLeft == 0) return true;
-    return false;
+    return this.errorsLeft == 0;
   }
 
   checkWinner() {
-    if (this.guessedLetter.length == this.secretWord.length) {
-      return true;
-    }
-    return false;
+    return this.guessedLetter.length == this.secretWord.length;
   }
 }
 
