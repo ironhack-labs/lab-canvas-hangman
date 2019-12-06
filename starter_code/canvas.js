@@ -9,7 +9,7 @@ class HangmanCanvas {
     this.ctx.clearRect(0, 0, 1200, 800);
     this.linesWidth = 60;
     this.space = 10;
-    this.startX = 450;
+    this.startX = 450; // start of first line
     this.fixedY = 450;
   }
 

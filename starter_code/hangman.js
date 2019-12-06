@@ -75,7 +75,12 @@ document.getElementById("start-game-button").onclick = () => {
 };
 
 document.onkeydown = e => {
-  // if the key pressed is a letter and if the letter was not already clicked
+  /* if 
+  the key pressed is a letter 
+  +the letter was not already clicked
+  +the letter was not already guessed
+  +the game is not ended
+  */
   if (
     hangman.checkIfLetter(e.keyCode) &&
     hangman.checkClickedLetters(e.key) &&
