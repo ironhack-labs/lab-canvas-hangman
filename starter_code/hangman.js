@@ -3,9 +3,6 @@ let hangman;
 class Hangman {
   constructor() {
     this.words = [
-      //keep to lowercase
-      "aaaaa" //5a
-      /*
       "elbow",
       "steward",
       "incongruous",
@@ -25,7 +22,7 @@ class Hangman {
       "suspicion",
       "despair",
       "presence",
-      "explain"*/
+      "explain"
     ];
     this.secretWord = this.getWord();
     this.letters = [];
@@ -78,9 +75,14 @@ document.getElementById("start-game-button").onclick = () => {
 };
 
 document.onkeydown = e => {
-  console.log(e);
   // if the key pressed is a letter and if the letter was not already clicked
-  if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
+  if (
+    hangman.checkIfLetter(e.keyCode) &&
+    hangman.checkClickedLetters(e.key) &&
+    !hangman.guessedLetter.includes(e.key) &&
+    hangman.errorsLeft != 0 &&
+    !hangman.checkWinner()
+  ) {
     // check if the letter is included in the secret word
     let idx = hangman.secretWord.indexOf(e.key.toLowerCase());
     if (idx != -1) {
@@ -93,9 +95,11 @@ document.onkeydown = e => {
         hangmanCanvas.writeCorrectLetter(idx);
         idx = hangman.secretWord.indexOf(e.key.toLowerCase(), idx + 1);
       }
-    } else {
+      if (hangman.checkWinner()) {
+        hangmanCanvas.winner();
+      }
+    } else if (hangman.errorsLeft != 0) {
       hangman.addWrongLetter(e.key);
-      console.error("wrong");
       hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
     }
   }

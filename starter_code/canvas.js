@@ -41,15 +41,12 @@ class HangmanCanvas {
 
   writeWrongLetter(letter, errorsLeft) {
     let pos = (10 - errorsLeft) * 30;
-    this.ctx.fillText(letter.toUpperCase(), 500 + pos, 200);
-    /*this.ctx.clearRect(500, 300, 500, 5);
-    this.ctx.fillText("Errors left: " + errorsLeft, 500, 300);*/
+    this.ctx.fillText(letter.toUpperCase(), 600 + pos, 200);
     this.drawHangman(errorsLeft);
   }
 
   drawHangman(errorsLeft) {
-    console.log(errorsLeft);
-    let originX = 100;
+    let originX = 200;
     let originY = this.fixedY;
     switch (errorsLeft) {
       case 9:
@@ -110,11 +107,24 @@ class HangmanCanvas {
         this.ctx.moveTo(originX + 200, originY - 160);
         this.ctx.lineTo(originX + 170, originY - 100);
         this.ctx.stroke();
+        this.gameOver();
         break;
     }
   }
 
-  gameOver() {}
+  gameOver() {
+    const img = new Image();
+    img.src = "./images/gameover.png";
+    img.onload = () => {
+      this.ctx.drawImage(img, 100, 0);
+    };
+  }
 
-  winner() {}
+  winner() {
+    const img = new Image();
+    img.src = "./images/awesome.png";
+    img.onload = () => {
+      this.ctx.drawImage(img, 100, 0);
+    };
+  }
 }
