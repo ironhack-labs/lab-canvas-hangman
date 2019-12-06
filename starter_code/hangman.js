@@ -24,7 +24,7 @@ class Hangman {
     this.errorsLeft = 10;
     this.key;
     this.keyCode;
-    this.index;
+    this.index = [];
   }
 
   getWord() {
@@ -49,9 +49,9 @@ class Hangman {
     }
   }
 
-  addCorrectLetter() {
+  addCorrectLetter(i) {
     console.log("this.key:", this.key);
-    this.index = this.secretWord.indexOf(this.key.toLowerCase());
+    this.index.push(i);
     this.letters.push(this.key);
     this.guessedLetter += this.key;
     this.checkGameOver();
@@ -89,16 +89,20 @@ document.getElementById("start-game-button").onclick = () => {
 document.addEventListener("keydown", function(e) {
   hangman.keyCode = e.keyCode;
   hangman.key = String.fromCharCode(e.keyCode);
+  let letter = hangman.key.toLowerCase();
+  let word = hangman.secretWord;
   let isLetter = hangman.checkIfLetter();
   let newLetter = hangman.checkClickedLetters();
+
   if (isLetter && newLetter) {
-    if (hangman.secretWord.includes(hangman.key.toLowerCase())) {
-      console.log(hangman.key.toLowerCase(), hangman.secretWord);
-      hangman.addCorrectLetter();
-      hangmanCanvas.writeCorrectLetter();
-    } else {
-      hangman.addWrongLetter();
-      hangmanCanvas.writeWrongLetter();
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] == letter) {
+        hangman.addCorrectLetter(i);
+        hangmanCanvas.writeCorrectLetter(i);
+      }
     }
+  } else {
+    hangman.addWrongLetter();
+    hangmanCanvas.writeWrongLetter();
   }
 });
