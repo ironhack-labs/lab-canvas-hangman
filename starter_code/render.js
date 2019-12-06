@@ -22,8 +22,8 @@ class HmRender {
         const lineEnd = oneThirdOfWidth + 50;
         const hOffset = lineEnd - lineStart + 15;
         this.ctx.beginPath()
-        this.ctx.moveTo(lineStart + hOffset*i, oneSixthOfHeight*6-10)
-        this.ctx.lineTo(lineEnd + hOffset*i, oneSixthOfHeight*6-10)
+        this.ctx.moveTo(lineStart + hOffset*i, oneSixthOfHeight*6-30)
+        this.ctx.lineTo(lineEnd + hOffset*i, oneSixthOfHeight*6-30)
         this.ctx.stroke()
         this.ctx.closePath()
 
@@ -35,7 +35,6 @@ class HmRender {
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    /*
   this.ctx.font = '48px serif';
   ctx.fillText('Hello world', 10, 50);
     */

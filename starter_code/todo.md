@@ -1,5 +1,6 @@
 # todo
 - RENDER it to canvas.
+  - import properties to render: to draw lines
 - documentation;
 ## would be nice:
 - split is winner function to calculate unique letters array only once

@@ -77,6 +77,7 @@ document.getElementById('start-game-button').onclick = () => {
   rules = new HmRules();
   const render = new HmRender(rules.secretWord);
   console.log(`render`, render.secretWord)
+  render.drawLines();
   // criar tabuleiro.
 };
 
