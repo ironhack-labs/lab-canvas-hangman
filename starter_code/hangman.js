@@ -1,4 +1,5 @@
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
@@ -20,7 +21,24 @@ class Hangman {
   }
 
   checkClickedLetters(key) {
-    return !this.letters.includes(key);
+    return !this.letters.includes(key.toUpperCase());
+  }
+
+  checkLetter(letter) {
+    var position = this.secretWord.indexOf(letter.toUpperCase());
+    do {
+      if (position != -1) {
+        if (!this.letters.includes(letter)) this.addCorrectLetter(position);
+        hangmanCanvas.writeCorrectLetter(position);
+        position = this.secretWord.indexOf(letter.toUpperCase(), position + 1);
+      } else {
+        if (!this.letters.includes(letter)) {
+          this.addWrongLetter(letter);
+          hangmanCanvas.writeWrongLetter(letter, this.errorsLeft);
+          hangmanCanvas.drawHangman(this.errorsLeft);
+        }
+      }
+    } while (position != -1);
   }
 
   addCorrectLetter(i) {
@@ -30,6 +48,7 @@ class Hangman {
 
   addWrongLetter(letter) {
     this.errorsLeft--;
+    this.letters.push(letter);
     return this.checkGameOver();
   }
 
@@ -42,10 +61,15 @@ class Hangman {
   }
 }
 
-/*
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 };
 
-document.onkeydown = e => {};
-*/
+document.onkeydown = e => {
+  if (hangman.checkIfLetter(e.keyCode)) {
+    if (hangman.checkClickedLetters(e.key.toUpperCase()))
+      hangman.checkLetter(e.key.toUpperCase());
+    if (!hangman.letters.includes(e.key)) hangman.letters.push(e.key);
+  }
+};
