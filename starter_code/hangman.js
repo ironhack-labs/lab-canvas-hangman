@@ -112,6 +112,7 @@ document.addEventListener("keydown", function(e) {
     }
   } else if (isLetter && newLetter) {
     hangman.addWrongLetter();
+    console.log("wrong letter length", hangman.wrongLetter.length);
     hangmanCanvas.writeWrongLetter();
     hangmanCanvas.drawHangman();
   }

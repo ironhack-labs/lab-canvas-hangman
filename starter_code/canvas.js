@@ -44,7 +44,6 @@ class HangmanCanvas {
 
   drawHangman() {
     console.log("draw hangman");
-    this.ctx.moveTo(this.posX - 60, this.posY - 40);
     var sticks = [
       this.ctx.lineTo(this.posX - 10, this.posY),
       this.ctx.lineTo(this.posX - 110, this.posY),
@@ -77,8 +76,10 @@ class HangmanCanvas {
         this.ctx.lineTo(this.posX + 200, this.posY - 120)
       ]
     ];
-    console.log(sticks[0]);
-    this.ctx.stroke();
+    this.ctx.moveTo(this.posX - 60, this.posY - 40);
+    sticks[hangman.wrongLetter.length];
+    console.log(sticks);
+    this.ctx.closePath();
   }
   gameOver() {}
 
