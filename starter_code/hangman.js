@@ -41,7 +41,7 @@ class Hangman {
   }
 
   checkWinner() {
-    let letters = this.guessedLetter.split("");
+    let letters = this.guessedLetter.toLowerCase().split("");
     let result = false;
     let count = 0;
     letters.forEach( e => {
