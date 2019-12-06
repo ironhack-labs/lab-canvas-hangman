@@ -10,7 +10,7 @@ class Hangman {
       ["await", "remain in readiness for a purpose"],
       ["relation", "the way in which people are connected"],
       ["stub", "a truncated remnant"],
-      ["picture", "an impression of something formed from a description"],
+      ["picture", "something formed from a description"],
       ["brush", "a light and fleeting touch"],
       ["timbre", "the character or quality of a musical sound"],
       ["ceramic", "permanently hardened by heat"],

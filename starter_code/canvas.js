@@ -39,8 +39,8 @@ class HangmanCanvas {
   drawSideBar() {
     this.ctx.fillStyle = "black";
     this.ctx.font = "bold 22px Arial";
-    this.ctx.fillText("Hint", this.posSideBar, this.posTop);
-    this.ctx.fillText("Incorrect Letters", this.posSideBar, this.posTop + 80);
+    this.ctx.fillText("HINT", this.posSideBar, this.posTop);
+    this.ctx.fillText("INCORRECT LETTERS", this.posSideBar, this.posTop + 80);
   }
 
   writeHint() {
@@ -66,7 +66,7 @@ class HangmanCanvas {
       letterPosY = this.posTop + 150;
       letterPosX = this.posSideBar - 40 + hangman.wrongLetter.length * 40;
     }
-    this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = "orange";
     this.ctx.font = "40px Arial";
     this.ctx.fillText(hangman.key, letterPosX, letterPosY);
   }
