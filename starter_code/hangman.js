@@ -3,7 +3,7 @@ let hangmanCanvas;
 
 class Hangman {
   constructor() {
-    this.words = ["PEPE", "JUAN", "FRANCISCO", "TOPOYIYO", "PECADOR"];
+    this.words = ["ESPONTANEOS", "JUAN", "FRANCISCO", "TOPOYIYO", "PECADOR"];
     this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
@@ -90,14 +90,16 @@ document.onkeydown = e => {
         console.log("add correctLetter to", hangman.guessedLetter);
         hangmanCanvas.writeCorrectLetter(key);
         if (hangman.checkWinner()) {
-          console.log("has ganado, fuera");
+          console.log("you win");
+          hangmanCanvas.winner();
         }
       } else {
         hangman.addWrongLetter(key);
         console.log("you lost a life", hangman.errorsLeft);
         hangmanCanvas.writeWrongLetter(hangman.letters,hangman.errorsLeft);
         if (hangman.checkGameOver()) {
-          console.log("has perdido, fuera");
+          console.log("you lose");
+          hangmanCanvas.gameOver();
         }
       }
       //console.log("add key at array letters ==>>",hangman.letters);
