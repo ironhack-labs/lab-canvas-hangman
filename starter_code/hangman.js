@@ -1,8 +1,9 @@
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
-    this.words = ["Alberto", "aa"];
+    this.words = ["Alberto", "prueba"];
     this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
@@ -49,22 +50,24 @@ return (this.errorsLeft === 0);
   checkWinner() {
 if (this.guessedLetter.length !== this.secretWord.length)
 return false;
-else{
-  for ( var i= 0 ; i < this.secretWord.length ;i++){
-    if (this.guessedLetter.toLowerCase().indexOf(this.secretWord[i]) !== -1){
-    return false;
+  var winner = 0
+  for (var i = 0 ; i < this.secretWord.length ; i++) {
+    if (this.guessedLetter.toLowerCase().indexOf(this.secretWord[i]) !== -1) {
+      winner += 1;
     }
+    return (this.secretWord.length === winner)
+}
   }
-  return true;
 }
-  };
-}
-
-
 
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+   // Select random word
+   hangmanCanvas = new HangmanCanvas(Hangman.secretWord)
+   hangmanCanvas.createBoard();
 };
 
-document.onkeydown = e => {};
+document.onkeydown = e => {
+
+};
