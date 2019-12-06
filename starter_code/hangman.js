@@ -61,11 +61,17 @@ class Hangman {
     this.letters.push(this.key);
     this.wrongLetter += this.key;
     this.errorsLeft--;
-    this.checkGameOver();
   }
 
   checkGameOver() {
     if (this.errorsLeft === 0) {
+      let i = 0;
+      for (; i < this.secretWord.length; i++) {
+        let letter = this.secretWord[i].toUpperCase();
+        if (!this.guessedLetter.includes(letter)) {
+          hangmanCanvas.solve(i, letter);
+        }
+      }
       hangmanCanvas.gameOver();
       return true;
     } else {
@@ -107,6 +113,7 @@ document.addEventListener("keydown", function(e) {
   } else if (isLetter && newLetter) {
     hangman.addWrongLetter();
     hangmanCanvas.writeWrongLetter();
+    hangman.checkGameOver();
     hangmanCanvas.drawHangman(hangman.wrongLetter.length);
   }
 });

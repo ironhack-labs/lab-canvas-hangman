@@ -37,6 +37,7 @@ class HangmanCanvas {
 
   writeCorrectLetter(i) {
     let letterPos = this.letterPosArray[i] + 10;
+    this.ctx.fillStyle = "black";
     this.ctx.font = "50px Arial";
     this.ctx.fillText(hangman.key, letterPos, this.posY - 10);
   }
@@ -51,7 +52,7 @@ class HangmanCanvas {
       letterPosY = this.posY - 250;
       letterPosX = this.posX + 300 + hangman.wrongLetter.length * 50;
     }
-
+    this.ctx.fillStyle = "black";
     this.ctx.font = "50px Arial";
     this.ctx.fillText(hangman.key, letterPosX, letterPosY);
   }
@@ -132,6 +133,14 @@ class HangmanCanvas {
         break;
     }
   }
+
+  solve(i, letter) {
+    let letterPos = this.letterPosArray[i] + 10;
+    this.ctx.fillStyle = "red";
+    this.ctx.font = "50px Arial";
+    this.ctx.fillText(letter, letterPos, this.posY - 10);
+  }
+
   gameOver() {
     let imgWidth = 570;
     let imgHeight = 240;
