@@ -78,7 +78,6 @@ document.getElementById('start-game-button').onclick = () => {
   const render = new HmRender(rules.secretWord);
   console.log(`render`, render.secretWord)
   render.drawLines();
-  // criar tabuleiro.
 };
 
 document.onkeydown = e => {
@@ -95,12 +94,16 @@ document.onkeydown = e => {
       const letter = e.code[3];
       if (rules.isLetterIncludedInSecretWord(letter)) {
         rules.updateGuessedLettersArr(letter);
+
+        // render.writeWrongLetter(rules.triedLetters);
+
         if (rules.isWinner()) {
           console.log(`You won!`);
           return `You won!`}
       } else {
         rules.decreaseErrorsLeft();
         console.log(`wrong. You have ${rules.errorsLeft} more tries`)
+        // render.writeWrongLetter(rules.triedLetters)
         if(rules.isGameOver()) {
           console.log(`You lose. Game over =(`)  
           return `You lose =()`
