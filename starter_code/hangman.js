@@ -74,7 +74,7 @@ class Hangman {
 
   checkGameOver() {
     if (this.errorsLeft === 0) {
-      console.log("game over");
+      hangmanCanvas.gameOver();
       return true;
     } else {
       return false;
@@ -83,7 +83,7 @@ class Hangman {
 
   checkWinner() {
     if (this.guessedLetter.length === this.secretWord.length) {
-      console.log("you win");
+      hangmanCanvas.winner();
       return true;
     } else {
       return false;
@@ -95,6 +95,7 @@ document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.getWord());
   hangmanCanvas.drawLines();
+  hangmanCanvas.loadImage();
 };
 document.addEventListener("keydown", function(e) {
   hangman.keyCode = e.keyCode;

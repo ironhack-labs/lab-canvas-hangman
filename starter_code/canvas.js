@@ -2,18 +2,26 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
+    this.canvasWidth = 1000;
+    this.canvasHeight = 500;
     this.posX = 300;
     this.posY = 450;
     this.letterPosArray = [];
+    this.loseImg = new Image();
+    this.winImg = new Image();
+  }
+  loadImage() {
+    this.loseImg.src = "./images/gameover.png";
+    this.winImg.src = "./images/awesome.png";
   }
 
   createBoard() {
-    this.ctx.clearRect(0, 0, 1200, 800);
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   }
 
   drawLines() {
     console.log(this.secretWord);
-    this.ctx.clearRect(0, 0, 1200, 800);
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     let space = 10;
     let line = 50;
     let linePos = this.posX;
@@ -125,7 +133,27 @@ class HangmanCanvas {
         break;
     }
   }
-  gameOver() {}
+  gameOver() {
+    let imgWidth = 570;
+    let imgHeight = 240;
+    this.ctx.drawImage(
+      this.loseImg,
+      (this.canvasWidth - imgWidth) / 2,
+      (this.canvasHeight - imgHeight) / 3,
+      imgWidth,
+      imgHeight
+    );
+  }
 
-  winner() {}
+  winner() {
+    let imgWidth = 872 / 1.5;
+    let imgHeight = 618 / 1.5;
+    this.ctx.drawImage(
+      this.winImg,
+      (this.canvasWidth - imgWidth) / 2,
+      (this.canvasHeight - imgHeight) / 3,
+      imgWidth,
+      imgHeight
+    );
+  }
 }
