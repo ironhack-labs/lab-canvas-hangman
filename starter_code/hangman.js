@@ -24,7 +24,7 @@ class Hangman {
       "presence",
       "explain"
     ];
-    this.secretWord = "";
+    this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
     this.errorsLeft = 10;
@@ -68,6 +68,9 @@ class Hangman {
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines();
 };
 
 document.onkeydown = e => {};
