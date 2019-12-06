@@ -1,5 +1,5 @@
 
-class HangmanCanvas {
+class HmRender {
   constructor(secretWord) {
     this.canvas = document.getElementById('hangman');
     this.ctx = document.getElementById('hangman').getContext('2d');
@@ -7,7 +7,6 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    console.log('oi')
     this.ctx.clearRect(0,0, 1200, 800)
   }
 
@@ -44,7 +43,6 @@ class HangmanCanvas {
    // pegar array e transformar em string
    // tudo maiscula
    // passar string
-console.log('alala')
   }
 
   drawHangman(shape) {
@@ -60,10 +58,3 @@ console.log('alala')
   }
 
 }
-
-// pegar um array de letras
-// desenhar letras no canvas
-
-const jogo = new HangmanCanvas('123456789abc');
-jogo.writeWrongLetter(jogo.letter, jogo.errorsLeft)
-  jogo.drawLines()
