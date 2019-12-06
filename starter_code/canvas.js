@@ -20,7 +20,6 @@ class HangmanCanvas {
   }
 
   drawLines() {
-    console.log(this.secretWord);
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     let space = 10;
     let line = 50;
