@@ -26,6 +26,7 @@ class Hangman {
   }
 
   addWrongLetter(letter) {
+    this.letters.push(letter)
     this.errorsLeft --;
     this.checkGameOver();
   }
@@ -63,5 +64,11 @@ document.getElementById('start-game-button').onclick = () => {
 };
 
 document.onkeydown = (e) => {
-
-};
+  if (hangman.checkIfLetter(e.keyCode)) {
+    if (!hangman.checkClickedLetters(e.key)){
+      if (hangman.secretWord.includes(e.key)) {
+        hangman.addCorrectLetter(indexOf(e.key));
+      }
+    }
+  }
+}
