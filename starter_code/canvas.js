@@ -44,11 +44,75 @@ class HangmanCanvas {
     this.ctx.fillText(letter.toUpperCase(), 500 + pos, 200);
     /*this.ctx.clearRect(500, 300, 500, 5);
     this.ctx.fillText("Errors left: " + errorsLeft, 500, 300);*/
+    this.drawHangman(errorsLeft);
   }
 
-  drawHangman(shape) {}
-
-  //bonus
+  drawHangman(errorsLeft) {
+    console.log(errorsLeft);
+    let originX = 100;
+    let originY = this.fixedY;
+    switch (errorsLeft) {
+      case 9:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX, originY);
+        this.ctx.lineTo(originX + 100, originY);
+        this.ctx.stroke();
+        break;
+      case 8:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 100, originY);
+        this.ctx.lineTo(originX + 50, originY - 50);
+        this.ctx.stroke();
+        break;
+      case 7:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX, originY);
+        this.ctx.lineTo(originX + 50, originY - 50);
+        this.ctx.stroke();
+        break;
+      case 6:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 50, originY - 50);
+        this.ctx.lineTo(originX + 50, originY - 350);
+        this.ctx.stroke();
+        break;
+      case 5:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 50, originY - 350);
+        this.ctx.lineTo(originX + 200, originY - 350);
+        this.ctx.stroke();
+        break;
+      case 4:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 200, originY - 350);
+        this.ctx.lineTo(originX + 200, originY - 320);
+        this.ctx.stroke();
+        break;
+      case 3:
+        this.ctx.beginPath();
+        this.ctx.arc(originX + 200, originY - 290, 30, 0, 2 * Math.PI);
+        this.ctx.stroke();
+        break;
+      case 2:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 200, originY - 260);
+        this.ctx.lineTo(originX + 200, originY - 160);
+        this.ctx.stroke();
+        break;
+      case 1:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 200, originY - 160);
+        this.ctx.lineTo(originX + 230, originY - 100);
+        this.ctx.stroke();
+        break;
+      case 0:
+        this.ctx.beginPath();
+        this.ctx.moveTo(originX + 200, originY - 160);
+        this.ctx.lineTo(originX + 170, originY - 100);
+        this.ctx.stroke();
+        break;
+    }
+  }
 
   gameOver() {}
 
