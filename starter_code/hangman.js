@@ -46,14 +46,6 @@ class Hangman {
       this.letters.includes(key.toUpperCase()) ||
       this.letters.includes(key.toLowerCase())
     );
-    /*
-    if (
-      this.letters.includes(key.toUpperCase()) ||
-      this.letters.includes(key.toLowerCase())
-    ) {
-      return false;
-    }
-    return true;*/
   }
 
   //Adds to the guessedLetter variable the letter that was pressed.
