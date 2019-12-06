@@ -5,6 +5,10 @@ class HangmanCanvas {
     this.secretWord = secretWord;
     this.createBoard();
     this.drawLines();
+    this.imageWinner = new Image();
+    this.imageWinner.src = "./images/awesome.png";
+    this.imageLooser = new Image();
+    this.imageLooser.src = "./images/gameover.png";
   }
 
   createBoard() {
@@ -80,9 +84,13 @@ class HangmanCanvas {
     }
   }
 
-  gameOver() {}
+  gameOver() {
+    this.ctx.drawImage(this.imageLooser, 350, 200);
+  }
 
-  winner() {}
+  winner() {
+    this.ctx.drawImage(this.imageWinner, 150, 100);
+  }
 
   write(letter, x, y) {
     this.ctx.font = "70px Arial";

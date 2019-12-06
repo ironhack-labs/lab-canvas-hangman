@@ -43,13 +43,13 @@ class Hangman {
 
   addCorrectLetter(i) {
     this.guessedLetter += this.secretWord[i].toUpperCase();
-    this.checkWinner();
+    if (this.checkWinner()) hangmanCanvas.winner();
   }
 
   addWrongLetter(letter) {
     this.errorsLeft--;
     this.letters.push(letter);
-    return this.checkGameOver();
+    if (this.checkGameOver()) hangmanCanvas.gameOver();
   }
 
   checkGameOver() {
@@ -67,9 +67,11 @@ document.getElementById("start-game-button").onclick = () => {
 };
 
 document.onkeydown = e => {
-  if (hangman.checkIfLetter(e.keyCode)) {
-    if (hangman.checkClickedLetters(e.key.toUpperCase()))
-      hangman.checkLetter(e.key.toUpperCase());
-    if (!hangman.letters.includes(e.key)) hangman.letters.push(e.key);
+  if (!hangman.checkGameOver()) {
+    if (hangman.checkIfLetter(e.keyCode)) {
+      if (hangman.checkClickedLetters(e.key.toUpperCase()))
+        hangman.checkLetter(e.key.toUpperCase());
+      if (!hangman.letters.includes(e.key)) hangman.letters.push(e.key);
+    }
   }
 };
