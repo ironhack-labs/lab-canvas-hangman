@@ -40,13 +40,11 @@ class Hangman {
 			}
 		}
 		this.letters.push(this.secretWord[i]);
-		this.checkWinner();
 	}
 
 	addWrongLetter(letter) {
 		this.letters.push(letter);
 		this.errorsLeft--;
-		this.checkGameOver();
 	}
 
 	checkGameOver() {
@@ -71,6 +69,7 @@ function checkGameStatus() {
 			startGame();
 		}, 1000);
 	}
+
 	if (hangman.checkGameOver()) {
 		canvas.gameOver();
 		setTimeout(() => {
