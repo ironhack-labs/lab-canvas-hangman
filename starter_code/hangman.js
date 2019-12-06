@@ -48,6 +48,7 @@ class Hangman {
 
   addCorrectLetter(key) {
     let isAValidLetter = this.secretWord.includes(key);
+    // index do key e while para ver se a key ainda existe
 
     if (isAValidLetter) {
       this.guessedLetter += key;
@@ -89,16 +90,16 @@ startGame.onclick = () => {
   hangmanCanvas = new HangmanCanvas(randomWord);
   // hangmanCanvas = new HangmanCanvas('IRONHACK');
   hangmanCanvas.createBoard();
-  // hangmanCanvas.drawHangman(1);
-  // hangmanCanvas.drawHangman(2);
-  // hangmanCanvas.drawHangman(3);
-  // hangmanCanvas.drawHangman(4);
-  // hangmanCanvas.drawHangman(5);
-  // hangmanCanvas.drawHangman(6);
-  // hangmanCanvas.drawHangman(7);
-  // hangmanCanvas.drawHangman(8);
-  // hangmanCanvas.drawHangman(9);
-  // hangmanCanvas.drawHangman(10);
+  hangmanCanvas.drawHangman(1);
+  hangmanCanvas.drawHangman(2);
+  hangmanCanvas.drawHangman(3);
+  hangmanCanvas.drawHangman(4);
+  hangmanCanvas.drawHangman(5);
+  hangmanCanvas.drawHangman(6);
+  hangmanCanvas.drawHangman(7);
+  hangmanCanvas.drawHangman(8);
+  hangmanCanvas.drawHangman(9);
+  hangmanCanvas.drawHangman(10);
   // hangmanCanvas.writeCorrectLetter();
   // hangmanCanvas.writeWrongLetter('GIULIA', 2);
   // hangmanCanvas.writeCorrectLetter(0);
@@ -108,8 +109,11 @@ startGame.onclick = () => {
 };
 
 document.onkeydown = (e) => {
+  // console.log(e.keyCode);
   console.log(hangman.secretWord);
-  if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.keyCode) /*&& hangman.addCorrectLetter(e)*/) {
+  // hangman.checkIfLetter(e.keyCode);
+  // console.log(hangman.addCorrectLetter());
+  if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.) && hangman.addCorrectLetter(e.char)) {
     console.log('ok');
   } else {
     console.log('nok');
@@ -120,6 +124,18 @@ document.onkeydown = (e) => {
 //     hangmanCanvas.writeWrongLetter();
   };
 
+  // const key = e.key.toUpperCase();
+  // const keyCode = e.keyCode;
+//   if (hangman.checkIfLetter(keyCode)) {
+//     hangman.checkClickedLetters(key)
+//   }
+// }
+
 
     // call winner
     // this.winner();
+
+    // imprimir todas as letras repetidas
+    // quebrar a string para linhas diferentes
+
+    //pointer pointer
