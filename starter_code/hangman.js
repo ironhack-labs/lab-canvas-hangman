@@ -11,77 +11,76 @@ constructor() {
   this.errorsLeft = 10; //It should start at 10, and decrease every time a user clicks on a letter that is not in the word.
   
 }
-
+// Returns a random word from our array words
 getWord() {
-  // Returns a random word from our array words 
- this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
-//  console.log(this.words);
-//  console.log(Math.floor(Math.random() * this.words.length));
-//  console.log(this.secretWord);
+   this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
  return this.secretWord;
 
 }
-
+// this function should check if the key the user has typed is a letter.
  checkIfLetter (keyCode){
-  // this function should check if the key the user has typed is a letter.
-  console.log()
   return (keyCode >= 65 && keyCode <= 90);
 
 }
-
- checkClickedLetters (lt){
-  // Checks if the pressed letter has already been pressed and 
+// Checks if the pressed letter has already been pressed and 
   // returns true if it was not or false in the opposite case.
+ checkClickedLetters (lt){
   return !this.letters.includes(lt);
 }
 
- checkGameOver (){
-  // Returns a boolean value, true if the users lose, and false in any other case.
- return (this.errorsLeft === 0 ) ? true : false;
+ 
+// Returns a boolean value, true if the users lose, and false in any other case.
+checkGameOver() { 
+  return (this.errorsLeft === 0)
 }
 
 
-//  checkWinner () {
-//     //Check if the users win and return a boolean value.
-//     const isPalindrome = (this.guessedLetter) => {
-//     const cleanStr = clean();
-//     const reverseStr = cleanStr.split('').reverse().join('');
-//     return reverseStr === cleanStr;
-//     }
-//   }
+checkWinner() {
+  return (this.secretWord.length === this.guessedLetter.length);
+}
 
+ 
+  // Adds to the guessedLetter variable the letter 
+  // that was pressed. Also, it should check if the user 
+  addCorrectLetter(i) {
+    this.guessedLetter += this.secretWord[i].toUpperCase()
+    this.checkWinner()
+   
+   }
 
-
-//  addCorrectLetter(i){
-//   // Adds to the guessedLetter variable the letter 
-//   // that was pressed. Also, it should check if the user
-  
-//   let keyCaptured = String.fromCharCode(window.event.keyCode
-//   (checkClickedLetters(keyCaptured) ? this.guessedLetter += keyCaptured : this.letters
-//   this.secretWord // palavra secreta
-  // se ok
-   // se notok
-
-//   this.guessedLetter += String.fromCharCode(window.event.keyCode);
-//   checkWinner();
-
-// }
-
-//  addWrongLetter(letter){
-//   // Should subtract one from the variable errorsLeft and check if the game is over.
-
-// }
+addWrongLetter(letter) {
+  this.errorsLeft -= 1
+  this.letters.push(letter);
+  this.checkGameOver()
+}
 
 }
 
-// document.getElementById('start-game-button').onclick = () => {
-//   hangman = new Hangman();
-// };
+document.getElementById('start-game-button').onclick =  function () {
+  hangman = new Hangman();
+  hangmanObj = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangmanObj.getWord());
+  hangmanCanvas.clearBoard();
+  hangmanCanvas.drawLines();
+};
 
-// document.onkeydown = (e) => {
+document.onkeydown = function (e) {
+  if (!hangmanObj.checkIfLetter(e.keyCode)) {
+    return alert("Coloque um caractere válido!");
+  } else {
+      let char = String.fromCharCode(e.keyCode)
+      if (!hangmanObj.checkClickedLetters(char)) {
+        return alert("Caractere já digitado");
+      } else { 
 
-// };
+      }
+}
+
+};
+
 
 
 hangman = new Hangman();
 hangman.getWord();
+
+
