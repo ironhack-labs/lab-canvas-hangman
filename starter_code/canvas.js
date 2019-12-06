@@ -2,8 +2,8 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
-    this.posX = 400;
-    this.posY = 500;
+    this.posX = 300;
+    this.posY = 450;
     this.letterPosArray = [];
   }
 
@@ -29,21 +29,26 @@ class HangmanCanvas {
 
   writeCorrectLetter(i) {
     let letterPos = this.letterPosArray[i] + 10;
-    console.log(hangman.key, this.letterPosArray, hangman.index);
     this.ctx.font = "50px Arial";
     this.ctx.fillText(hangman.key, letterPos, this.posY - 10);
   }
 
   writeWrongLetter() {
-    let letterPosX = 500 + hangman.wrongLetter.length * 50;
-    let letterPosY = 200;
-    console.log("wrong letter");
+    let letterPosY;
+    let letterPosX;
+    if (hangman.wrongLetter.length > 5) {
+      letterPosY = this.posY - 200;
+      letterPosX = this.posX + 300 + (hangman.wrongLetter.length - 5) * 50;
+    } else {
+      letterPosY = this.posY - 250;
+      letterPosX = this.posX + 300 + hangman.wrongLetter.length * 50;
+    }
+
     this.ctx.font = "50px Arial";
     this.ctx.fillText(hangman.key, letterPosX, letterPosY);
   }
 
   drawHangman(shape) {
-    console.log(shape);
     switch (shape) {
       case 1:
         this.ctx.beginPath();
