@@ -4,16 +4,16 @@ let canvas;
 class Hangman {
 	constructor() {
 		this.words = [
-			'pepsi',
+			'starbucks',
 			'cartier',
-			'ikea',
+			'amazon',
 			'siemens',
 			'prada',
-			'sprite',
+			'ferrari',
 			'ebay',
 			'lancome',
-			'pampers',
-			'budweiser'
+			'netflix',
+			'hyundai'
 		];
 		this.secretWord = this.getWord();
 		this.letters = [];
@@ -26,7 +26,7 @@ class Hangman {
 	}
 
 	checkIfLetter(keyCode) {
-		return keyCode >= 65 && keyCode <= 90 ? true : false;
+		return keyCode >= 65 && keyCode <= 90;
 	}
 
 	checkClickedLetters(key) {
@@ -50,24 +50,11 @@ class Hangman {
 	}
 
 	checkGameOver() {
-		// return this.errorsLeft === 0 ? true : false;
-		if (this.errorsLeft === 0) {
-			console.log('you lost');
-			return true;
-		} else {
-			return false;
-		}
+		return this.errorsLeft === 0;
 	}
 
 	checkWinner() {
-		if (this.guessedLetter.length < this.secretWord.length) {
-			console.log('you havent won yet');
-			return false;
-		} else {
-			console.log('you won!');
-			return true;
-		}
-		// return this.guessedLetter.length < this.secretWord.length ? false : true;
+		return this.guessedLetter.length === this.secretWord.length;
 	}
 }
 
@@ -77,24 +64,7 @@ function startGame() {
 	canvas.createBoard();
 }
 
-document.getElementById('start-game-button').onclick = () => {
-	startGame();
-	// hangman = new Hangman();
-	// canvas = new HangmanCanvas(hangman.secretWord);
-	// canvas.createBoard();
-};
-
-document.onkeydown = e => {
-	// console.log(e.key, e.keyCode);
-	if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
-		if (hangman.secretWord.includes(e.key)) {
-			hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key));
-			canvas.writeCorrectLetter(hangman.secretWord.indexOf(e.key));
-		} else {
-			hangman.addWrongLetter(e.key);
-			canvas.writeWrongLetter(e.key, hangman.errorsLeft);
-		}
-	}
+function checkGameStatus() {
 	if (hangman.checkWinner()) {
 		canvas.winner();
 		setTimeout(() => {
@@ -107,4 +77,22 @@ document.onkeydown = e => {
 			startGame();
 		}, 1000);
 	}
+}
+
+document.getElementById('start-game-button').onclick = () => {
+	startGame();
+};
+
+document.onkeydown = e => {
+	if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
+		if (hangman.secretWord.includes(e.key)) {
+			hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key));
+			canvas.writeCorrectLetter(hangman.secretWord.indexOf(e.key));
+		} else {
+			hangman.addWrongLetter(e.key);
+			canvas.writeWrongLetter(e.key, hangman.errorsLeft);
+		}
+	}
+
+	checkGameStatus();
 };
