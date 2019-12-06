@@ -31,11 +31,16 @@ class Hangman {
   }
 
   getWord() {
-    this.secretWord = this.words[Math.floor(Math.random()*this.words.length)]
+    this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
     return this.secretWord;
   }
 
-  checkIfLetter(keyCode) {}
+  // check if the key the used has typed is a letter
+  checkIfLetter(keyCode) {
+    var inp = String.fromCharCode(keyCode);
+    if (/[a-zA-Z]/.test(inp)) return true;
+    return false;
+  }
 
   checkClickedLetters(key) {}
 
