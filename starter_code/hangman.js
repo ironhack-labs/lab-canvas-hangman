@@ -55,14 +55,6 @@ class Hangman {
     this.guessedLetter += this.key;
     this.checkGameOver();
     this.checkWinner();
-    console.log(
-      "key",
-      this.key,
-      "letters",
-      this.letters,
-      "guessed",
-      this.guessedLetter
-    );
   }
 
   addWrongLetter() {
