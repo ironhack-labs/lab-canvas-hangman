@@ -18,6 +18,7 @@ class Hangman {
       ["enjoy", "take delight or pleasure in"]
     ];
     this.secretWord = "";
+    this.wordHint = "";
     this.letters = [];
     this.wrongLetter = "";
     this.guessedLetter = "";
@@ -29,8 +30,10 @@ class Hangman {
 
   getWord() {
     let randomWord = Math.floor(Math.random() * this.words.length);
-    this.secretWord = this.words[randomWord];
-    return this.words[randomWord];
+    this.secretWord = this.words[randomWord][0];
+    this.wordHint = this.words[randomWord][1];
+    console.log(this.secretWord, this.wordHint);
+    return this.words[randomWord][0];
   }
 
   checkIfLetter() {
@@ -93,6 +96,8 @@ document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.getWord());
   hangmanCanvas.drawLines();
+  hangmanCanvas.drawSideBar();
+  hangmanCanvas.writeHint();
   hangmanCanvas.loadImage();
 };
 document.addEventListener("keydown", function(e) {

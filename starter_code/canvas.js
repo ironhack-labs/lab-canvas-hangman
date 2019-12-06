@@ -4,8 +4,10 @@ class HangmanCanvas {
     this.secretWord = secretWord;
     this.canvasWidth = 1000;
     this.canvasHeight = 500;
-    this.posX = 300;
+    this.posX = 150;
     this.posY = 450;
+    this.posSideBar = this.posX + 500;
+    this.posTop = this.posY - 380;
     this.letterPosArray = [];
     this.loseImg = new Image();
     this.winImg = new Image();
@@ -34,6 +36,18 @@ class HangmanCanvas {
       linePos += line + space;
     }
   }
+  drawSideBar() {
+    this.ctx.fillStyle = "black";
+    this.ctx.font = "bold 22px Arial";
+    this.ctx.fillText("Hint", this.posSideBar, this.posTop);
+    this.ctx.fillText("Incorrect Letters", this.posSideBar, this.posTop + 80);
+  }
+
+  writeHint() {
+    this.ctx.fillStyle = "black";
+    this.ctx.font = "italic 18px Arial";
+    this.ctx.fillText(hangman.wordHint, this.posSideBar, this.posTop + 20);
+  }
 
   writeCorrectLetter(i) {
     let letterPos = this.letterPosArray[i] + 10;
@@ -46,14 +60,14 @@ class HangmanCanvas {
     let letterPosY;
     let letterPosX;
     if (hangman.wrongLetter.length > 5) {
-      letterPosY = this.posY - 200;
-      letterPosX = this.posX + 300 + (hangman.wrongLetter.length - 5) * 50;
+      letterPosY = this.posTop + 200;
+      letterPosX = this.posSideBar - 40 + (hangman.wrongLetter.length - 5) * 40;
     } else {
-      letterPosY = this.posY - 250;
-      letterPosX = this.posX + 300 + hangman.wrongLetter.length * 50;
+      letterPosY = this.posTop + 150;
+      letterPosX = this.posSideBar - 40 + hangman.wrongLetter.length * 40;
     }
     this.ctx.fillStyle = "black";
-    this.ctx.font = "50px Arial";
+    this.ctx.font = "40px Arial";
     this.ctx.fillText(hangman.key, letterPosX, letterPosY);
   }
 
