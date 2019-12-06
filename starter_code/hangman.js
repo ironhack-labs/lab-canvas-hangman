@@ -1,4 +1,5 @@
 let hangman;
+// console.log('oioioi');
 
 class Hangman {
   constructor() {
@@ -7,6 +8,7 @@ class Hangman {
     this.letters = [];
     this.guessedLetter = '';
     this.errorsLeft = 10;
+    this.wrongLetters = '';
   }
 
   getWord() {
@@ -16,41 +18,46 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
+    // converting letters to numbers
+    let alphabet = "abcdefghijklmnopqrstuvxwyz";
+    let indexLetter = keyCode - 65;
+    let convertedLetter = alphabet[indexLetter].toUpperCase();
+    // console.log(convertedLetter);
+
+    // only call the next check if this one is true
+    let isLetter = (keyCode >= 65 && keyCode <= 90); 
+
+    if (isLetter) {
+      this.checkClickedLetters(convertedLetter);
+    }
     // 65 to 90 -> a to z
-    return (keyCode >= 65 && keyCode <= 90);
+    return (isLetter);
   }
 
   checkClickedLetters(key) {
-
-    // converting letters to numbers
-    let alphabet = "abcdefghijklmnopqrstuvxwyz";
-    let letterToNumber = alphabet.indexOf(key) + 65;
-
-    // check if it is a letter
-
-
-
-    let returnedLetter = this.checkIfLetter(key)
-    return (!this.letters.includes(key));
+    // check if the letter is already in the array LETTERS
+    let isNotIncluded = !this.letters.includes(key);
+    if (isNotIncluded) {
+      this.letters.push(key);
+      this.addCorrectLetter(key);
+    }
+    return (isNotIncluded);
   }
 
-  addCorrectLetter(i) {
-    // let word = 'ironhack';
-    this.guessedLetter += this.secretWord[i].toUpperCase();
-    // this.guessedLetter += word[i];
+  addCorrectLetter(key) {
+    let isAValidLetter = this.secretWord.includes(key);
 
-
-    // let alphabet = "abcdefghijklmnopqrstuvxwyz";
-    // let convertedLetter = alphabet[i - 65];
-    // console.log(convertedLetter);
-    // if (this.secretWord.includes(convertedLetter)) {
-    //   this.guessedLetter += convertedLetter;
-    // }
-    // // checar se existe na palavra
-    return this.checkWinner();
+    if (isAValidLetter) {
+      this.guessedLetter += key;
+      this.checkWinner();
+    } else {
+      this.addWrongLetter(key);
+    }
+    return (isAValidLetter);
   }
 
   addWrongLetter(letter) {
+    this.wrongLetters += letter;
     this.errorsLeft -= 1;
     return this.checkGameOver();
   }
@@ -71,13 +78,35 @@ class Hangman {
 
 }
 
-// hangman = new Hangman();
-// console.log(hangman.addCorrectLetter(1));
+let startGame = document.getElementById('start-game-button');
 
-// document.getElementById('start-game-button').onclick = () => {
-//   hangman = new Hangman();
-// };
+startGame.onclick = () => {
+  hangman = new Hangman();
+  let randomWord = hangman.secretWord;
+  // hangmanCanvas = new HangmanCanvas(randomWord);
+  hangmanCanvas = new HangmanCanvas('IRONHACK');
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawHangman(1);
+  hangmanCanvas.drawHangman(2);
+  hangmanCanvas.drawHangman(3);
+  hangmanCanvas.drawHangman(4);
+  hangmanCanvas.drawHangman(5);
+  hangmanCanvas.drawHangman(6);
+  hangmanCanvas.drawHangman(7);
+  // hangmanCanvas.drawHangman(8);
+  // hangmanCanvas.drawHangman(9);
+  // hangmanCanvas.drawHangman(10);
+  // hangmanCanvas.writeCorrectLetter();
+  // hangmanCanvas.writeWrongLetter('GIULIA', 2);
+  hangmanCanvas.writeCorrectLetter(0);
+  hangmanCanvas.writeCorrectLetter(1);
+  hangmanCanvas.writeCorrectLetter(2);
+  hangmanCanvas.writeCorrectLetter(4);
+};
 
 // document.onkeydown = (e) => {
-
-// };
+//   if (hangman.checkIfLetter(e) && hangman.checkClickedLetters(e) && hangman.addCorrectLetter(e)) {
+//     hangmanCanvas.writeCorrectLetter();
+//   } else if (hangman.checkIfLetter(e) && hangman.checkClickedLetters(e)) {
+//     hangmanCanvas.writeWrongLetter();
+//   };
