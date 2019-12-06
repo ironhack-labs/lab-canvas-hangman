@@ -145,12 +145,12 @@ class HangmanCanvas {
     //LETTERS (PENSAR EM ALGO PARA PASSARMOS UMA VARIÁVEL NO "fillText" quando a letra for errada)
 
     this.ctx.font = "60px Comic Sans MS";
-    this.ctx.fillStyle = "red";
+    this.ctx.fillStyle = "yellowgreen";
     this.ctx.textAlign = "center";
     this.ctx.fillText("A", 800, 250);
 
     this.ctx.font = "60px Comic Sans MS";
-    this.ctx.fillStyle = "red";
+    this.ctx.fillStyle = "yellowgreen";
     this.ctx.textAlign = "center";
     this.ctx.fillText("B", 850, 250);
 
