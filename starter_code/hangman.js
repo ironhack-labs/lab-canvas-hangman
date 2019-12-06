@@ -27,7 +27,7 @@ class Hangman {
     this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
-    this.errorsleft = 10;
+    this.errorsLeft = 10;
   }
 
   getWord() {
@@ -51,12 +51,23 @@ class Hangman {
     ) {
       return false;
     }
-      return true;
+    return true;
   }
 
-  addCorrectLetter(i) {}
+  //Adds to the guessedLetter variable the letter that was pressed.
+  //Also, it should check if the user wins
+  addCorrectLetter(i) {
+    if (this.checkIfLetter(i)) {
+      let letter = String.fromCharCode(i);
+      this.guessedLetter.concat(letter);
+      this.checkWinner();
+    }
+  }
 
-  addWrongLetter(letter) {}
+  addWrongLetter(letter) {
+    this.errorsLeft--;
+    this.checkGameOver();
+  }
 
   checkGameOver() {}
 

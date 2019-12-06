@@ -75,7 +75,6 @@ describe("Hangman Game", function() {
 
     it("checkClickedLetters should return false", function() {
       hangman.letters.push("I", "R", "P");
-      console.log(hangman.checkClickedLetters("R"));
       expect(hangman.checkClickedLetters("R")).toEqual(false);
     });
   });
