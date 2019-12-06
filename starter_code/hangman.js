@@ -42,8 +42,6 @@ class Hangman {
     return false;
   }
 
-  //Checks if the pressed letter has already been pressed and returns
-  //true if it was not or false in the opposite case.
   checkClickedLetters(key) {
     if (
       this.letters.includes(key.toUpperCase()) ||
@@ -69,9 +67,17 @@ class Hangman {
     this.checkGameOver();
   }
 
-  checkGameOver() {}
+  checkGameOver() {
+    if (this.errorsLeft == 0) return true;
+    return false;
+  }
 
-  checkWinner() {}
+  checkWinner() {
+    if (this.guessedLetter.length == this.secretWord.length) {
+      return true;
+    }
+    return false;
+  }
 }
 
 document.getElementById("start-game-button").onclick = () => {
