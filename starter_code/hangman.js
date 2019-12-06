@@ -1,21 +1,70 @@
 let hangman;
 
 class Hangman {
-  constructor() {}
+  constructor() {
+    this.words = ["apple", "cat", "are"]; //array of words player needs to guess.Select1 randomly
+    this.secretWord = "IRONHACK"; // word chosen for each game
+    this.letters = ["R"]; //store letters the user already clicked, so we do not repeat them.
+    this.guessedLetter = ""; // a string to store the letters the user clicked and guessed
+    this.errorsLeft = 10; //Number of lifes. Will decrease every time the user clicks on a
+    //letter that is not the word.
+  }
 
-  getWord() {}
+  getWord() {
+    return this.words[Math.floor(Math.random() * this.words.length)];
+  }
 
-  checkIfLetter(keyCode) {}
+  checkIfLetter(keyCode) {
+    if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
+      return true;
+    }
+    return false;
+  }
+  //Check if the letter was already clicked checkClickedLetters should return true
+  checkClickedLetters(key) {
+    if (this.letters.includes(key)) {
+      return true;
+    }
+    return false;
+  }
+  //this.guessedLetter: string to store the letters user clicked and guessed
+  //Add correct letters addCorrectLetter should add letters to guessedLetter string
+  addCorrectLetter(i) {
+    this.guessedLetter += i;
+  }
 
-  checkClickedLetters(key) {}
+  addWrongLetter(letter) {
+    this.errorsLeft--;
+    if (this.errorsLeft === 0) {
+      return true;
+    }
+    return false;
+  }
 
-  addCorrectLetter(i) {}
+  checkGameOver() {
+    if (this.errorsLeft === 0) {
+      return true;
+    }
+    return false;
+  }
 
-  addWrongLetter(letter) {}
+  checkWinner() {
+    //Secret word = Ironhack    // guessedLetter ="oca"
+    let lettersSplit = this.guessedLetter.split(""); //[ 'o', 'c', 'a' ]
 
-  checkGameOver() {}
+    lettersSplit.every(value => {
+      return this.secretWord.includes(value);
+    });
+    return false;
 
-  checkWinner() {}
+    /*
+    if (this.secretWord.includes(this.guessedLetter)) {
+      return true;
+    }
+    return false;
+
+    */
+  }
 }
 
 document.getElementById("start-game-button").onclick = () => {
