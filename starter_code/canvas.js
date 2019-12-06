@@ -42,9 +42,6 @@ class HangmanCanvas {
         this.ctx.fillText(this.wordToGuess[index], positionX, positionY);
       }
     }
-
-    // call winner
-    // this.winner();
   }
 
   writeWrongLetter(string, errorsLeft) {
