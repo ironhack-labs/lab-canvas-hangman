@@ -19,7 +19,6 @@ class Hangman {
 		this.letters = [];
 		this.guessedLetter = '';
 		this.errorsLeft = 10;
-		this.gameWon;
 	}
 
 	getWord() {
@@ -72,10 +71,17 @@ class Hangman {
 	}
 }
 
-document.getElementById('start-game-button').onclick = () => {
+function startGame() {
 	hangman = new Hangman();
 	canvas = new HangmanCanvas(hangman.secretWord);
 	canvas.createBoard();
+}
+
+document.getElementById('start-game-button').onclick = () => {
+	startGame();
+	// hangman = new Hangman();
+	// canvas = new HangmanCanvas(hangman.secretWord);
+	// canvas.createBoard();
 };
 
 document.onkeydown = e => {
@@ -88,5 +94,17 @@ document.onkeydown = e => {
 			hangman.addWrongLetter(e.key);
 			canvas.writeWrongLetter(e.key, hangman.errorsLeft);
 		}
+	}
+	if (hangman.checkWinner()) {
+		canvas.winner();
+		setTimeout(() => {
+			startGame();
+		}, 1000);
+	}
+	if (hangman.checkGameOver()) {
+		canvas.gameOver();
+		setTimeout(() => {
+			startGame();
+		}, 1000);
 	}
 };
