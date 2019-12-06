@@ -13,6 +13,7 @@ class HangmanCanvas {
 
   drawLines() {
     console.log(this.secretWord);
+    this.ctx.clearRect(0, 0, 1200, 800);
     let space = 10;
     let line = 50;
     let linePos = this.posX;

@@ -74,6 +74,7 @@ class Hangman {
 
   checkGameOver() {
     if (this.errorsLeft === 0) {
+      console.log("game over");
       return true;
     } else {
       return false;
