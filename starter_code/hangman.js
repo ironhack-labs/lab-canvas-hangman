@@ -3,6 +3,9 @@ let hangman;
 class Hangman {
   constructor() {
     this.words = [
+      //keep to lowercase
+      "aaaaa" //5a
+      /*
       "elbow",
       "steward",
       "incongruous",
@@ -22,7 +25,7 @@ class Hangman {
       "suspicion",
       "despair",
       "presence",
-      "explain"
+      "explain"*/
     ];
     this.secretWord = this.getWord();
     this.letters = [];
@@ -48,12 +51,13 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-    this.guessedLetter = this.secretWord[i].toUpperCase();
+    this.guessedLetter += this.secretWord[i].toLowerCase();
     this.checkWinner();
   }
 
   addWrongLetter(letter) {
     this.errorsLeft--;
+    this.letters.push(letter.toLowerCase());
     this.checkGameOver();
   }
 
@@ -73,4 +77,22 @@ document.getElementById("start-game-button").onclick = () => {
   hangmanCanvas.drawLines();
 };
 
-document.onkeydown = e => {};
+document.onkeydown = e => {
+  console.log(e);
+  // if the key pressed is a letter and if the letter was not already clicked
+  if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
+    // check if the letter is included in the secret word
+    let idx = hangman.secretWord.indexOf(e.key.toLowerCase());
+    if (idx != -1) {
+      hangman.addCorrectLetter(idx);
+      //check if letter appears more than once
+      idx = hangman.secretWord.indexOf(e.key.toLowerCase(), idx + 1);
+      while (idx != -1) {
+        hangman.addCorrectLetter(idx);
+        idx = hangman.secretWord.indexOf(e.key.toLowerCase(), idx + 1);
+      }
+    } else {
+      hangman.addWrongLetter(e.key);
+    }
+  }
+};

@@ -1,21 +1,21 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById("hangman").getContext("2d");
-    this.numberOfLetters = secretWord.length;
+    this.secretWord = secretWord;
   }
 
   createBoard() {
-    this.ctx.clearRect(0, 0, 500, 500);
+    this.ctx.clearRect(0, 0, 1200, 800);
   }
 
   drawLines() {
-    let startX = 25;
+    let startX = 450;
     let linesWidth = 60;
     let endX = startX + linesWidth;
-    let fixedY = 25;
+    let fixedY = 450;
     let space = 10;
 
-    for (let i = 0; i < this.numberOfLetters; i++) {
+    for (let i = 0; i < this.secretWord.length; i++) {
       this.ctx.beginPath();
       this.ctx.moveTo(startX, fixedY);
       this.ctx.lineTo(startX + linesWidth, fixedY);
@@ -27,9 +27,14 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {}
 
-  writeWrongLetter(letter, errorsLeft) {}
+  writeWrongLetter(letter, errorsLeft) {
+    let pos = (10 - errorsLeft) * 10;
+    this.ctx.fillText(letter, 200 + pos, 200);
+  }
 
   drawHangman(shape) {}
+
+  //bonus
 
   gameOver() {}
 
