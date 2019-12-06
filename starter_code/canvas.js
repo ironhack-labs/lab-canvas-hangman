@@ -42,44 +42,82 @@ class HangmanCanvas {
     this.ctx.fillText(hangman.key, letterPosX, letterPosY);
   }
 
-  drawHangman() {
-    console.log("draw hangman");
-    var sticks = [
-      this.ctx.lineTo(this.posX - 10, this.posY),
-      this.ctx.lineTo(this.posX - 110, this.posY),
-      this.ctx.lineTo(this.posX - 60, this.posY - 40),
-      this.ctx.lineTo(this.posX - 60, this.posY - 400),
-      this.ctx.lineTo(this.posX + 150, this.posY - 400),
-      this.ctx.lineTo(this.posX + 150, this.posY - 370),
-      [
-        this.ctx.moveTo(this.posX + 190, this.posY - 330),
-        this.ctx.arc(this.posX + 150, this.posY - 330, 40, 0, 2 * Math.PI)
-      ],
-      [
-        this.ctx.moveTo(this.posX + 150, this.posY - 290),
-        this.ctx.lineTo(this.posX + 150, this.posY - 150)
-      ],
-      [
-        this.ctx.moveTo(this.posX + 150, this.posY - 260),
-        this.ctx.lineTo(this.posX + 100, this.posY - 230)
-      ],
-      [
-        this.ctx.moveTo(this.posX + 150, this.posY - 260),
-        this.ctx.lineTo(this.posX + 200, this.posY - 230)
-      ],
-      [
-        this.ctx.moveTo(this.posX + 150, this.posY - 150),
-        this.ctx.lineTo(this.posX + 100, this.posY - 120)
-      ],
-      [
-        this.ctx.moveTo(this.posX + 150, this.posY - 150),
-        this.ctx.lineTo(this.posX + 200, this.posY - 120)
-      ]
-    ];
-    this.ctx.moveTo(this.posX - 60, this.posY - 40);
-    sticks[hangman.wrongLetter.length];
-    console.log(sticks);
-    this.ctx.closePath();
+  drawHangman(shape) {
+    console.log(shape);
+    switch (shape) {
+      case 1:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX - 60, this.posY - 40);
+        this.ctx.lineTo(this.posX - 10, this.posY);
+        this.ctx.lineTo(this.posX - 110, this.posY);
+        this.ctx.lineTo(this.posX - 60, this.posY - 40);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 2:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX - 60, this.posY - 40);
+        this.ctx.lineTo(this.posX - 60, this.posY - 400);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 3:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX - 60, this.posY - 400);
+        this.ctx.lineTo(this.posX + 150, this.posY - 400);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 4:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 400);
+        this.ctx.lineTo(this.posX + 150, this.posY - 370);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 5:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 190, this.posY - 330);
+        this.ctx.arc(this.posX + 150, this.posY - 330, 40, 0, 2 * Math.PI);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 6:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 290);
+        this.ctx.lineTo(this.posX + 150, this.posY - 150);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 7:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 260);
+        this.ctx.lineTo(this.posX + 100, this.posY - 230);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 8:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 260);
+        this.ctx.lineTo(this.posX + 200, this.posY - 230);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 9:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 150);
+        this.ctx.lineTo(this.posX + 100, this.posY - 120);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+      case 10:
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posX + 150, this.posY - 150);
+        this.ctx.lineTo(this.posX + 200, this.posY - 120);
+        this.ctx.stroke();
+        this.ctx.closePath();
+        break;
+    }
   }
   gameOver() {}
 
