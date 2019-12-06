@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["luis","carlos","pedrito"],
+    this.words = ["luis","arianna","pedrito"],
     this.secretWord = this.getWord(),
     this.letters = [],
     this.guessedLetter = "",
@@ -41,18 +41,13 @@ class Hangman {
   }
 
   checkWinner() {
-    let letters = this.guessedLetter.toLowerCase().split("");
-    let result = false;
-    let count = 0;
+    let letters = this.secretWord.toUpperCase().split("");
+    let result = true;
     letters.forEach( e => {
-      if (this.secretWord.includes(e)) {
-        result = true;
-        count ++;
+      if (!this.guessedLetter.includes(e)) {
+        result = false;
       };
     })
-    if (count != this.secretWord.length) {
-      result = false;
-    }
     return result;
   }
 
@@ -69,6 +64,11 @@ document.onkeydown = (e) => {
     if (hangman.checkClickedLetters(e.key)){
       if (hangman.secretWord.includes(e.key)) {
         hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key));
+        let index = hangman.secretWord.indexOf(e.key);
+        while(index >= 0) {
+          hangmanCanvas.writeCorrectLetter(index)
+          index = hangman.secretWord.indexOf(e.key,index +1);
+        }
         console.log(e.key)
         if (hangman.checkWinner()) {
           console.log("You win") //temporary

@@ -27,7 +27,10 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-
+    let x = 315 + index*60;
+    this.ctx.font = "40px Calibri"
+    this.ctx.beginPath();
+    this.ctx.fillText(this.secretWord[index], x, 580)
   }
 
   writeWrongLetter(letter, errorsLeft) {
