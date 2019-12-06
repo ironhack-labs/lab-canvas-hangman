@@ -85,14 +85,18 @@ document.onkeydown = e => {
     let idx = hangman.secretWord.indexOf(e.key.toLowerCase());
     if (idx != -1) {
       hangman.addCorrectLetter(idx);
+      hangmanCanvas.writeCorrectLetter(idx);
       //check if letter appears more than once
       idx = hangman.secretWord.indexOf(e.key.toLowerCase(), idx + 1);
       while (idx != -1) {
         hangman.addCorrectLetter(idx);
+        hangmanCanvas.writeCorrectLetter(idx);
         idx = hangman.secretWord.indexOf(e.key.toLowerCase(), idx + 1);
       }
     } else {
       hangman.addWrongLetter(e.key);
+      console.error("wrong");
+      hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
     }
   }
 };
