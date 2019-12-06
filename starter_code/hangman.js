@@ -35,14 +35,24 @@ class Hangman {
     return this.secretWord;
   }
 
-  // check if the key the used has typed is a letter
+  //Check if the key the used has typed is a letter
   checkIfLetter(keyCode) {
     var inp = String.fromCharCode(keyCode);
     if (/[a-zA-Z]/.test(inp)) return true;
     return false;
   }
 
-  checkClickedLetters(key) {}
+  //Checks if the pressed letter has already been pressed and returns
+  //true if it was not or false in the opposite case.
+  checkClickedLetters(key) {
+    if (
+      this.letters.includes(key.toUpperCase()) ||
+      this.letters.includes(key.toLowerCase())
+    ) {
+      return false;
+    }
+      return true;
+  }
 
   addCorrectLetter(i) {}
 
