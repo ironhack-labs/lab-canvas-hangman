@@ -11,6 +11,7 @@ class HangmanCanvas {
 	createBoard() {
 		this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 		this.drawLines();
+
 		this.winnerImg.src = './images/awesome.png';
 		this.looseImg.src = './images/gameover.png';
 	}
@@ -25,10 +26,12 @@ class HangmanCanvas {
 				this.ctx.fillStyle = 'black';
 				this.ctx.fillRect(x, 400, 25, 2);
 			}
+
 			this.letterPosition.push(x);
 			x += 40;
 		}
 	}
+
 	writeCorrectLetter(index) {
 		let instances = [];
 		for (let i = 0; i < this.secretWord.length; i++) {
@@ -104,6 +107,7 @@ class HangmanCanvas {
 				this.ctx.moveTo(390, 160);
 				this.ctx.lineTo(440, 120);
 		}
+
 		this.ctx.lineWidth = 2;
 		this.ctx.stroke();
 		this.ctx.closePath();
