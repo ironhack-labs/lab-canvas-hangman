@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["","",""],
+    this.words = ["luis","carlos","pedrito"],
     this.secretWord = "",
     this.letters = [],
     this.guessedLetter = "",
@@ -58,6 +58,8 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.getWord());
+  hangmanCanvas.createBoard();
 };
 
 document.onkeydown = (e) => {
