@@ -102,8 +102,9 @@ class HangmanCanvas {
   gameOver() {
     let img = new Image();
     img.src = "./images/gameover.png"
-    console.log(img)
-    hangmanCanvas.ctx.drawImage(img,300,200)
+    img.onload = function() {
+      hangmanCanvas.ctx.drawImage(img,300,200)
+    }
   }
 
   winner() {
