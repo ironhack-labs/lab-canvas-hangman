@@ -1,12 +1,13 @@
 
+var ctx = getContext("2d")
 class HangmanCanvas {
   constructor(secretWord) {
-     var ctx = document.getElementById('hangman').getContext('2d');
+    //  this.ctx = document.getElementById('hangman').getContext('2d');
     this.secretWord = secretWord;
   }
 
   createBoard() {
-this.ctx.clearRect(0,0,1500,1500);
+// this.ctx.clearRect(0,0,1500,1500);
 this.drawLines();
   };
 
