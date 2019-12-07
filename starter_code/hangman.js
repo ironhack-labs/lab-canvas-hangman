@@ -75,6 +75,7 @@ document.onkeydown = (e) => {
         }
       } else {
         hangman.addWrongLetter(e.key);
+        hangmanCanvas.writeWrongLetter(e.key,hangman.errorsLeft);
       }
     }
   }
