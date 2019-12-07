@@ -1,8 +1,10 @@
+let has
+
 class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById('hangman').getContext('2d');
     this.secretWord = secretWord;
-  };
+  }
 
   createBoard() {
 this.ctx.clearRect(0,0,1500,1500);
@@ -99,7 +101,7 @@ this.drawLines();
       this.ctx.stroke();
       break;
     }    
-  };
+  }
 
   gameOver() {
 
@@ -109,4 +111,4 @@ this.drawLines();
 
   }
 
-}
+};

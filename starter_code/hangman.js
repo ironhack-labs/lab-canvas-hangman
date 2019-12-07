@@ -1,10 +1,10 @@
 let hangman;
-let hangmanCanvas;
+var hangmanCanvas;
 
 class Hangman {
   constructor() {
     this.words = ["Alberto", "prueba"];
-    this.secretWord = this.getWord();
+    this.secretWord = "";
     this.letters = [];
     this.guessedLetter = "";
     this.errorsLeft = 10;
@@ -63,9 +63,10 @@ return false;
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
-   // Select random word
-   hangmanCanvas = new HangmanCanvas(Hangman.secretWord)
+  hangman.getWord();
+    hangmanCanvas = new HangmanCanvas(Hangman.secretWord);
    hangmanCanvas.createBoard();
+   hangmanCanvas.drawLines();
 };
 
 document.onkeydown = e => {
