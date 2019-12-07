@@ -19,7 +19,6 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     if (hangman.checkClickedLetters(index) === false) {
-      console.log("hola");
     }
   }
 
