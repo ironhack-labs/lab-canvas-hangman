@@ -69,13 +69,16 @@ document.onkeydown = (e) => {
           hangmanCanvas.writeCorrectLetter(index)
           index = hangman.secretWord.indexOf(e.key,index +1);
         }
-        console.log(e.key)
         if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
           console.log("You win") //temporary
         }
       } else {
         hangman.addWrongLetter(e.key);
         hangmanCanvas.writeWrongLetter(e.key,hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver()
+        }
       }
     }
   }

@@ -49,74 +49,54 @@ class HangmanCanvas {
         this.ctx.moveTo(175,700);
         this.ctx.lineTo(100,750);
         this.ctx.lineTo(250,750);
-        this.ctx.closePath();
-        this.ctx.stroke()
-        
         break;
       case 8:
         this.ctx.beginPath();
         this.ctx.moveTo(175,700);
         this.ctx.lineTo(175,50);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 7:
         this.ctx.beginPath();
         this.ctx.moveTo(173,50);
         this.ctx.lineTo(500,50);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 6: 
         this.ctx.beginPath();
         this.ctx.moveTo(500,50);
         this.ctx.lineTo(500,100);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 5:
         this.ctx.beginPath();
-        //this.ctx.moveTo(500,150);
         this.ctx.arc(500,150,50,-(Math.PI /2),(3/2)*Math.PI);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 4:
         this.ctx.beginPath();
         this.ctx.moveTo(500,200);
         this.ctx.lineTo(500,400);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 3:
         this.ctx.beginPath();
         this.ctx.moveTo(500,400);
         this.ctx.lineTo(400,500);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 2:
         this.ctx.beginPath();
         this.ctx.moveTo(500,400);
         this.ctx.lineTo(600,500);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 1:
         this.ctx.beginPath();
         this.ctx.moveTo(500,300);
         this.ctx.lineTo(400,200);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
       case 0:
         this.ctx.beginPath();
         this.ctx.moveTo(500,300);
         this.ctx.lineTo(600,200);
-        this.ctx.closePath();
-        this.ctx.stroke();
         break;
-   }
+    }
+    this.ctx.closePath();
+    this.ctx.stroke();
   }
 
   gameOver() {
