@@ -2,7 +2,7 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["luis","arianna","pedrito"],
+    this.words = ["luis","arianna","pedrito","navidad","murcielago","caracas","ironhack"],
     this.secretWord = this.getWord(),
     this.letters = [],
     this.guessedLetter = "",
