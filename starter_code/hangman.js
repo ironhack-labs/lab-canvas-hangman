@@ -3,7 +3,7 @@ let hangman;
 class Hangman {
   constructor() {
     this.words = ["HANGMAN", "GAME", "IRONHACK"];
-    this.secretWord = "IRONHACK";
+    this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
     this.errorsLeft = 10;
