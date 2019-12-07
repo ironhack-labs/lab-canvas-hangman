@@ -1,10 +1,11 @@
 /*jshint esversion: 6 */
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
-    this.words = ["dog", "cat", "mouse"];
-    this.secretWord = "";
+    this.words = ["dogs", "cat", "mouse"];
+    this.secretWord = this.getWord();
     this.letters = [];
     this.guessedLetter = "";
     this.errorsLeft = 10;
@@ -32,12 +33,26 @@ class Hangman {
 
   addCorrectLetter(i) {
     this.guessedLetter += this.secretWord[i].toUpperCase();
+    //this.guessedLetter += i.toUpperCase();
   }
 
   addWrongLetter(letter) {
     this.errorsLeft--;
   }
-
+  checkIfCorrect(key) {
+    if (!this.checkIfLetter(key)) {
+      console.log("Es una letra");
+      if (this.secretWord.split("").includes(key.key)) {
+        console.log("la incluye" + key.key);
+        this.addCorrectLetter(key.key);
+      } else {
+        console.log("NO la incluye" + key.key);
+        this.addWrongLetter(key.key);
+      }
+    } else {
+      console.log("No es una letra");
+    }
+  }
   checkGameOver() {
     if (this.errorsLeft === 0) {
       return true;
@@ -57,6 +72,15 @@ class Hangman {
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  console.log("SECRET WORD: " + hangman.secretWord);
+  //hangman.getWord();
 };
 
-document.onkeydown = e => {};
+document.onkeydown = e => {
+  hangmanCanvas.createBoard();
+  if (hangman.checkIfLetter(e)) {
+    console.log("Is letter");
+  }
+  hangman.checkIfCorrect(e);
+};
