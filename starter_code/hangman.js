@@ -1,5 +1,5 @@
 let hangman;
-var hangmanCanvas;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
@@ -63,8 +63,7 @@ return false;
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
-  hangman.getWord();
-    hangmanCanvas = new HangmanCanvas(Hangman.secretWord);
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord);
    hangmanCanvas.createBoard();
    hangmanCanvas.drawLines();
 };
