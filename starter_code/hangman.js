@@ -4,8 +4,9 @@ let hangmanCanvas;
 
 class Hangman {
   constructor() {
-    this.words = ["dogs", "cat", "mouse"];
+    this.words = ["DOGS", "CAT", "MOUSE"];
     this.secretWord = this.getWord();
+    this.secretWordSplit = this.secretWord.split("");
     this.letters = [];
     this.guessedLetter = "";
     this.errorsLeft = 10;
@@ -17,44 +18,29 @@ class Hangman {
 
   checkIfLetter(keyCode) {
     if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
+      console.log("LETTER is " + keyCode + " Between 64-91 ");
       return true;
     } else {
+      console.log("NOT LETTER");
       return false;
     }
   }
 
   checkClickedLetters(key) {
     if (this.letters.indexOf(key) === -1) {
+      console.log(this.letters);
+      console.log("Not jet in clicked array");
       return true;
     } else {
+      console.log(this.letters);
+      console.log("Already in clicked array");
       return false;
     }
   }
 
-  addCorrectLetter(i) {
-    this.guessedLetter += this.secretWord[i].toUpperCase();
-    //this.guessedLetter += i.toUpperCase();
-  }
-
-  addWrongLetter(letter) {
-    this.errorsLeft--;
-  }
-  checkIfCorrect(key) {
-    if (!this.checkIfLetter(key)) {
-      console.log("Es una letra");
-      if (this.secretWord.split("").includes(key.key)) {
-        console.log("la incluye" + key.key);
-        this.addCorrectLetter(key.key);
-      } else {
-        console.log("NO la incluye" + key.key);
-        this.addWrongLetter(key.key);
-      }
-    } else {
-      console.log("No es una letra");
-    }
-  }
   checkGameOver() {
     if (this.errorsLeft === 0) {
+      console.log("GAMEOVER");
       return true;
     } else {
       return false;
@@ -63,10 +49,30 @@ class Hangman {
 
   checkWinner() {
     if (this.guessedLetter.length === this.secretWord.length) {
+      console.log("YOU WIN");
       return true;
     } else {
       return false;
     }
+  }
+
+  addCorrectLetter(i) {
+    console.log("EL INDEX  " + i);
+    console.log("LA LETRA  " + this.secretWord[i]);
+    for (let j = 0; j < this.secretWord.length; j++) {
+      if (this.secretWord[i] === this.secretWord[j]) {
+        this.guessedLetter += this.secretWord[i].toUpperCase();
+      }
+    }
+    this.letters.push(this.secretWord[i]);
+    console.log("Letras adivinadas " + this.guessedLetter);
+  }
+
+  addWrongLetter(letter) {
+    this.letters.push(letter);
+    this.errorsLeft--;
+    console.log("Intentos " + this.errorsLeft);
+    console.log(this.letters);
   }
 }
 
@@ -74,13 +80,20 @@ document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
   console.log("SECRET WORD: " + hangman.secretWord);
-  //hangman.getWord();
 };
 
 document.onkeydown = e => {
-  hangmanCanvas.createBoard();
-  if (hangman.checkIfLetter(e)) {
-    console.log("Is letter");
+  let pressedLetter = e.key.toUpperCase();
+  if (
+    hangman.checkIfLetter(e.keyCode) &&
+    hangman.checkClickedLetters(pressedLetter)
+  ) {
+    if (hangman.secretWord.includes(pressedLetter)) {
+      hangman.addCorrectLetter(hangman.secretWord.indexOf(pressedLetter));
+    } else {
+      hangman.addWrongLetter(pressedLetter);
+    }
   }
-  hangman.checkIfCorrect(e);
+  hangman.checkWinner();
+  hangman.checkGameOver();
 };

@@ -1,46 +1,51 @@
 /*jshint esversion: 6 */
-// var canvas = document.getElementById('hangman');
-// var ctx = canvas.getContext('2d');
 var canvas = document.getElementById("hangman");
 class HangmanCanvas {
   constructor(secretWord) {
-    //this.ctx = document.getElementById("hangman").getContext("2d");
     this.ctx = canvas.getContext("2d");
-    this.linePositionX = 250;
-    this.linePositionY = 700;
-    this.lineWidth = 40;
-    this.lineMargin = 20;
+    this.secretWord = secretWord;
+    this.secretLetters = hangman.secretWord.split("");
+    this.createBoard();
+    this.drawLines();
   }
 
   createBoard() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    this.drawLines();
+    //this.linePositionX = 250;
+    this.guessedWordsPosX = 250;
+    this.guessedWordsPosY = 700;
+    this.lineWidth = 40;
+    this.lineMargin = 20;
+    this.wrongWordsPosX = 350;
+    this.wrongWordsPosY = 200;
   }
 
   drawLines() {
-    let secretLetters = hangman.secretWord.split("");
-    let initialPos = this.linePositionX;
-    let endPos = initialPos + this.lineWidth;
-    for (let i = 0; i < secretLetters.length; i++) {
-      // console.log(secretLetters[i]);
-      // console.log(initialPos);
-      // console.log(endPos);
-      this.ctx.beginPath();
-      this.ctx.moveTo(initialPos, this.linePositionY);
-      this.ctx.lineTo(endPos, this.linePositionY);
-      this.ctx.stroke();
-      initialPos += this.lineWidth + this.lineMargin;
-      endPos += this.lineWidth + this.lineMargin;
-    }
+    // this.initialPos = this.guessedWordsPosX;
+    // this.endPos = initialPos + this.lineWidth;
+    // for (let i = 0; i < this.secretLetters.length; i++) {
+    //   // console.log(secretLetters[i]);
+    //   // console.log(initialPos);
+    //   // console.log(endPos);
+    //   this.ctx.beginPath();
+    //   this.ctx.moveTo(this.initialPos, this.linePositionY);
+    //   this.ctx.lineTo(this.endPos, this.guessedWordsPosY);
+    //   this.ctx.stroke();
+    //   initialPos += this.lineWidth + this.lineMargin;
+    //   this.endPos += this.lineWidth + this.lineMargin;
+    // }
   }
 
+  // write(letter, x, y) {
+  //   this.ctx.font = "70px Arial";
+  //   this.ctx.fillText(letter, x, y);
+  // }
+
   writeCorrectLetter(index) {
-    // if (hangman.checkClickedLetters(key)) {
-    //   this.ctx.fillStyle = "black";
-    //   this.ctx.font = "42px sans-serif";
-    //   this.ctx.fillText(key, 50, 50);
-    //   this.ctx.moveTo(50 + 5, 50 + 5);
-    // }
+    console.log(index);
+    this.ctx.font = "42px sans-serif";
+    this.ctx.fillText(this.secretWord[index], 50, 50);
+    this.ctx.moveTo(50 + 5, 50 + 5);
   }
 
   writeWrongLetter(letter, errorsLeft) {
