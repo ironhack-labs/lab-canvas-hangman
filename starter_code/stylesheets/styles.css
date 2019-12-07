@@ -15,3 +15,26 @@
 #hangman {
   text-align: center;
 }
+
+.endgame {
+  width: 500px;
+  height: 350px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -175px;
+}
+
+#winner, #loser {
+  display: none;
+}
+
+.visible {
+  display: block !important;
+}
+
+.resp {
+  width: 100%;
+  height: auto;
+}
