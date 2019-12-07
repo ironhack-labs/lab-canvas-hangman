@@ -2,8 +2,8 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["papelina", "periquito", "toledano"]
-    this.secretWord = ""
+    this.words = ["PAPELINA", "QUILLO", "TOLEDANO"]
+    this.secretWord = this.getWord()
     this.letters = []
     this.guessedLetter = ""
     this.errorsLeft = 10
@@ -16,7 +16,7 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    let letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "u", "v", "w", "x", "y", "z"];
+    let letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s","t", "u", "v", "w", "x", "y", "z"];
 
     return letter.includes(String.fromCharCode(keyCode).toLowerCase())
 
@@ -31,17 +31,31 @@ class Hangman {
   }
 
   addCorrectLetter(i) {
-
+    
     if (this.secretWord.includes(this.secretWord[i]))
       this.guessedLetter += this.secretWord[i].toUpperCase()
     this.checkWinner()
 
   }
+  
 
   addWrongLetter(letter) {
-    if (!this.secretWord.includes(letter))
+    console.log(letter)
+    if (!this.secretWord.toLocaleLowerCase().includes(letter.toLowerCase())) {
       this.errorsLeft--
-    this.checkGameOver()
+      console.log(this.errorsLeft)
+      newBoard.writeWrongLetter(letter, this.errorsLeft)
+      if(this.checkGameOver()) return console.log("You lost")
+    } else {
+      this.letters.push(letter)
+      for(let a = 0; a < this.secretWord.length; a++){
+        if(this.secretWord[a] === letter) {
+          this.guessedLetter += letter
+          newBoard.writeCorrectLetter(a, letter)
+        }
+      }
+      if(this.checkWinner())   return console.log("You win!")
+    }
 
   }
   checkGameOver() {
@@ -51,15 +65,7 @@ class Hangman {
   }
 
   checkWinner() {
-    
-    // let sWord = this.secretWord.split("")
-    // let gLetter = this.secretWord.split("")
 
-    // if(sWord.length ==)
-    
-    // for(let i = 0; i = this.secretWord.length; i++){
-
-    // }
     return this.guessedLetter.length === this.secretWord.length
 
   }
@@ -67,10 +73,28 @@ class Hangman {
 }
 
 document.getElementById('start-game-button').onclick = () => {
-  console.log("hola")
+
   hangman = new Hangman();
+  newBoard = new HangmanCanvas(hangman.getWord());
+  newBoard.createBoard()
+  console.log(hangman.secretWord)
+  
+
 };
 
 document.onkeydown = (e) => {
+  let code = e.keyCode
+  let keyIs = e.key
+  if (hangman.checkIfLetter(code)) {
+    if (hangman.checkClickedLetters(keyIs.toUpperCase()))
+      hangman.addWrongLetter(keyIs.toUpperCase())
+      
+      
+    // console.log(hangman.letters)
+    // console.log(hangman.errorsLeft)
+    // console.log(hangman.checkClickedLetters(keyIs))
+    // console.log(hangman.guessedLetter)
+  }
+
 
 };
