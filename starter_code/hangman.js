@@ -2,8 +2,8 @@ let hangman;
 
 class Hangman {
   constructor() {
-    this.words = ["apple", "cat", "are"]; //array of words player needs to guess.Select1 randomly
-    this.secretWord = "IRONHACK"; // word chosen for each game
+    this.words = ["apple", "cat", "house"]; //array of words player needs to guess.Select1 randomly
+    this.secretWord = this.getWord(); // word chosen for each game
     this.letters = ["R"]; //store letters the user already clicked, so we do not repeat them.
     this.guessedLetter = ""; // a string to store the letters the user clicked and guessed
     this.errorsLeft = 10; //Number of lifes. Will decrease every time the user clicks on a
@@ -49,26 +49,19 @@ class Hangman {
   }
 
   checkWinner() {
-    //Secret word = Ironhack    // guessedLetter ="oca"
-    let lettersSplit = this.guessedLetter.split(""); //[ 'o', 'c', 'a' ]
+    //Check if we win checkWinner should return true if we guess all letters
+    let lettersSplit = this.guessedLetter.split("");
 
     lettersSplit.every(value => {
       return this.secretWord.includes(value);
     });
     return false;
-
-    /*
-    if (this.secretWord.includes(this.guessedLetter)) {
-      return true;
-    }
-    return false;
-
-    */
   }
 }
 
 document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas();
 };
 
 document.onkeydown = e => {};
