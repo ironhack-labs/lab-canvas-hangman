@@ -1,40 +1,14 @@
-// const canvas = document.getElementById('hangman');
-// const ctx = canvas.getContext('2d');
-
-
-// //Middle Circle
-// ctx.beginPath();
-// ctx.arc(500, 300, 75, 0, Math.PI * 2);
-// ctx.fillStyle = "peru";
-// ctx.fill();
-// ctx.closePath();
-
 class HangmanCanvas {
   constructor(secretWord) {
     this.ctx = document.getElementById('hangman').getContext('2d');
-    
   }
 
   createBoard() {
-    // this.ctx.beginPath();
-    // this.ctx.arc(600, 400, 75, 0, Math.PI * 2);
-    // this.ctx.fillStyle = "peru";
-    // this.ctx.fill();
-    // this.ctx.closePath();
     this.ctx.strokeRect(0, 0, 1200, 800);
-    // this.ctx.fillRect = 'ligth-blue';
-    // this.ctx.closePath()
-
-    // this.ctx.beginPath()
-    // this.ctx.moveTo(360,600)
-    // this.ctx.lineTo(360,200)
-    // this.ctx.stroke()
-    // this.ctx.fillStyle('black')
-    // this.ctx.closePath()
-    
   }
 
   drawLines() {
+
     //THE HANG
     this.ctx.beginPath()
     this.ctx.moveTo(240,600)
@@ -46,27 +20,53 @@ class HangmanCanvas {
     this.ctx.moveTo(240,600)
     this.ctx.lineTo(310,690)
     this.ctx.lineTo(170,690)
+    this.ctx.stroke();
+    this.ctx.closePath();
 
-    //CORRECT LETTER SPACES
-    this.ctx.moveTo(360, 690)
-    this.ctx.lineTo(410, 690)
-    this.ctx.moveTo(460, 690)
-    this.ctx.lineTo(520, 690)
-    this.ctx.moveTo(570, 690)
-    this.ctx.lineTo(630, 690)
-    this.ctx.moveTo(680, 690)
-    this.ctx.lineTo(740, 690)
-    this.ctx.moveTo(790, 690)
-    this.ctx.lineTo(850, 690)
-    this.ctx.moveTo(900, 690)
-    this.ctx.lineTo(960, 690)
-    this.ctx.moveTo(1010, 690)
-    this.ctx.lineTo(1070, 690)
-    this.ctx.moveTo(1120, 690)
-    this.ctx.lineTo(1170, 690)
-    this.ctx.stroke()
-    this.ctx.closePath()
 
+    //PARA VISUALIZAR CASO PRECISE
+    // this.ctx.moveTo(360, 690)
+    // this.ctx.lineTo(410, 690)
+    // this.ctx.moveTo(460, 690)
+    // this.ctx.lineTo(520, 690)
+    // this.ctx.moveTo(570, 690)
+    // this.ctx.lineTo(630, 690)
+    // this.ctx.moveTo(680, 690)
+    // this.ctx.lineTo(740, 690)
+    // this.ctx.moveTo(790, 690)
+    // this.ctx.lineTo(850, 690)
+    // this.ctx.moveTo(900, 690)
+    // this.ctx.lineTo(960, 690)
+    // this.ctx.moveTo(1010, 690)
+    // this.ctx.lineTo(1070, 690)
+    // this.ctx.moveTo(1120, 690)
+    // this.ctx.lineTo(1170, 690)
+    // this.ctx.stroke()
+    // this.ctx.closePath()
+
+     //SECRET WORD SPACES
+    //  let x = 360;
+    //  let y = 690;
+    //  for(let i = 0; i < this.secretWord; i += 0){
+    //    this.ctx.beginPath();
+    //    this.ctx.moveTo(x, y)
+    //    this.ctx.lineTo(x + 50, y)
+    //    this.ctx.stroke()
+    //    this.ctx.closePath();
+    //    x += 60
+    //  }
+
+  }
+
+  writeCorrectLetter(index) {
+
+  }
+
+  writeWrongLetter(letter, errorsLeft) {
+
+  }
+
+  drawHangman() {
     //HANGMAN HEAD
     this.ctx.beginPath();
     // this.ctx.moveTo(540,270) //ponto inicial forca
@@ -153,20 +153,6 @@ class HangmanCanvas {
     this.ctx.fillStyle = "yellowgreen";
     this.ctx.textAlign = "center";
     this.ctx.fillText("B", 850, 250);
-
-
-  }
-
-  writeCorrectLetter(index) {
-
-  }
-
-  writeWrongLetter(letter, errorsLeft) {
-
-  }
-
-  drawHangman(shape) {
-
   }
 
   gameOver() {

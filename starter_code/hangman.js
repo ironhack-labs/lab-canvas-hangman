@@ -71,13 +71,18 @@ document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
-  hangmanCanvas.drawLines()
+  hangmanCanvas.drawLines();
+  hangmanCanvas.drawHangman();
 };
 
 
 
 document.onkeydown = (e) => {
-
+  const key = e.key.toUpperCase();
+  const keyCode = e.keyCode;
+  if(hangman.checkIfLetter(keyCode)){
+    hangman.checkClickedLetters(key);
+  }
 };
 
 
