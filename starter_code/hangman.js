@@ -80,6 +80,7 @@ document.getElementById("start-game-button").onclick = () => {
   hangman = new Hangman();
   hangmanCanvas = new HangmanCanvas(hangman.secretWord);
   console.log("SECRET WORD: " + hangman.secretWord);
+  hangmanCanvas.createBoard();
 };
 
 document.onkeydown = e => {
@@ -90,8 +91,12 @@ document.onkeydown = e => {
   ) {
     if (hangman.secretWord.includes(pressedLetter)) {
       hangman.addCorrectLetter(hangman.secretWord.indexOf(pressedLetter));
+      hangmanCanvas.writeCorrectLetter(
+        hangman.secretWord.indexOf(pressedLetter)
+      );
     } else {
       hangman.addWrongLetter(pressedLetter);
+      hangmanCanvas.writeWrongLetter(pressedLetter, hangman.errorsLeft);
     }
   }
   hangman.checkWinner();
