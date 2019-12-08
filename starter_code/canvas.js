@@ -5,19 +5,22 @@ class HangmanCanvas {
     this.ctx = canvas.getContext("2d");
     this.secretWord = secretWord;
     this.secretLetters = hangman.secretWord.split("");
+    this.winImg = new Image();
+    this.looseImg = new Image();
     this.createBoard();
     this.drawLines();
   }
 
   createBoard() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //this.linePositionX = 250;
     this.correctLettersPosX = 350;
     this.correctLettersPosY = 700;
     this.lineWidth = 40;
     this.lineMargin = 20;
     this.wrongLettterPosX = 550;
     this.wrongLettersPosY = 200;
+    this.winImg.src = "./images/awesome.png";
+    this.looseImg.src = "./images/gameover.png";
     this.drawLines();
   }
 
@@ -108,9 +111,19 @@ class HangmanCanvas {
     this.ctx.closePath();
   }
 
-  gameOver() {}
+  gameOver() {
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillStyle = "#151515";
+    this.ctx.drawImage(this.looseImg, 400, 250, 300, 200);
+  }
 
-  winner() {}
+  winner() {
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillStyle = "#151515";
+    this.ctx.drawImage(this.winImg, 400, 250, 300, 200);
+  }
 }
 console.log("w " + canvas.width);
 console.log("h " + canvas.height);
