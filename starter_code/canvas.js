@@ -125,5 +125,3 @@ class HangmanCanvas {
     this.ctx.drawImage(this.winImg, 400, 250, 300, 200);
   }
 }
-console.log("w " + canvas.width);
-console.log("h " + canvas.height);
