@@ -99,6 +99,12 @@ document.onkeydown = e => {
       hangmanCanvas.writeWrongLetter(pressedLetter, hangman.errorsLeft);
     }
   }
-  hangman.checkWinner();
-  hangman.checkGameOver();
+
+  if (hangman.checkWinner()) {
+    hangmanCanvas.winner();
+  }
+
+  if (hangman.checkGameOver()) {
+    hangmanCanvas.gameOver();
+  }
 };
