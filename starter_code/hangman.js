@@ -26,21 +26,23 @@ class Hangman {
         return !this.letters.includes(key);
     }
 
-    validateLetter(key) {
-        let index = this.secretWord.indexOf(key);
+    validateLetter(letter) {
+        let indexes = this.secretWord
+                        .split('')
+                        .map((l, i) => { if (l === letter) return i })
+                        .filter(pos => pos > -1);
 
-        if (index > -1) {
-            this.addCorrectLetter(index);
-            return index;
-        }
+        this.addCorrectLetter(indexes);
+        return indexes;
     }
 
-    addCorrectLetter(i) {
-        this.guessedLetter += this.secretWord[i];
+    addCorrectLetter(indexes) {
+        indexes.forEach(i => this.guessedLetter += this.secretWord[i]);
         this.checkWinner();
     }
 
     addWrongLetter(letter) {
+        this.letters.push(letter);
         this.errorsLeft--;
         this.checkGameOver();
     }
@@ -60,31 +62,29 @@ document.getElementById('start-game-button').onclick = () => {
     hangman.secretWord = hangman.getWord();
 
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
     hangmanCanvas.drawLines();
 };
 
 document.onkeydown = (e) => {
 
-    if (hangman.checkGameOver() || hangman.checkWinner()) {
-        return;
-    }
-
-    if (!hangman.checkIfLetter(e.keyCode)) {
+    if (!hangman.checkIfLetter(e.keyCode) || hangman.checkWinner() || hangman.checkGameOver()) {
         return;
     }
 
     if (hangman.checkClickedLetters(e.key)) {
 
-        hangman.letters.push(e.key);
+        let indexes = hangman.validateLetter(e.key);
 
-        let keyIndex = hangman.validateLetter(e.key);
-
-        if (keyIndex > -1) {
-            hangmanCanvas.writeCorrectLetter(keyIndex);
+        if (indexes.length) {
+            hangmanCanvas.writeCorrectLetter(indexes);
+            if (hangman.checkWinner()) hangmanCanvas.winner();
         } else {
             hangman.addWrongLetter(e.key);
             hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft);
             hangmanCanvas.drawHangman(hangman.errorsLeft);
+
+            if (hangman.checkGameOver()) hangmanCanvas.gameOver();
         }
     }
 };
