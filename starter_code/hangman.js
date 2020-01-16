@@ -25,27 +25,36 @@ getWord() {
   }
 
   addCorrectLetter(i) {
+    //convertir a letra, tengo que hacer un milenio de ifs? mmmm
     this.guessedLetter+=i //espero que se concatenen por ser strings
   }
 
-//   addWrongLetter(letter) {
+  addWrongLetter(letter) {
+    this.errorsLeft--
+  }
 
-//   }
+  checkGameOver() {
+    return this.errorsLeft <= 0 ? true : false
+  }
 
-//   checkGameOver() {
+  checkWinner() {
+    return this.guessedLetter === this.secretWord ? true : false
+  }
 
-//   }
+}
 
-//   checkWinner() {
-
-//   }
+class HangmanCanvas {
+  constructor() {
+    this.canvas = document.getElementById('hangman')
+  }
 
 }
 
 document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman();
+  hangman = new Hangman()
 };
 
 document.onkeydown = (e) => {
-
+  hangman.checkIfLetter(e.keyCode)
+  hangman.checkClickedLetters(e.keyCode)
 };
