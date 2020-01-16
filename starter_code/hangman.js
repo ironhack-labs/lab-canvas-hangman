@@ -38,7 +38,6 @@ let hangmanCanvas;
 
      addCorrectLetter(i) {
       this.guessedLetter+=this.secretWord[i].toUpperCase()
-      this.checkWinner()
       }
     
      addWrongLetter(letter) {
@@ -75,8 +74,28 @@ document.getElementById('start-game-button').onclick = () => {
 };
 
 document.onkeydown = (e) => {
+  let letra=e.key.toUpperCase()
   if(hangman.checkIfLetter(e.keyCode) && !hangman.checkClickedLetters(e.key)){
+    if(hangman.secretWord.includes(letra)){
+      hangman.addCorrectLetter(hangman.secretWord.indexOf(letra))
+      for (let i=0;i<hangman.secretWord.length;i++){
+        if(hangman.secretWord[i]===letra){
+          hangmanCanvas.writeCorrectLetter(i)
+        }
+      }
+      if (hangman.checkWinner()){
+        hangmanCanvas.winner()
+      }
 
+    }
+    else{
+      hangman.addWrongLetter(letra)
+      hangmanCanvas.writeWrongLetter(letra,hangman.errorsLeft)
+      hangmanCanvas.drawHangman(hangman.errorsLeft)
+      if (hangman.checkGameOver()){
+        hangmanCanvas.gameOver()
+      }
+    }
   }
 hangmanCanvas.drawLines();
 };

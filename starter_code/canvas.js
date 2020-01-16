@@ -37,21 +37,23 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     let ctx=this.ctx
+    ctx.font = '48px serif';
     ctx.lineWidth=10
     ctx.lineCap="round"
     ctx.lineJoin="round"
     let ancho=700/hangman.secretWord.length
-    ctx.fillText(hangman.secretWord[index],500+(ancho*index),700-ancho,ancho)
+    ctx.fillText(hangman.secretWord[index],500+(ancho*index),700-ancho,"100px")
+    ctx.stroke()
   }
 
   writeWrongLetter(letter, errorsLeft) {
     let ctx=this.ctx
     ctx.lineWidth=10
+    ctx.font = '48px serif';
     ctx.lineCap="round"
     ctx.lineJoin="round"
-    let ancho=500/hangman.secretWord.length
-    ctx.fillText(hangman.secretWord[index],700+(ancho*(10-errorsLeft)),500-ancho,ancho)
-  
+    ctx.fillText(letter,700+(40*(10-errorsLeft)),460,"100px")
+    ctx.stroke()
   }
 
   drawHangman(puntaje) {
@@ -73,6 +75,7 @@ class HangmanCanvas {
     ctx.lineTo(700,170)
     }
     if(puntaje===6){//para cara
+    ctx.moveTo(760,230)
     ctx.arc(700,230,60,0,Math.PI*2)
     }
     if(puntaje===5){//para cuerpo
@@ -99,15 +102,26 @@ class HangmanCanvas {
     ctx.closePath()
   }
 
-
-
-  /*
   gameOver() {
+    let ctx=this.ctx
+    ctx.font = '48px serif';
+    ctx.lineWidth=10
+    ctx.lineCap="round"
+    ctx.lineJoin="round"
+    ctx.fillStyle="green"
+    ctx.fillText("PERDISTE",700,600)
 
   }
 
   winner() {
-
-  }*/
+    let ctx=this.ctx
+    ctx.font = '48px serif';
+    ctx.lineWidth=10
+    ctx.lineCap="round"
+    ctx.lineJoin="round"
+    ctx.fillStyle="green"
+    ctx.fillText("GANASTE",700,600)
+  
+  }
 
 }
