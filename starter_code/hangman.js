@@ -2,7 +2,7 @@ let hangman;
 
  class Hangman {
    constructor() {
-  this.words=['jorge','ironhack','garibaldi','pokemon','gargola'];
+  this.words=['jorge','ironhack','ajedrez','pokemon','gargola'];//maximo 8 letras
   this.secretWord = '';
   this.letters=[];
   this.guessedLetter='';
@@ -23,11 +23,13 @@ let hangman;
 
    checkClickedLetters(key) {
    if(this.letters.includes(key))
-   return false
-   return true
+     return false;
+     return true;
+
+
    }
 
-  addCorrectLetter(i) {
+  addCorrectLetter(key) {
   //  this.guessedLetter += this.secretWord[i].toUpperCase(); 
     this.guessedLetter+=key;
     this.checkWinner();
@@ -73,6 +75,11 @@ let hangman;
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangman.secretWord=hangman.getWord();
+  hangmanCanvas=new HangmanCanvas(hangman.secretWord);
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawHangman();
+  hangmanCanvas.drawLines();
 };
 
 
@@ -84,6 +91,8 @@ document.onkeydown = (e) => {
     hangman.letters.push(key); 
     if(hangman.checkClickedLetters(key)){
       hangman.addCorrectLetter(key);
+    }else{
+      hangman.addWrongLetter(key);
     }
   
 }
