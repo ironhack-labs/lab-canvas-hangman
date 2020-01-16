@@ -1,10 +1,10 @@
 let hangman;
-let hangmanCanvas
+// let hangmanCanvas
 
 class Hangman {
 
   constructor() {
-    this.words = ['perro', 'gato', 'jirafa']
+    this.words = ['GATO', 'GATO', 'GATO']
     this.secretWord = this.getWord()
     this.letters = []
     this.guessedLetter = ''
@@ -39,6 +39,7 @@ class Hangman {
 
   addWrongLetter(letter) {
     if (this.errorsLeft > 0) {
+      this.letters.push(letter)
       this.errorsLeft--
       this.checkGameOver()
     }
@@ -64,18 +65,22 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
-  hangmanCanvas = new HangmanCanvas(hangman.getWord())
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord)
   hangmanCanvas.createBoard()
-  hangmanCanvas.drawLines()
 };
 
 document.onkeydown = (e) => { // Cuando presiones una tecla.
   
-  if (hangman.checkClickedLetters(e.keyCode)) {  // ¿Está presionando una letra?
-    let letter = e.key.toUpperCase() // Guarda la letra en una variable.
+  if (hangman.checkIfLetter(e.keyCode)) {  // ¿Está presionando una letra?
+    let letter = e.key.toUpperCase() // Si... Guarda la letra en una variable.
     if (hangman.checkClickedLetters(letter)) { // ¿Ya se ha presionado esa letra?
-      if (hangman.secretWord.includes(letter)) { // No, entonces
-        
+      if(hangman.secretWord.includes(letter)) { // No (TRUE)... ¿La palabra secreta incluye la letra?
+        console.log('letra')
+        hangman.addCorrectLetter(hangman.secretWord.indexOf(letter)) // Si... Añade la letra a guessedLetter.
+        hangmanCanvas.writeCorrectLetter(letter) // Pinta la letra en el canvas.
+      } else {  // La palabra secreta no incluye la letra, entonces...
+        hangman.addWrongLetter(letter) // Añade la letra al arreglo de letras, disminuye los errores restantes y revisa si Game Over.
+        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft) // Pinta la letra incorrecta en el canvas.
       }
     }
   }
