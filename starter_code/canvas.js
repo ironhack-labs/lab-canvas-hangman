@@ -34,3 +34,31 @@ class HangmanCanvas {
   }
 
 }
+
+const ctx = document.getElementById('hangman').getContext('2d');
+//horca
+ctx.beginPath();
+ctx.moveTo(300,700)
+ctx.lineTo(300,200)
+ctx.stroke()
+ctx.closePath()
+//cuerpo
+ctx.beginPath();
+;
+ctx.fill()
+//izquierdo
+ctx.beginPath();
+
+ctx.fill()
+//derecho
+ctx.beginPath();
+
+ctx.fill()
+//pIz
+ctx.beginPath();
+
+ctx.fill()
+//pDr
+ctx.beginPath();
+
+ctx.fill()
