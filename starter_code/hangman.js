@@ -69,6 +69,15 @@ document.getElementById('start-game-button').onclick = () => {
   hangmanCanvas.drawLines()
 };
 
-document.onkeydown = (e) => {
-  //hangmanCanvas.createBoard()
+document.onkeydown = (e) => { // Cuando presiones una tecla.
+  
+  if (hangman.checkClickedLetters(e.keyCode)) {  // ¿Está presionando una letra?
+    let letter = e.key.toUpperCase() // Guarda la letra en una variable.
+    if (hangman.checkClickedLetters(letter)) { // ¿Ya se ha presionado esa letra?
+      if (hangman.secretWord.includes(letter)) { // No, entonces
+        
+      }
+    }
+  }
+
 };
