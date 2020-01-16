@@ -1,36 +1,36 @@
-
 class HangmanCanvas {
-  constructor(secretWord) {
-    this.ctx = document.getElementById('hangman').getContext('2d');
-    
-  }
+    constructor(secretWord) {
+        this.ctx = document.getElementById('hangman').getContext('2d');
+        this.secretWord = secretWord;
+    }
 
-  createBoard() {
+    createBoard() {
+        const $canvas = document.querySelector("canvas");
+        const ctx = $canvas.getContext("2d");
+    }
 
-  }
+    drawLines() {
 
-  drawLines() {
+    }
 
-  }
+    writeCorrectLetter(index) {
 
-  writeCorrectLetter(index) {
+    }
 
-  }
+    writeWrongLetter(letter, errorsLeft) {
 
-  writeWrongLetter(letter, errorsLeft) {
+    }
 
-  }
+    drawHangman(shape) {
 
-  drawHangman(shape) {
+    }
 
-  }
+    gameOver() {
 
-  gameOver() {
+    }
 
-  }
+    winner() {
 
-  winner() {
-
-  }
+    }
 
 }
