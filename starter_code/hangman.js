@@ -27,11 +27,13 @@ let hangmanCanvas;
       }
 
    checkClickedLetters(key) {
-      if (this.letters.length<1 || this.letters.indexOf(key)>=0) 
+      if (this.letters.length<1 || this.letters.indexOf(key)<0) 
       {
+        this.letters.push(key)
         return false
       }
       else{
+        this.letters.push(key)
       return true
       }
       }
@@ -89,7 +91,7 @@ document.onkeydown = (e) => {
 
     }
     else{
-      if (hangman.checkClickedLetters(e.key)) return
+      if (!hangman.checkClickedLetters(e.key)) return
       hangman.addWrongLetter(letra)
       hangmanCanvas.writeWrongLetter(letra,hangman.errorsLeft)
       hangmanCanvas.drawHangman(hangman.errorsLeft)
