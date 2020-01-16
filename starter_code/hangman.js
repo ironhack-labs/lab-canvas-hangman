@@ -66,6 +66,9 @@ return (vid === this.secretWord.length);
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangman.getWord()
+  hangmanCan=new HangmanCanvas();
+  hangmanCan.createBoard()
 };
 
 document.onkeydown = (e) => {
