@@ -41,8 +41,9 @@ class HangmanCanvas {
     ctx.lineWidth=10
     ctx.lineCap="round"
     ctx.lineJoin="round"
+    ctx.fillStyle="black"
     let ancho=700/hangman.secretWord.length
-    ctx.fillText(hangman.secretWord[index],500+(ancho*index),700-ancho,"100px")
+    ctx.fillText(hangman.secretWord[index],500+(ancho*index),700-ancho,40)
     ctx.stroke()
   }
 
@@ -52,8 +53,8 @@ class HangmanCanvas {
     ctx.font = '48px serif';
     ctx.lineCap="round"
     ctx.lineJoin="round"
-    ctx.fillText(letter,700+(40*(10-errorsLeft)),460,"100px")
-    ctx.stroke()
+    ctx.fillStyle="black"
+    ctx.fillText(letter,800+(40*(10-errorsLeft)),460,40)
   }
 
   drawHangman(puntaje) {

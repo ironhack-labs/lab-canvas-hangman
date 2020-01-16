@@ -89,6 +89,7 @@ document.onkeydown = (e) => {
 
     }
     else{
+      if (hangman.checkClickedLetters(e.key)) return
       hangman.addWrongLetter(letra)
       hangmanCanvas.writeWrongLetter(letra,hangman.errorsLeft)
       hangmanCanvas.drawHangman(hangman.errorsLeft)
