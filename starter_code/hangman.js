@@ -1,10 +1,10 @@
-let hangman;
+let hangman
 // let hangmanCanvas
 
 class Hangman {
 
   constructor() {
-    this.words = ['GATO', 'GATO', 'GATO']
+    this.words = ['PERRO', 'GATO', 'HURON', 'PUERCO', 'RATA', 'AVE', 'LEON']
     this.secretWord = this.getWord()
     this.letters = []
     this.guessedLetter = ''
