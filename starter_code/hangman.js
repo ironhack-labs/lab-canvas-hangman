@@ -1,4 +1,5 @@
 let hangman;
+let hangmanCanvas;
 
 class Hangman {
   constructor() {
@@ -11,7 +12,8 @@ class Hangman {
 
   getWord() {
     const wordIndex = Math.floor( Math.random() * this.words.length)
-    return this.words[wordIndex]
+    this.secretWord = this.words[wordIndex].toLocaleUpperCase()
+    return this.secretWord
   }
 
   checkIfLetter(keyCode) {
@@ -20,16 +22,21 @@ class Hangman {
   }
 
   checkClickedLetters(key) {
-      if( !this.letters.includes(key) ){
-        this.letters.push(key.key)
-        if( this.secretWord.includes(key) ) this.addCorrectLetter(key)
-        return true
-      } 
+    if( this.checkIfLetter(key.keyCode )){
+      if( !this.letters.includes(key.key) ){
+        this.letters.push(key.key.toLocaleUpperCase())
+        
+        if( this.secretWord.includes(key.key.toLocaleUpperCase()) ) {
+          this.addCorrectLetter(key.key.toLocaleUpperCase())
+          return true
+        }
+        this.addWrongLetter(key.key)
+      } }
     return false
   }
 
   addCorrectLetter(i) {
-    this.guessedLetter += this.secretWord[i].toLocaleUpperCase()
+    if( !this.guessedLetter.includes(i.toLocaleUpperCase()) ) this.guessedLetter += i.toLocaleUpperCase()
     return this.checkWinner()
   }
 
@@ -50,8 +57,11 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas( hangman.getWord() )
 };
 
 document.onkeydown = (e) => {
   hangman.checkClickedLetters( e )
+  hangmanCanvas.createBoard()
+  hangmanCanvas.writeCorrectLetter(hangman.guessedLetter)
 };
