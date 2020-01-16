@@ -1,44 +1,124 @@
 let hangman;
 
-// class Hangman {
-//   constructor() {
+ class Hangman {
+   constructor() {
+  this.words=['jorge','ironhack','garibaldi','pokemon','gargola'];
+  this.secretWord = '';
+  this.letters=[];
+  this.guessedLetter='';
+  this.errorsLeft=10;
+   }
 
-//   }
+ getWord() {
+   return this.words[Math.floor(Math.random() *this.words.length)];
+   }
 
-//   getWord() {
+  checkIfLetter(keyCode) {
+    //65 corresponde al menor número que puede generar una letra que equivale a "a"
+    //90 corresponde al mayor numero que puede generar una letra que equivale a "z"
+   if(keyCode>=65&&keyCode<=90)  
+    return true;
+    return false;
+  }
 
-//   }
+   checkClickedLetters(key) {
+   if(this.letters.includes(key))
+   return false
+   return true
+   }
 
-//   checkIfLetter(keyCode) {
+  addCorrectLetter(i) {
+  //  this.guessedLetter += this.secretWord[i].toUpperCase(); 
+    this.guessedLetter+=key;
+    this.checkWinner();
 
-//   }
+   }
 
-//   checkClickedLetters(key) {
+  addWrongLetter(letter) {
+   this.errorsLeft--;
+   this.checkGameOver();
 
-//   }
+   }
 
-//   addCorrectLetter(i) {
+   checkGameOver() {
+   if(this.errorsLeft===0)
+   return true;
+   return false;
+   }
 
-//   }
+   checkWinner() {
 
-//   addWrongLetter(letter) {
+    let arrSec=this.secretWord.split('');
+    let arrGue=this.guessedLetter.split('');
+    let test = "";
 
-//   }
+    for(let i=0;i<arrSec.length;i++){
+      for(let j=0;j<arrGue.length;j++){
+        if(arrSec[i] === arrGue[j]){
+          test += this.secretWord[i];
+          arrGue.splice(j,1);
+          break;
+        }
+      }
+    }
+    if(test === this.secretWord)
+      return true;
+      return false;
+    
 
-//   checkGameOver() {
+  }
 
-//   }
+ }
 
-//   checkWinner() {
-
-//   }
-
-// }
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
 };
 
-document.onkeydown = (e) => {
 
+document.onkeydown = (e) => {
+  const key = e.key.toUpperCase();
+  const keyCode = e.keyCode;
+
+  if(hangman.checkIfLetter(keyCode)){
+    hangman.letters.push(key); 
+    if(hangman.checkClickedLetters(key)){
+      hangman.addCorrectLetter(key);
+    }
+  
+}
+  
 };
+
+
+
+/*
+checkWiner 
+Codigo de Prueba para Repl:
+
+let secretWord="jorge"
+let guessedLetter="efjersog"
+let arrSec=secretWord.split('')
+let arrGue=guessedLetter.split('')
+let test = "";
+
+  for(let i=0;i<arrSec.length;i++){
+    for(let j=0;j<arrGue.length;j++){
+      if(arrSec[i] === arrGue[j]){
+        test += secretWord[i];
+        arrGue.splice(j,1)
+        break;
+      }
+    }
+  }
+  console.log(test)
+   console.log(arrGue)
+   
+    if(test === secretWord){
+    console.log(true)
+  } else{
+    console.log(false)
+  }
+
+
+*/
