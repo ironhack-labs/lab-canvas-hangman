@@ -56,10 +56,10 @@ class HangmanCanvas {
       case 9: // base
         this.ctx.beginPath()
         this.ctx.fillStyle = 'purple'
-        this.ctx.moveTo(100,600)
-        this.ctx.lineTo(200,600)
-        this.ctx.lineTo(150,550)
-        this.ctx.lineTo(100,600)
+        this.ctx.moveTo(100, 600)
+        this.ctx.lineTo(200, 600)
+        this.ctx.lineTo(150, 550)
+        this.ctx.lineTo(100, 600)
         this.ctx.lineWidth = 5
         this.ctx.fill()
         this.ctx.closePath()
@@ -68,8 +68,8 @@ class HangmanCanvas {
         this.ctx.beginPath()
         this.ctx.lineWidth = 5
         this.ctx.lineCap = 'round'
-        this.ctx.moveTo(150,550)
-        this.ctx.lineTo(150,100)
+        this.ctx.moveTo(150, 550)
+        this.ctx.lineTo(150, 100)
         this.ctx.stroke()
         this.ctx.closePath()
         break
@@ -77,8 +77,8 @@ class HangmanCanvas {
         this.ctx.beginPath()
         this.ctx.lineWidth = 5
         this.ctx.lineCap = 'round'
-        this.ctx.moveTo(150,100)
-        this.ctx.lineTo(500,100)
+        this.ctx.moveTo(150, 100)
+        this.ctx.lineTo(500, 100)
         this.ctx.stroke()
         this.ctx.closePath()
         break
@@ -86,8 +86,8 @@ class HangmanCanvas {
         this.ctx.beginPath()
         this.ctx.lineWidth = 5
         this.ctx.lineCap = 'round'
-        this.ctx.moveTo(500,100)
-        this.ctx.lineTo(500,150)
+        this.ctx.moveTo(500, 100)
+        this.ctx.lineTo(500, 150)
         this.ctx.stroke()
         this.ctx.closePath()
         break;
@@ -114,16 +114,17 @@ class HangmanCanvas {
       case 4:
         this.ctx.beginPath()
         this.ctx.lineWidth = 5
-        this.ctx.moveTo(500,250)
-        this.ctx.lineTo(500,400)
+        this.ctx.moveTo(500, 250)
+        this.ctx.lineTo(500, 400)
         this.ctx.stroke()
         this.ctx.closePath()
         break;
       case 3:
         
         this.ctx.beginPath()
-        this.ctx.moveTo(500,400)
-        this.ctx.lineTo(450,500)
+        this.ctx.moveTo(500, 400)
+        this.ctx.lineTo(450, 500)
+        this.ctx.lineTo(430, 500)
         this.ctx.stroke()
         this.ctx.closePath()
         break
@@ -131,18 +132,25 @@ class HangmanCanvas {
           
         this.ctx.beginPath()
         this.ctx.lineWidth = 5
-        this.ctx.moveTo(500,400)
-        this.ctx.lineTo(550,500)
+        this.ctx.moveTo(500, 400)
+        this.ctx.lineTo(550, 500)
+        this.ctx.lineTo(570, 500)
         this.ctx.stroke()
         this.ctx.closePath()
         break
       case 1:
         this.ctx.beginPath()
-        this.ctx.moveTo(500,275)
-        this.ctx.lineTo(450,350)
+        this.ctx.moveTo(500, 275)
+        this.ctx.lineTo(450, 350)
         this.ctx.stroke()
         this.ctx.closePath()
         break;
+      case 0:
+        this.ctx.beginPath()
+        this.ctx.moveTo(500,275)
+        this.ctx.lineTo(550, 350)
+        this.ctx.stroke()
+        this.ctx.closePath()
     }
   }
 
