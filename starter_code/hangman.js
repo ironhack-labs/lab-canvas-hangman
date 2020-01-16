@@ -42,9 +42,6 @@ class Hangman {
     return false
   }
 }
-hangmanCanvas = new HangmanCanvas(hangman.getWord());
-hangmanCanvas.createBoard()
-hangmanCanvas.drawLines()
 
 document.onkeydown = (element) => {
   if (hangman.checkIfLetter(element.keyCode)) {
@@ -54,16 +51,20 @@ document.onkeydown = (element) => {
       hangman.addCorrectLetter(index)
       console.log(hangman.checkWinner());
       if (hangman.checkWinner()) {
-        console.log('Ganador');
+        console.log('Ganador!!!!');
         hangmanCanvas.winner()
       }
     } else {
       hangman.addWrongLetter(element.key)
       hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft)
       if (hangman.checkGameOver()) {
-        console.log('Perdiste')
+        console.log('Lo siento, intentalo nuevamenete')
         hangmanCanvas.gameOver()
       }
     }
   }
+};
+
+document.getElementById('start-game-button').onclick = () => {
+  hangman = new Hangman();
 };
