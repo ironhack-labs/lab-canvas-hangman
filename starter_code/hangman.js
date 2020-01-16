@@ -1,4 +1,6 @@
 let hangman;
+let indexWrongLetter;
+let anyWrong=false;
 
  class Hangman {
    constructor() {
@@ -22,9 +24,13 @@ let hangman;
   }
 
    checkClickedLetters(key) {
-   if(this.letters.includes(key))
-     return false;
-     return true;
+   if(this.letters.includes(key)){
+     return false
+   }else{
+    this.letters.push(key);
+   return true 
+  }
+  
 
 
    }
@@ -39,6 +45,7 @@ let hangman;
   addWrongLetter(letter) {
    this.errorsLeft--;
    this.checkGameOver();
+   hangmanCanvas.drawHangman(this.errorsLeft);
 
    }
 
@@ -75,28 +82,40 @@ let hangman;
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
-  hangman.secretWord=hangman.getWord();
+  hangman.secretWord=hangman.getWord().toUpperCase();
   hangmanCanvas=new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
-  hangmanCanvas.drawHangman();
+  hangmanCanvas.drawHangman(hangman.errorsLeft);
   hangmanCanvas.drawLines();
+  indexWrongLetter=590;//me sirve para referencia del punto en el eje x donde se colocara la primera letra
 };
 
 
 document.onkeydown = (e) => {
+  if(Hangman.errorsLeft!=0){
   const key = e.key.toUpperCase();
   const keyCode = e.keyCode;
-
+  
   if(hangman.checkIfLetter(keyCode)){
-    hangman.letters.push(key); 
+    
+    
+    
     if(hangman.checkClickedLetters(key)){
+      
+      hangmanCanvas.writeCorrectLetter(key);
+      if(anyWrong){
+        hangman.addWrongLetter(key);
+        anyWrong=false;
+      }
+      
       hangman.addCorrectLetter(key);
     }else{
+      
       hangman.addWrongLetter(key);
     }
   
 }
-  
+}
 };
 
 
