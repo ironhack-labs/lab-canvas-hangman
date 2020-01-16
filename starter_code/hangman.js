@@ -41,18 +41,28 @@ this.checkWinner()
 }
 
 addWrongLetter(letter) {
-
+this.errorsLeft-=1
+this.checkGameOver()
+}
+//si los puntos de viida son 0 regresa gameover
+checkGameOver() {
+return (this.errorsLeft === 0)
 }
 
-//   checkGameOver() {
-
-//   }
-
+//que los puntos sean mayores a cero
 checkWinner() {
-
+let vid = 0;
+ for (let i = 0; i < this.secretWord.length; i += 1) {
+  if (this.guessedLetter.includes(this.secretWord[i])) {
+  vid += 1;
 }
 
 }
+return (vid === this.secretWord.length);
+}
+
+}7
+
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
