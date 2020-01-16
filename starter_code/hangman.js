@@ -66,8 +66,16 @@ let hangman;
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangman.getWord();
+  let hangmanCanvas=new HangmanCanvas();
+  hangmanCanvas.createBoard();
+  hangmanCanvas.drawLines();
+
 };
 
 document.onkeydown = (e) => {
+  if(hangman.checkIfLetter(e.keyCode) && !hangman.checkClickedLetters(e.key)){
 
+  }
+hangmanCanvas.drawLines();
 };
