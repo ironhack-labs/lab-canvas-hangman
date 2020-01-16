@@ -1,10 +1,13 @@
 let hangman;
 let indexWrongLetter;
 let anyWrong=false;
+let youWin=false;
 
  class Hangman {
    constructor() {
-  this.words=['jorge','ironhack','ajedrez','pokemon','gargola'];//maximo 8 letras
+  this.words=['ready','jorge','ironhack','teclado','mouse','taza','cafe',
+  'plato','codear','lapiz','metal','terminal','tech','pixel','pluma',
+'cable','usb','video','gamer','prestamo','postre','nombre','juego','queso'];//maximo 8 letras
   this.secretWord = '';
   this.letters=[];
   this.guessedLetter='';
@@ -25,6 +28,7 @@ let anyWrong=false;
 
    checkClickedLetters(key) {
    if(this.letters.includes(key)){
+   // this.guessedLetter+=key;
      return false
    }else{
     this.letters.push(key);
@@ -70,11 +74,14 @@ let anyWrong=false;
         }
       }
     }
-    if(test === this.secretWord)
+    //console.log(`revisando...test=${test} and secWord=${this.secretWord}`)
+    if(test === this.secretWord){
+      hangmanCanvas.winner();
       return true;
-      return false;
-    
-
+    }else{
+      return false
+    }
+      
   }
 
  }
@@ -82,6 +89,7 @@ let anyWrong=false;
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  youWin=false;
   hangman.secretWord=hangman.getWord().toUpperCase();
   hangmanCanvas=new HangmanCanvas(hangman.secretWord);
   hangmanCanvas.createBoard();
@@ -92,7 +100,7 @@ document.getElementById('start-game-button').onclick = () => {
 
 
 document.onkeydown = (e) => {
-  if(Hangman.errorsLeft!=0){
+  if(Hangman.errorsLeft!=0&&youWin===false){
   const key = e.key.toUpperCase();
   const keyCode = e.keyCode;
   

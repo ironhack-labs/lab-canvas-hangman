@@ -22,7 +22,7 @@
 
   drawLines() {
     this.ctx.fillStyle = "black";
-    console.log(hangman.secretWord.length)
+   // console.log(hangman.secretWord.length)
    for(let i=0;i<hangman.secretWord.length;i++){
     this.ctx.fillRect(365+(i*89),680,85,5); 
    }
@@ -133,6 +133,7 @@
   }
 
   gameOver() {
+  console.log("You are the looser!!!");
   this.ctx.fillStyle = "white";
   this.ctx.fillRect(0, 0,this.canvas.width,this.canvas.height);
   this.ctx.strokeStyle = "red";
@@ -142,15 +143,28 @@
  // img.src = 'http://pngimg.com/uploads/game_over/game_over_PNG15.png';
 //  this.ctx.drawImage(img,450,450,50,50);
 
-var image = document.getElementById('source');
+var image = document.getElementById('game-over');
 this.ctx.drawImage(image,0,0,this.canvas.width,this.canvas.height)
 //this.ctx.drawImage(image, 33, 71, 104, 124, 21, 20, 87, 104);
 
-console.log("game over")
+//console.log("game over")
   }
 
   winner() {
+  setTimeout(() => {console.log("You are the winner!!!");
+  this.ctx.fillStyle = "white";
+  this.ctx.fillRect(0, 0,this.canvas.width,this.canvas.height);
+  this.ctx.strokeStyle = "yellow";
+  this.ctx.lineWidth = 5;
+  this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height)
+  var image = document.getElementById('awesome');
+  this.ctx.drawImage(image,0,0,this.canvas.width,this.canvas.height)
+  youWin=true;
+},500);//se le agrega un retardo para que permita ver la palabra completa antes de ser borrada
+
 
   }
+
+
 
 }
