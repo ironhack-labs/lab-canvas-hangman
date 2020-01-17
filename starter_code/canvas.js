@@ -5,11 +5,11 @@ class HangmanCanvas {
     this.ctx = document.getElementById('canvasHang').getContext('2d')
     this.linesx = 500
     this.linesy = 600
-    this.wordArr = this.secretWord.split("")
+    this.wordArr = this.secretWord.split("") //marca error por alguna razon
   }
 
   createBoard(){
-    this.drawLines()
+    this.drawLines() //pone base de hangman y lineas palabra.
   }
 
   drawLines(){
@@ -37,12 +37,18 @@ class HangmanCanvas {
     });
   }
 
-  writeCorrectLetter(index){
-
+  writeCorrectLetter(index){ //se le pasa e.key = index
+    //let rightLetter = index[3].toLowerCase() //saca la letra que pico
+    let i = this.wordArr.indexOf(index) // checa el index de esa letra en la palabrasecreta
+    this.ctx.fillText(this.secretWord[i], this.linesx, this.linesy, 40); //lo pinta, usando indexNotation, si exsite eso
+    this.ctx.closePath()
   }
 
   writeWrongLetter(letter, errorsLeft) {
-
+    let le = index[3] //saca la letra que pico
+    let i = this.wordArr.indexOf(rightLetter) // checa el index de esa letra en la palabrasecreta
+    this.ctx.fillText(this.secretWord[i], 10, 30); //lo pinta, usando indexNotation, si exsite eso
+    this.ctx.closePath()
   }
 
   drawHangman(shape) {
