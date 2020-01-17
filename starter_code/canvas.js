@@ -40,14 +40,15 @@ class HangmanCanvas {
   writeCorrectLetter(index){ //se le pasa e.key = index
     //let rightLetter = index[3].toLowerCase() //saca la letra que pico
     let i = this.wordArr.indexOf(index) // checa el index de esa letra en la palabrasecreta
-    this.ctx.fillText(this.secretWord[i], this.linesx, this.linesy, 40); //lo pinta, usando indexNotation, si exsite eso
+    this.ctx.font = '30px serif';
+    this.ctx.fillText(this.secretWord[i], 500+i*65, this.linesy-50); //lo pinta, usando indexNotation, si exsite eso
     this.ctx.closePath()
   }
 
-  writeWrongLetter(letter, errorsLeft) {
-    let le = index[3] //saca la letra que pico
-    let i = this.wordArr.indexOf(rightLetter) // checa el index de esa letra en la palabrasecreta
-    this.ctx.fillText(this.secretWord[i], 10, 30); //lo pinta, usando indexNotation, si exsite eso
+  writeWrongLetter(letter, errorsLeft) { 
+    let i = this.wordArr.indexOf(letter) // checa el index de esa letra en la palabrasecreta
+    this.ctx.font = '30px serif';
+    this.ctx.fillText(this.wordArr[letter], 800+i*10, 200); //lo pinta, usando indexNotation, si exsite eso
     this.ctx.closePath()
   }
 

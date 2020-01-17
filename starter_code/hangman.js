@@ -13,7 +13,7 @@ getWord() {
 }
 
   checkIfLetter(keyCode) { //si lo que pique es letra
-    if (keyCode >= 65 || keyCode <= 91){ //de a a Z, sin ñ
+    if (keyCode >= 65 || keyCode < 91){ //de a a Z, sin ñ
       this.letters.push(keyCode)
       return true
     } else return false
@@ -25,9 +25,9 @@ getWord() {
 
   addCorrectLetter(i) { //i da letra
     //let guess = i[3].toLowerCase() ya la pone en minuscula, aqui scas el indice 3 y lo pone en minusculas
-    if(this.secretWord.includes(i)){ //checa si el indice3 de i en minusculas esta dentro el secretWord
+    //checa si el indice3 de i en minusculas esta dentro el secretWord
       this.guessedLetter+=i
-    }
+  
   }
 
   addWrongLetter(letter) {
@@ -51,11 +51,17 @@ document.getElementById('start-game-button').onclick = () => {
 
 document.onkeydown = (e) => {
   if (hangman.checkIfLetter(e.keyCode)){             //para que chce si lo que puse es letra, despues si esta bien y que mande llamar a dibujar la letra
-    if (hangman.checkClickedLetters(e.keyCode)) return //si es true es porque ya esta, CREO
+    if (hangman.checkClickedLetters(e.keyCode)){
+    } //si es true es porque ya esta, CREO
     else {
+      if(hangman.secretWord.includes(e.key)){
       hangman.addCorrectLetter(e.key)
       canvas.writeCorrectLetter(e.key)
+      } else {
+        hangman.addWrongLetter(e.key, hangman.errorsLeft)
+        canvas.writeWrongLetter(e.key)
 
+      }
     }
   }
 };
