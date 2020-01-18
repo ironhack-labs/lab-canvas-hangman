@@ -5,8 +5,8 @@ constructor() {
   this.words=['ahorcado', 'lavadora', 'invierno', 'plastico']
   this.secretWord=""
   this.letters=[]
-  this.guessedLetter=""
-  this.errorsLeft=10
+  this.guessedLetter=""//letras adi
+  this.errorsLeft=10 //intentos res
 
  }
 
@@ -36,13 +36,13 @@ return true
 }
 addCorrectLetter(i) {
 this.guessedLetter+=this.secretWord[i].toUpperCase()
-this.checkWinner()
+
 
 }
 
 addWrongLetter(letter) {
 this.errorsLeft-=1
-this.checkGameOver()
+
 }
 //si los puntos de viida son 0 regresa gameover
 checkGameOver() {
@@ -61,7 +61,7 @@ let vid = 0;
 return (vid === this.secretWord.length);
 }
 
-}7
+}
 
 
 document.getElementById('start-game-button').onclick = () => {
@@ -69,8 +69,21 @@ document.getElementById('start-game-button').onclick = () => {
   hangman.getWord()
   hangmanCan=new HangmanCanvas();
   hangmanCan.createBoard()
+  hangmanCan.drawLines(hangman.secretWord.length)
 };
 
 document.onkeydown = (e) => {
+if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
+    if (hangman.secretWord.includes(e.key)){
+       hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key))
+       hangman.checkWinner()
+    }
+    else  {
+      hangman.addWrongLetter(e.key)
+      hangmanCan.drawHangman(errorsLeft)
+      hangmanCan.writeWrongLetter(e.key,hangman.errorsLeft) //errores
+      hangman.checkGameOver()
 
+    }
+}
 };
