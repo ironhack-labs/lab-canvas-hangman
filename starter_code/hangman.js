@@ -1,8 +1,9 @@
 let hangman;
 
+
 class Hangman {
   constructor() {
-    this.words = ['hello', 'word', 'panchita']
+    this.words = ['HELLO', 'WORD', 'PANCHITA', 'LOVE', 'CAR', 'ELSE', 'ALAN']
     this.secretWord = this.getWord()
     this.letters = []
     this.guessedLetter = ''
@@ -39,10 +40,12 @@ class Hangman {
       this.checkWinner()
    }
 
-   addWrongLetter(letter) {
-     if(this.errorsLeft > 0)
-     return this.errorsLeft-- 
-     this.checkGameOver()
+     addWrongLetter(letter) {
+       if(this.errorsLeft > 0){
+         this.letters.push(letter)
+         this.errorsLeft-- 
+         this.checkGameOver()
+       }
     }
 
     checkGameOver() {
@@ -67,20 +70,24 @@ class Hangman {
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
-  hangmanCanvas = new HangmanCanvas(hangman.getWord())
+  hangmanCanvas = new HangmanCanvas(hangman.secretWord)
   hangmanCanvas.createBoard()
-  hangmanCanvas.drawLines()
 };
 
 document.onkeydown = (e) => {
-  if(hangman.checkIfLetter(e.keyCode)){  //esta checa si hay una letra 
-    let letter = e.key.toUpperCase() //y si hay una letra, almacenarla en una variable que es letter y hacerla a mayúculas
+  if(hangman.checkIfLetter(e.keyCode)){ //si el boton que presionan esta dentro de la letra 65 > 90
+    let letter = e.key.toUpperCase() // variable para hacer la letra presionada Mayúscula
+    //console.log('letter', letter)
     if(hangman.checkClickedLetters(letter)){ //
       if(hangman.secretWord.includes(letter)){
-        
-      }
+        hangman.addCorrectLetter(hangman.secretWord.indexOf(letter));
+        hangmanCanvas.writeCorrectLetter(letter);
+      }else {
+        hangman.addWrongLetter(letter);
+        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft);
+       }
     }
   }
-
-
+  console.log(hangman)
 };
+
