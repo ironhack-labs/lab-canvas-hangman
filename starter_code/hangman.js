@@ -37,14 +37,14 @@ class Hangman {
 
     addCorrectLetter(i) {
       this.guessedLetter += this.secretWord[i].toUpperCase()
-      this.checkWinner()
+      this.checkWinner() ? hangmanCanvas.winner():null
    }
 
      addWrongLetter(letter) {
        if(this.errorsLeft > 0){
          this.letters.push(letter)
          this.errorsLeft-- 
-         this.checkGameOver()
+         this.checkGameOver() ? hangmanCanvas.gameOver():null
        }
     }
 
@@ -75,7 +75,7 @@ document.getElementById('start-game-button').onclick = () => {
 };
 
 document.onkeydown = (e) => {
-  if(hangman.checkIfLetter(e.keyCode)){ //si el boton que presionan esta dentro de la letra 65 > 90
+  if(hangman.checkIfLetter(e.keyCode)){ ///si el boton que presionan esta dentro de la letra 65 > 90
     let letter = e.key.toUpperCase() // variable para hacer la letra presionada Mayúscula
     //console.log('letter', letter)
     if(hangman.checkClickedLetters(letter)){ //

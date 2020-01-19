@@ -156,11 +156,22 @@ class HangmanCanvas {
   }
 
   gameOver() {
+    let imgGameOver = new Image()
+    imgGameOver.src = './images/gameover.png'
+    imgGameOver.onload = () =>{
+      this.ctx.drawImage (imgGameOver,300,250)
+    }
 
+    //confirm("You are a fucking looser");
   }
 
   winner() {
-
+    let imgWinner = new Image()
+    imgWinner.src = './images/awesome.png'
+    imgWinner.onload = () => {
+      this.ctx.drawImage(imgWinner, 250, 100)
+    } 
+    //confirm("You are the man");
   }
 
 }
