@@ -13,7 +13,7 @@ constructor() {
 getWord(){
 let aleat = Math.random()*this.words.length
 aleat = Math.floor(aleat)
-
+hangman.secretWord = this.words[aleat]
 return this.words[aleat]
 }
 
@@ -51,18 +51,14 @@ return (this.errorsLeft === 0)
 
 //que los puntos sean mayores a cero
 checkWinner() {
-let vid = 0;
  for (let i = 0; i < this.secretWord.length; i += 1) {
-  if (this.guessedLetter.includes(this.secretWord[i])) {
-  vid += 1;
+  if (!this.guessedLetter.includes(this.secretWord[i])) {
+return false
 }
-
 }
-return (vid === this.secretWord.length);
+return true
 }
-
 }
-
 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
@@ -75,14 +71,17 @@ document.getElementById('start-game-button').onclick = () => {
 document.onkeydown = (e) => {
 if (hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)) {
     if (hangman.secretWord.includes(e.key)){
+      for(let j=0 ; j<hangman.secretWord.length;j++){
+        if(e.key===hangman.secretWord[j]) hangmanCan.writeCorrectLetter(e.key,j)
+      }
        hangman.addCorrectLetter(hangman.secretWord.indexOf(e.key))
-       hangman.checkWinner()
+       if (hangman.checkWinner()) hangmanCan.winner()
     }
     else  {
       hangman.addWrongLetter(e.key)
-      hangmanCan.drawHangman(errorsLeft)
+      hangmanCan.drawHangman(hangman.errorsLeft)
       hangmanCan.writeWrongLetter(e.key,hangman.errorsLeft) //errores
-      hangman.checkGameOver()
+      if(hangman.checkGameOver()) hangmanCan.gameOver()
 
     }
 }
