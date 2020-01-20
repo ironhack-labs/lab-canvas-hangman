@@ -15,9 +15,10 @@ let hangman;
   }
  
   checkIfLetter(keyCode) { 
+    console.log(keyCode)
     if (keyCode >= 65 && keyCode <= 90 ){
       return true
-    } else{
+    } else {
       return false
   }
 } 
@@ -59,8 +60,26 @@ let hangman;
 } 
 document.getElementById('start-game-button').onclick = () => {
   hangman = new Hangman();
+  hangmanCanvas = new HangmanCanvas(hangman.getWord());
 };
 
-document.onkeydown = (e) => {
 
+document.onkeydown = (e) => {
+  if(hangman.checkIfLetter(e.keyCode) && hangman.checkClickedLetters(e.key)){
+      hangman.letters.push(e.key)
+      let index = 0
+      let correct = false
+      hangman.secretWord.split('').forEach(letra => {  
+      if(letra == e.key) {
+          correct = true
+          hangman.addCorrectLetter(index)
+          hangmanCanvas.writeCorrectLetter(index)
+      }
+      index++
+    });
+    if(correct == false){
+      hangman.addWrongLetter(e.key)
+      hangmanCanvas.writeWrongLetter(e.key, hangman.errorsLeft)
+    }
+  } 
 };
