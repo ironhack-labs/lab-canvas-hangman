@@ -50,7 +50,7 @@ describe('Hangman Game', function () {
     });
 
     it('checkIfLetter should return true', function () {
-      expect(hangman.checkIfLetter(76)).toEqual(true);
+      expect(hangman.checkIfLetter('E')).toEqual(true);
     });
   });
 
