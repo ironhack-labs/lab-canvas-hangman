@@ -57,7 +57,9 @@ class Hangman {
       return false;
     }
   }
+  
   _countUniqueChar(str) {
+    str = str.toUpperCase();
     let chars = [str[0]];
     for (let i = 1; i < str.length; i++) {
       if (!chars.includes(str[i])) {
