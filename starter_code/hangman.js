@@ -64,30 +64,3 @@ class Hangman {
   }
 }
 
-const hangman = new Hangman();
-const hangmanCanvas = new HangmanCanvas(hangman.secretWord)
-document.getElementById('start-game-button').onclick = () => {
-  document.getElementById('start-container').style.display = 'none';
-  hangmanCanvas.createBoard()
-  hangmanCanvas.drawLines()
-};
-
-document.onkeydown = (e) => {
-  if (hangman.checkIfLetter(e)) {
-    if (hangman.checkClickedLetters(e.key)) {
-      hangman.checkClickedLetters(e.key)
-      hangman.addCorrectLetter(e.key)
-      hangmanCanvas.writeCorrectLetter(hangman.guessedLetter)
-      hangman.addWrongLetter(e.key);
-      hangmanCanvas.writeWrongLetter(hangman.letters);
-      hangmanCanvas.drawHangman(hangman.errorsLeft);
-      if (hangman.checkGameOver()) {
-        hangmanCanvas.gameOver()
-      }
-      if (hangman.checkWinner()) {
-        hangmanCanvas.winner()
-      }
-    }
-  }
-
-}
