@@ -29,20 +29,17 @@ $ git push origin master
 
 Create Pull Request so your TAs can check up your work.
 
-## Iteration 1: The game logic
+## Tests!
 
-In order to do the game logic, we add some **Jasmine** tests to help you. Navigate to:
+In order to do the game logic, we add some **Jasmine** tests to help you. Open the `SpecRunner.html` to check them.
 
-```bash
-starter-code
-  |___ jasmine
-```
+## Instructions
 
-Open the `SpecRunner.html` to check them.
+### Iteration 1: The game logic
 
 In the `hangman.js` file, create Hangman class and its methods as described below.
 
-### Hangman Class
+#### Hangman Class
 
 First of at all, let's create our Hangman class. It should have the following properties:
 
@@ -52,7 +49,7 @@ First of at all, let's create our Hangman class. It should have the following pr
 - **guessedLetter** - a `string` to store the _letters_ user chose and guessed. We will use this to know when the user wins.
 - **errorsLeft** - the initial/start value should be 10, and decrease every time a user picks a letter that doesn't appear in the word.
 
-### The Hangman methods
+#### The Hangman methods
 
 - `getWord()` - a method that returns a random word from the array of `words`.
 - `checkIfLetter(keyCode)` - a method that should return true or false depending if the key user pressed has a value of any letter between `a-z` and `A-Z`. In case the key doesn't corresponds with any of the letters, but instead has a value of some special character or a number, this method should return false.
@@ -62,29 +59,29 @@ First of at all, let's create our Hangman class. It should have the following pr
 - `addCorrectLetter(index)` - a method that should add the passed letter to the `guessedLetter` variable. This could be a good place to check if the user won.
 - `addWrongLetter(letter)` - a method that should subtract one from the variable `errorsLeft`. It also should push this letter in the array of letters if the letter is not there already.
 
-## Iteration 2: Draw in Canvas
+### Iteration 2: Draw in Canvas
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_3e1e1919b29ba77e77cdcec2ed7b92c5.png)
 
 Now we need to start drawing the hangman in order to finish our game! As we said, we will do it in a different file separating it from the logic.
 
-### HangmanCanvas class
+#### HangmanCanvas class
 
 In the `canvas.js` file, you can see `HangmanCanvas` class and it should have the following properties:
 
 - **context/ctx** - the canvas context has been already captured in its property `this.ctx`.
 - **secretWord** - the _HangmanCanvas_ class should know which random secret word has been chosen. This is actually super doable since it receives this word as an argument, as we can see in its constructor.
 
-### The HangmanCanvas methods
+#### The HangmanCanvas methods
 
 - **createBoard()** - the method that should clear the `canvas`, so every time we start the game we have a clean one. This method also should call the next one we will define, the _drawLines()_.
 - **drawLines()** - the method that should draw one line for each letter of the secret word. At this point we know the secret word the user has to guess.
 - **writeCorrectLetter(index)** and **writeWrongLetter(letter, errorsLeft)** - the methods that should write the letter user just clicked on the corresponding part of the canvas. After checking if the letter was not already clicked, we should write it on our board. If the secret word includes the letter, we should write it in the position it corresponds, and if is not included in the secret word, we will write it on the top right so the user knows which ones he already clicked.
 - **drawHangman(errorsLeft)** - the method that should draw **THE HANGMAN**. You can notice the drawing is composed of lines and one circle. Go ahead and think how can we do it. :wink:
 
-## Bonus Iteration
+### Bonus
 
-Your game is finished! Anybody can play it, but we need to show them something when they win or lose, so go ahead and create two additional methods **`gameOver()`** and **`winner()`**, to display the images available in the `starter-code > images` folder.
+Your game is finished! Anybody can play it, but we need to show them something when they win or lose, so go ahead and create two additional methods **`gameOver()`** and **`winner()`**, to display the images available in the `images` folder.
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1dc0d7772d204da800d078c153c12e47.png)
 
