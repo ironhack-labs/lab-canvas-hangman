@@ -43,19 +43,19 @@ In the `hangman.js` file, create Hangman class and its methods as described belo
 
 First of at all, let's create our Hangman class. It should have the following properties:
 
-- **words** - an `array` where we will store all the words that a player need to guess. Every time a new game starts, a random word from this array needs to be picked as the secret word to be guessed by the player.
+- **words** - an `array` where we will store all the words that a player needs to guess. Every time a new game starts, a random word from this array needs to be picked as the secret word to be guessed by the player.
 - **secretWord** - here we will store the word that has been picked as a secret word for the current game.
-- **letters** - an `array` in which we will store the letters user already picked while trying to guess the secret word. It is important to keep the track of these letters so we can, latter on, apply some logic to prevent users from repeating them.
+- **letters** - an `array` in which we will store the letters that the user has already picked while trying to guess the secret word. It is important to keep the track of these letters so we can, later on, apply some logic to prevent users from repeating them.
 - **guessedLetter** - a `string` to store the _letters_ user chose and guessed. We will use this to know when the user wins.
 - **errorsLeft** - the initial/start value should be 10, and decrease every time a user picks a letter that doesn't appear in the word.
 
 #### The Hangman methods
 
 - `getWord()` - a method that returns a random word from the array of `words`.
-- `checkIfLetter(keyCode)` - a method that should return true or false depending if the key user pressed has a value of any letter between `a-z` and `A-Z`. In case the key doesn't corresponds with any of the letters, but instead has a value of some special character or a number, this method should return false.
+- `checkIfLetter(keyCode)` - a method that should return true or false depending if the key the user pressed has a value of any letter between `a-z` and `A-Z`. In case the key doesn't corresponds with any of the letters, but instead has a value of some special character or a number, this method should return false.
 - `checkClickedLetters(letter)` - a method that should check if the currently picked letter has already been chosen. It should return true if it was not or false in the opposite case.
-- `checkGameOver()` - a method that checks if user has any errors left. If the number of errors is greater than 0, the method should return false (the game continues). In opposite case, if there is no more errors left, the method should return true.
-- `checkWinner()` - a method that should check if the user won and return corresponding boolean value.
+- `checkGameOver()` - a method that checks if the user has any errors left. If the number of errors is greater than 0, the method should return false (the game continues). In opposite case, if there is no more errors left, the method should return true.
+- `checkWinner()` - a method that should check if the user won and return the corresponding boolean value.
 - `addCorrectLetter(index)` - a method that should add the passed letter to the `guessedLetter` variable. This could be a good place to check if the user won.
 - `addWrongLetter(letter)` - a method that should subtract one from the variable `errorsLeft`. It also should push this letter in the array of letters if the letter is not there already.
 
@@ -76,8 +76,8 @@ In the `canvas.js` file, you can see `HangmanCanvas` class and it should have th
 
 - **createBoard()** - the method that should clear the `canvas`, so every time we start the game we have a clean one. This method also should call the next one we will define, the _drawLines()_.
 - **drawLines()** - the method that should draw one line for each letter of the secret word. At this point we know the secret word the user has to guess.
-- **writeCorrectLetter(index)** and **writeWrongLetter(letter, errorsLeft)** - the methods that should write the letter user just clicked on the corresponding part of the canvas. After checking if the letter was not already clicked, we should write it on our board. If the secret word includes the letter, we should write it in the position it corresponds, and if is not included in the secret word, we will write it on the top right so the user knows which ones he already clicked.
-- **drawHangman(errorsLeft)** - the method that should draw **THE HANGMAN**. You can notice the drawing is composed of lines and one circle. Go ahead and think how can we do it. :wink:
+- **writeCorrectLetter(index)** and **writeWrongLetter(letter, errorsLeft)** - the methods that should write the letter on which the user has just clicked, on the appropriate part of the canvas. After checking if the letter was not already clicked, we should write it on our board. If the secret word includes the letter, we should write it in the position where it belongs, and if the letter is not included in the secret word, we should write it on the top right corner, so that the user knows which letters were already clicked.
+- **drawHangman(errorsLeft)** - the method that should draw **THE HANGMAN**. You'll see that the drawing is composed of multiple lines and one circle. Go ahead and experiment, you'll see it's pretty straightforward. :wink:
 
 ### Bonus
 

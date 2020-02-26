@@ -1,20 +1,37 @@
 let hangman;
+
 class Hangman {
-  constructor() {}
+  constructor() {
+    // ...
+  }
 
-  getWord() {}
+  getWord() {
+    // ...
+  }
 
-  checkIfLetter(keyCode) {}
+  checkIfLetter(keyCode) {
+    // ...
+  }
 
-  checkClickedLetters(letter) {}
+  checkClickedLetters(letter) {
+    // ...
+  }
 
-  addCorrectLetter(index) {}
+  addCorrectLetter(index) {
+    // ...
+  }
 
-  checkWinner() {}
+  checkWinner() {
+    // ...
+  }
 
-  addWrongLetter(letter) {}
+  addWrongLetter(letter) {
+    // ...
+  }
 
-  checkGameOver() {}
+  checkGameOver() {
+    // ...
+  }
 }
 
 document.getElementById('start-game-button').onclick = () => {
@@ -25,4 +42,6 @@ document.getElementById('start-game-button').onclick = () => {
   // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 };
 
-document.onkeydown = e => {};
+document.addEventListener('keydown', event => {
+  // React to user pressing a key
+});
