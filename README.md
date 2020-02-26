@@ -43,21 +43,23 @@ In the `hangman.js` file, create Hangman class and its methods as described belo
 
 First of at all, let's create our Hangman class. It should have the following properties:
 
-- **words** - an `array` where we will store all the words that a player needs to guess. Every time a new game starts, a random word from this array needs to be picked as the secret word to be guessed by the player.
-- **secretWord** - here we will store the word that has been picked as a secret word for the current game.
+Its constructor should expect an array of words as the single parameter.
+
+- **words** - an `array` where we will store all of the words that a player needs to guess. When the class is instantiated, the words passed to the constructor as an argument should be saved in this property.
+- **secretWord** - here we will store the word that has been picked as a secret word for the current game. Every time a new game starts, a random word from the `this.words` array needs to be picked as the secret word to be guessed by the player. That is, when the class is instantiated, call the method `pickWord()` and save the result to the property `secretWord`.
 - **letters** - an `array` in which we will store the letters that the user has already picked while trying to guess the secret word. It is important to keep the track of these letters so we can, later on, apply some logic to prevent users from repeating them.
-- **guessedLetter** - a `string` to store the _letters_ user chose and guessed. We will use this to know when the user wins.
+- **guessedLetters** - a `string` to store the _letters_ user chose and guessed. We will use this to know when the user wins.
 - **errorsLeft** - the initial/start value should be 10, and decrease every time a user picks a letter that doesn't appear in the word.
 
 #### The Hangman methods
 
-- `getWord()` - a method that returns a random word from the array of `words`.
-- `checkIfLetter(keyCode)` - a method that should return true or false depending if the key the user pressed has a value of any letter between `a-z` and `A-Z`. In case the key doesn't corresponds with any of the letters, but instead has a value of some special character or a number, this method should return false.
-- `checkClickedLetters(letter)` - a method that should check if the currently picked letter has already been chosen. It should return true if it was not or false in the opposite case.
-- `checkGameOver()` - a method that checks if the user has any errors left. If the number of errors is greater than 0, the method should return false (the game continues). In opposite case, if there is no more errors left, the method should return true.
-- `checkWinner()` - a method that should check if the user won and return the corresponding boolean value.
-- `addCorrectLetter(index)` - a method that should add the passed letter to the `guessedLetter` variable. This could be a good place to check if the user won.
+- `pickWord()` - a method that returns a random word from the array of `words`.
+- `checkIfLetter(keyCode)` - a method that returns _true_ or _false_ depending on the `keyCode` of the key pressed by the user: if the `keyCode` corresponds to a character from `a-z`, it should return _true_, otherwise, it should return _false_. You can use [keycode.info](https://keycode.info/) to find out which codes refer to each key.
+- `checkClickedLetters(letter)` - a method that should check if the letter passed as an argument has already been pressed. It should return _true_ if it was not or _false_ in the opposite case.
+- `addCorrectLetter(letter)` - a method that should add the passed letter to the `guessedLetters` property. This could be a good place to check if the user won.
 - `addWrongLetter(letter)` - a method that should subtract one from the variable `errorsLeft`. It also should push this letter in the array of letters if the letter is not there already.
+- `checkGameOver()` - a method that checks if the user has any errors left. If the number of errors is greater than 0, the method should return _false_ (the game continues). In opposite case, if there is no more errors left, the method should return true.
+- `checkWinner()` - a method that should check if the user won and return the corresponding boolean value.
 
 ### Iteration 2: Draw in Canvas
 

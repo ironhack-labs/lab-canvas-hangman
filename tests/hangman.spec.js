@@ -1,148 +1,178 @@
+// window.jasmine.getEnv().randomizeTests(false);
+window.jasmine.getEnv().configure({
+  random: false
+});
+
+const testWords = ['hello', 'world', 'foo', 'bar'];
+
 describe('Hangman Game', () => {
   let hangman;
+
   beforeEach(() => {
-    hangman = new Hangman();
-  });
-  describe('Words to Pick', () => {
-    it('There should be an array of words', () => {
-      expect(hangman.words).toBeDefined();
-    });
-    it('There should be at least one word to pick', () => {
-      expect(hangman.words.length).toBeGreaterThan(2);
-    });
+    hangman = new Hangman(testWords);
   });
 
-  describe('Secret Word', () => {
-    it('secretWord should exist', () => {
-      expect(hangman.secretWord).toBeDefined();
+  describe('Hangman class constructor', () => {
+    describe('words', () => {
+      it('should be an array of words', () => {
+        expect(hangman.words).toBeDefined();
+        expect(hangman.words).toBeInstanceOf(Array);
+      });
+
+      it('should have all of the words passed in the array in the constructor', () => {
+        expect(hangman.words.length).toEqual(testWords.length);
+        expect(hangman.words).toEqual([...testWords]);
+      });
     });
 
-    it('getWord should be a function', () => {
-      expect(typeof hangman.getWord).toBe('function');
+    describe('secretWord', () => {
+      it('should be a string', () => {
+        expect(hangman.secretWord).toBeDefined();
+        expect(typeof hangman.secretWord).toBe('string');
+      });
+
+      it('should hold the value of one of the words in the array', () => {
+        expect(hangman.words.includes(hangman.secretWord)).toBeTrue();
+      });
     });
 
-    it('getWord should return a string', () => {
-      expect(typeof hangman.getWord()).toBe('string');
+    describe('errorsLeft', () => {
+      it('should be at the starting value', () => {
+        expect(hangman.errorsLeft).toEqual(10);
+      });
     });
 
-    it('secretWord should be a string', () => {
-      expect(typeof hangman.secretWord).toBe('string');
+    describe('guessedLetters', () => {
+      it('should be an empty string', () => {
+        expect(typeof hangman.guessedLetters).toBe('string');
+        expect(hangman.guessedLetters.length).toEqual(0);
+      });
+    });
+
+    describe('letters', () => {
+      it('should be an empty array', () => {
+        expect(hangman.letters).toBeInstanceOf(Array);
+        expect(hangman.letters.length).toEqual(0);
+      });
     });
   });
 
-  describe('Check if is a letter', () => {
-    it('checkIfLetter should be a function', () => {
+  describe('pickWord', () => {
+    it('should be a function', () => {
+      expect(typeof hangman.pickWord).toBe('function');
+    });
+
+    it('should return a string', () => {
+      expect(typeof hangman.pickWord()).toBe('string');
+    });
+  });
+
+  describe('checkIfLetter', () => {
+    it('should be a function', () => {
       expect(typeof hangman.checkIfLetter).toBe('function');
     });
 
-    it('checkIfLetter should receive a number', () => {
-      expect(typeof hangman.checkIfLetter).toBe('function');
-    });
-
-    it('checkIfLetter should return a boolean', () => {
+    it('should return a boolean', () => {
       let keyCode = 43;
-      hangman.checkIfLetter(keyCode);
-      expect(typeof keyCode).toBe('number');
+      const result = hangman.checkIfLetter(keyCode);
+      expect(typeof result).toBe('boolean');
     });
 
-    it('checkIfLetter should return false', () => {
+    it('should return false if given keycode of not a letter', () => {
       expect(hangman.checkIfLetter(43)).toEqual(false);
+      expect(hangman.checkIfLetter(60)).toEqual(false);
+      expect(hangman.checkIfLetter(100)).toEqual(false);
     });
 
-    it('checkIfLetter should return true', () => {
+    it('should return true if given keycode of a letter', () => {
+      expect(hangman.checkIfLetter(65)).toEqual(true);
       expect(hangman.checkIfLetter(76)).toEqual(true);
+      expect(hangman.checkIfLetter(90)).toEqual(true);
     });
   });
 
-  describe('Check if the letter was already clicked', () => {
-    it('checkClickedLetters should be a function', () => {
+  describe('checkClickedLetters', () => {
+    it('should be a function', () => {
       expect(typeof hangman.checkClickedLetters).toBe('function');
     });
-    it('checkClickedLetters should receive a string', () => {
-      let key = 'P';
-      hangman.checkClickedLetters(key);
-      expect(typeof key).toBe('string');
-    });
-    it('checkClickedLetters should return a boolean', () => {
+
+    it('should return a boolean', () => {
       hangman.letters.push('I');
       expect(typeof hangman.checkIfLetter('N')).toBe('boolean');
     });
 
-    it('checkClickedLetters should return true', () => {
+    it('should return true if letter has not been clicked', () => {
       hangman.letters.push('I', 'R', 'P');
       expect(hangman.checkClickedLetters('F')).toEqual(true);
     });
 
-    it('checkIfLetter should return false', () => {
+    it('should return false if letter has been clicked', () => {
       hangman.letters.push('I', 'R', 'P');
       expect(hangman.checkClickedLetters('R')).toEqual(false);
     });
   });
 
-  describe('Add correct letters', () => {
-    it('addCorrectLetter should be a function', () => {
+  describe('addCorrectLetter', () => {
+    it('should be a function', () => {
       expect(typeof hangman.addCorrectLetter).toBe('function');
     });
-    it('addCorrectLetter should receive a number', () => {
-      let key = 'N';
-      hangman.checkClickedLetters(key);
-      expect(typeof key).toBe('string');
-    });
-    it('addCorrectLetter should add letters to guessedLetter string', () => {
-      hangman.secretWord = 'Ironhack';
-      hangman.addCorrectLetter(1);
-      expect(hangman.guessedLetter).toEqual('R');
+
+    it('should add letters to guessedLetters string', () => {
+      hangman.addCorrectLetter('R');
+      expect(hangman.guessedLetters).toEqual('R');
     });
   });
 
-  describe('Wrong letters', () => {
-    it('addWrongLetter should be a function', () => {
+  describe('addWrongLetter', () => {
+    it('should be a function', () => {
       expect(typeof hangman.addWrongLetter).toBe('function');
     });
-    it('addWrongLetter should receive a string', () => {
-      let letter = 'P';
-      hangman.addWrongLetter(letter);
-      expect(typeof letter).toBe('string');
-    });
-    it('addWrongLetter should discount the amount of errors left', () => {
+
+    it('should discount the amount of errors left', () => {
       hangman.errorsLeft = 7;
       hangman.addWrongLetter('P');
       expect(hangman.errorsLeft).toEqual(6);
     });
   });
 
-  describe('Check if the game is over', () => {
-    it('checkGameOver should be a function', () => {
+  describe('checkGameOver', () => {
+    it('should be a function', () => {
       expect(typeof hangman.checkGameOver).toBe('function');
     });
-    it('checkGameOver should return a boolean', () => {
+
+    it('should return a boolean', () => {
       expect(typeof hangman.checkGameOver()).toBe('boolean');
     });
-    it('checkGameOver should return false if the errorsLeft is 0', () => {
+
+    it('should return true if the errorsLeft is 0', () => {
       hangman.errorsLeft = 0;
       expect(hangman.checkGameOver()).toEqual(true);
     });
-    it('checkGameOver should return false if the errorsLeft is 0', () => {
+
+    it('should return false if the errorsLeft is 5', () => {
       hangman.errorsLeft = 5;
       expect(hangman.checkGameOver()).toEqual(false);
     });
   });
 
-  describe('Check if we win', () => {
-    it('checkWinner should be a function', () => {
+  describe('checkWinner', () => {
+    it('should be a function', () => {
       expect(typeof hangman.checkWinner).toBe('function');
     });
-    it('checkWinner should return a boolean', () => {
+
+    it('should return a boolean', () => {
       expect(typeof hangman.checkWinner()).toBe('boolean');
     });
-    it('checkWinner should return true if we guess all letters', () => {
-      hangman.secretWord = 'IRONHACK';
-      hangman.guessedLetter = 'KHARCNIO';
+
+    it('should return true if we guess all letters', () => {
+      hangman = new Hangman(['IRONHACK']);
+      hangman.guessedLetters = 'KHARCNIO';
       expect(hangman.checkWinner()).toEqual(true);
     });
-    it('checkWinner should return true if we guess all letters', () => {
-      hangman.secretWord = 'IRONHACK';
-      hangman.guessedLetter = 'KHARCN';
+
+    it('should return true if we guess all letters', () => {
+      hangman = new Hangman(['IRONHACK']);
+      hangman.guessedLetters = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
     });
   });

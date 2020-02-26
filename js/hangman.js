@@ -1,11 +1,9 @@
-let hangman;
-
 class Hangman {
-  constructor() {
+  constructor(words) {
     // ...
   }
 
-  getWord() {
+  pickWord() {
     // ...
   }
 
@@ -17,11 +15,7 @@ class Hangman {
     // ...
   }
 
-  addCorrectLetter(index) {
-    // ...
-  }
-
-  checkWinner() {
+  addCorrectLetter(letter) {
     // ...
   }
 
@@ -32,15 +26,25 @@ class Hangman {
   checkGameOver() {
     // ...
   }
+
+  checkWinner() {
+    // ...
+  }
 }
 
-document.getElementById('start-game-button').onclick = () => {
-  hangman = new Hangman();
+let hangman;
 
-  // HINTS (uncomment when start working on the canvas portion of the lab)
-  // hangman.secretWord = hangman.getWord();
-  // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-};
+const $startGameButton = document.getElementById('start-game-button');
+
+if ($startGameButton) {
+  $startGameButton.addEventListener('click', event => {
+    hangman = new Hangman();
+
+    // HINTS (uncomment when start working on the canvas portion of the lab)
+    // hangman.secretWord = hangman.pickWord();
+    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+  });
+}
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
