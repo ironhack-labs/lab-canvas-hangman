@@ -1,10 +1,10 @@
-![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)
+![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-# JS | Canvas Hangman
+# LAB | Canvas Hangman
 
 ## Introduction
 
-In this exercise, we are going to create the classic game [Hangman](https://en.wikipedia.org/wiki/Hangman_(game)). In this game, we have to figure out a secret word by guessing one letter at a time, with each error, the man will get one step closer to death! The goal is to successfully guess the word before the man gets hanged.
+In this exercise, we are going to create the classic game [Hangman](<https://en.wikipedia.org/wiki/Hangman_(game)>). How to play this game, what are the rules? Just in case you don't know, in this game, we have to figure out a secret word by guessing one letter at a time. However, with each error, the man will get one step closer to death! The goal is to successfully guess the word before the man gets hanged.
 
 ![](https://i.imgur.com/wrQrY1T.png)
 
@@ -20,73 +20,71 @@ We will separate the game logic from the iteration with the `canvas`. We should 
 ## Submission
 
 Upon completion, run the following commands:
+
 ```
 $ git add .
 $ git commit -m "done"
 $ git push origin master
 ```
+
 Create Pull Request so your TAs can check up your work.
 
-## 1. First iteration: Game Logic
+## Tests!
 
-:::info
-In order to do the game logic, we add some **Jasmine** tests to help you. Navigate to:
+In order to do the game logic, we add some **Jasmine** tests to help you. Open the `SpecRunner.html` to check them.
 
-```bash
-starter_code
-  |___ jasmine
-```
-Open the `SpecRunner.html` to check them.
-:::
+## Instructions
 
-### Hangman Constructor
+### Iteration 1: The game logic
 
-First, of at all let's create our Hangman constructor. It should have the following properties:
+In the `hangman.js` file, create Hangman class and its methods as described below.
 
-- **words**. An array where we will store all the words that the player need to guess. We will take one of them randomly.
-- **secretWord**. Here we will store the word chosen for each game.
-- **letters**. An array to store the letters the user already clicked, so we do not repeat them.
-- **guessedLetter**. A string to store the letters the user clicked and guessed. We will use this to know when the user wins.
-- **errorsLeft**. It should start at 10, and decrease every time a user clicks on a letter that is not in the word.
+#### Hangman Class
 
-### Prototypes properties
+First of at all, let's create our Hangman class. It should have the following properties:
 
-- `getWord()`. Returns a random word from our array `words`.
-- `checkIfLetter`. This function should check if the key the user has typed is a letter.
-- `checkClickedLetters`. Checks if the pressed letter has already been pressed and returns true if it was not or false in the opposite case.
-- `checkGameOver`. Returns a boolean value, `true` if the users lose, and `false` in any other case.
-- `checkWinner`. Check if the users win and return a boolean value.
-- `addCorrectLetter`. Adds to the `guessedLetter` variable the letter that was pressed. Also, it should check if the user wins.
-- `addWrongLetter`. Should subtract one from the variable `errorsLeft` and check if the game is over.
+Its constructor should expect an array of words as the single parameter.
 
-## 2. Second Iteration: Draw in Canvas
+- **words** - an `array` where we will store all of the words that a player needs to guess. When the class is instantiated, the words passed to the constructor as an argument should be saved in this property.
+- **secretWord** - here we will store the word that has been picked as a secret word for the current game. Every time a new game starts, a random word from the `this.words` array needs to be picked as the secret word to be guessed by the player. That is, when the class is instantiated, call the method `pickWord()` and save the result to the property `secretWord`.
+- **letters** - an `array` in which we will store the letters that the user has already picked while trying to guess the secret word. It is important to keep the track of these letters so we can, later on, apply some logic to prevent users from repeating them.
+- **guessedLetters** - a `string` to store the _letters_ user chose and guessed. We will use this to know when the user wins.
+- **errorsLeft** - the initial/start value should be 10, and decrease every time a user picks a letter that doesn't appear in the word.
+
+#### The Hangman methods
+
+- `pickWord()` - a method that returns a random word from the array of `words`.
+- `checkIfLetter(keyCode)` - a method that returns _true_ or _false_ depending on the `keyCode` of the key pressed by the user: if the `keyCode` corresponds to a character from `a-z`, it should return _true_, otherwise, it should return _false_. You can use [keycode.info](https://keycode.info/) to find out which codes refer to each key.
+- `checkClickedLetters(letter)` - a method that should check if the letter passed as an argument has already been pressed. It should return _true_ if it was not or _false_ in the opposite case.
+- `addCorrectLetter(letter)` - a method that should add the passed letter to the `guessedLetters` property. This could be a good place to check if the user won.
+- `addWrongLetter(letter)` - a method that should subtract one from the variable `errorsLeft`. It also should push this letter in the array of letters if the letter is not there already.
+- `checkGameOver()` - a method that checks if the user has any errors left. If the number of errors is greater than 0, the method should return _false_ (the game continues). In opposite case, if there is no more errors left, the method should return true.
+- `checkWinner()` - a method that should check if the user won and return the corresponding boolean value.
+
+### Iteration 2: Draw in Canvas
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_3e1e1919b29ba77e77cdcec2ed7b92c5.png)
 
 Now we need to start drawing the hangman in order to finish our game! As we said, we will do it in a different file separating it from the logic.
 
-Let´s create a constructor `HangmanCanvas` and store in a variable our `canvas`. After storing it, we should get the context. Remember `getContext('2d')`. We also want to store in a variable the secret word.
+#### HangmanCanvas class
 
-### Creating the board
+In the `canvas.js` file, you can see `HangmanCanvas` class and it should have the following properties:
 
-First, we need to draw the board. We should clear the `canvas`, so every time we start the game we have a clean one. We can also set up here the `width` we want to set to our lines.
+- **context/ctx** - the canvas context has been already captured in its property `this.ctx`.
+- **secretWord** - the _HangmanCanvas_ class should know which random secret word has been chosen. This is actually super doable since it receives this word as an argument, as we can see in its constructor.
 
-### Draw the Secret Word Lines
+#### The HangmanCanvas methods
 
-We know the secret word so we should put one line for each of the letters the user has to guess.
+- **createBoard()** - the method that should clear the `canvas`, so every time we start the game we have a clean one. This method also should call the next one we will define, the _drawLines()_.
+- **drawLines()** - the method that should draw one line for each letter of the secret word. At this point we know the secret word the user has to guess.
+- **writeCorrectLetter(index)** and **writeWrongLetter(letter, errorsLeft)** - the methods that should write the letter on which the user has just clicked, on the appropriate part of the canvas. After checking if the letter was not already clicked, we should write it on our board. If the secret word includes the letter, we should write it in the position where it belongs, and if the letter is not included in the secret word, we should write it on the top right corner, so that the user knows which letters were already clicked.
+- **drawHangman(errorsLeft)** - the method that should draw **THE HANGMAN**. You'll see that the drawing is composed of multiple lines and one circle. Go ahead and experiment, you'll see it's pretty straightforward. :wink:
 
-### Write the Guessed Letters and the Wrong Ones
+### Bonus
 
-Every time a user clicks the keyboard, after checking if the letter was not already clicked, we should write it on our board. If the secret word includes the letter we should write it in the position it corresponds, and if is not included in the secret word, we will write it on the top right so the user knows which ones he already clicked.
-
-### Draw the Hangman
-
-The last task, we need to draw **THE HANGMAN**. You can notice the drawing is composed of lines and one circle. Go ahead and think how can we do it :wink:
-
-## Bonus Iteration
-
-Your game is finished! Anybody can play it, but we need to show them something when they win or lose, so go ahead and create two functions `gameOver` and `winner`, to display the images available on the `starter_code > images` folder.
+Your game is finished! Anybody can play it, but we need to show them something when they win or lose, so go ahead and create two additional methods **`gameOver()`** and **`winner()`**, to display the images available in the `images` folder.
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1dc0d7772d204da800d078c153c12e47.png)
 
-Happy coding! ❤️
+Happy coding! :heart:
