@@ -85,6 +85,16 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
+  // check if it is even a letter
+  if (!hangman.checkIfLetter(event.keyCode)) {
+    alert('not a letter')
+    return
+  }
+  // check if the letter has been used before
+  if (!hangman.checkClickedLetters(event.key)) {
+    alert("please don't click the same one again")
+    return
+  }
   // ... your code goes here
   if (hangman.secretWord.includes(event.key)) {
     // add it to correct letters
@@ -93,6 +103,15 @@ document.addEventListener('keydown', event => {
   } else {
     hangman.addWrongLetter(event.key)
     hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft)
+    hangmanCanvas.drawHangman(hangman.errorsLeft)
+  }
+
+  if (hangman.checkGameOver()) {
+    alert ('you lost')
+  }
+
+  if (hangman.checkWinner()) {
+    alert ('you win')
   }
 
 });
