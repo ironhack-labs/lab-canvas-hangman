@@ -5,17 +5,14 @@ class Hangman {
     this.errorsLeft = 10
     this.guessedLetters = ""
     this.letters = []
-
   }
 
   pickWord() {
-    // ... your code goes here
     let randomPos = Math.floor(Math.random() * this.words.length)
     return this.words[randomPos]
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
     if (keyCode <= 90 && keyCode >= 65) {
       return true
     } else {
@@ -24,7 +21,6 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
     if (this.letters.includes(letter)) {
       return false
     } else {
@@ -34,19 +30,16 @@ class Hangman {
 
 
   addCorrectLetter(letter) {
-    // ... your code goes here
     this.guessedLetters += letter
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
     this.letters.push(letter)
     this.errorsLeft--
     console.log(this.errorsLeft)
   }
 
   checkGameOver() {
-    // ... your code goes here
     if (this.errorsLeft > 0) {
       return false
     } else {
@@ -55,7 +48,6 @@ class Hangman {
   }
 
   checkWinner() {
-    // ... your code goes here
     let usersGuesses = this.guessedLetters.split('').sort().join('')
     let secretWordAlphabetical = this.secretWord.split('').sort().join('')
     if (usersGuesses === secretWordAlphabetical) {
@@ -78,8 +70,6 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard()
-
-    // ... your code goes here
   });
 }
 
@@ -95,7 +85,7 @@ document.addEventListener('keydown', event => {
     alert("please don't click the same one again")
     return
   }
-  // ... your code goes here
+
   if (hangman.secretWord.includes(event.key)) {
     // add it to correct letters
     hangman.addCorrectLetter(event.key)
@@ -107,11 +97,12 @@ document.addEventListener('keydown', event => {
   }
 
   if (hangman.checkGameOver()) {
-    alert ('you lost')
+    hangmanCanvas.gameOver()
+    //alert('you lost')
   }
 
   if (hangman.checkWinner()) {
-    alert ('you win')
+    hangmanCanvas.winner()
+    //alert('you win')
   }
-
 });

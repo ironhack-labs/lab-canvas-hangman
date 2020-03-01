@@ -1,19 +1,14 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
-
-
   }
 
   createBoard() {
-    // ... your code goes here
     this.context.clearRect(0, 0, 800, 1200)
     this.drawLines()
   }
 
   drawLines() {
-    // ... your code goes here
     let x = 300
     let y = 700
     for (let i = 0; i < hangman.secretWord.length; i++) {
@@ -39,14 +34,14 @@ class HangmanCanvas {
 
   writeWrongLetter(letter, errorsLeft) {
     //writing the letter down - oops upside down
-    let yText = (errorsLeft * 60)
+    let yText = (errorsLeft * 50) + 100
     this.context.fillStyle = "orange";
     this.context.font = "30px Roboto";
     this.context.fillText(letter, 1000, yText);
   }
 
   drawHangman(errorsLeft) {
-    
+
     if (errorsLeft == 9) {
       //console.log('Pias test')
       this.context.strokeStyle = 'black'
@@ -107,7 +102,7 @@ class HangmanCanvas {
       this.context.fillStyle = 'purple'
       this.context.beginPath()
       this.context.moveTo(550, 250)
-      this.context.arc(550, 300, 50, 0, Math.PI*2);
+      this.context.arc(550, 300, 50, 0, Math.PI * 2);
       this.context.fill();
       this.context.closePath()
     }
@@ -144,12 +139,16 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
-    // use image in folder
+    let imgGameOver = new Image()
+    imgGameOver.src = "../images/gameover.png"
+    this.context.drawImage(imgGameOver, 200, 200)
   }
 
   winner() {
-    // ... your code goes here
-    // use image in folder
+    let imgWinner = new Image()
+    imgWinner.src = "../images/awesome.png"
+    this.context.drawImage(imgWinner, 200, 100)
+    // if it won't work via canvas - div with id final-image is needed in html
+    // document.getElementById('final-image').innerHTML = '<img src="../images/awesome.png" alt="You are awesome!" />'
   }
 }
