@@ -3,6 +3,7 @@ class HangmanCanvas {
     this.context = document.getElementById("hangman").getContext("2d");
     // ... your code goes here
     this.secretWord = secretWord;
+
   }
 
   createBoard() {
@@ -38,12 +39,25 @@ class HangmanCanvas {
     }
   }
 
-  writeCorrectLetter(index) {
+  writeCorrectLetter(index, index1) {
     // ... your code goes here
     let letter = this.secretWord[index];
-    let offsite = index * 100;
-    this.context.font = "40px Arial";
-    this.context.fillText(letter, 300 + offsite, 600);
+    let letter2 = this.secretWord[index1]
+
+    if (index == index1) {
+      let offsite = index * 100;
+      this.context.font = "40px Arial";
+      this.context.fillText(letter, 300 + offsite, 600);
+    } else {
+      let offsite = index * 100;
+      this.context.font = "40px Arial";
+      this.context.fillText(letter, 300 + offsite, 600);
+      let offsite1 = index1 * 100;
+      this.context.font = "40px Arial";
+      this.context.fillText(letter2, 300 + offsite1, 600);
+    }
+
+
   }
 
   writeWrongLetter(letter, errorsLeft) {

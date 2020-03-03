@@ -66,13 +66,13 @@ class Hangman {
     // }
     if (
       this.guessedLetters
-        .split("")
-        .sort()
-        .join("") ===
+      .split("")
+      .sort()
+      .join("") ===
       this.secretWord
-        .split("")
-        .sort()
-        .join("")
+      .split("")
+      .sort()
+      .join("")
     ) {
       return true;
     } else {
@@ -109,18 +109,21 @@ if (startGameButton) {
 document.addEventListener("keydown", event => {
   // React to user pressing a key
   // ... your code goes here
-  if (hangman.checkIfLetter(event.which)) {
+  if (hangman.checkIfLetter(event.which) && hangman.checkClickedLetters(event.key)) {
     if (hangman.secretWord.includes(event.key)) {
       // add it to correct letter
       let idx = hangman.secretWord.indexOf(event.key);
+      console.log("outPut: idx", idx)
+      // let idx1 = hangman.secretWord.lastIndexOf(event.key);
+      // console.log("outPut: idx1", idx1)
       hangman.addCorrectLetter(event.key);
       hangmanCanvas.writeCorrectLetter(idx);
       hangmanCanvas.winner();
     } else {
+      hangmanCanvas.gameOver();
       hangman.addWrongLetter(event.key);
       hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
       hangmanCanvas.drawHangman(hangman.errorsLeft);
-      hangmanCanvas.gameOver();
     }
   }
 });
