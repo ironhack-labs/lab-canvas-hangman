@@ -1,12 +1,12 @@
 class HangmanCanvas {
   constructor(secretWord) {
-    this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
+    this.ctx = document.getElementById('hangman').getContext('2d');
+    this.secretWord = secretWord
   }
 
   createBoard() {
-    // ... your code goes here
-  }
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight - 10
 
   drawLines() {
     // ... your code goes here
