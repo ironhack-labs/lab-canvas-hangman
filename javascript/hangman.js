@@ -54,7 +54,10 @@ class Hangman {
   }
 
   checkWinner() {
-    if (this.secretWord === this.guessedLetters) {
+    let guesses = this.guessedLetters.split('').sort().join('');
+    let secretWordOrder = this.secretWord.split('').sort().join('');
+    
+    if (guesses ===secretWordOrder){
       return true
     } else {
       return false
