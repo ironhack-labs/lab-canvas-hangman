@@ -34,15 +34,15 @@ class HangmanCanvas {
   writeWrongLetter(letter, errorsLeft) {
     // ... your code goes here
     let escrita = "Errors left";
-    let textShow = "Wrong letters";
+    let textShow = "Wrong letters:";
     if ( errorsLeft == 1) {
       escrita = "Error left";
     } 
     this.context.fillText(textShow, 500, 200);
     this.context.fillText(letter, 500, 300);
-    this.context.clearRect( 700, 350, 600, 200);
-    this.context.fillText(errorsLeft, 800, 400);
-    this.context.fillText(escrita, 850, 400);
+    this.context.clearRect( 700, 550, 600, 100);
+    this.context.fillText(errorsLeft, 800, 600);
+    this.context.fillText(escrita, 850, 600);
   }
 
   drawHangman(errorsLeft) {
@@ -126,9 +126,21 @@ class HangmanCanvas {
 
   gameOver() {
     // ... your code goes here
+    // this.context.clearRect(0,0,1200,800);
+    let img = new Image();
+    img.onload = function() {
+      this.context.drawImage(img, 300, 250)
+    }.bind(this);
+    img.src = 'images/gameover.png';
   }
 
   winner() {
     // ... your code goes here
+    // this.context.clearRect(0,0,1200,800);
+    let img = new Image();
+    img.onload = function() {
+      this.context.drawImage(img, 200, 150)
+    }.bind(this);
+    img.src = 'images/awesome.png';
   }
 }

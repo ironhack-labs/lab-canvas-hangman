@@ -37,15 +37,12 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here  
-    // let tester = this.secretWord.split('');
-    // if ( tester.includes(letter) ) {
-      // let idx = this.secretWord.indexOf(letter);
-      // tester[idx] = letter;
-      // this.guessedLetters = tester.join('');
       this.guessedLetters += letter;
       this.letters.pop();
-      this.checkWinner();
+      if (this.checkWinner()) {
+        hangmanCanvas.winner();
+        
+      }
     }
   
 
@@ -53,7 +50,10 @@ class Hangman {
     // ... your code goes here
     // if ( !this.secretWord.includes(letter) ) {
       this.errorsLeft -= 1;
-      this.checkGameOver();
+
+      if (this.checkGameOver()) {
+        hangmanCanvas.gameOver();
+      }
     // }
   }
 
@@ -77,6 +77,7 @@ class Hangman {
   })
   console.log(sum, this.secretWord.length)
   if (sum == this.secretWord.length){
+
     return true;
   } else {
     return false;
