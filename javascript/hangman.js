@@ -81,15 +81,35 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
-  if (hangman.secretWord.includes(event.key)) {
-    let index = hangman.secretWord.indexOf(event.key);
-    hangmanCanvas.writeCorrectLetter(index);
-  } else {
-    hangman.addWrongLetter();
-    hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
-    hangmanCanvas.drawHangman(hangman.errorsLeft)
+  if (hangman.checkIfLetter(event.keyCode)) {
+    if (hangman.checkClickedLetters(event.key)) {
+      if (hangman.secretWord.includes(event.key)) {
+        hangman.addCorrectLetter(event.key);
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        } else {
+          hangman.secretWord.split('').forEach((letter, index) => {
+            if (letter === event.key) {
+              hangmanCanvas.writeCorrectLetter(index);
+            }
+          })
+        }
+
+        } else {
+          hangman.addWrongLetter();
+            if (hangman.checkGameOver()) {
+            hangmanCanvas.gameOver();
+          } else {
+          hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+          hangmanCanvas.drawHangman(hangman.errorsLeft)
+        }
+      } 
+    }
   }
 });
+
+
+
+
+
 

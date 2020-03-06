@@ -118,11 +118,21 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    const endGameImg = new Image();
+    endGameImg.src = "images/gameover.png";
+    endGameImg.addEventListener('load', () => {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.context.drawImage(endGameImg, 200, 200, 800, 400)
+    }, false)
   }
 
   winner() {
-    // ... your code goes here
+    const winGameImg = new Image();
+    winGameImg.src = "images/awesome.png";
+    winGameImg.addEventListener('load', () => {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.context.drawImage(winGameImg, 200, 200, 800, 400)
+    }, false) 
   }
 }
 
