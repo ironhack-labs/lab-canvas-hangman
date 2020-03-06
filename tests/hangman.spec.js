@@ -118,8 +118,8 @@ describe('Hangman Game', () => {
     });
 
     it('should add letters to guessedLetters string', () => {
-      hangman.addCorrectLetter('R');
-      expect(hangman.guessedLetters).toEqual('R');
+      hangman.addCorrectLetter('r');
+      expect(hangman.guessedLetters).toEqual('r');
     });
   });
 
@@ -130,7 +130,7 @@ describe('Hangman Game', () => {
 
     it('should discount the amount of errors left', () => {
       hangman.errorsLeft = 7;
-      hangman.addWrongLetter('P');
+      hangman.addWrongLetter('p');
       expect(hangman.errorsLeft).toEqual(6);
     });
   });
