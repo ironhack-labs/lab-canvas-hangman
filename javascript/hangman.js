@@ -39,8 +39,13 @@ class Hangman {
   }
 
   checkWinner() {
-    console.log(`this is letters ${this.guessedLetters.length} and this is ${this.secretWord.length}`)
-    return this.guessedLetters.length === this.secretWord.length ? true : false
+    //console.log(`this is letters ${this.guessedLetters.length} and this is ${this.secretWord.length}`)
+    //return this.guessedLetters.length === this.secretWord.length ? true : false
+    let splitSecretWord = this.secretWord.split('')
+    let uniqueArray = [...new Set([splitSecretWord])];
+    console.log(uniqueArray)
+    // return this.guessedLetters.length === uniqueArray.length ? true : false
+
   }
 }
 
@@ -54,13 +59,22 @@ if (startGameButton) {
 
     //HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
-    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-   
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard()
+
+
   });
 }
 
-document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
-});
+// document.addEventListener('keydown', event => {
+//   if (hangman.checkIfLetter(event.keyCode)) {
+//     if (hangman.checkClickedLetters(event.key)) {
+//       if (hangman.addCorrectLetter(event.key)) {
+//         if (hangman.checkWinner)
+
+//       }
+//     }
+//   }
+
+// });
