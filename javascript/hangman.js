@@ -19,7 +19,6 @@ class Hangman {
 
     if(key >= 65 && key <= 90)
     {
-      check = String.fromCharCode(key);
       guess = true;
     }
     else{
@@ -35,7 +34,13 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    this.guessedLetters = letter;
+
+    this.guessedLetters += letter;
+    if(this.guessedLetter === this.secretWord)
+    {
+      console.log("YOU WIN");
+    }
+    this.checkWinner();
   }
 
   addWrongLetter(letter) {
@@ -47,6 +52,8 @@ class Hangman {
     {
       this.letters.push(letter);
     }
+
+    this.checkGameOver();
   }
 
   checkGameOver() {
@@ -64,7 +71,7 @@ class Hangman {
   }
 }
 
-let hangman = new Hangman;
+let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -74,11 +81,19 @@ if (startGameButton) {
 
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    
+    hangmanCanvas.createBoard();
+    hangmanCanvas.drawHangman();
   });
 }
 
 document.addEventListener('keydown', event => {
- 
+ if(hangman.secretWord.includes(event.key))
+ {
+   let word = hangman.secretWord.indexOf(event.key);
+   hangmanCanvas.writeCorrectLetter(word);
+ }
+ else{
+   hangman.addWrongLetter(event.key);
+   hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+ }
 });
