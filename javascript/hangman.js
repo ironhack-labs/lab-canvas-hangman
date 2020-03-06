@@ -23,7 +23,7 @@ class Hangman {
   checkClickedLetters(letter) {
     // ... your code goes here
     console.log(this.secretWord.includes(letter))
-    return this.secretWord.includes(letter);
+    return !this.secretWord.includes(letter);
   }
 
   addCorrectLetter(letter) {
@@ -44,11 +44,11 @@ class Hangman {
   
   addWrongLetter(letter) {
     // ... your code goes here
+    this.errorsLeft -= 1
     if(hangman.checkGameOver()) {
       hangmanCanvas.gameOver();
       document.removeEventListener("keydown", keysTracker);
     } else if(!this.letters.includes(letter)){
-      this.errorsLeft -= 1
       this.letters.push(letter);
       hangmanCanvas.writeWrongLetter(letter, this.errorsLeft); 
     } else {
@@ -97,8 +97,8 @@ const keysTracker = ({which, key}) => {
   
   if(hangman.checkIfLetter(which)){
     hangman.checkClickedLetters(key) ?
-    hangman.addCorrectLetter(key) :
-    hangman.addWrongLetter(key)
+    hangman.addWrongLetter(key):
+    hangman.addCorrectLetter(key) 
   }
 }
 

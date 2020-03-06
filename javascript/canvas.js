@@ -122,19 +122,18 @@ class HangmanCanvas {
 
   gameOver() {
     // ... your code goes here
+    let image = document.querySelector(".loser");
     this.context.clearRect(0, 0, 1200, 800 )
-    let image = new Image();
-    image.src = '../images/gameover.png';
-     this.context.drawImage(image, 400, 300, 500, 500);
+     this.context.drawImage(image, 300, 200, 500, 500);
   
   }
   
   winner() {
     // ... your code goes here
-    let image = new Image();
+    let image = document.querySelector(".winner");
     image.src = '../images/awesome.png';
     this.context.clearRect(0, 0, 1200, 800 )
-    this.context.drawImage(image, 400, 300, 500, 500);
+    this.context.drawImage(image, 300, 200, 500, 500);
 
   }
 }

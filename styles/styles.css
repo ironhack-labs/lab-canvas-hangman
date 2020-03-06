@@ -19,3 +19,11 @@
 canvas {
   border: 1px solid black;
 }
+
+.winner {
+  display:none;
+}
+
+.loser {
+  display:none;
+}
