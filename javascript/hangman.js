@@ -11,8 +11,8 @@ class Hangman {
   pickWord() {
     // ... your code goes here
 
-    let word = this.words[Math.floor(Math.random() * this.words.length)];
-    return word;
+   return this.words[Math.floor(Math.random() * this.words.length)];
+   
   }
 
   checkIfLetter(keyCode) {
@@ -22,7 +22,6 @@ class Hangman {
 
   checkClickedLetters(letter) {
     // ... your code goes here
-    console.log(this.secretWord.includes(letter))
     return !this.secretWord.includes(letter);
   }
 
@@ -31,9 +30,11 @@ class Hangman {
     let index = [];
     this.secretWord.split('').map((a, i) => a == letter ? index.push(i): a);
     index.map(a => this.guessedLetters += a);
+    
     if(hangman.checkWinner()){
       hangmanCanvas.winner();
       document.removeEventListener("keydown", keysTracker);
+      this.updateBtnText("PLAY AGAIN");
     } else if(!this.letters.includes(letter)){
       this.letters.push(letter);
       hangmanCanvas.writeCorrectLetter(index);
@@ -48,6 +49,7 @@ class Hangman {
     if(hangman.checkGameOver()) {
       hangmanCanvas.gameOver();
       document.removeEventListener("keydown", keysTracker);
+      this.updateBtnText("TRY AGAIN");
     } else if(!this.letters.includes(letter)){
       this.letters.push(letter);
       hangmanCanvas.writeWrongLetter(letter, this.errorsLeft); 
@@ -65,6 +67,10 @@ class Hangman {
   checkWinner() {
     // ... your code goes here
     return this.secretWord.length == this.guessedLetters.length;
+  }
+
+  updateBtnText(str) {
+    document.querySelector("#start-game-button").innerHTML = str;
   }
 }
 
