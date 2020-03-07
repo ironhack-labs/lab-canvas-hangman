@@ -6,6 +6,10 @@ class HangmanCanvas {
     this.secretWord = secretWord;
     this.width = this.canvas.style.width;
     this.height = this.canvas.style.height;
+    this.gameoverSound = new Audio();
+    this.gameoverSound.src = '../songs/NFF-zomboid.wav';
+    this.laserSound = new Audio();
+    this.laserSound.src = "../songs/NFF-laser-zapping.wav";
   }
 
   createBoard() {
@@ -33,20 +37,14 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     // ... your code goes here
-    console.log(index)
-    for (let i = 0; i < index.length; i++) {
       this.context.font = "50px Arial";
-      this.context.fillText(hangman.secretWord[index[i]], 350 + (index[i] * 70), 500);
-    }
-    
-    
-
+      this.context.fillText(hangman.secretWord[index], 365 + (index * 70), 500);
   }
 
   writeWrongLetter(letter, errorsLeft) {
 
       this.context.font = "60px Arial";
-      this.context.fillText(letter,500 + 50 * errorsLeft, 50);
+      this.context.fillText(letter, 500 + 70 * errorsLeft, 50);
 
       this.drawHangman(errorsLeft);
 
@@ -55,6 +53,7 @@ class HangmanCanvas {
   drawHangman(errorsLeft) {
     // ... your code goes here
     console.log(errorsLeft);
+    this.context.setLineDash([]);
     switch(errorsLeft){
       case 9:
         this.context.beginPath(); 
@@ -121,19 +120,27 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
-    let image = document.querySelector(".loser");
-    this.context.clearRect(0, 0, 1200, 800 )
-     this.context.drawImage(image, 300, 200, 500, 500);
-  
-  }
-  
-  winner() {
-    // ... your code goes here
-    let image = document.querySelector(".winner");
-    image.src = '../images/awesome.png';
-    this.context.clearRect(0, 0, 1200, 800 )
-    this.context.drawImage(image, 300, 200, 500, 500);
+    setTimeout(
+      function(){
+        let image = document.querySelector(".loser");
+        hangmanCanvas.context.clearRect(0, 0, 1200, 800 )
+         hangmanCanvas.context.drawImage(image, 200, 200, 800,400);
+         hangmanCanvas.gameoverSound.play();
+      }, 1000
+    )
+     
+    }
+    
+    winner() {
+      setTimeout(
+        function(){
+          let image = document.querySelector(".winner");
+          image.src = '../images/awesome.png';
+          hangmanCanvas.context.clearRect(0, 0, 1200, 800 )
+          hangmanCanvas.context.drawImage(image, 200, 100, 800,600);
+          hangmanCanvas.laserSound.play();
+        }, 1000
+      )
 
   }
 }
