@@ -48,7 +48,13 @@ class Hangman {
   }
 
   checkWinner() {
-    return this.guessedLetters.length === this.secretWord.length
+    let allLetters = true;
+    this.secretWord.split('').forEach(letter => {
+      if(!this.guessedLetters.includes(letter))
+      allLetters = false;
+    })
+    return allLetters;
+    // return this.guessedLetters.length === this.secretWord.length
   }
 }
 
@@ -72,7 +78,7 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   console.log(event.keyCode);
 
-  if (hangman.checkIfLetter(event.keyCode)){
+  if (hangman.checkIfLetter(event.keyCode) && !hangman.checkWinner()){
     if (hangman.checkClickedLetters(event.key)){
       if (hangman.secretWord.includes(event.key)){
         hangman.addCorrectLetter(event.key);

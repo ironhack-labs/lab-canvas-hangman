@@ -2,6 +2,7 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
     this.secretWord = secretWord;
+    // this.goodAudio = new Audio (src)
     // ... your code goes here
   }
 
@@ -29,6 +30,9 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
+    // audio  here
+    //  this.goodAudio.play();
+
     this.context.font = '50px arial'
 
     // let wordArr = this.secretWord.split('');
@@ -36,7 +40,7 @@ class HangmanCanvas {
     // wordArr.forEach(letter) => 
     
     
-    this.context.fillText(this.secretWord[index] , 200, 500)
+    this.context.fillText(this.secretWord[index] , 200 + index *60, 500)
     
   }
 
