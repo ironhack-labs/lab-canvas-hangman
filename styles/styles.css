@@ -15,3 +15,8 @@
 #hangman {
   text-align: center;
 }
+
+
+.winner, .loser{
+  display: none;
+}

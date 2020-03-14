@@ -15,7 +15,6 @@ class Hangman {
   checkIfLetter(keyCode) {
     let guess = false;
     let key = keyCode;
-    let check = "";
 
     if(key >= 65 && key <= 90)
     {
@@ -24,7 +23,6 @@ class Hangman {
     else{
       guess = false;
     }
-    
     return guess;
   }
 
@@ -35,35 +33,37 @@ class Hangman {
 
   addCorrectLetter(letter) {
 
-    this.guessedLetters += letter;
-    if(this.guessedLetter === this.secretWord)
+    this.letters.push(letter);
+    this.secretWord.split('').forEach((element, i) => {
+      if(element === letter)
+      {
+        this.guessedLetters += letter;
+        hangmanCanvas.writeCorrectLetter(i);
+      }
+    });
+    
+    if(this.checkWinner())
     {
-      console.log("YOU WIN");
+      hangmanCanvas.winner();
     }
-    this.checkWinner();
+    
   }
 
   addWrongLetter(letter) {
     
     this.errorsLeft -= 1;
-    let check = this.letters.includes(letter);
-    
-    if(check === false)
+    this.letters.push(letter);
+    hangmanCanvas.writeWrongLetter(letter, this.errorsLeft);
+  
+    if(this.checkGameOver())
     {
-      this.letters.push(letter);
+      hangmanCanvas.gameOver();
     }
-
-    this.checkGameOver();
   }
 
   checkGameOver() {
-    if(this.errorsLeft > 0)
-    { 
-      return false;
-    }
-    else{
-      return true;
-    }
+
+    return this.errorsLeft < 1;
   }
 
   checkWinner() {
@@ -76,24 +76,30 @@ let hangman;
 const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
-  startGameButton.addEventListener('click', event => {
+  startGameButton.addEventListener('click', () => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
-    hangmanCanvas.drawHangman();
+    
+    document.addEventListener('keydown', ({which, key})=> {
+      if(!hangman.checkGameOver() && !hangman.checkWinner())
+      {
+        if(hangman.checkIfLetter(which)){
+
+          if(hangman.checkClickedLetters(key)){
+            
+            if(hangman.secretWord.split("").includes(key))
+            {
+              hangman.addCorrectLetter(key);
+            }
+            else{
+              hangman.addWrongLetter(key);
+            }
+          }
+        }
+      }
+    });
   });
 }
-
-document.addEventListener('keydown', event => {
- if(hangman.secretWord.includes(event.key))
- {
-   let word = hangman.secretWord.indexOf(event.key);
-   hangmanCanvas.writeCorrectLetter(word);
- }
- else{
-   hangman.addWrongLetter(event.key);
-   hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
- }
-});
