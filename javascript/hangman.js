@@ -33,19 +33,16 @@ class Hangman {
   }
 
   checkWinner() {
-    const secretArr = [...this.secretWord].sort();
-    const guessArr = [...this.guessedLetters].sort();
-    if (secretArr.length !== guessArr.length) {
-      return false;
-    } else {
-      for (let i = 0; i < secretArr.length; i++) {
-        if (secretArr[i] === guessArr[i]) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+    function filtraPalabra(palabra) {
+      return palabra
+        .split('')
+        .sort((a, b) => a.localeCompare(b))
+        .filter((item, pos, self) => self.indexOf(item) == pos)
+        .join('');
     }
+    if (filtraPalabra(this.guessedLetters) === filtraPalabra(this.secretWord)) {
+      return true;
+    } else return false;
   }
 }
 
@@ -55,7 +52,7 @@ let hangman;
 const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['vidal','mario','kevin','juan','diego','jose','ema', 'abril' ]);
+    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
