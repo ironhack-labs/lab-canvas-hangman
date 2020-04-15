@@ -1,41 +1,37 @@
 class HangmanCanvas {
   constructor(secretWord) {
-    this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
+    this.context = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
   }
 
   createBoard() {
-    // ... your code goes here
     this.context.clearRect(0, 0, 800, 1200);
     this.drawLines();
   }
 
   drawLines() {
-    let xPosition = 0
-    let lineLength = 16
+    let linePosition = 25;
+    let lineLength = 25;
 
     this.context.beginPath();
     this.context.strokeStyle = "black";
-    this.context.moveTo(50, 50);
-    this.context.lineTo(100, 50);
-    this.context.moveTo(300, 50);
-    this.context.lineTo(400, 50);
+
+
+    for (let i = 0; i < this.secretWord.length; i++) {
+      this.context.moveTo(linePosition, 25);
+      this.context.lineTo(linePosition + 25, lineLength);
+      linePosition += 50
+    }
+
     this.context.stroke();
-
-    // for (let i = 0; i < this.secretWord.length; i++) {
-    //   this.context.beginPath()
-    //   this.context.moveTo(xPosition, 10)
-    //   this.context.lineTo(lineLength, 10)
-    //   this.context.stroke();
-    //   this.context.closePath();
-
-    //   xPosition += 24
-    // }
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+    let letterPosition = 25
+
+    this.context.font = "36px sans-serif"
+    this.context.moveTo(letterPosition, 25)
+    this.context.fillText(index, 25, 25)
   }
 
   writeWrongLetter(letter, errorsLeft) {
