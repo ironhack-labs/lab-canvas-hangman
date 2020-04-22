@@ -1,7 +1,7 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    this.secretWord = this.pickWord();
+    this.secretWord = '';
     this.letters = []; // save used letters
     this.guessedLetters = '';
     this.errorsLeft = 10;
@@ -46,9 +46,8 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
