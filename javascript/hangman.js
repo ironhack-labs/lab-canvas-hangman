@@ -1,35 +1,60 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+    let randomNum = Math.floor(Math.random() * (this.words.length));
+    return this.secretWord = this.words[randomNum];
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if (keyCode > 64 && keyCode < 91) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if (this.letters.indexOf(letter) < 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft--;
+    if (this.letters.indexOf(letter) < 0) {
+      this.letters.push(letter)
+    }
+
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   checkWinner() {
-    // ... your code goes here
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (!this.guessedLetters.includes(this.secretWord[i])) {
+        return false;
+      }
+      return true;
+    }
   }
 }
 
@@ -37,7 +62,7 @@ let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
 
-if (startGameButton) {
+if (startGameButton) {//if para garantir que existe elemento startGamesButton
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
@@ -49,7 +74,7 @@ if (startGameButton) {
   });
 }
 
-document.addEventListener('keydown', event => {
+document.addEventListener('keydown', event => { //keydown - pulsa el teclado
   // React to user pressing a key
   // ... your code goes here
 });
