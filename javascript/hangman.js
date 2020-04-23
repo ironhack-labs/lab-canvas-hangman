@@ -1,7 +1,7 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    this.secretWord = '';
+    this.secretWord = this.pickWord();
     this.letters = []; // save used letters
     this.guessedLetters = '';
     this.errorsLeft = 10;
@@ -18,8 +18,8 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    // Check if the letter had already been pressed
-    return this.letters.includes(letter);
+    // Check if the letter had already been pressed, return true if not
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
@@ -27,7 +27,6 @@ class Hangman {
     if (!this.guessedLetters.includes(letter)) {
       this.guessedLetters += letter;
     }
-    //return this.checkWinner();
   }
 
   addWrongLetter(letter) {
@@ -67,8 +66,8 @@ if (startGameButton) {
 
 // React to user pressing a key
 document.addEventListener('keydown', event => {
-  // When the game is over, stop the keydown listener
-  if (!hangman.checkGameOver()) {
+  // When the game is over or won, stop the keydown listener
+  if (!hangman.checkGameOver() && !hangman.checkWinner()) {
     // Check if the key pressed belonged to a letter
     if (hangman.checkIfLetter(event.keyCode)) {
       // Save the letter from the key pressed
@@ -82,7 +81,7 @@ document.addEventListener('keydown', event => {
         if (hangman.checkWinner()) {
           hangmanCanvas.winner();
         }
-      } else if (!hangman.checkClickedLetters(l)) {
+      } else if (hangman.checkClickedLetters(l)) {
         // Add the wrong letter, write into screen and reduce the errors left 
         hangman.addWrongLetter(l);
         hangmanCanvas.writeWrongLetter(l,hangman.errorsLeft);
