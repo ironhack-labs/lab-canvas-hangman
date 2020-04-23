@@ -114,10 +114,18 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    const gameOv = new Image();
+    gameOv.src = 'images/gameover.png';
+    gameOv.addEventListener('load', e => {
+      this.context.drawImage(gameOv, 320, 200);
+    })
   }
 
   winner() {
-    // ... your code goes here
+    const awesome = new Image();
+    awesome.src = 'images/awesome.png';
+    awesome.addEventListener('load', e => {
+      this.context.drawImage(awesome, 150, 10);
+    });
   }
 }

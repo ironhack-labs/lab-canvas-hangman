@@ -27,7 +27,7 @@ class Hangman {
     if (!this.guessedLetters.includes(letter)) {
       this.guessedLetters += letter;
     }
-    this.checkWinner();
+    //return this.checkWinner();
   }
 
   addWrongLetter(letter) {
@@ -40,7 +40,7 @@ class Hangman {
 
   checkGameOver() {
     // Return true if there are no errors left
-    return this.errorsLeft > 0 ? true : false;
+    return this.errorsLeft === 0 ? true : false;
   }
 
   checkWinner() {
@@ -67,24 +67,32 @@ if (startGameButton) {
 
 // React to user pressing a key
 document.addEventListener('keydown', event => {
-  // Check if the key pressed belonged to a letter
-  if (hangman.checkIfLetter(event.keyCode)) {
-    // Save the letter from the key pressed
-    let l = String.fromCharCode(event.keyCode).toLowerCase();
-    // Check if the letter is present in the secret word
-    if (hangman.secretWord.includes(l)) {
-      // Check if the letter is in multiple positions, write in the screen 
-      checkMultiplePositions(l, hangman.secretWord).forEach(i => hangmanCanvas.writeCorrectLetter(l, i));
-      hangman.addCorrectLetter(l);
-    } else if (!hangman.checkClickedLetters(l)) {
-      // Add the wrong letter, write into screen and reduce the errors left 
-      hangman.addWrongLetter(l);
-      hangman.errorsLeft--;
-      hangmanCanvas.writeWrongLetter(l,hangman.errorsLeft);
+  // When the game is over, stop the keydown listener
+  if (!hangman.checkGameOver()) {
+    // Check if the key pressed belonged to a letter
+    if (hangman.checkIfLetter(event.keyCode)) {
+      // Save the letter from the key pressed
+      let l = String.fromCharCode(event.keyCode).toLowerCase();
+      // Check if the letter is present in the secret word
+      if (hangman.secretWord.includes(l)) {
+        // Check if the letter is in multiple positions, write in the screen 
+        checkMultiplePositions(l, hangman.secretWord).forEach(i => hangmanCanvas.writeCorrectLetter(l, i));
+        hangman.addCorrectLetter(l);
+        // Print you're awesome when the game is finished
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+      } else if (!hangman.checkClickedLetters(l)) {
+        // Add the wrong letter, write into screen and reduce the errors left 
+        hangman.addWrongLetter(l);
+        hangmanCanvas.writeWrongLetter(l,hangman.errorsLeft);
+        // Print image game over
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver();
+        }
+      }
     }
-  } else {
-    console.log('Wrong Key!')
-  }
+  } 
 });
 
 // Create a function to check if the letter is in multiple positions
