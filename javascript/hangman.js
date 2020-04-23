@@ -3,9 +3,9 @@ class Hangman {
     this.words = words;
     // Iteration 1: The game logic
     // Hangman Class
-    this.secretWord = "";
+    this.secretWord = this.pickWord();
     this.letters = [];
-    this.guessedLetter = "";
+    this.guessedLetters = "";
     this.errorsLeft = 10;
   }
 
@@ -15,35 +15,41 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    return 65 < keyCode && 90 > keyCode;
+    return keyCode <= 90 && keyCode >= 65;
   }
 
   checkClickedLetters(letter) {
-    return this.letters.indexOf(letter) === -1;
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    this.guessedLetter += this.secretWord[letter].toUpperCase();
-    this.checkWinner();
+    (!this.guessedLetters.includes(letter)) 
+      this.guessedLetters += letter;
+    
   }
 
   addWrongLetter(letter) {
     if (!this.secretWord.includes(letter)) {
       this.errorsLeft--;
-      this.checkGameOver();}
+      this.checkGameOver();
+    }
   }
 
   checkGameOver() {
-    return (this.errorsLeft === 0);
+    return this.errorsLeft === 0;
   }
 
   checkWinner() {
-    return this.guessedLetter.length === this.secretWord.length;
+    let returnValue = true;
+    [...this.secretWord].forEach(letter => returnValue = returnValue && (this.guessedLetters.indexOf(letter) != -1));
+    return returnValue;
+  
   }
 }
 
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -52,14 +58,13 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
+    //hangman.secretWord = hangman.pickWord();
+    //hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    //hangmanCanvas.createBoard();
     // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+ 
 });
