@@ -20,8 +20,12 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    this.guessedLetters += letter;
-    this.checkWinner();
+    if (!this.guessedLetters.includes(letter)){
+      this.guessedLetters += letter;
+    }
+    if (this.checkWinner()) {
+      console.log("YOU WON !!!");
+    }
   }
 
   addWrongLetter(letter) {
@@ -29,10 +33,13 @@ class Hangman {
     if (this.checkClickedLetters(letter)) {
       this.letters.push(letter)
     }
+    if (this.checkGameOver()) {
+        console.log("YOU LOST")
+      }
   }
 
   checkGameOver() {
-    return !this.errorsLeft > 0 ? true : false
+    return this.errorsLeft === 0 ? true : false
   }
 
   checkWinner() {
@@ -54,15 +61,38 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-    // ... your code goes here
+    console.log("start button works fine")
+    hangmanCanvas.createBoard()
+    
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  const keyName = event.keyCode;
+  const key = event.key;
+  let letterIndex = []
+  if (hangman.checkIfLetter(keyName)) {
+    if (hangman.secretWord.includes(key) ||
+        hangman.secretWord.includes(key.toLowerCase())) {
+      hangman.addCorrectLetter(key)
+      for (let i = 0;i<hangman.secretWord.length;i++) {
+        if (hangman.secretWord[i] === key || 
+            hangman.secretWord[i] === key.toLowerCase()) {
+          letterIndex.push(i)
+        }
+      hangmanCanvas.writeCorrectLetter(letterIndex)
+      }
+    } else {
+      if (hangman.checkClickedLetters(key)) {
+        hangman.addWrongLetter(key);
+        hangmanCanvas.writeWrongLetter(key, hangman.errorsLeft)
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
+      }
+    }
+  } else {
+    console.log("press a correct letter")
+  }
 });
