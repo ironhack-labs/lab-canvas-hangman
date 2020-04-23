@@ -97,10 +97,12 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    let imageWin = document.querySelector('#img-game-over')
+    this.context.drawImage(imageWin, 0, 0, 570, 240, 300, 150, 570, 240);
   }
 
   winner() {
-    // ... your code goes here
+    let imageLost = document.querySelector('#img-winner')
+    this.context.drawImage(imageLost, 0, 0, 872, 618, 200, 50, 872, 618);
   }
 }

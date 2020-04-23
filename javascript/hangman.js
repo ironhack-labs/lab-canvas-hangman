@@ -35,7 +35,7 @@ class Hangman {
     }
     if (this.checkGameOver()) {
         console.log("YOU LOST")
-      }
+    }
   }
 
   checkGameOver() {
@@ -65,8 +65,7 @@ if (startGameButton) {
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     console.log("start button works fine")
-    hangmanCanvas.createBoard()
-    
+    hangmanCanvas.createBoard()    
   });
 }
 
@@ -74,7 +73,7 @@ document.addEventListener('keydown', event => {
   const keyName = event.keyCode;
   const key = event.key;
   let letterIndex = []
-  if (hangman.checkIfLetter(keyName)) {
+  if (hangman.checkIfLetter(keyName) && (!hangman.checkGameOver() && !hangman.checkGameOver())) {
     if (hangman.secretWord.includes(key) ||
         hangman.secretWord.includes(key.toLowerCase())) {
       hangman.addCorrectLetter(key)
@@ -83,13 +82,21 @@ document.addEventListener('keydown', event => {
             hangman.secretWord[i] === key.toLowerCase()) {
           letterIndex.push(i)
         }
-      hangmanCanvas.writeCorrectLetter(letterIndex)
+      if (!hangman.checkGameOver() && !hangman.checkGameOver()) {
+        hangmanCanvas.writeCorrectLetter(letterIndex)
+      }
+      }
+      if (hangman.checkWinner()) {
+        hangmanCanvas.winner()
       }
     } else {
-      if (hangman.checkClickedLetters(key)) {
+      if (hangman.checkClickedLetters(key) && (!hangman.checkWinner() && !hangman.checkGameOver())) {
         hangman.addWrongLetter(key);
         hangmanCanvas.writeWrongLetter(key, hangman.errorsLeft)
         hangmanCanvas.drawHangman(hangman.errorsLeft)
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver()
+        }
       }
     }
   } else {
