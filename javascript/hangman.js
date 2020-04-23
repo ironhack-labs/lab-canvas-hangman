@@ -1,8 +1,14 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    //Iteration 1: The game logic
+    //Hangman Class
+    this.secretWord ="";
+    this.letters = [];
+    this.guessedLetter = "";
+    this.errorsLeft = 10;
   }
+
 
   pickWord() {
     // ... your code goes here
