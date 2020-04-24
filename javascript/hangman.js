@@ -13,24 +13,23 @@ class Hangman {
 
   checkIfLetter(keyCode) {
     //keyCode must be a letter and have a value from 65 to 90
-    keyCode >= 65 && keyCode <= 90 ? true : false;
+    return event.keyCode >= 65 && event.keyCode <= 90 ? true : false;
+    console.log(event.keyCode);
   }
 
   checkClickedLetters(letter) {
     //check if clicked letter is in the array of letters or guessedLetters
-    this.letters.includes(letter) ? false : true;
-    this.guessedLetters.includes(letter) ? false : true;
+    return !this.letters.includes(letter) ? true : false;
   }
 
   addCorrectLetter(letter) {
     //add letter to guessedLetters
-    this.guessedLetters.push(letter);
+    this.guessedLetters += letter;
     //add winner check
   }
 
   addWrongLetter(letter) {
-    //add letter to letters
-    !this.letters/includes(letter) ? this.letters.push(letter) : false;
+    //Subtract 1 from errors left. The letter will be added to letters automatically
     this.errorsLeft = this.errorsLeft - 1;
   }
 
@@ -53,8 +52,8 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
@@ -62,5 +61,32 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  // ... your code goes here
+    hangman.checkIfLetter(event.keyCode) ? hangman.checkClickedLetters(event.key) : false;
+    //Add pressed letter to array
+    hangman.letters.push(event.key);
+    // If the letter is in the secret word, write it on canvas
+    if (hangman.secretWord.includes(event.key)) {
+      [...hangman.secretWord].forEach((letter, index) => {
+        if (letter === event.key) {
+          hangmanCanvas.writeCorrectLetter(index);
+        }
+      });
+      //Add correct letter to array and check a winner
+      hangman.addCorrectLetter(event.key);
+      hangman.checkWinner() ? hangmanCanvas.winner() : false; 
+      
+    } else { // If the letter is wrong call addWrongLetter to subtract points
+      hangman.addWrongLetter();
+      // Write wrong letter on canvas
+      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+      // Draw a hangman part
+      hangmanCanvas.drawHangman(hangman.errorsLeft);
+      // Check game over
+      hangman.checkGameOver() ? hangmanCanvas.gameOver() : false;
+    }
+  
+  //check words and letters on console
+    console.log("Secret word  -  " + hangman.secretWord + " , guessed letters : " + hangman.guessedLetters + "  wrong letters:  " + hangman.letters);
 });
+
+
