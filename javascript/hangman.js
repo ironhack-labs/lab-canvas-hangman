@@ -43,24 +43,17 @@ class Hangman {
 
   addWrongLetter(letter) {
     // ... your code goes here
-    --this.errorsLeft;
+    this.errorsLeft--;
     this.addLetter(letter);
   }
 
   checkGameOver() {
     // ... your code goes here
-    if (this.errosLeft > 0)
-    {
-      return false;
-    } 
-    return true;
+    return this.errorsLeft === 0;
   }
 
   checkWinner() {
-    // ... your code goes here
-    let checkWin = 0;
-    Array.from(this.secretWord).forEach(letra => checkWin = true && (this.guessedLetters.indexOf(letra) >= 0));
-    return checkWin;
+    return Array.from(this.secretWord).sort().join("") == Array.from(this.guessedLetters).sort().join("");
   }
 }
 
@@ -86,8 +79,20 @@ document.addEventListener('keydown', event => {
   if(hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)){
     if (hangman.secretWord.indexOf(event.key) >= 0){
       hangman.addCorrectLetter(event.key);
+      Array.from(hangman.secretWord).forEach((letra, index) => {
+        if (letra === event.key){
+          hangmanCanvas.writeCorrectLetter(index);
+        }
+      })
     } else {
       hangman.addWrongLetter(event.key);
+      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+      hangmanCanvas.drawHangman(hangman.errorsLeft);
+    }
+    if (hangman.checkWinner()) {
+      hangmanCanvas.winner();
+    } else if (hangman.checkGameOver()){
+      hangmanCanvas.gameOver();
     }
 }
 });
