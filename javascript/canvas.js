@@ -25,6 +25,7 @@ class HangmanCanvas {
     // Draw 1 line for every letter of the secretWord
     this.lettersToGuess.forEach(letter => {
       this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = "grey";
       this.ctx.beginPath();
       this.ctx.moveTo(x, y);
       this.ctx.lineTo(x + 30, y);
