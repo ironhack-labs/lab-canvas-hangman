@@ -47,7 +47,14 @@ class Hangman {
   }
 
   checkWinner() {
-
+    //Itera la secretWord y la compara con las letras acertadas
+    let won = true
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (!this.guessedLetters.includes(this.secretWord[i])) {
+        won = false
+      }
+    }
+    return won
   }
 }
 
@@ -60,14 +67,33 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
+    hangmanCanvas.createBoard()
     // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  // ... your code goes here
-});
+
+  keyCode = event.keyCode
+  keyLetter = event.key
+  if (hangman.checkIfLetter(keyCode) && hangman.checkClickedLetters(keyLetter)) {
+    hangman.letters.push(keyLetter);
+    if (hangman.secretWord.includes(keyLetter)) {
+      [...hangman.secretWord].forEach((l, i) => {
+        if (l === keyLetter) {
+          hangmanCanvas.writeCorrectLetter(i)
+        }
+      })
+      hangman.addCorrectLetter(keyLetter)
+      if (hangman.checkWinner()) hangmanCanvas.winner()
+    } else {
+      hangman.addWrongLetter()
+      hangmanCanvas.writeWrongLetter(keyLetter, hangman.errorsLeft)
+      hangmanCanvas.drawHangman(hangman.errorsLeft)
+    }
+  }
+})
