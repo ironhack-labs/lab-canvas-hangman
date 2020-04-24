@@ -28,21 +28,38 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    if (this.guessedLetters.includes(letter)){
-    }
-    // ... your code goes here
-  }
-
+    this.guessedLetters += letter;
+  } 
+  
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft--;
+
+    if (!this.letters.includes(letter)){
+      this.letters.push(letter);
+
+    }
+
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if( this.errorsLeft > 0) {
+      return false;
+    }
+    else {
+      return true;
+    }
+    
   }
-
+  
   checkWinner() {
-    // ... your code goes here
+    let counter = 0;
+    for (let i=0;i < this.secretWord.length;i++) {
+      if (this.guessedLetters.includes(this.secretWord[i])) {
+        counter++;
+      }
+    }
+
+    return counter === this.secretWord.length;
   }
 }
 
