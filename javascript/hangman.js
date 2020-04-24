@@ -11,8 +11,8 @@ class Hangman {
     return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
-  checkIfLetter(keyCode) {
-    if(keyCode >= 65 && keyCode <= 90) {
+  checkIfLetter(key) {
+    if(key >= 65 && key <= 90) {
       return true;
     } else {
       return false;
@@ -69,12 +69,42 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
-
-    // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  
+  let letterKey = event.key;
+  let letterCode = event.keyCode;
+  let arr = [...hangman.secretWord];
+  //let indexInSecretWord = arr.indexOf(letterKey);
+  
+
+  if(hangman.checkIfLetter(letterCode)) {
+    
+    if(arr.includes(letterKey)) {
+
+      hangman.addCorrectLetter(letterKey);
+
+      arr.forEach((letter, index) => {
+        if (letter === letterKey) {
+          hangmanCanvas.writeCorrectLetter(index);
+        }
+      });
+
+    } else {
+      hangman.addWrongLetter(letterKey);
+      hangmanCanvas.writeWrongLetter(letterKey, hangman.errorsLeft);
+      hangmanCanvas.drawHangman(hangman.errorsLeft);
+    }
+
+  } else {
+    alert("Press a letter key!");
+  }
+  if(hangman.checkGameOver()) {
+    hangmanCanvas.gameOver();
+  } 
+  if(hangman.checkWinner()) {
+    hangmanCanvas.winner();
+  } 
 });
