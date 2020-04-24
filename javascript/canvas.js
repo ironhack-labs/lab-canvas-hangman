@@ -24,12 +24,15 @@ class HangmanCanvas {
     // ... your code goes here
   }
 
-  drawHangman(errorsLeft) {
+  drawHangmanHead() {
+    this.context.beginPath();
+    this.context.arc(230, 90, 50, 0, Math.PI * 2);
+    this.context.stroke();
+  }
 
+  drawHangman(errorsLeft) {
     if (errorsLeft <= 9) {
-      this.context.beginPath();
-      this.context.arc(230, 90, 50, 0, Math.PI * 2);
-      this.context.stroke();
+      this.drawHangmanHead();
     }
     if (errorsLeft <= 8) {
       this.context.beginPath();
