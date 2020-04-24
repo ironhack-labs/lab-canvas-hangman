@@ -7,8 +7,6 @@ class HangmanCanvas {
   createBoard() {
     this.context.clearRect(0, 0, 1200, 800);
     this.drawLines();    
-
-    console.log(this.secretWord);
   }
 
   drawLines() {

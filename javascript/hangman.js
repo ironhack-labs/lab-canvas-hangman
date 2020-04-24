@@ -76,18 +76,15 @@ document.addEventListener('keydown', event => {
   
   let letterKey = event.key;
   let letterCode = event.keyCode;
-  let arr = [...hangman.secretWord];
-  //let indexInSecretWord = arr.indexOf(letterKey);
-  
+  let arr = [...hangman.secretWord];  
 
   if(hangman.checkIfLetter(letterCode)) {
     
     if(arr.includes(letterKey)) {
 
-      hangman.addCorrectLetter(letterKey);
-
       arr.forEach((letter, index) => {
         if (letter === letterKey) {
+          hangman.addCorrectLetter(letterKey);
           hangmanCanvas.writeCorrectLetter(index);
         }
       });
