@@ -1,37 +1,44 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = words[0];
+    this.letters = [];
+    this.guessedLetters = "";
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+    return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
-  checkIfLetter(keyCode) {
-    // ... your code goes here
+  checkIfLetter(key) {
+    return (key >= 65 && key <= 90);
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
+    this.letters.push(letter);
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft--;
+    this.letters.push(letter);
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return (this.errorsLeft === 0);
   }
 
   checkWinner() {
-    // ... your code goes here
+    return (this.secretWord.length === this.guessedLetters.length);
   }
 }
+
+
 
 let hangman;
 
@@ -40,16 +47,40 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
+    hangman.secretWord = hangman.pickWord();
+    console.log(hangman.secretWord);
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
   });
 }
 
+function writeOcurrences(letter) {
+  let position = hangman.secretWord.indexOf(letter);
+  while (position !== -1) {
+    hangmanCanvas.writeCorrectLetter(position, letter);
+    hangman.addCorrectLetter(letter);
+    position = hangman.secretWord.indexOf(letter, position + 1);
+  }
+}
+
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if (hangman.checkIfLetter(event.which) && (!hangman.checkGameOver()) && (!hangman.checkWinner())) {
+    let letter = event.key;
+    if (hangman.checkClickedLetters(letter)) {
+      if (hangman.secretWord.includes(letter)) {
+        writeOcurrences(letter);
+
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+      } else {
+        hangman.addWrongLetter(letter);
+        hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver();
+        }
+      }
+    }
+  }
 });
