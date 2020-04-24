@@ -5,7 +5,7 @@ class Hangman {
     this.secretWord = this.pickWord();
     this.letters = [];
     this.guessedLetters = "";
-    this.errosLeft = 10;
+    this.errorsLeft = 10;
   }
 
   pickWord() {
@@ -43,7 +43,7 @@ class Hangman {
 
   addWrongLetter(letter) {
     // ... your code goes here
-    --this.errosLeft;
+    --this.errorsLeft;
     this.addLetter(letter);
   }
 
@@ -76,6 +76,7 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     // ... your code goes here
+    hangmanCanvas.createBoard();
   });
 }
 
@@ -88,4 +89,5 @@ document.addEventListener('keydown', event => {
     } else {
       hangman.addWrongLetter(event.key);
     }
+}
 });
