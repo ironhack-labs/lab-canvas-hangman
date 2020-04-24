@@ -47,22 +47,8 @@ let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
 
-if (startGameButton) {
-  startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    hangman.secretWord = hangman.pickWord();
-    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
-  });
-}
-
-document.addEventListener('keydown', event => {
-  // React to user pressing a key
-    hangman.checkIfLetter(event.keyCode) ? hangman.checkClickedLetters(event.key) : false;
-    //Add pressed letter to array
+function onAction(event) {
+     //Add pressed letter to array
     hangman.letters.push(event.key);
     // If the letter is in the secret word, write it on canvas
     if (hangman.secretWord.includes(event.key)) {
@@ -84,9 +70,31 @@ document.addEventListener('keydown', event => {
       // Check game over
       hangman.checkGameOver() ? hangmanCanvas.gameOver() : false;
     }
-  
+}
+
+if (startGameButton) {
+  startGameButton.addEventListener('click', event => {
+    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
+
+    // HINT (uncomment when start working on the canvas portion of the lab)
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+
+    // ... your code goes here
+  });
+}
+
+document.addEventListener('keydown', event => {
+  // React to user pressing a key
+    if(hangman.checkIfLetter(event.keyCode)){
+      if(hangman.checkClickedLetters(event.key)){
+        onAction(event);
+      } else {
+        return;
+      }
+    } else {
+      return;
+    }
   //check words and letters on console
-    console.log("Secret word  -  " + hangman.secretWord + " , guessed letters : " + hangman.guessedLetters + "  wrong letters:  " + hangman.letters);
+    console.log("Secret word  -  " + hangman.secretWord + " , guessed letters : " + hangman.guessedLetters + "  all letters:  " + hangman.letters);
 });
-
-
