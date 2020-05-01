@@ -50,16 +50,37 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if (!hangman.checkGameOver() && !hangman.checkWinner()) {
+    if (hangman.checkIfLetter(event.keyCode)) {
+      let l = String.fromCharCode(event.keyCode).toLowerCase();
+      if (hangman.secretWord.includes(l)) {
+        checkMultiplePositions(l, hangman.secretWord).forEach(i => hangmanCanvas.writeCorrectLetter(l, i));
+        hangman.addCorrectLetter(l);
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+      } else if (hangman.checkClickedLetters(l)) {
+        hangman.addWrongLetter(l);
+        hangmanCanvas.writeWrongLetter(l,hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          hangmanCanvas.gameOver();
+        }
+      }
+    }
+  } 
 });
+
+
+function checkMultiplePositions(letter, word) {
+  return word.split('')
+             .reduce((acc, l, index) => l === letter ? acc + index : acc, '')
+             .split('')
+             .map(val => parseInt(val));
+}
