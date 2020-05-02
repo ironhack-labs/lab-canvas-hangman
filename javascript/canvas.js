@@ -109,15 +109,15 @@ class HangmanCanvas {
     }
   }
 
-  gameOver() {
-    const gameOv = new Image();
-    gameOv.src = 'images/gameover.png';
-    gameOv.addEventListener('load', e => { this.context.drawImage(gameOv, 320, 200); })
+  gameOverer() {
+    const gameOver = new Image();
+    gameOver.src = 'images/gameOverer.png';
+    gameOver.addEventListener('load', i => { this.context.drawImage(gameOverer, 320, 200); })
   }
 
   winner() {
     const awesome = new Image();
     awesome.src = 'images/awesome.png';
-    awesome.addEventListener('load', e => { this.context.drawImage(awesome, 150, 10); });
+    awesome.addEventListener('load', i => { this.context.drawImage(awesome, 150, 10); });
   }
 }

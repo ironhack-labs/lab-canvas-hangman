@@ -59,16 +59,16 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   if (!hangman.checkGameOver() && !hangman.checkWinner()) {
     if (hangman.checkIfLetter(event.keyCode)) {
-      let l = String.fromCharCode(event.keyCode).toLowerCase();
-      if (hangman.secretWord.includes(l)) {
-        checkMultiplePositions(l, hangman.secretWord).forEach(i => hangmanCanvas.writeCorrectLetter(l, i));
-        hangman.addCorrectLetter(l);
+      let a = String.fromCharCode(event.keyCode).toLowerCase();
+      if (hangman.secretWord.includes(a)) {
+        checkMultiplePositions(a, hangman.secretWord).forEach(i => hangmanCanvas.writeCorrectLetter(a, i));
+        hangman.addCorrectLetter(a);
         if (hangman.checkWinner()) {
           hangmanCanvas.winner();
         }
-      } else if (hangman.checkClickedLetters(l)) {
-        hangman.addWrongLetter(l);
-        hangmanCanvas.writeWrongLetter(l,hangman.errorsLeft);
+      } else if (hangman.checkClickedLetters(a)) {
+        hangman.addWrongLetter(a);
+        hangmanCanvas.writeWrongLetter(a,hangman.errorsLeft);
         if (hangman.checkGameOver()) {
           hangmanCanvas.gameOver();
         }
@@ -80,7 +80,7 @@ document.addEventListener('keydown', event => {
 
 function checkMultiplePositions(letter, word) {
   return word.split('')
-             .reduce((acc, l, index) => l === letter ? acc + index : acc, '')
+             .reduce((acc, a, index) => a === letter ? acc + index : acc, '')
              .split('')
              .map(val => parseInt(val));
 }
