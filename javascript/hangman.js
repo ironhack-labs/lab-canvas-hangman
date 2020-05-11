@@ -22,7 +22,7 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    if(this.letters.indexOf(letter) >= 0){
+    if(this.letters.includes(letter)){
       return false;
     }
 
@@ -31,10 +31,7 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    if(this.secretWord.indexOf(letter) >= 0){
-      this.guessedLetters = this.guessedLetters.concat(letter);
-    }
-    
+    this.guessedLetters = this.guessedLetters.concat(letter);
   }
 
   addWrongLetter(letter) {
@@ -51,7 +48,7 @@ class Hangman {
   }
 
   checkWinner() {
-    if (this.guessedLetters === this.secretWord){
+    if (this.guessedLetters.length === this.secretWord.length){
       return true;
     }
     return false;
@@ -60,7 +57,7 @@ class Hangman {
 
 let hangman;
 
-const startGameButton = document.getElementById('start-game-button');
+const startGameButton = document.getElementById('start-game-button'); 
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
@@ -79,7 +76,31 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   let letterValue = event.key;
   if(hangman.checkIfLetter(event.keyCode)){
-    hangman.checkClickedLetters(letterValue);
+
+    hangman.checkClickedLetters();
+
+    let arraySecret = hangman.secretWord.split("");
+    
+    if(hangman.letters.indexOf(letterValue) < 0){
+      if(hangman.secretWord.includes(letterValue)){
+        arraySecret.forEach((letter, index) => {
+          if(letter === letterValue){
+            hangman.addCorrectLetter(letterValue);
+            hangmanCanvas.writeCorrectLetter(index);
+          }
+        });
+      } else {
+        hangman.addWrongLetter(letterValue);
+        hangmanCanvas.writeWrongLetter(letterValue, hangman.errorsLeft);
+        hangmanCanvas.gameOver();
+      }
+    }
+  
+    if(hangman.checkWinner()){
+      hangmanCanvas.winner();
+    }
     hangmanCanvas.drawHangman(hangman.errorsLeft);
+    
   }
 });
+
