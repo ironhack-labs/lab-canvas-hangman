@@ -13,7 +13,6 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
     return keyCode < 65 ? false : keyCode > 90 ? false : true;
   }
 
@@ -71,15 +70,16 @@ document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
   if(hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)){
-    if(hangman.secretWord.indexOf(event.key) != -1){
+    if(hangman.secretWord.indexOf(event.key) !== -1){
       hangman.addCorrectLetter(event.key);
       [...hangman.secretWord].forEach((letter, idx) => {
-        if(letter === event.keyCode){
+        if(letter === event.key){
           hangmanCanvas.writeCorrectLetter(idx);
         }
     });
   } else {
     hangman.addWrongLetter(event.key);
+    hangmanCanvas.drawHangman(hangman.errorsLeft);
     hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
   }
   if (hangman.checkGameOver()) {
@@ -88,6 +88,4 @@ document.addEventListener('keydown', event => {
     hangmanCanvas.winner();
   }
 }
-
-  
 });
