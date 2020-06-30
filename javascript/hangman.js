@@ -16,23 +16,26 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.letters.push(letter);
+    this.errorsLeft--;
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return this.errorsLeft === 0;
   }
 
   checkWinner() {
-    // ... your code goes here
+    let secrectWord = this.secretWord.split('').sort();
+    let guessedWord = this.guessedLetters.split('').sort();
+    return secrectWord.join('') === guessedWord.join('');
   }
 }
 
