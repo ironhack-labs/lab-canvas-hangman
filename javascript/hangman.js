@@ -1,37 +1,64 @@
 class Hangman {
+
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    if (typeof this.words === "undefined") {
+      this.words = [];
+      // this.words = ['hello', 'world', 'foo', 'bar'];
+    } else if (this.words.length === 0) {
+      this.words = [...words];
+    } else {
+      this.words = words.slice();
+    }
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = "";
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+    return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    let key = keyCode < 65 ? false : keyCode > 90 ? false : true;
+    return key;
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return this.letters.indexOf(letter) == -1;
+  }
+
+  addClickedLetter(letter) {
+    this.letters.push(letter);
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.addClickedLetter(letter);
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.addClickedLetter(letter);
+    this.errorsLeft--;
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return this.errorsLeft === 0;
   }
 
   checkWinner() {
-    // ... your code goes here
+    let returnValue = true;
+    [...this.secretWord].forEach(
+      (letter) =>
+      (returnValue = returnValue && this.guessedLetters.indexOf(letter) != -1)
+    );
+    return returnValue;
   }
+
 }
+
+
 
 let hangman;
 
@@ -42,10 +69,10 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
 
-    // ... your code goes here
   });
 }
 
