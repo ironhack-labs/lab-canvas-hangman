@@ -46,17 +46,26 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-    hangman.pickWord();
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
 
-    // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  // ... your code goes here
+  let theWord = hangman.secrectWord;
+  if (hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)) {
+    
+    if(theWord.includes(event.key)){
+      console.log(event.key, event.keyCode);
+    //   hangman.addCorrectLetter(event.key);
+      // hangmanCanvas.writeCorrectLetter(hangman.secrectWord.indexOf(eventKey));
+    }//else{
+    //   hangman.addWrongLetter(event.key);
+    // }
+  }
+    
 });
