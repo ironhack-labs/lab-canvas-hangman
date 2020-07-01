@@ -10,7 +10,6 @@ class HangmanCanvas {
   createBoard() {
     this.context.clearRect(0, 0, this.cWidth, this.cHeight);
     this.drawLines();
-    this.drawHangman();
   }
 
   drawLines() {
@@ -21,102 +20,131 @@ class HangmanCanvas {
       this.context.stroke();
       this.context.closePath();
     }
-
   }
 
-  writeCorrectLetter(index) {
-    // ... your code goes here
+  writeCorrectLetter(letter) {
+    this.context.font = '50px monospace';
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (this.secretWord[i] === letter) {
+        this.context.fillText(this.secretWord[i].toUpperCase(), 310 + (i * 75), this.cHeight - 55);
+      }
+    }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+    this.context.font = '50px monospace';
+    this.context.fillText(letter.toUpperCase(), 550 - ((errorsLeft - 10) * 60), this.cHeight - 600);
   }
 
   drawHangman(errorsLeft) {
     //triangle base
-    this.context.beginPath();
-    this.context.moveTo(50, this.cHeight - 50);
-    this.context.lineTo(250, this.cHeight - 50);
-    this.context.lineTo(150, this.cHeight - 150);
-    this.context.fill();
+    if (errorsLeft < 10) {
+      this.context.beginPath();
+      this.context.moveTo(50, this.cHeight - 50);
+      this.context.lineTo(250, this.cHeight - 50);
+      this.context.lineTo(150, this.cHeight - 150);
+      this.context.fill();
+    }
 
     //pole
-    this.context.beginPath();
-    this.context.moveTo(150, this.cHeight - 100);
-    this.context.lineTo(150, this.cHeight - 750);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 9) {
+      this.context.beginPath();
+      this.context.moveTo(150, this.cHeight - 100);
+      this.context.lineTo(150, this.cHeight - 750);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //overhang
-    this.context.beginPath();
-    this.context.moveTo(148, this.cHeight - 750);
-    this.context.lineTo(500, this.cHeight - 750);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 8) {
+      this.context.beginPath();
+      this.context.moveTo(148, this.cHeight - 750);
+      this.context.lineTo(500, this.cHeight - 750);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //rope
-    this.context.beginPath();
-    this.context.moveTo(498, this.cHeight - 750);
-    this.context.lineTo(500, this.cHeight - 650);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 7) {
+      this.context.beginPath();
+      this.context.moveTo(498, this.cHeight - 750);
+      this.context.lineTo(500, this.cHeight - 650);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //head
-    this.context.beginPath();
-    this.context.arc(500, this.cHeight - 600, 50, 0, Math.PI * 2);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 6) {
+      this.context.beginPath();
+      this.context.arc(500, this.cHeight - 600, 50, 0, Math.PI * 2);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //body
-    this.context.beginPath();
-    this.context.moveTo(500, this.cHeight - 550);
-    this.context.lineTo(500, this.cHeight - 400);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 5) {
+      this.context.beginPath();
+      this.context.moveTo(500, this.cHeight - 550);
+      this.context.lineTo(500, this.cHeight - 400);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //left leg
-    this.context.beginPath();
-    this.context.moveTo(500, this.cHeight - 400);
-    this.context.lineTo(450, this.cHeight - 300);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 4) {
+      this.context.beginPath();
+      this.context.moveTo(500, this.cHeight - 400);
+      this.context.lineTo(450, this.cHeight - 300);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //right leg
-    this.context.beginPath();
-    this.context.moveTo(500, this.cHeight - 400);
-    this.context.lineTo(550, this.cHeight - 300);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 3) {
+      this.context.beginPath();
+      this.context.moveTo(500, this.cHeight - 400);
+      this.context.lineTo(550, this.cHeight - 300);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //left arm
-    this.context.beginPath();
-    this.context.moveTo(500, this.cHeight - 500);
-    this.context.lineTo(450, this.cHeight - 400);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 2) {
+      this.context.beginPath();
+      this.context.moveTo(500, this.cHeight - 500);
+      this.context.lineTo(450, this.cHeight - 400);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
 
     //right arm
-    this.context.beginPath();
-    this.context.moveTo(500, this.cHeight - 500);
-    this.context.lineTo(550, this.cHeight - 400);
-    this.context.lineWidth = 5;
-    this.context.stroke();
-    this.context.closePath();
+    if (errorsLeft < 1) {
+      this.context.beginPath();
+      this.context.moveTo(500, this.cHeight - 500);
+      this.context.lineTo(550, this.cHeight - 400);
+      this.context.lineWidth = 5;
+      this.context.stroke();
+      this.context.closePath();
+    }
   }
 
   gameOver() {
-    // ... your code goes here
+    const imgGameOver = new Image();
+    imgGameOver.src = './images/gameover.png'
+    this.context.drawImage(imgGameOver, 400, 200);
   }
 
   winner() {
-    // ... your code goes here
+    const imgWinner = new Image();
+    imgWinner.src = './images/awesome.png'
+    this.context.drawImage(imgWinner, 200, 0);
   }
 }
