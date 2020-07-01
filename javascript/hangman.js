@@ -2,14 +2,24 @@ class Hangman {
   constructor(words) {
     this.words = words;
     // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
   }
 
   pickWord() {
     // ... your code goes here
+    let item = this.words[Math.floor(Math.random() * this.words.length)];
+    return item;
   }
 
   checkIfLetter(keyCode) {
     // ... your code goes here
+    if (keyCode >= 65 && keyCode <= 90)
+      return true;
+    else
+      return false;
   }
 
   checkClickedLetters(letter) {
