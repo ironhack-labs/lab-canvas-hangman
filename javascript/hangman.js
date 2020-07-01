@@ -18,11 +18,13 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if (this.guessedLetters.includes(letter)) {
+      return true;
+    } else return false
   }
 
   addCorrectLetter(letter) {
-    letter.concat(this.guessedLetters);
+    this.guessedLetters.concat(letter);
   }
 
   addWrongLetter(letter) {
