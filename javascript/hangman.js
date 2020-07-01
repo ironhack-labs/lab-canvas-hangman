@@ -26,12 +26,14 @@ class Hangman {
   }
   //add key event to the array of wrong guesses and lower the attempts by one
   addWrongLetter(letter) {
-    if (this.checkClickedLetters(letter)) this.letters.push(letter);
-    this.errorsLeft--;
+    if (this.checkClickedLetters(letter)){
+      this.letters.push(letter);
+      this.errorsLeft--;
+    }    
   }
   //check if there are any more attempts left
   checkGameOver() {
-    return this.errorsLeft < 0;
+    return this.errorsLeft <= 0;
   }
   //check is the word was guessed correctly
   checkWinner() {
@@ -71,7 +73,6 @@ document.addEventListener("keydown", (event) => {
       hangman.addCorrectLetter(event.key);
       hangmanCanvas.writeCorrectLetter(event.key);
       if (hangman.checkWinner()) hangmanCanvas.winner();
-      console.log(hangman.guessedLetters);
     } else {
       hangman.addWrongLetter(event.key);
       hangmanCanvas.drawHangman(hangman.errorsLeft);
