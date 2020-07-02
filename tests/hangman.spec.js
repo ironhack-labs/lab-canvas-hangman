@@ -1,4 +1,4 @@
-// window.jasmine.getEnv().randomizeTests(false);
+//window.jasmine.getEnv().randomizeTests(false);
 window.jasmine.getEnv().configure({
   random: false
 });
