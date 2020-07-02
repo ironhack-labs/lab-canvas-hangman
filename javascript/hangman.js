@@ -65,7 +65,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', /*'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa'*/]);
+    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
      hangman.secretWord = hangman.pickWord();
@@ -75,20 +75,23 @@ if (startGameButton) {
   });
 }
 
-document.addEventListener('keydown', event => {
-  if (hangman.checkIfLetter(event.keyCode) /*&& hangman.checkClickedLetters(event.keyCode)*/) {
-    if (hangman.secretWord.includes(event.keyCode)) {
-      let index = hangman.secretWord.indexOf(event.keyCode)
-      hangmanCanvas.writeCorrectLetter(index)
-      // if(hangman.checkWinner()) {
-      // }
-    } else {
-      hangman.addWrongLetter(event.keyCode)
-      hangmanCanvas.writeWrongLetter(event.keyCode, hangman.errorsLeft)
-      // if(hangman.checkGameOver()){
 
-      // }
-    }
+
+document.addEventListener('keydown', event => {
+  if (hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)) {
+    if (hangman.secretWord.includes(event.key)) {
+        let index = hangman.secretWord.indexOf(event.key)
+        hangmanCanvas.writeCorrectLetter(index)
+        // if(hangman.checkWinner()) {
+        // }
+      } else {
+        hangman.addWrongLetter(event.key);
+        hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
+        // if(hangman.checkGameOver()){
+  
+        // }
+      }
   }
   
   

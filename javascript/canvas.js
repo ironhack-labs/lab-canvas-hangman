@@ -6,14 +6,15 @@ class HangmanCanvas {
     // ... your code goes here
   }
 
-  createBoard() {
-    this.context.clearRect(0,0,800,1200);
-    this.drawLines()
-  }
+
+   createBoard() {
+     this.context.clearRect(0,0,800,1200);
+     this.drawLines()
+   }
 
   drawLines() {
-       var x = 100;
-       var y = 600;
+       var x = 300;
+       var y = 500;
     this.context.beginPath();
      for (let i=0; i<this.secretWord.length; i++) {
        this.context.moveTo(x,y);
@@ -24,26 +25,98 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-    this.context.fillRect(10, 10, 280, 280);
-    var x = 100;
-    var y = 600;
-    let letter = this.secretWord[index];
+    var x = 300;
+    var y = 500;
+    let letter = this.secretWord[index].toUpperCase();
     for (let i=0; i<this.secretWord.length; i++) {
-      if (letter===this.secretWord[i]) {
+      if (letter===this.secretWord[i].toUpperCase()) {
+        this.context.font = '30px Arial'
         this.context.fillText(letter,x+(i*45),y-20)
-      } else {
-        console.log ("error")
-      }
+      } 
     }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    this.context.fillRect(10, 10, 280, 280);
-    // ... your code goes here
+    var x = 1000;
+    var y = 100;
+  for (let i=0; i<errorsLeft; i++) {
+    this.context.font = '30px Arial'
+    this.context.fillText(letter.toUpperCase(),x-(errorsLeft*45),y)
+   }
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
+    switch(errorsLeft){
+      case 9:
+        this.context.beginPath();
+        this.context.moveTo(100, 500);
+        this.context.lineTo(180, 440);
+        this.context.lineTo(260, 500);
+        this.context.closePath();
+        this.context.stroke()
+        break;
+      case 8:
+        this.context.beginPath();
+        this.context.moveTo(180,440);
+        this.context.lineTo(180,30);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 7:
+        this.context.beginPath();
+        this.context.moveTo(180,30);
+        this.context.lineTo(380,30);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 6:
+        this.context.beginPath();
+        this.context.moveTo(380,30);
+        this.context.lineTo(380,110);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 5:
+        this.context.beginPath();  
+        this.context.arc(380,140,30,2 * Math.PI,false);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 4:
+        this.context.beginPath();
+        this.context.moveTo(380,170);
+        this.context.lineTo(380,310);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 3:
+        this.context.beginPath();
+        this.context.moveTo(380,240);
+        this.context.lineTo(300,200);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 2:
+        this.context.beginPath();
+        this.context.moveTo(380,240);
+        this.context.lineTo(460,200);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 1:
+        this.context.beginPath();
+        this.context.moveTo(380,310);
+        this.context.lineTo(460,350);
+        this.context.closePath();
+        this.context.stroke();
+        break;
+      case 0:
+        this.context.beginPath();
+        this.context.moveTo(380,310);
+        this.context.lineTo(300,350);
+        this.context.closePath();
+        this.context.stroke();
+    }
   }
 
   gameOver() {
