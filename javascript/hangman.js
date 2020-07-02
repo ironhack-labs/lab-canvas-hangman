@@ -21,23 +21,32 @@ class Hangman {
 
   addCorrectLetter(letter) {
     this.guessedLetters += letter;
-    //checkWinner();
+    console.log(this.guessedLetters);
+    if (this.checkWinner()){
+      hangmanCanvas.winner();
+    }
   }
 
   addWrongLetter(letter) {
     this.errorsLeft --;
-    if (!this.letters.includes(letter)){
-      this.letters.push(letter);
+    console.log(`erro ${this.errorsLeft}`);
+    if (this.checkGameOver()){
+      return hangmanCanvas.gameOver();
     }
+    if (!this.letters.includes(letter)){
+       this.letters.push(letter);
+    } 
   }
 
   checkGameOver() {
-   return this.errorsLeft === 0 
+   return this.errorsLeft === 0; 
   }
   
 
   checkWinner() {
-    if(this.guessedLetters.split("").sort().join("") === this.secretWord.split("").sort().join("")){
+    console.log(this.guessedLetters.length);
+    console.log(this.secretWord.length)
+    if(this.guessedLetters.length === this.secretWord.length){
       return true;
     }return false;
   }
@@ -59,16 +68,21 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
-   console.log(hangman.secretWord)
+  console.log(hangman.secretWord)
   
   const letter = String.fromCharCode(event.keyCode).toLowerCase();
   const secretArr = hangman.secretWord.split('');
   if(secretArr.includes(letter)){
-    console.log(hangman.secretWord);
+
     for (let i =0 ; i< secretArr.length; i++){
       if (letter === secretArr[i]){
         hangmanCanvas.writeCorrectLetter(i, letter);
+        hangman.addCorrectLetter(letter);
       }
-    }
+    } 
+  }else{
+    hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+    hangmanCanvas.drawHangman(hangman.errorsLeft);
+    hangman.addWrongLetter(letter);
   }
 });
