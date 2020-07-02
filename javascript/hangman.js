@@ -52,7 +52,6 @@ class Hangman {
       if(this.guessedLetters.includes(this.secretWord[i])){
         continue
       } else {
-        console.log("false")
         return false
       }
     }
@@ -66,7 +65,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', /*'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa'*/]);
+    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
      hangman.secretWord = hangman.pickWord();
@@ -96,8 +95,4 @@ document.addEventListener('keydown', event => {
       }
   }
   
-  
-// if (hangman.checkGameOver()) {
-  
-// }
 });
