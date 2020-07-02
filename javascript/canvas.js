@@ -8,7 +8,7 @@ class HangmanCanvas {
 
 
    createBoard() {
-     this.context.clearRect(0,0,800,1200);
+     this.context.clearRect(0,0,1200,800);
      this.drawLines()
    }
 
@@ -120,10 +120,14 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+     let overImage = new Image();
+     overImage.src = "/images/gameover.png"
+     this.context.drawImage(overImage,600,200)
   }
 
   winner() {
-    // ... your code goes here
+     let winImage = new Image();
+     winImage.src = "/images/awesome.png"
+     this.context.drawImage(winImage,600,200)
   }
 }

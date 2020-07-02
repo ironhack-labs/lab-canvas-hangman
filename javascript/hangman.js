@@ -40,7 +40,7 @@ class Hangman {
   }
 
   checkGameOver() {
-    if(this.errorsLeft>0) {
+    if(this.errorsLeft>1) {
       return false
     } else {
       return true
@@ -52,6 +52,7 @@ class Hangman {
       if(this.guessedLetters.includes(this.secretWord[i])){
         continue
       } else {
+        console.log("false")
         return false
       }
     }
@@ -65,7 +66,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
+    hangman = new Hangman(['node', /*'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa'*/]);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
      hangman.secretWord = hangman.pickWord();
@@ -82,15 +83,16 @@ document.addEventListener('keydown', event => {
     if (hangman.secretWord.includes(event.key)) {
         let index = hangman.secretWord.indexOf(event.key)
         hangmanCanvas.writeCorrectLetter(index)
-        // if(hangman.checkWinner()) {
-        // }
+         if(hangman.checkWinner()) {
+           hangmanCanvas.winner()
+         }
       } else {
         hangman.addWrongLetter(event.key);
         hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
         hangmanCanvas.drawHangman(hangman.errorsLeft);
-        // if(hangman.checkGameOver()){
-  
-        // }
+         if(hangman.checkGameOver()){
+           hangmanCanvas.gameOver()
+         }
       }
   }
   
