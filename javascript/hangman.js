@@ -22,11 +22,11 @@ class Hangman {
 
   checkIfLetter(keyCode) {
     //  console.log("code of key pressed inside checkIfLetter: " + keyCode + "KEY:  " + keyCode.length);
-    if (keyCode.length === 1) {
-      let key = keyCode < 65 ? false : keyCode > 90 ? false : true;
-      return key;
-    }
-    return false;
+    // if (keyCode.length === 1) {
+    let key = keyCode < 65 ? false : keyCode > 90 ? false : true;
+    return key;
+    // }
+    // return false;
   }
 
   checkClickedLetters(letter) {
@@ -85,37 +85,33 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   console.log(`key=${event.key},code=${event.code}`);
-  console.log("inside key event listerenr" + hangman.secretWord);
+  // console.log("inside key event listerenr" + hangman.secretWord);
+  if (event.key.length === 1) {
+    if (hangman.checkIfLetter(event.key)) {
+      hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+      // hangmanCanvas.createBoard();
+      // check if letter is in the secret word or not
+      if (hangman.secretWord.includes(event.key)) {
 
-  if (hangman.checkIfLetter(event.key)) {
-    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-    // hangmanCanvas.createBoard();
-    // check if letter is in the secret word or not
-    if (hangman.secretWord.includes(event.key)) {
-      // if (hangman.checkWinner()) {
-      //   console.log( " your are the ");
-      //   hangmanCanvas.winner();
-      // } else {
-      hangman.addCorrectLetter(event.key);
-      hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key));
-      if (hangman.checkWinner()) {
-        console.log(" WINNER  ");
-        hangmanCanvas.winner();
-      }
-      // }
+        hangman.addCorrectLetter(event.key);
+        hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key));
+        if (hangman.checkWinner()) {
+          console.log(" WINNER  ");
+          hangmanCanvas.winner();
+        }
 
-
-    } else {
-      if (hangman.checkGameOver()) {
-        console.log("  game over: ");
-        hangmanCanvas.gameOver();
       } else {
-        hangman.addWrongLetter(event.key);
-        hangmanCanvas.drawHangman(hangman.errorsLeft);
-        console.log(hangman.letters);
-        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft);
+        if (hangman.checkGameOver()) {
+          console.log("  game over: ");
+          hangmanCanvas.gameOver();
+        } else {
+          hangman.addWrongLetter(event.key);
+          hangmanCanvas.drawHangman(hangman.errorsLeft);
+          console.log(hangman.letters);
+          hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft);
+        }
       }
     }
-
   }
+
 });

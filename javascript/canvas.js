@@ -7,7 +7,7 @@ class HangmanCanvas {
     this.hangManDrawFunctions = [
       // function-1 - first line of traingle
       () => {
-        console.log(`first function of ${this.height}`);
+        // console.log(`first function of ${this.height}`);
         this.context.moveTo(50, this.height - 50);
         this.context.lineTo(100, this.height - 50);
       },
@@ -72,7 +72,6 @@ class HangmanCanvas {
   drawLines() {
     // ===== HANGMAN drawing =====
     // Draw lines for the Letters of Secret Word.  
-    alert(" drawLines() :  " + this.secretWord);
     console.log(this.secretWord);
     this.context.strokeRect(0, 0, this.width - 10, this.height - 10);
 
@@ -88,6 +87,27 @@ class HangmanCanvas {
     this.context.stroke();
   }
 
+  writeFinal(index) {
+    index = index || -1;
+    let centerX = 150;
+    let letFound;
+    this.context.font = "30px Arial";
+    if (index >= 0) {
+      letFound = this.secretWord.charAt(index);
+    }
+
+    Array.from(this.secretWord).forEach((ele, idx) => {
+      if (index >= 0) {
+        if (ele === letFound) {
+          this.context.fillText(ele, centerX, this.height - 70);
+        }
+      } else {
+        this.context.fillText(ele, centerX, this.height - 70);
+      }
+      centerX += 70;
+    });
+    this.context.stroke();
+  }
 
   writeCorrectLetter(index) {
     let centerX = 150;
@@ -107,7 +127,7 @@ class HangmanCanvas {
     let centerWrongX = 500;
     let centerWrongY = 500;
     this.context.font = "30px Arial";
-    this.context.fillStyle = "red";
+    // this.context.fillStyle = "red";
     letter.forEach((eachLetter) => {
       this.context.fillText(eachLetter, centerWrongX, centerWrongY);
       centerWrongX += 40;
@@ -120,7 +140,7 @@ class HangmanCanvas {
     const linesDraw = 10 - errorsLeft;
     this.context.beginPath();
     this.context.lineWidth = 3;
-    this.context.strokeStyle = "blue";
+    // this.context.strokeStyle = "blue";
     for (let i = 0; i < linesDraw; i++) {
       this.hangManDrawFunctions[i]();
     }
@@ -147,9 +167,14 @@ class HangmanCanvas {
     // naturePic.src = "https://mdn.mozillademos.org/files/5395/backdrop.png";
     naturePic.src = "./images/awesome.png";
     naturePic.onload = () => {
-      this.context.drawImage(naturePic, 0, 0, this.width, this.height);
+      this.context.drawImage(naturePic, 0, 0, this.width, this.height - 300);
       // this.context.fillRect(105, 105, 20, 20)
     };
+    this.drawLines();
+    this.hangManDrawFunctions[0]();
+    this.hangManDrawFunctions[1]();
+    this.hangManDrawFunctions[2]();
+    this.writeFinal();
     this.context.stroke();
   }
 }
