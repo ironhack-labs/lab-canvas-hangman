@@ -100,10 +100,10 @@ class HangmanCanvas {
         this.context.stroke();
         break; 
     }
-
-   
   }
 
+  //Bonus
+  
   gameOver() {
     this.context.clearRect (0, 0, 1200, 800);
       let img = new Image();
@@ -114,13 +114,12 @@ class HangmanCanvas {
   }
 
   winner() {
-      this.context.clearRect (0, 0, 1200, 800);
+      this.context.clearRect (0, 0, 1200, 555);
       let img = new Image();
       img.onload = () => {
         this.context.drawImage(img, 150, 0);
       };
       img.src = 'images/awesome.png'; 
-      
-     
+       
   }
 }

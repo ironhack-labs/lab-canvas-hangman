@@ -63,22 +63,25 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   const letter = String.fromCharCode(event.keyCode).toLowerCase();
   const secretArr = hangman.secretWord.split('');
+  
+  if (hangman.checkIfLetter(event.keyCode)){
+    if(secretArr.includes(letter)){
 
-  if(secretArr.includes(letter)){
+      for (let i =0 ; i< secretArr.length; i++){
+        if (letter === secretArr[i]){
+          hangmanCanvas.writeCorrectLetter(i, letter);
+          hangman.addCorrectLetter(letter);
+        }
+      } 
 
-    for (let i =0 ; i< secretArr.length; i++){
-      if (letter === secretArr[i]){
-        hangmanCanvas.writeCorrectLetter(i, letter);
-        hangman.addCorrectLetter(letter);
+    }else{
+      hangman.addWrongLetter(letter);
+      hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+      hangmanCanvas.drawHangman(hangman.errorsLeft);
+      if (hangman.checkGameOver()){
+        return hangmanCanvas.gameOver();
       }
-    } 
-
-  }else{
-    hangman.addWrongLetter(letter);
-    hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
-    hangmanCanvas.drawHangman(hangman.errorsLeft);
-    if (hangman.checkGameOver()){
-      return hangmanCanvas.gameOver();
     }
-  }
+}
 });
+
