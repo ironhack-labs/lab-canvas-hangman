@@ -33,10 +33,11 @@ class Hangman {
   }
 
   checkWinner() {
-    let correctLetters = 0
+    let correctLetters = ''
     for (let i=0 ; i <this.secretWord.length ;i++){
-      this.guessedLetters.indexOf(this.secretWord[i])===-1 ? '' : correctLetters++;
-    } return this.secretWord.length === correctLetters ? true : false;
+      correctLetters.indexOf(this.secretWord[i]) === -1 ? correctLetters += this.secretWord[i] : '';
+    }
+    return this.guessedLetters.length === correctLetters.length ? true : false;
   } 
 }
 
@@ -50,24 +51,37 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
+    hangman.errorsLeft = 10;
+    hangman.letters = [];
+    hangman.guessedLetters = '';
     console.log(hangman.secretWord);
   });
 }
 document.addEventListener('keydown', event => {
-  if(hangman.checkIfLetter(event.keyCode) === true && hangman.checkClickedLetters(event.key.toUpperCase()) === true){
+  if(hangman.checkIfLetter(event.keyCode) === true && hangman.checkClickedLetters(event.key.toUpperCase()) === true && hangman.errorsLeft > -1 && hangman.checkWinner() === false){
     if(hangman.secretWord.indexOf(event.key) === -1){
       hangman.addWrongLetter(event.key.toUpperCase());
       hangmanCanvas.writeWrongLetter(hangman.letters,hangman.errorsLeft);
+      console.log(hangman.errorsLeft)
+      hangmanCanvas.drawHangman(hangman.errorsLeft)
     }else{
-      hangman.addCorrectLetter(event.key.toUpperCase());
-      for(let i=0 ; i < hangman.correctLetters.length ; i++){
-        
+      hangman.addCorrectLetter(event.key.toUpperCase());  
+      letter = event.key.toUpperCase();
+      let firstLetter = hangman.secretWord.indexOf(event.key);
+      let secondLetter = hangman.secretWord.indexOf(event.key,firstLetter+1) === -1? 'not' : hangman.secretWord.indexOf(event.key,firstLetter+1);
+      let thirdLetter = hangman.secretWord.indexOf(event.key,secondLetter+1) === -1? 'not' : hangman.secretWord.indexOf(event.key,secondLetter+1);
+      let x = 215;
+      let y = 480;  
+      
+      hangmanCanvas.writeCorrectLetter(letter, x + 42 * (firstLetter + 1));
+      if(secondLetter != 'not'){
+        hangmanCanvas.writeCorrectLetter(letter, x + 42 * (secondLetter + 1));
+      } 
+      if(thirdLetter != 'not'){
+        hangmanCanvas.writeCorrectLetter(letter, x + 42 * (secondLetter + 1))
       }
-
-
+      console.log(hangman.checkWinner())
+      hangman.checkWinner() === true? hangmanCanvas.winner() : '';
     }
-    console.log(`guessed letters: ${hangman.guessedLetters}, letters: ${hangman.letters} , errors left: ${hangman.errorsLeft}`)
-  }else{
-    '';
-  };
+  }
 });
