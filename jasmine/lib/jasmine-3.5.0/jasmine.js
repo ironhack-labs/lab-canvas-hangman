@@ -88,7 +88,7 @@ var getJasmineRequireObj = (function(jasmineGlobal) {
     j$.SpyRegistry = jRequire.SpyRegistry(j$);
     j$.SpyStrategy = jRequire.SpyStrategy(j$);
     j$.StringMatching = jRequire.StringMatching(j$);
-    j$.UserContext = jRequire.UserContext(j$);
+    j$.Userctx = jRequire.Userctx(j$);
     j$.Suite = jRequire.Suite(j$);
     j$.Timer = jRequire.Timer();
     j$.TreeProcessor = jRequire.TreeProcessor();
@@ -647,8 +647,8 @@ getJasmineRequireObj().Spec = function(j$) {
       function() {
         return { befores: [], afters: [] };
       };
-    this.userContext =
-      attrs.userContext ||
+    this.userctx =
+      attrs.userctx ||
       function() {
         return {};
       };
@@ -753,7 +753,7 @@ getJasmineRequireObj().Spec = function(j$) {
             new j$.StopExecutionError('spec failed')
         );
       },
-      userContext: this.userContext()
+      userctx: this.userctx()
     };
 
     if (this.markedPending || excluded === true) {
@@ -1899,8 +1899,8 @@ getJasmineRequireObj().Env = function(j$) {
         description: description,
         expectationResultFactory: expectationResultFactory,
         queueRunnerFactory: queueRunnerFactory,
-        userContext: function() {
-          return suite.clonedSharedUserContext();
+        userctx: function() {
+          return suite.clonedSharedUserctx();
         },
         queueableFn: {
           fn: fn,
@@ -2575,11 +2575,11 @@ getJasmineRequireObj().CallTracker = function(j$) {
     var calls = [];
     var opts = {};
 
-    this.track = function(context) {
+    this.track = function(ctx) {
       if (opts.cloneArgs) {
-        context.args = j$.util.cloneArgs(context.args);
+        ctx.args = j$.util.cloneArgs(ctx.args);
       }
-      calls.push(context);
+      calls.push(ctx);
     };
 
     /**
@@ -3299,15 +3299,15 @@ getJasmineRequireObj().Expectation = function(j$) {
   }
 
   /**
-   * Add some context for an {@link expect}
+   * Add some ctx for an {@link expect}
    * @function
-   * @name matchers#withContext
+   * @name matchers#withctx
    * @since 3.3.0
-   * @param {String} message - Additional context to show when the matcher fails
+   * @param {String} message - Additional ctx to show when the matcher fails
    * @return {matchers}
    */
-  Expectation.prototype.withContext = function withContext(message) {
-    return addFilter(this, new ContextAddingFilter(message));
+  Expectation.prototype.withctx = function withctx(message) {
+    return addFilter(this, new ctxAddingFilter(message));
   };
 
   /**
@@ -3349,15 +3349,15 @@ getJasmineRequireObj().Expectation = function(j$) {
   }
 
   /**
-   * Add some context for an {@link expectAsync}
+   * Add some ctx for an {@link expectAsync}
    * @function
-   * @name async-matchers#withContext
+   * @name async-matchers#withctx
    * @since 3.3.0
-   * @param {String} message - Additional context to show when the async matcher fails
+   * @param {String} message - Additional ctx to show when the async matcher fails
    * @return {async-matchers}
    */
-  AsyncExpectation.prototype.withContext = function withContext(message) {
-    return addFilter(this, new ContextAddingFilter(message));
+  AsyncExpectation.prototype.withctx = function withctx(message) {
+    return addFilter(this, new ctxAddingFilter(message));
   };
 
   /**
@@ -3454,11 +3454,11 @@ getJasmineRequireObj().Expectation = function(j$) {
     buildFailureMessage: negatedFailureMessage
   };
 
-  function ContextAddingFilter(message) {
+  function ctxAddingFilter(message) {
     this.message = message;
   }
 
-  ContextAddingFilter.prototype.modifyFailureMessage = function(msg) {
+  ctxAddingFilter.prototype.modifyFailureMessage = function(msg) {
     return this.message + ': ' + msg;
   };
 
@@ -5852,7 +5852,7 @@ getJasmineRequireObj().pp = function(j$) {
   }
 
   function hasCustomToString(value) {
-    // value.toString !== Object.prototype.toString if value has no custom toString but is from another context (e.g.
+    // value.toString !== Object.prototype.toString if value has no custom toString but is from another ctx (e.g.
     // iframe, web worker)
     try {
       return (
@@ -6242,7 +6242,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
         fn();
       };
     this.onException = attrs.onException || emptyFn;
-    this.userContext = attrs.userContext || new j$.UserContext();
+    this.userctx = attrs.userctx || new j$.Userctx();
     this.timeout = attrs.timeout || {
       setTimeout: setTimeout,
       clearTimeout: clearTimeout
@@ -6362,7 +6362,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
 
     try {
       if (queueableFn.fn.length === 0) {
-        var maybeThenable = queueableFn.fn.call(self.userContext);
+        var maybeThenable = queueableFn.fn.call(self.userctx);
 
         if (maybeThenable && j$.isFunction_(maybeThenable.then)) {
           maybeThenable.then(next, onPromiseRejection);
@@ -6370,7 +6370,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
           return { completedSynchronously: false };
         }
       } else {
-        queueableFn.fn.call(self.userContext, next);
+        queueableFn.fn.call(self.userctx, next);
         completedSynchronously = false;
         return { completedSynchronously: false };
       }
@@ -6928,7 +6928,7 @@ getJasmineRequireObj().Spy = function(j$) {
       spy = function() {
         /**
          * @name Spy.callData
-         * @property {object} object - `this` context for the invocation.
+         * @property {object} object - `this` ctx for the invocation.
          * @property {number} invocationOrder - Order of the invocation.
          * @property {Array} args - The arguments passed for this invocation.
          */
@@ -7492,8 +7492,8 @@ getJasmineRequireObj().SpyStrategy = function(j$) {
    * @since 2.0.0
    * @function
    */
-  SpyStrategy.prototype.exec = function(context, args) {
-    return this.plan.apply(context, args);
+  SpyStrategy.prototype.exec = function(ctx, args) {
+    return this.plan.apply(ctx, args);
   };
 
   /**
@@ -7839,18 +7839,18 @@ getJasmineRequireObj().Suite = function(j$) {
     return this.result;
   };
 
-  Suite.prototype.sharedUserContext = function() {
-    if (!this.sharedContext) {
-      this.sharedContext = this.parentSuite
-        ? this.parentSuite.clonedSharedUserContext()
-        : new j$.UserContext();
+  Suite.prototype.sharedUserctx = function() {
+    if (!this.sharedctx) {
+      this.sharedctx = this.parentSuite
+        ? this.parentSuite.clonedSharedUserctx()
+        : new j$.Userctx();
     }
 
-    return this.sharedContext;
+    return this.sharedctx;
   };
 
-  Suite.prototype.clonedSharedUserContext = function() {
-    return j$.UserContext.fromExisting(this.sharedUserContext());
+  Suite.prototype.clonedSharedUserctx = function() {
+    return j$.Userctx.fromExisting(this.sharedUserctx());
   };
 
   Suite.prototype.onException = function() {
@@ -7981,7 +7981,7 @@ getJasmineRequireObj().TreeProcessor = function() {
 
       queueRunnerFactory({
         queueableFns: childFns,
-        userContext: tree.sharedUserContext(),
+        userctx: tree.sharedUserctx(),
         onException: function() {
           tree.onException.apply(tree, arguments);
         },
@@ -8154,7 +8154,7 @@ getJasmineRequireObj().TreeProcessor = function() {
                 });
               },
               queueableFns: [onStart].concat(wrapChildren(node, segmentNumber)),
-              userContext: node.sharedUserContext(),
+              userctx: node.sharedUserctx(),
               onException: function() {
                 node.onException.apply(node, arguments);
               }
@@ -8195,22 +8195,22 @@ getJasmineRequireObj().TreeProcessor = function() {
   return TreeProcessor;
 };
 
-getJasmineRequireObj().UserContext = function(j$) {
-  function UserContext() {}
+getJasmineRequireObj().Userctx = function(j$) {
+  function Userctx() {}
 
-  UserContext.fromExisting = function(oldContext) {
-    var context = new UserContext();
+  Userctx.fromExisting = function(oldctx) {
+    var ctx = new Userctx();
 
-    for (var prop in oldContext) {
-      if (oldContext.hasOwnProperty(prop)) {
-        context[prop] = oldContext[prop];
+    for (var prop in oldctx) {
+      if (oldctx.hasOwnProperty(prop)) {
+        ctx[prop] = oldctx[prop];
       }
     }
 
-    return context;
+    return ctx;
   };
 
-  return UserContext;
+  return Userctx;
 };
 
 getJasmineRequireObj().version = function() {

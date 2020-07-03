@@ -83,7 +83,7 @@ Now we need to develop some visuals in order to finish our game. As we said, we 
 
 In the `javascript/canvas.js` file, you can see `HangmanCanvas` class and it has the following properties:
 
-- **context** - the canvas context has been already captured in its property `this.context`.
+- **ctx** - the canvas ctx has been already captured in its property `this.ctx`.
 
 - **secretWord** - the _HangmanCanvas_ class should know which random secret word has been chosen. This is actually super doable since it receives this word as an argument, as we can see in its constructor.
 
