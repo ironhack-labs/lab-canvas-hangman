@@ -7,7 +7,7 @@ class HangmanCanvas {
 
   createBoard() {
     this.context.clearRect (0, 0, 1200, 800);
-    drawLines();
+    this.drawLines();
   }
 
   drawLines() {
@@ -35,7 +35,6 @@ class HangmanCanvas {
   writeWrongLetter(letter, errorsLeft) {
     let x = 400;
     this.context.font = "40px Arial";
-    console.log(errorsLeft)
     this.context.fillText(letter, x + errorsLeft * 50 , 500);
   }
 
@@ -109,7 +108,7 @@ class HangmanCanvas {
     this.context.clearRect (0, 0, 1200, 800);
       let img = new Image();
       img.onload = () => {
-        this.context.drawImage(img, 0, 0);
+        this.context.drawImage(img, 300, 0);
       };
       img.src = 'images/gameover.png';
   }
@@ -118,7 +117,7 @@ class HangmanCanvas {
       this.context.clearRect (0, 0, 1200, 800);
       let img = new Image();
       img.onload = () => {
-        this.context.drawImage(img, 0, 0);
+        this.context.drawImage(img, 150, 0);
       };
       img.src = 'images/awesome.png'; 
       

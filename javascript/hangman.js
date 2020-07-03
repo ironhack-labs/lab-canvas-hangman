@@ -21,7 +21,7 @@ class Hangman {
 
   addCorrectLetter(letter) {
     this.guessedLetters += letter;
-    console.log(this.guessedLetters);
+  
     if (this.checkWinner()){
       hangmanCanvas.winner();
     }
@@ -29,11 +29,8 @@ class Hangman {
 
   addWrongLetter(letter) {
     this.errorsLeft --;
-    console.log(`erro ${this.errorsLeft}`);
-    if (this.checkGameOver()){
-      return hangmanCanvas.gameOver();
-    }
-    if (!this.letters.includes(letter)){
+   
+    if (!(this.letters.includes(letter))){
        this.letters.push(letter);
     } 
   }
@@ -44,8 +41,6 @@ class Hangman {
   
 
   checkWinner() {
-    console.log(this.guessedLetters.length);
-    console.log(this.secretWord.length)
     if(this.guessedLetters.length === this.secretWord.length){
       return true;
     }return false;
@@ -60,18 +55,15 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    hangmanCanvas.drawLines()
+    hangmanCanvas.createBoard()
   });
 }
 
 document.addEventListener('keydown', event => {
-  console.log(hangman.secretWord)
-  
   const letter = String.fromCharCode(event.keyCode).toLowerCase();
   const secretArr = hangman.secretWord.split('');
+
   if(secretArr.includes(letter)){
 
     for (let i =0 ; i< secretArr.length; i++){
@@ -80,9 +72,13 @@ document.addEventListener('keydown', event => {
         hangman.addCorrectLetter(letter);
       }
     } 
+
   }else{
+    hangman.addWrongLetter(letter);
     hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
     hangmanCanvas.drawHangman(hangman.errorsLeft);
-    hangman.addWrongLetter(letter);
+    if (hangman.checkGameOver()){
+      return hangmanCanvas.gameOver();
+    }
   }
 });
