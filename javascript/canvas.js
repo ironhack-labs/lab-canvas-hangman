@@ -1,45 +1,41 @@
 class HangmanCanvas {
-  constructor(secretWord) {
+  constructor(secretWord){
     this.context = document.getElementById('hangman').getContext('2d');
     this.word = secretWord;
     this.x = 650;
     this.y = 230;
   }
 
-  createBoard() {
-  this.context.clearRect(0,0, 800, 1200);
+  createBoard(){
+  this.context.clearRect(0, 0, 1200, 800);
   this.drawLines();
   }
 
-  drawLines() {
+  drawLines(){
   let i;
-  for (i=0; i<this.word.length; i++){
+  for (i=0; i < this.word.length; i++){
   let j = ((2*i) + 5) * 50;
   this.context.beginPath();
   this.context.moveTo(j,750);
-  this.context.lineTo(j,750);
+  this.context.lineTo(j+50,750);
+  this.context.lineWidth = 4;
   this.context.stroke();
-  }
+  };
+}
 
-  
-  writeCorrectLetter(index) {
+  writeCorrectLetter(index){
+  console.log('writecorrectletter');
   this.coordinate = ((2 * index) + 5) * 50 + 25;
   this.context.font = '15px monospace';
-  this.context.fillText(this.secretWord.charAt(index).toUpperCase(), this.coordinate, this.y); 
+  this.context.fillText(this.word.charAt(index).toUpperCase(), this.coordinate, 730); 
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    this.index = this.secretWord.indexOf(letter);
-    if (this.index === -1){
-      this.context.font = '15px monospace';
-      this.context.fillText.toUpperCase((letter, this.x, this.y);
+      this.context.font = '35px monospace';
+      this.context.fillText(letter.toUpperCase(), this.x, this.y);
+      console.log(this.word);
       this.x += 50;
-      this.y += 50;
-      Hangman.errorsLeft--;
-    } else {
-      this.writeCorrectLetter(this.index);
-    };
-  }
+    }
 
   drawHangman(errorsLeft) {
     switch (errorsLeft){
