@@ -1,5 +1,4 @@
 class Hangman {
-
   constructor(words) {
     this.words = words;
     if (typeof this.words === "undefined") {
@@ -34,7 +33,7 @@ class Hangman {
   }
 
   addClickedLetter(letter) {
-    if (!(this.letters.includes(letter))) {
+    if (!this.letters.includes(letter)) {
       this.letters.push(letter);
     }
   }
@@ -59,31 +58,37 @@ class Hangman {
     let returnValue = true;
     [...this.secretWord].forEach(
       (letter) =>
-      (returnValue = returnValue && this.guessedLetters.indexOf(letter) != -1)
+        (returnValue = returnValue && this.guessedLetters.indexOf(letter) != -1)
     );
     return returnValue;
   }
 }
 
-
-
 let hangman;
 
-
-const startGameButton = document.getElementById('start-game-button');
+const startGameButton = document.getElementById("start-game-button");
 
 if (startGameButton) {
-  startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
+  startGameButton.addEventListener("click", (event) => {
+    hangman = new Hangman([
+      "node",
+      "javascript",
+      "react",
+      "miami",
+      "paris",
+      "amsterdam",
+      "lisboa",
+    ]);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
+    //
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
   });
 }
 
-document.addEventListener('keydown', event => {
+document.addEventListener("keydown", (event) => {
   console.log(`key=${event.key},code=${event.code}`);
   // console.log("inside key event listerenr" + hangman.secretWord);
   if (event.key.length === 1) {
@@ -92,14 +97,12 @@ document.addEventListener('keydown', event => {
       // hangmanCanvas.createBoard();
       // check if letter is in the secret word or not
       if (hangman.secretWord.includes(event.key)) {
-
         hangman.addCorrectLetter(event.key);
         hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key));
         if (hangman.checkWinner()) {
           console.log(" WINNER  ");
           hangmanCanvas.winner();
         }
-
       } else {
         if (hangman.checkGameOver()) {
           console.log("  game over: ");
@@ -113,5 +116,4 @@ document.addEventListener('keydown', event => {
       }
     }
   }
-
 });

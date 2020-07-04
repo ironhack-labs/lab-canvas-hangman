@@ -60,7 +60,7 @@ class HangmanCanvas {
         let centerY = 610;
         this.context.moveTo(centerX, centerY);
         this.context.lineTo(centerX - 50, centerY + 75);
-      }
+      },
     ];
   }
 
@@ -71,9 +71,9 @@ class HangmanCanvas {
 
   drawLines() {
     // ===== HANGMAN drawing =====
-    // Draw lines for the Letters of Secret Word.  
+    // Draw lines for the Letters of Secret Word.
     console.log(this.secretWord);
-    this.context.strokeRect(0, 0, this.width - 10, this.height - 10);
+    // this.context.strokeRect(0, 0, this.width - 10, this.height - 10);
 
     let centerX = 150;
 
@@ -121,7 +121,6 @@ class HangmanCanvas {
     });
     this.context.stroke();
   }
-
 
   writeWrongLetter(letter, errorsLeft) {
     let centerWrongX = 500;
@@ -176,5 +175,9 @@ class HangmanCanvas {
     this.hangManDrawFunctions[2]();
     this.writeFinal();
     this.context.stroke();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   }
 }
