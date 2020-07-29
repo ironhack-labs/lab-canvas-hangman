@@ -1,13 +1,10 @@
 class HangmanCanvas {
-  constructor(secretWord /* , errorsLeft */) {
+  constructor(secretWord) {
     this.context = document.getElementById("hangman").getContext("2d");
-    // ... your code goes here
     this.secretWord = secretWord;
-    // this.errorsLeft = errorsLeft;
   }
 
   createBoard(drawLines) {
-    // ... your code goes here
     //clear canvas
     this.context.clearRect(0, 0, 1200, 2000);
     //clean the lines
@@ -20,13 +17,10 @@ class HangmanCanvas {
     let wrongLetters = document.getElementById('wrong-letters');
     wrongLetters.innerHTML = 'Wrong letters:'
     this.drawLines();
-    
   }
 
   drawLines() {
-    // ... your code goes here
-    //start game
-    
+    //start game - draw the lines for the correct letters
     for (let i = 0; i < this.secretWord.length; i++) {
       let li = document.createElement("li");
       li.innerHTML = "__";
@@ -34,24 +28,26 @@ class HangmanCanvas {
       ul.appendChild(li);
     }
   }
-
+  //write a correct letter on the screen
   writeCorrectLetter(index,character) {
-    //console.log(/* index */)
-    
     let existedLi = document.getElementsByTagName('li');
+
+    //let's think about several indexes
+/*     for (let w = 0; w < indArr.length; w++) {
+      existedLi[w].innerHTML = character
+    } */
+    //
+
     existedLi[index].innerHTML = character;
   }
-
+  //write the incorrect letter on the screen
   writeWrongLetter(letter, errorsLeft) {
     // ... your code goes here
     let wrongLetters = document.getElementById('wrong-letters');
     wrongLetters.innerHTML = hangman.letters;
-   
   }
-
-  drawHangman(errorsLeft) {
-    // ... your code goes here
-    
+  //draw a hangman
+  drawHangman(errorsLeft) {    
     for (let i = hangman.errorsLeft; i >= 0; i--) {
       if (hangman.errorsLeft === 9) {
         //step 1 - triangle

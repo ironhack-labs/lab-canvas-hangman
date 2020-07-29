@@ -9,14 +9,14 @@ class Hangman {
     // decrease every time a user picks a letter that doesn't appear in the word they need to guess.
     this.errorsLeft = 10;
   }
-
+  //this word a user needs to guess
   pickWord() {
     const secretWordChoose = this.words[
       Math.floor(Math.random() * this.words.length)
     ];
     return secretWordChoose;
   }
-
+  //checking that the user press a letter button
   checkIfLetter(keyCode) {
     if (keyCode > 64 && keyCode < 91) {
       return true;
@@ -24,7 +24,7 @@ class Hangman {
       return false;
     }
   }
-
+  //checkin that  a user doesn't use the already used button
   checkClickedLetters(letter) {
     if (this.letters.includes(letter)) {
       return false;
@@ -32,17 +32,16 @@ class Hangman {
       return true;
     }
   }
-
+  //add the correct used letter to the string
   addCorrectLetter(letter) {
     return (this.guessedLetters += letter);
   }
-
+  //add the incorrect used letter to the string and dexcrease the error lefts
   addWrongLetter(letter) {
     this.errorsLeft -= 1;
     if (this.letters.includes(letter) !== true) {
       return this.letters.push(letter);
     }
-    
   }
 
   checkGameOver() {
@@ -66,11 +65,10 @@ class Hangman {
     }
   }
 }
-
+//global object for using outside of this file
 let hangman;
 
 const startGameButton = document.getElementById("start-game-button");
-
 if (startGameButton) {
   startGameButton.addEventListener("click", (event) => {
     hangman = new Hangman([
@@ -82,51 +80,35 @@ if (startGameButton) {
       "amsterdam",
       "lisboa",
     ]);
-    //my debug
-    hangman.checkIfLetter();
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
-    console.log(hangman);
-    console.log(hangmanCanvas);
     hangmanCanvas.createBoard();
   });
 }
 
 document.addEventListener("keydown", (event) => {
-  // React to user pressing a key
-  // ... your code goes here
   let character = event.key;
-  
-  //logic
-/*    if (
-    hangman.checkClickedLetters(character) === false &&
-    checkIfLetter(keyCode)
-  ) {  */
+  if (hangman.checkClickedLetters(event.key) && hangman.checkIfLetter(event.keyCode)) {
     if (hangman.secretWord.includes(character)) {
       hangman.addCorrectLetter(character);
       let index = hangman.secretWord.indexOf(character);
 
+      //let's try to write a loop for the several indexes on one character
+      /*       let indArr = []
+      for (let d = 0; d < hangman.secretWord.length; d++) {
+        if (hangman.secretWord[d] === character) {
+          indArr.push(d);
+          //return indArr
+        }
+        return indArr;
+      } */
+      //
       hangmanCanvas.writeCorrectLetter(index, character);
-      
     } else {
       hangman.addWrongLetter(character);
-      hangmanCanvas.writeWrongLetter(character, hangman.errorsLeft)
+      hangmanCanvas.writeWrongLetter(character, hangman.errorsLeft);
       hangmanCanvas.drawHangman(hangman.errorsLeft);
     }
- //}
-
-  console.log(character);
-  console.log(hangman.letters);
-  console.log(hangman.guessedLetters);
-  /*   console.log(hangman.addCorrectLetter(letter))
-   */
-  console.log(hangman.errorsLeft);
-
-  console.log(hangman.secretWord);
-
+  }
   return character;
 });
