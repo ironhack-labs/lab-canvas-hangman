@@ -103,6 +103,7 @@ class HangmanCanvas {
       // right leg
       this.context.moveTo(450, 400);
       this.context.lineTo(500, 450);
+      this.context.stroke();
       break;
     }
   }
