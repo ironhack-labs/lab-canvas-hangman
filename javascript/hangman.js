@@ -1,7 +1,6 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
     this.secretWord = this.pickWord()
     this.letters = []
     this.guessedLetters = ''
@@ -16,6 +15,9 @@ class Hangman {
   checkIfLetter(keyCode) {
     // ... your code goes here
     if(keyCode >= 65 && keyCode <= 90) {
+      
+      this.letters.push(String.fromCharCode(keyCode).toLowerCase())
+     
       return true
     } else {
       return false
@@ -31,7 +33,9 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    this.guessedLetters = letter
+    this.letters.pop()
+    return this.guessedLetters += letter
+    // this.checkWinner()
   }
 
   addWrongLetter(letter) {
@@ -77,17 +81,43 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
-    hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
+    hangman = new Hangman(['node', 'javascript', 'react', 'lalal','miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
+    console.log(hangman.secretWord)
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    // console.log(hangmanCanvas)
+    hangmanCanvas.createBoard()
 
     // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+
+  if(hangman.checkIfLetter(event.keyCode) === true && hangman.checkWinner() === false) {
+    if(hangman.checkClickedLetters(event.key) === false) {
+      if(hangman.secretWord.includes(event.key)){
+
+        hangman.addCorrectLetter(event.key)
+
+        let letterIndexes = []
+        for (let i = 0; i < hangman.secretWord.length; i++) {
+          if(hangman.secretWord[i] === event.key) {
+            letterIndexes.push(i)
+          }
+        }
+        
+        hangmanCanvas.writeCorrectLetter(letterIndexes)
+
+      }  else {
+        hangman.addWrongLetter(event.key)
+        
+        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft)
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
+      }
+    }
+  }
+  
 });
