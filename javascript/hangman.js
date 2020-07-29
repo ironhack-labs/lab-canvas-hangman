@@ -110,8 +110,7 @@ document.addEventListener("keydown", (event) => {
       hangman.addCorrectLetter(character);
       let index = hangman.secretWord.indexOf(character);
 
- 
-      hangmanCanvas.writeCorrectLetter(character, hangman.errorsLeft);
+      hangmanCanvas.writeCorrectLetter(index, character);
       
     } else {
       hangman.addWrongLetter(character);
