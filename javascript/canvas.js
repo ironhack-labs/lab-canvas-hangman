@@ -122,7 +122,7 @@ class HangmanCanvas {
       case 0:
         this.context.beginPath()
         this.context.moveTo(400, 170)
-        this.context.lineTo(480, 240)         
+        this.context.lineTo(480, 100)         
         this.context.stroke()
     }
   }
