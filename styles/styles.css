@@ -21,3 +21,10 @@ canvas {
   width: 100vw; 
   display: block;
 }
+ul li {
+  list-style-type: none;
+}
+p {
+  border: 2px red solid;
+  height:30px;
+}
