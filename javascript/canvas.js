@@ -136,10 +136,12 @@ class HangmanCanvas {
   gameOver() {
       // console.log('yes, I am being called')
       let gameOverImg = new Image()  
-      gameOverImg.src = './images/gameover.png' 
+      
+      // this.gameOverImg.src = './images/gameover.png' 
       gameOverImg.onload = function (){
-        // console.log('test')
-        this.context.drawImage(gameOverImg, 0, 0)
+        console.log('test')
+        this.context = document.getElementById('hangman').getContext('2d') 
+        this.context.drawImage(gameOverImg, 300, 75)
       }
       gameOverImg.src = './images/gameover.png' 
       
