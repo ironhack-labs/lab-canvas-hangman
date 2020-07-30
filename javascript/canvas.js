@@ -1,3 +1,5 @@
+
+
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
@@ -124,11 +126,26 @@ class HangmanCanvas {
         this.context.moveTo(400, 170)
         this.context.lineTo(480, 100)         
         this.context.stroke()
+      
+        break;
     }
   }
 
+  
+
   gameOver() {
-    // ... your code goes here
+      // console.log('yes, I am being called')
+      let gameOverImg = new Image()  
+      gameOverImg.src = './images/gameover.png' 
+      gameOverImg.onload = function (){
+        // console.log('test')
+        this.context.drawImage(gameOverImg, 0, 0)
+      }
+      gameOverImg.src = './images/gameover.png' 
+      
+      
+      // }
+      
   }
 
   winner() {
