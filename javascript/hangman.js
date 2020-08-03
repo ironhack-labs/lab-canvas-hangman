@@ -59,6 +59,7 @@ class Hangman {
     let sortedSecretWord = sortAll(this.secretWord);
     let sortedGuessedLetters = sortAll(this.guessedLetters);
     if (sortedSecretWord === sortedGuessedLetters) {
+      hangmanCanvas.winner()
       return true;
     } else {
       return false;
@@ -84,6 +85,7 @@ if (startGameButton) {
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
   });
+  
 }
 
 document.addEventListener("keydown", (event) => {
@@ -91,19 +93,13 @@ document.addEventListener("keydown", (event) => {
   if (hangman.checkClickedLetters(event.key) && hangman.checkIfLetter(event.keyCode)) {
     if (hangman.secretWord.includes(character)) {
       hangman.addCorrectLetter(character);
-      let index = hangman.secretWord.indexOf(character);
-
-      //let's try to write a loop for the several indexes on one character
-      /*       let indArr = []
-      for (let d = 0; d < hangman.secretWord.length; d++) {
-        if (hangman.secretWord[d] === character) {
-          indArr.push(d);
-          //return indArr
+      let indexes = [];
+      for (let i = 0; i < hangman.secretWord.length; i++) {
+        if(hangman.secretWord[i] === character) {
+          indexes.push(i)
         }
-        return indArr;
-      } */
-      //
-      hangmanCanvas.writeCorrectLetter(index, character);
+      }
+      hangmanCanvas.writeCorrectLetter(indexes, character)
     } else {
       hangman.addWrongLetter(character);
       hangmanCanvas.writeWrongLetter(character, hangman.errorsLeft);

@@ -29,16 +29,14 @@ class HangmanCanvas {
     }
   }
   //write a correct letter on the screen
-  writeCorrectLetter(index,character) {
+  writeCorrectLetter(index, character) {
     let existedLi = document.getElementsByTagName('li');
+    //work with the several indexes
+   for (let i = 0; i < index.length; i++) {
+      existedLi[index[i]].innerHTML = this.secretWord[index[i]];
+      hangman.checkWinner();
+    }
 
-    //let's think about several indexes
-/*     for (let w = 0; w < indArr.length; w++) {
-      existedLi[w].innerHTML = character
-    } */
-    //
-
-    existedLi[index].innerHTML = character;
   }
   //write the incorrect letter on the screen
   writeWrongLetter(letter, errorsLeft) {
@@ -102,22 +100,32 @@ class HangmanCanvas {
         this.context.moveTo(350, 400);
         this.context.lineTo(330, 450);
         this.context.stroke();
-      } else if (errorsLeft === 0) {
         //step 8 - last - right leg
         this.context.beginPath();
         this.context.moveTo(350, 400);
         this.context.lineTo(370, 450);
         this.context.stroke();
-      }
-    }
+      } else if (errorsLeft === 0) {
+        this.gameOver();
+      } 
+    } 
   }
 
-  //bonus
   gameOver() {
-    // ... your code goes here
+    const ctx = document.getElementById('hangman').getContext('2d');
+    const gameOverImage = new Image();
+    gameOverImage.src = '../images/gameover.png';
+    gameOverImage.onload = function() {
+      ctx.drawImage(gameOverImage, 400, 200,300,300);
+    };
   }
 
   winner() {
-    // ... your code goes here
+    const ctx = document.getElementById('hangman').getContext('2d');
+    const winnerImage = new Image();
+    winnerImage.src = '../images/awesome.png';
+    winnerImage.onload = function() {
+      ctx.drawImage(winnerImage, 400, 200,300,300);
+    };
   }
 }
