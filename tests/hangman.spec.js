@@ -170,7 +170,7 @@ describe('Hangman Game', () => {
       expect(hangman.checkWinner()).toEqual(true);
     });
 
-    it('should return true if we guess all letters', () => {
+    it('should return false if we guess all letters wrong', () => {
       hangman = new Hangman(['IRONHACK']);
       hangman.guessedLetters = 'KHARCN';
       expect(hangman.checkWinner()).toEqual(false);
