@@ -1,51 +1,68 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    // this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+    const min = 0;
+    const max = this.words.length;
+    const randomIndex = Math.floor(Math.random() * (max - min)) + min;
+
+    return this.words[randomIndex];
   }
 
+  // eslint-disable-next-line class-methods-use-this
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if (keyCode >= 65 && keyCode <= 90) {
+      return true;
+    }
+    return false;
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft -= 1;
+    this.letters.push(letter);
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft <= 0) {
+      return true;
+    }
+    return false;
   }
 
   checkWinner() {
-    // ... your code goes here
+    for (let i = 0; i < this.guessedLetters.length; i += 1) {
+      if (this.guessedLetters.indexOf(this.secretWord[i]) === -1) {
+        return false;
+      }
+    } return true;
   }
 }
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    // console.log(hangmanCanvas);
   });
 }
 
