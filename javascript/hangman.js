@@ -66,6 +66,7 @@ class Hangman {
 }
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -76,14 +77,36 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-    // Cómo hace hangman,js para leer la clase HangmanCanvas, dentro del archivo CanvasGradient.js?
 
     // ... your code goes here
-    hangmanCanvas.drawLines()
+    hangmanCanvas.createBoard()
   });
 }
-
+//
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  let letter = event.key
+  let keycode = event.keyCode
+ 
+  if(hangman.checkIfLetter(keycode))  {
+    if (hangman.checkClickedLetters(letter)){
+      if (hangman.secretWord.includes(letter)){
+        hangman.addCorrectLetter(letter)
+        let secretWordArray = hangman.secretWord.split('')
+        secretWordArray.forEach((el, index) => {
+          if(el === letter){
+            hangmanCanvas.writeCorrectLetter(index)
+          }
+        })
+        hangman.checkWinner()
+      } else {
+        hangman.addWrongLetter(letter)
+        hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft)
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
+        hangman.checkGameOver()
+      }
+    }
+  }
+  
 });
