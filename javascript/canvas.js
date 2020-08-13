@@ -165,10 +165,14 @@ class HangmanCanvas {
 
 
     gameOver() {
-        // ... your code goes here ok
+        const gameOverImg = new Image()
+        gameOverImg.src = "../images/gameover.png"
+        this.context.drawImage(gameOverImg, 100, 100, 1000, 600)
     }
 
     winner() {
-        // ... your code goes here
+        const winnerImg = new Image()
+        winnerImg.src = "../images/awesome.png"
+        this.context.drawImage(winnerImg, 100, 100, 1000, 600)
     }
 }

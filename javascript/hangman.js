@@ -53,7 +53,11 @@ class Hangman {
 
     checkWinner() {
         let secretWordArray = this.secretWord.split('')
-        return (this.guessedLetters).includes(...secretWordArray)
+        let winner = true
+        secretWordArray.forEach(letter => {
+            if (!this.guessedLetters.includes(letter)) winner = false
+        })
+        return winner
     }
 }
 
@@ -85,14 +89,13 @@ document.addEventListener('keydown', event => {
                         hangmanCanvas.writeCorrectLetter(index)
                     }
                 })
-                hangman.checkWinner()
+                if (hangman.checkWinner()) hangmanCanvas.winner()
             } else {
                 hangman.addWrongLetter(letter)
                 hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft)
                 hangmanCanvas.drawHangman(hangman.errorsLeft)
-                hangman.checkGameOver()
+                if (hangman.checkGameOver()) hangmanCanvas.gameOver()
             }
         }
     }
-    //test
 });
