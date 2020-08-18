@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/manureyes/public_html/
+    - /bin/cp -R * $DEPLOYPATH
