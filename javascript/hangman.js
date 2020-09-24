@@ -66,6 +66,7 @@ class Hangman {
 }
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -85,6 +86,8 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  event.key // "a" --> find pos of letter in secret word
+  hangmanCanvas.writeCorrectLetter(pos)
 });
 
 
