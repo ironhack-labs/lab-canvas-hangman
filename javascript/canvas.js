@@ -5,11 +5,19 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 800);
+    this.drawLines();
   }
 
   drawLines() {
-    // ... your code goes here
+
+    for (let l = 0; l < this.secretWord.length; l++) {
+
+      this.context.beginPath();
+      this.context.moveTo(500 + 70 * l, 700);
+      this.context.lineTo(550 + 70 * l, 700);
+      this.context.stroke();   
+    }
   }
 
   writeCorrectLetter(index) {

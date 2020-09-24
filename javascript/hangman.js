@@ -9,7 +9,6 @@ class Hangman {
 
   pickWord() {
     return this.words[Math.floor(Math.random() * this.words.length)];
-  
   }
 
   checkIfLetter(keyCode) {
@@ -63,8 +62,7 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-  
+    // javascript/hangman.js
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
