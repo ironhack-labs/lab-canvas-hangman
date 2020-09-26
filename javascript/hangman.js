@@ -57,8 +57,8 @@ class Hangman {
 
     for (let i = 0; i < secretLetters.length; i++) {
       if (!goodLetters.includes(secretLetters[i])) {
-         return false
-         }
+        return false
+      }
     }
     return true
   }
@@ -66,7 +66,6 @@ class Hangman {
 }
 
 let hangman;
-let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -78,21 +77,33 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard()
-  
+
+
     // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
-  event.key // "a" --> find pos of letter in secret word
-  hangmanCanvas.writeCorrectLetter(pos)
+
+  var x = String.fromCharCode(event.keyCode);
+  console.log(x)
+
+  if (hangman.checkIfLetter(event.keyCode)) {
+
+    if (hangman.secretWord.toLowerCase().includes(x.toLowerCase())) {
+      hangmanCanvas.writeCorrectLetter(x)
+
+    } else {
+console.log("else")
+      hangman.addWrongLetter(event.key);
+      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+      hangmanCanvas.drawHangman(hangman.errorsLeft);
+
+    }
+
+  }else{
+    window.alert('Invalid character! Remember that valid characters include a-z');
+  }
+
 });
 
-
-
-/*
-
-
-*/
