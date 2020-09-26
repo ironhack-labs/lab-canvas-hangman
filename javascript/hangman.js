@@ -24,8 +24,12 @@ class Hangman {
       return false;
     } else {
       return true;
+      // if !this.letters.includes(letter) return true
+      // in this case true = not picked yet
     }
   }
+
+
 
   addCorrectLetter(letter) {
     if (!this.guessedLetters.includes(letter)) {
@@ -72,6 +76,37 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  
- 
+
+  if (hangman.checkIfLetter(event.keyCode)) {
+
+    console.log(event.key)
+    console.log(hangman.secretWord.includes(event.key))
+
+    // if (hangman.checkClickedLetters(event.key) && !!~hangman.secretWord.indexOf(event.key)) {
+    if (hangman.secretWord.includes(event.key)) {
+      console.log("here")
+      hangman.addCorrectLetter(event.key);
+      let posInStr = hangman.secretWord.indexOf(event.key);
+      hangmanCanvas.writeCorrectLetter(posInStr);
+
+      // second position in string
+      // call the function again, if a letter appear in the string more than once 
+      posInStr = hangman.secretWord.indexOf(event.key, hangman.secretWord.indexOf(event.key) + 1);
+      console.log(posInStr)
+      hangmanCanvas.writeCorrectLetter(posInStr);
+
+
+    } else {
+      if (hangman.checkClickedLetters(event.key)) {
+        hangman.addWrongLetter(event.key);
+        hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
+      }
+    }
+
+  } else {
+    window.alert('Invalid character! Remember that valid characters include a-z');
+  }
 });
+
+
