@@ -13,12 +13,17 @@ class HangmanCanvas {
 
   drawLines() {
     // ... your code goes here
-    for (let index = 0; index < this.secretWord.length; index++) {
-      this.context.beginPath();
-      this.context.moveTo(200 + 80*index, 700);
-      this.context.lineTo(260 + 80*index, 700);
-      this.context.stroke();
-      this.context.closePath();
+    let x= 250;
+    const y= 650;
+    this.context.beginPath();
+    this.secretWord.split("").forEach(e => {
+      this.context.moveTo(x,y);
+      this.context.lineTo(x+50,y);
+      x += 80;
+    })
+    this.context.stroke();  
+    this.context.closePath(); 
+  }
   }
 
   writeCorrectLetter(index) {

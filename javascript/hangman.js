@@ -75,11 +75,22 @@ if (startGameButton) {
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     // ... your code goes here
     hangmanCanvas.createBoard();
+    hangmanCanvas.drawLines();
   });
 }
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  if (hangman.checkIfLetter(event.keyCode)){
+    if (hangman.checkClickedLetters(event.key)) {
+      if (hangman.secretWord.includes(event.key)) {
+        hangmanCanvas.writeCorrectLetter(event.keyCode)
+      } else {
+        hangmanCanvas.writeWrongLetter(String.fromCharCode(event.keyCode),hangman.errorsLeft);
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
+      };
+    };
+    hangman.letters.push(event.key)
 
 });
