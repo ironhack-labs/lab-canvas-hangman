@@ -6,30 +6,37 @@ class Hangman {
 
   pickWord() {
     // ... your code goes here
+
   }
 
   checkIfLetter(keyCode) {
     // ... your code goes here
+
   }
 
   checkClickedLetters(letter) {
     // ... your code goes here
+
   }
 
   addCorrectLetter(letter) {
     // ... your code goes here
+
   }
 
   addWrongLetter(letter) {
     // ... your code goes here
+
   }
 
   checkGameOver() {
     // ... your code goes here
+
   }
 
   checkWinner() {
     // ... your code goes here
+    
   }
 }
 
