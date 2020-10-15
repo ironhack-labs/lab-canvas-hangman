@@ -1,9 +1,10 @@
 class Hangman {
   constructor(words) {
     this.words = words;
+    this.secretWord = "";
     // ... your code goes here
   }
-
+  
   pickWord() {
     // ... your code goes here
   }

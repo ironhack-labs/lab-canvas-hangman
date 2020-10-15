@@ -3,13 +3,19 @@ class HangmanCanvas {
     this.context = document.getElementById('hangman').getContext('2d');
     // ... your code goes here
   }
-
+  
   createBoard() {
     // ... your code goes here
+    ctx.fillStyle="blue";
+    ctx.fillRect(260, 260, 30, 30);
   }
 
   drawLines() {
-    // ... your code goes here
+    ctx.beginPath();
+    ctx.moveTo(10, 10);
+    ctx.lineTo(10, 50);
+    ctx.stroke();
+    ctx.closePath();
   }
 
   writeCorrectLetter(index) {
