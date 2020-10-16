@@ -11,8 +11,8 @@ class Hangman {
     return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
-  checkIfLetter(keyCode) {
-    return keyCode > 64 && keyCode < 91;
+  checkIfLetter(key) {
+    return /[a-z]/i.test(key);
   }
 
   checkClickedLetters(letter) {
@@ -20,14 +20,13 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
+    this.letters.push(letter);
     this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
     this.errorsLeft -= 1;
-    if (!this.letters.includes(letter)) {
-      this.letters.push(letter);
-    }
+    this.letters.push(letter);
   }
 
   checkGameOver() {
@@ -47,15 +46,46 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     hangmanCanvas.createBoard();
+    console.log(hangman.secretWord);
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  const key = event.key;
+  if (!hangman.checkIfLetter(key)) {
+    return;
+  }
+  
+  if (!hangman.checkClickedLetters(key)) {
+    return;
+  }
+
+  let indexArray = [];
+  let index = hangman.secretWord.indexOf(key);
+
+  if (index === -1) {
+    hangman.addWrongLetter(key);
+    hangmanCanvas.writeWrongLetter(key, hangman.errorsLeft);
+    hangmanCanvas.drawHangman(hangman.errorsLeft); 
+  } else {
+    while (index !== -1) {
+      indexArray.push(index);
+      index = hangman.secretWord.indexOf(key, index + 1);
+    }
+    indexArray.forEach((index) => {
+      hangman.addCorrectLetter(key);
+      hangmanCanvas.writeCorrectLetter(index);
+    });
+  }
+
+  if (hangman.checkGameOver()) {
+    setTimeout( () => hangmanCanvas.gameOver(), 100); 
+  } 
+  if (hangman.checkWinner()) {
+    setTimeout(() => hangmanCanvas.winner(), 100) ;
+  }
 });
