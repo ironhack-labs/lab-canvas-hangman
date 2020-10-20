@@ -70,9 +70,9 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
-  if(hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)) {
+  if(hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.keyCode)) {
       if(hangman.secretWord.includes(event.key)) {
-        hangmanCanvas.writeCorrectLetter(event.key);
+        hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key));
       } else {
         hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
         hangmanCanvas.drawHangman(hangman.errorsLeft);
