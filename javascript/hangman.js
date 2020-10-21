@@ -1,7 +1,7 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    this.secretWord = this.pickWord();
+    this.secretWord = this.pickWord(); //returs a random strring of lettterrs
     this.letters = [];
     this.guessedLetters = "";
     this.errorsLeft = 10;
@@ -20,13 +20,13 @@ class Hangman {
 
   addCorrectLetter(letter) {
 
-    return this.guessedLetters += letter ;
+    return this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
     // ... your code goes here
-    this.errorsLeft -= 1//should subtract one from the variable errorsLeft.
-    if (!this.letters.includes(letter)){//It also should push this letter in the array of letters if the letter is not there already.
+    this.errorsLeft -= 1 //should subtract one from the variable errorsLeft.
+    if (!this.letters.includes(letter)) { //It also should push this letter in the array of letters if the letter is not there already.
       this.letters.push(letter)
     }
 
@@ -38,10 +38,7 @@ class Hangman {
   //a method that should check if the user won and return the corresponding boolean value.
   checkWinner() {
     // ... your code goes here
-    //iterar secretWord
-    //if guessedLetters NOT includes the each letter of secretWord return false
-
-
+    return !this.guessedLetters === this.secretWord
   }
 }
 let hangman;
