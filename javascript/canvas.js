@@ -1,19 +1,41 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
+    this.secretWord = secretWord;
+    this.$canvas = document.querySelector('#hangman');
+    this.letterWidth = 70;
+    this.letterHeight = 70;
+    this.xPosition = 200;
+    this.yPosition = 770;
   }
 
   createBoard() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+    this.drawLines();
   }
 
   drawLines() {
-    // ... your code goes here
+    this.context.beginPath();
+    let xPositionLines = this.xPosition;
+    for (let i = 0; i <= this.secretWord.length; i++) {
+      xPositionLines += this.letterWidth;
+      this.context.lineTo(xPositionLines, this.yPosition);
+      this.context.stroke();
+      this.context.moveTo(xPositionLines + 10, this.yPosition);
+    }
+
+    this.context.closePath();
   }
 
-  writeCorrectLetter(index) {
-    // ... your code goes here
+  writeCorrectLetter(index) { // index: índice de la letra en la palabra secreta
+    let xPositionLetter = this.xPosition;
+    let yPositionLetter = this.yPosition - this.letterHeight - 5;
+
+    this.context.beginPath();
+    this.context.fillText(this.secretWord[index], xPositionLetter, yPositionLetter, this.letterWidth);
+    this.context.font = '30px Arial'; // setter-getter
+
+    this.context.closePath();
   }
 
   writeWrongLetter(letter, errorsLeft) {
