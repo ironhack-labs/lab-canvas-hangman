@@ -2,6 +2,10 @@ class Hangman {
   constructor(words) {
     this.words = words;
     // ... your code goes here
+    this.secretWord = "";
+    this.letters = [];
+    this.guessedLetter = "";
+    this.errorsLeft = 10;
   }
 
   pickWord() {
