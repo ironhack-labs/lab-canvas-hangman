@@ -35,8 +35,13 @@ class Hangman {
     // ... your code goes here
     return !this.errorsLeft > 0;
   }
+  //a method that should check if the user won and return the corresponding boolean value.
   checkWinner() {
     // ... your code goes here
+    //iterar secretWord
+    //if guessedLetters NOT includes the each letter of secretWord return false
+
+
   }
 }
 let hangman;
