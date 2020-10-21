@@ -19,11 +19,8 @@ class Hangman {
 
 
   addCorrectLetter(letter) {
-    // if (this.checkClickedLetters(letter) === true) {
-    //   this.guessedLetter = letter
-    // } else {
-    //   this.guessedLetter + ""
-    // }
+  
+    return this.guessedLetters += letter ;
   }
 
 
@@ -33,6 +30,7 @@ class Hangman {
   }
   checkGameOver() {
     // ... your code goes here
+    return !this.errorsLeft > 0;
   }
   checkWinner() {
     // ... your code goes here
