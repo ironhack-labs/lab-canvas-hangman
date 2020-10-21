@@ -1,35 +1,61 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord=this.pickWord();
+    this.letters=[];
+    this.guessedLetters='';
+    this.errorsLeft=10;
   }
 
   pickWord() {
-    // ... your code goes here
+    let sWord= this.words[Math.floor(Math.random() * this.words.length)];
+    return sWord;
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if(keyCode>60 && keyCode<95){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if(!this.letters.includes(letter)){
+      return true;
+    } else{
+      return false;
+    }
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    if (this.secretWord.length===this.guessedLetters.length) {
+    } else {
+      return this.guessedLetters+=letter;
+    }
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    if(!this.letters.includes(letter)){
+      this.letters.push(letter);
+    }
+    return this.errorsLeft-=1;
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft>0) {
+      return false;
+    } else{
+    return true;
+    }
   }
 
   checkWinner() {
-    // ... your code goes here
+    if (this.secretWord.length===this.guessedLetters.length){
+      return true
+    } else{
+      return false
+    }
   }
 }
 
@@ -41,9 +67,9 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+     //HINT (uncomment when start working on the canvas portion of the lab)
+     hangman.secretWord = hangman.pickWord();
+     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
