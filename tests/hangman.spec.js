@@ -10,6 +10,7 @@ describe('Hangman Game', () => {
 
   beforeEach(() => {
     hangman = new Hangman(testWords);
+    hangman.pickWord()
   });
 
   describe('Hangman class constructor', () => {
@@ -32,6 +33,8 @@ describe('Hangman Game', () => {
       });
 
       it('should hold the value of one of the words in the array', () => {
+        console.log(hangman.words)
+        console.log(hangman.secretWord+"aa")
         expect(hangman.words.includes(hangman.secretWord)).toBeTrue();
       });
     });
