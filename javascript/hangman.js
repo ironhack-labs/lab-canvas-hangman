@@ -10,10 +10,13 @@ class Hangman {
 
   pickWord() {
     // ... your code goes here
+    let random = Math.floor(Math.random() * this.words.length);
+    return this.words[random];
   }
 
   checkIfLetter(keyCode) {
     // ... your code goes here
+
   }
 
   checkClickedLetters(letter) {
