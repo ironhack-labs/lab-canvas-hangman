@@ -19,14 +19,19 @@ class Hangman {
 
 
   addCorrectLetter(letter) {
-  
+
     return this.guessedLetters += letter ;
   }
 
 
-
+  //should subtract one from the variable errorsLeft.
+  //It also should push this letter in the array of letters if the letter is not there already.
   addWrongLetter(letter) {
     // ... your code goes here
+    this.errorsLeft -= 1
+    this.letters.push(letter)
+
+
   }
   checkGameOver() {
     // ... your code goes here
