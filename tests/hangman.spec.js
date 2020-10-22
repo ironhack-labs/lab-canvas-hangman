@@ -33,8 +33,6 @@ describe('Hangman Game', () => {
       });
 
       it('should hold the value of one of the words in the array', () => {
-        console.log(hangman.words)
-        console.log(hangman.secretWord+"aa")
         expect(hangman.words.includes(hangman.secretWord)).toBeTrue();
       });
     });
@@ -176,6 +174,7 @@ describe('Hangman Game', () => {
     it('should return false if we haven\'t guessed all letters', () => {
       hangman = new Hangman(['IRONHACK']);
       hangman.guessedLetters = 'KHARCN';
+
       expect(hangman.checkWinner()).toEqual(false);
     });
   });
