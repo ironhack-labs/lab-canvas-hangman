@@ -62,25 +62,31 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  if (hangman.checkIfLetter(event.keyCode)) { // Si es una letra
-    if (hangman.checkClickedLetters(event.key)) { // Si ya fue presionada
-      if (hangman.secretWord.includes(event.key)) { // Hace parte de la palabra secreta
-        const cantidadPalabrasEnSecreto = hangman.secretWord.split(event.key).length - 1;
+  if (hangman) {
+    if (hangman.checkIfLetter(event.keyCode)) { // Si es una letra
+      if (hangman.checkClickedLetters(event.key)) { // Si ya fue presionada
+        if (hangman.secretWord.includes(event.key)) { // Hace parte de la palabra secreta
+          const cantidadPalabrasEnSecreto = hangman.secretWord.split(event.key).length - 1;
 
-        for (let i = 0; i < cantidadPalabrasEnSecreto; i++) {
-          hangman.addCorrectLetter(event.key);
+          let index = 0;
+          for (let i = 0; i < cantidadPalabrasEnSecreto; i++) {
+            hangman.addCorrectLetter(event.key);
+            index = hangman.secretWord.indexOf(event.key, index)
+            hangman.writeCorrectLetter(index);
+            index++;
 
+          }
+          // pintar si está bien
+
+        } else {
+          hangman.addWrongLetter(event.key);
+          //pintar si está mal
         }
-        // pintar si está bien
-
-      } else {
-        hangman.addWrongLetter(event.key);
-        //pintar si está mal
       }
     }
+    console.log('letters:', hangman.letters);
+    console.log('guess ', hangman.guessedLetters);
+    console.log('secret ', hangman.secretWord);
+    console.log('error ', hangman.errorsLeft);
   }
-  console.log('letters:', hangman.letters);
-  console.log('guess ', hangman.guessedLetters);
-  console.log('secret ', hangman.secretWord);
-  console.log('error ', hangman.errorsLeft);
 });

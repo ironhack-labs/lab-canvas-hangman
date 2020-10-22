@@ -16,12 +16,12 @@ class HangmanCanvas {
 
   drawLines() {
     this.context.beginPath();
-    let xPositionLines = this.xPosition;
+    this.context.moveTo(this.xPosition, this.yPosition);
+    let separation = 10;
     for (let i = 0; i <= this.secretWord.length; i++) {
-      xPositionLines += this.letterWidth;
-      this.context.lineTo(xPositionLines, this.yPosition);
+      this.context.lineTo(this.xPosition + this.letterWidth * i + separation * (i), this.yPosition);
       this.context.stroke();
-      this.context.moveTo(xPositionLines + 10, this.yPosition);
+      this.context.moveTo(this.xPosition + this.letterWidth * (i) + separation * (i + 1), this.yPosition);
     }
 
     this.context.closePath();
