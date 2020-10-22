@@ -13,7 +13,7 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    if (keyCode >= 65 && keyCode <=90) {
+    if (keyCode >= 65 && keyCode <= 90) {
       return true
     } else {
       return false
@@ -66,14 +66,14 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard()
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if (hangman.checkIfLetter(event.keyCode)) {
+    hangmanCanvas.writeCorrectLetter(event.key)
+  }
 });
