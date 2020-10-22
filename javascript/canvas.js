@@ -2,6 +2,11 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
     // ... your code goes here
+    // document.querySelector()
+    //onClick = callback
+    //addEventListener('click', callback )
+    //setInterval(callback,milisecs)
+  )
     this.secretWord = secretWord;
   }
 
