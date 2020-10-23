@@ -7,6 +7,13 @@ class HangmanCanvas {
     this.context.fillStyle = 'mediumseagreen'
   }
 
+  gameOver() {
+    let image = new Image()
+    image.src = './images/gameover.png'
+    this.context.drawImage(image, 0, 0, 1200, 800)
+  }
+
+
   createBoard() {
     this.context.fillRect(0, 0, 1200, 800)
     this.drawLines()
@@ -35,7 +42,7 @@ class HangmanCanvas {
   writeWrongLetter(letter, errorsLeft) {
     this.context.font = "40px Comic Sans MS";
     this.context.fillStyle = "blueviolet";
-    if (!this.secretWord.includes(letter)) {
+    if (!this.secretWord.includes(letter) && errorsLeft > 0) {
       this.context.fillText(`${letter}`, (1150 - 50 * (errorsLeft)), 120)
     }
   }
@@ -100,16 +107,14 @@ class HangmanCanvas {
         this.context.beginPath()
         this.context.moveTo(500, 500)
         this.context.lineTo(550, 600)
-        this.context.stroke();
-        break;
+        this.context.stroke()
+        this.gameOver();
     }
   }
 
-  gameOver() {
-    // ... your code goes here
-  }
-
   winner() {
-    // ... your code goes here
+    let image = new Image()
+    image.src = './images/awesome.png'
+    this.context.drawImage(image, 0, 0, 1200, 800)
   }
 }

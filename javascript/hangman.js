@@ -44,12 +44,8 @@ class Hangman {
   }
 
   checkWinner() {
-    for (let i = 0; i < this.secretWord.length; i++) {
-      if (!this.guessedLetters.includes(this.secretWord.charAt(i))) {
-        return false
-      }
-    }
-    return true
+    return this.guessedLetters.length === this.secretWord.length ? true :
+      false
   }
 }
 let hangman
@@ -70,6 +66,7 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   let keyCode = event.keyCode
   let letter
+
   if (hangman.checkIfLetter(keyCode)) {
     function linkLetter(keyCode) {
       switch (keyCode) {
@@ -159,6 +156,9 @@ document.addEventListener('keydown', event => {
 
       if (hangman.secretWord.includes(letter)) {
         hangmanCanvas.writeCorrectLetter(letter, hangman.secretWord.indexOf(letter))
+        if (hangman.checkWinner() === true) {
+          hangmanCanvas.winner()
+        }
       } else {
         hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft)
         hangmanCanvas.drawHangman(hangman.errorsLeft)
