@@ -8,11 +8,11 @@ class Hangman {
   }
 
   pickWord() {
-    return this.secretWord = this.words[Math.floor(Math.random * this.words.length)]
+    return this.secretWord = this.words[Math.floor(Math.random() * this.words.length)]
   }
 
   checkIfLetter(keyCode) {
-    if (keyCode) {
+    if (keyCode >= 65 && keyCode <= 90) {
       return true
     } else {
       return false
@@ -20,32 +20,36 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    if (this.guessedLetters.includes(letter)) {
-      return false
-    }
-    return true
+    return this.letters.includes(letter) ? false : true
   }
 
   addCorrectLetter(letter) {
     if (this.secretWord.includes(letter)) {
-      this.guessedLetters = this.guessedLetters.concat(letter)
-      this.checkWinner()
+      this.letters.push(letter)
+      return this.guessedLetters = this.guessedLetters.concat(letter)
     }
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    if (!this.secretWord.includes(letter)) {
+      this.letters.push(letter)
+      this.errorsLeft--
+    }
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return this.errorsLeft > 0 ? false : true
   }
 
   checkWinner() {
-    // ... your code goes here
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (!this.guessedLetters.includes(this.secretWord.charAt(i))) {
+        return false
+      }
+    }
+    return true
   }
 }
-
 let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
@@ -54,11 +58,10 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-    // ... your code goes here
+    //... your code goes here
   });
 }
 
