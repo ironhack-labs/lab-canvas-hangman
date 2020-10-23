@@ -10,14 +10,14 @@ class HangmanCanvas {
   }
 
   drawLines() {
-    let x = 190
+    let x = 400
     let y = 770
     for (let i = 0; i < this.secretWord.length; i++) {
-      this.context.beginPath
+      this.context.beginPath()
       this.context.moveTo(x, y)
-      this.context.lineTo(x + 40, y)
+      this.context.lineTo(x + 50, y)
       this.context.stroke()
-      x += 50
+      x += 70
     }
   }
 
@@ -25,7 +25,7 @@ class HangmanCanvas {
     this.context.font = "30px Arial";
     this.context.fillStyle = "black";
     if (this.secretWord.includes(letter)) {
-      this.context.fillText(`${letter}`, (190 + 50 * (index + 1)), 740)
+      this.context.fillText(`${letter}`, (400 + 70 * (index + 1)), 740)
     }
   }
 
@@ -33,12 +33,73 @@ class HangmanCanvas {
     this.context.font = "30px Arial";
     this.context.fillStyle = "black";
     if (!this.secretWord.includes(letter)) {
-      this.context.fillText(`${letter}`, (1200 - 50 * (errorsLeft)), 120)
+      this.context.fillText(`${letter}`, (1150 - 50 * (errorsLeft)), 120)
     }
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
+    switch (errorsLeft) {
+      case 10:
+        this.context.beginPath()
+        this.context.moveTo(100, 770)
+        this.context.lineTo(300, 770)
+        this.context.stroke();
+        break;
+      case 9:
+        this.context.beginPath()
+        this.context.moveTo(200, 770)
+        this.context.lineTo(200, 200)
+        this.context.stroke();
+        break;
+      case 8:
+        this.context.beginPath()
+        this.context.moveTo(200, 200)
+        this.context.lineTo(500, 200)
+        this.context.stroke();
+        break;
+        break;
+      case 7:
+        this.context.beginPath()
+        this.context.moveTo(500, 200)
+        this.context.lineTo(500, 300)
+        this.context.stroke();
+        break;
+      case 6:
+        this.context.beginPath()
+        this.context.arc(500, 325, 25, 0, 2 * Math.PI)
+        this.context.stroke();
+        break;
+      case 5:
+        this.context.beginPath()
+        this.context.moveTo(500, 350)
+        this.context.lineTo(500, 500)
+        this.context.stroke();
+        break;
+      case 4:
+        this.context.beginPath()
+        this.context.moveTo(500, 400)
+        this.context.lineTo(580, 350)
+        this.context.stroke();
+        break;
+      case 3:
+        this.context.beginPath()
+        this.context.moveTo(500, 400)
+        this.context.lineTo(430, 350)
+        this.context.stroke();
+        break;
+      case 2:
+        this.context.beginPath()
+        this.context.moveTo(500, 500)
+        this.context.lineTo(450, 600)
+        this.context.stroke();
+        break;
+      case 1:
+        this.context.beginPath()
+        this.context.moveTo(500, 500)
+        this.context.lineTo(550, 600)
+        this.context.stroke();
+        break;
+    }
   }
 
   gameOver() {
