@@ -1,35 +1,45 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = "";
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+    return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    const letter = keyCode;
+    return (letter > 64 && letter < 91) ? true : false;
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    const isIn = this.letters.includes(letter);
+    return (isIn) ? false : true;
+    
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
+    this.userWon = (this.secretWord.i) ? false : true;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    const isIn = this.letters.includes(letter);
+    const addWrong = this.letters.push(letter);
+    this.errorsLeft--;
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return (this.errorsLeft > 0) ? false : true;
   }
 
   checkWinner() {
-    // ... your code goes here
+    console.log(this.guessedLetters)
+    return (this.guessedLetters === this.secretWord) ? true : false;
   }
 }
 
