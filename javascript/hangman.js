@@ -91,20 +91,22 @@ document.addEventListener('keydown', event => {
       let multipleLetter = hangman.secretWord.split(clickLetter).length-1; //número de veces que la letra se encuentra en la palabra secreta
       let numGuessedMult = hangman.guessedLetters.split(clickLetter).length-1; //número de veces ya adivinada la letra
 
-      if(multipleLetter>1 && multipleLetter>numGuessedMult ){ //si la letra se repite en la palabra en la palabra y no hemos adivinado ya todas las letras
+      if(multipleLetter>1 && multipleLetter>numGuessedMult ){ //si la letra se repite en la palabra en la palabra y no la hemos adivinado ya
        
-       
-        let index = hangman.calculateIndex(clickLetter,numGuessedMult);
-        hangmanCanvas.writeCorrectLetter(index);
-
+        while(multipleLetter>numGuessedMult ){
+          let index = hangman.calculateIndex(clickLetter,numGuessedMult);
+          hangmanCanvas.writeCorrectLetter(index);
+          if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(); //Comprobamos victoria
+          numGuessedMult++;
+        }
 
 
       }else if(multipleLetter===1 && multipleLetter>numGuessedMult ){//si la letra solo aparece una vez en la palabra y no la hemos adivinado ya
         hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(clickLetter));//pasamos el índice de la letra
       
+        if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(); //Comprobamos victoria
       }
       
-      if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(); //Comprobamos victoria
     
     } else {
       hangman.addWrongLetter(clickLetter); 
