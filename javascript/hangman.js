@@ -21,14 +21,24 @@ class Hangman {
 
   checkClickedLetters(letter) {
     // ... your code goes here
-    return !this.letters.includes(letter)&& this.guessedLetters.indexOf(letter)===-1;
+    return !this.letters.includes(letter);//&& this.guessedLetters.indexOf(letter)===-1;
 
   }
+
+  calculateIndex(letter, numTimes){//recibe la letra y el número de veces ya adivinada y calcula el índice para pintarla
+    let times =0;
+    for(let i=0;i<this.secretWord.length;i++){
+
+      if(this.secretWord[i]===letter&&numTimes===times)return i;
+      else if(this.secretWord[i]===letter&&numTimes!=times)times++;  
+    }
+  }
+
 
   addCorrectLetter(letter) {
     // ... your code goes here
     this.guessedLetters+=letter;
-    this.checkWinner();
+    return this.checkWinner();
   }
 
   addWrongLetter(letter) {
@@ -45,8 +55,9 @@ class Hangman {
   checkWinner() {
     // ... your code goes here
     for(let value of this.secretWord){
-      if(!this.guessedLetters.includes(value))return false;
+      if(!this.guessedLetters.includes(value))return false;  
     }
+    if(this.secretWord.length!=this.guessedLetters.length)return false; //en caso de letras repetidas
     return true;
   }
 } 
@@ -59,11 +70,8 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-    // ... your code goes here
     console.log(hangman.secretWord);
 
   });
@@ -72,12 +80,36 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
-  //console.log(event.keyCode);
-  if(hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.key)){
-    if(hangman.secretWord.includes(event.key)){
-      hangman.addCorrectLetter(event.key);
-      hangmanCanvas.writeCorrectLetter(event.key);
+  
+  const clickLetter = event.key;
+  const letterNumber = event.keyCode;
+  
+  if(hangman.checkIfLetter(letterNumber) && hangman.checkClickedLetters(clickLetter)){//si no hemos pulsado ya esa letra
     
-    } 
+    if(hangman.secretWord.includes(clickLetter)){ // Si la letra está en la palabra secreta
+      
+      let multipleLetter = hangman.secretWord.split(clickLetter).length-1; //número de veces que la letra se encuentra en la palabra secreta
+      let numGuessedMult = hangman.guessedLetters.split(clickLetter).length-1; //número de veces ya adivinada la letra
+
+      if(multipleLetter>1 && multipleLetter>numGuessedMult ){ //si la letra se repite en la palabra en la palabra y no hemos adivinado ya todas las letras
+       
+       
+        let index = hangman.calculateIndex(clickLetter,numGuessedMult);
+        hangmanCanvas.writeCorrectLetter(index);
+
+
+
+      }else if(multipleLetter===1 && multipleLetter>numGuessedMult ){//si la letra solo aparece una vez en la palabra y no la hemos adivinado ya
+        hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(clickLetter));//pasamos el índice de la letra
+      
+      }
+      
+      if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(); //Comprobamos victoria
+    
+    } else {
+      hangman.addWrongLetter(clickLetter); 
+      hangmanCanvas.writeWrongLetter(clickLetter);
+      if(hangman.checkGameOver())hangmanCanvas.gameOver();
+    }
   }
 });

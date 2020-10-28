@@ -16,7 +16,7 @@ class HangmanCanvas {
 
   drawLines() {
     // ... your code goes here
-    for(let i=1;i<=this.secretWord.length;i++){
+    for(let i=1;i<=this.secretWord.length;i++){ //líneas correspondientes a las letras
       this.context.beginPath();
       this.context.lineWidth =6;
       this.context.moveTo((300+(70*i)),350);
@@ -25,16 +25,21 @@ class HangmanCanvas {
       this.context.closePath();
       this.context.stroke();
     }
+
     
   }
 
   writeCorrectLetter(index) {
     // ... your code goes here
-    console.log(index);
+   // console.log(index);
+    let x = 305+(70*(index+1));
+    this.context.font = '60px serif';
+    this.context.fillText(this.secretWord[index], x, 340);
   }
 
   writeWrongLetter(letter, errorsLeft) {
     // ... your code goes here
+    console.log(letter);
   }
 
   drawHangman(errorsLeft) {
@@ -43,9 +48,12 @@ class HangmanCanvas {
 
   gameOver() {
     // ... your code goes here
+    console.log("perdiste");
   }
 
   winner() {
     // ... your code goes here
+    console.log("ganaste");
   }
+  
 }
