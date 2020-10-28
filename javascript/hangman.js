@@ -65,6 +65,10 @@ class Hangman {
 let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
+var imgWin = new Image(); 
+imgWin.src = './images/awesome.png';
+var imgLoss = new Image(); 
+imgLoss.src = './images/gameover.png';  
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
@@ -104,7 +108,7 @@ document.addEventListener('keydown', event => {
       }else if(multipleLetter===1 && multipleLetter>numGuessedMult ){//si la letra solo aparece una vez en la palabra y no la hemos adivinado ya
         hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(clickLetter));//pasamos el índice de la letra
       
-        if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(); //Comprobamos victoria
+        if(hangman.addCorrectLetter(clickLetter)) hangmanCanvas.winner(imgWin); //Comprobamos victoria
       }
       
     
@@ -112,7 +116,7 @@ document.addEventListener('keydown', event => {
         hangmanCanvas.drawHangman(hangman.errorsLeft);
         hangman.addWrongLetter(clickLetter); 
         hangmanCanvas.writeWrongLetter(clickLetter,hangman.errorsLeft);
-      if(hangman.checkGameOver())hangmanCanvas.gameOver();
+      if(hangman.checkGameOver())hangmanCanvas.gameOver(imgLoss);
     }
   }
 });

@@ -96,14 +96,19 @@ class HangmanCanvas {
     this.context.stroke();
   }
 
-  gameOver() {
+  gameOver(img) {
     // ... your code goes here
     console.log("perdiste");
+    this.context.clearRect(0,0,1200,800);
+    this.context.drawImage(img, 100,50);
+
   }
 
-  winner() {
+  winner(img) {
     // ... your code goes here
     console.log("ganaste");
+    this.context.clearRect(0,0,1200,800);
+    this.context.drawImage(img, 100,50);
   }
   
 }
