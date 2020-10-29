@@ -31,7 +31,7 @@ class Hangman {
 
   addWrongLetter(letter) {
     // ... your code goes here
-    return this.errorsLeft -= letter
+    return this.errorsLeft -- 
   }
 
   checkGameOver() {
