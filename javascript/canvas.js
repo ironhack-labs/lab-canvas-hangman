@@ -12,20 +12,21 @@ class HangmanCanvas {
   }
 
   drawLines() {
-    // ... your code goes here
-    this.context.strokeStyle = 'black'
-    this.context.lineWidth = 4;
-
-    for (let i = 0; i < this.secretWord.length; i++) {
-      this.context.beginPath();
-      this.context.moveTo(180 * i, 200);
-      this.context.lineTo(190 * i, 200);
-      this.context.stroke();   
-    };
+    
+    this.context.beginPath()
+// despues hacemos el for loop
+for (let i = 0; i < this.secretWord.length; i++) {
+      this.context.lineTo(300 + 60 * i, 700);
+      this.context.moveTo(300 + 60 * i + 10, 700);
+    }
+// despues pintamos
+this.context.lineWidth = 4;
+    this.context.stroke();
   }
 
   writeCorrectLetter(index) {
     // ... your code goes here
+    
     
   }
 
