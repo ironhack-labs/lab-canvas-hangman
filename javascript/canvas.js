@@ -2,117 +2,125 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
     this.secretWord = secretWord;
-    this.context.strokeStyle = 'darkred';
-    this.context.lineWidth = 5;
-    this.context.fillStyle = '#00A49D';
-  }
-
-  gameOver() {
-    let image = new Image();
-    image.src = './images/gameover.png';
-    this.context.drawImage(image, 0, 0, 1200, 800);
   }
 
   createBoard() {
-    return this.context.fillRect(0, 0, 1200, 800);
+    this.context.clearRect(0, 0, 1200, 800);
     this.drawLines();
   }
 
   drawLines() {
-    let x = 400;
-    let y = 770;
-    for (let i = 0; i < this.secretWord.length; i++) {
-      this.context.beginPath();
-      this.context.moveTo(x, y);
-      this.context.lineTo(x + 50, y);
-      this.context.stroke();
-      x += 70;
+  this.context.beginPath();
+  this.context.moveTo(500, 175);
+  this.context.lineTo(500, 100);
+  this.context.lineTo(150,100);
+  this.context.lineTo(150, 650);
+  this.context.lineTo(100, 700);
+  this.context.lineTo(200, 700);
+  this.context.lineTo(150, 650);
+
+  this.context.moveTo(250, 700);
+  for (let i = 0; i < this.secretWord.length; i++) {
+    this.context.lineTo(300 + 60 * i, 700);
+    this.context.moveTo(300 + 60 * i + 10, 700);
   }
+  this.context.lineWidth = 4;
+  this.context.stroke();
 }
 
-  writeCorrectLetter(index, letter) {
-    this.context.font = '40px Open Sans';
-    this.context.fillStyle = 'forestgreen';
-    if (this.secretWord.includes(letter)) {
-      this.context.fillText(`${letter}`, (420 + 70 * index), 740);
+  writeCorrectLetter(index) {
+    let letter = this.secretWord[index].toUpperCase();
+    this.context.font = '40 px Georgia';
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (this.secretWord[i].toUpperCase() === letter) {
+        this.context.fillText(letter, 260 + 50 * i + 10 * i, 680, 50);
+      }
     }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    this.context.font = '40px Open Sans';
-    this.context.fillStyle = 'forestgreen';
-    if (!this.secretWord.includes(letter) && errorsLeft > 0) {
-      this.context.fillText(`${letter}`, (1150 - 50 * (errorsLeft)), 120);
-    }
+    this.context.font = '40px Georgia';
+    let row = Math.floor(errorsLeft / 5);
+    this.context.fillText(
+      1000 - 60 * errorsLeft + 300 * row,
+      300 - 100 * row,
+      50
+    );
+    this.drawHangman(errorsLeft);
   }
 
   drawHangman(errorsLeft) {
     switch (errorsLeft) {
-      case 10:
+      case 9:
         this.context.beginPath();
-        this.context.moveTo(100, 770);
-        this.context.lineTo(300, 770);
+        this.context.arc(500, 225, 50, 0, Math.PI * 2);
+        this.context.closePath();
         this.context.stroke();
         break;
-      case 9:
-          this.context.beginPath();
-          this.context.moveTo(200, 770);
-          this.context.lineTo(200, 200);
+      case 8:
+          this.context.moveTo(500, 275);
+          this.context.lineTo(500, 425);
           this.context.stroke();
           break;
-      case 8:
-        this.context.beginPath();
-        this.context.moveTo(200, 200);
-        this.context.lineTo(500, 200);
-        this.context.stroke();
-        break;
       case 7:
-        this.context.beginPath();
-        this.context.moveTo(500, 200);
-        this.context.lineTo(500, 300);
+        this.context.lineTo(450, 500);
         this.context.stroke();
         break;
       case 6:
-        this.context.beginPath();
-        this.context.arc(500, 325, 25, 0, 2 * Math.PI);
+        this.context.lineTo(420, 500);
         this.context.stroke();
         break;
       case 5:
-        this.context.beginPath();
-        this.context.moveTo(500, 350);
-        this.context.lineTo(500, 500);
+        this.context.moveTo(500, 425);
+        this.context.lineTo(550, 500);
         this.context.stroke();
         break;
       case 4:
-        this.context.beginPath();
-        this.context.moveTo(500, 400);
-        this.context.lineTo(580, 350);
+        this.context.lineTo(580, 500);
         this.context.stroke();
         break;
       case 3:
-        this.context.beginPath();
-        this.context.moveTo(500, 400);
-        this.context.lineTo(430, 350);
+        this.context.moveTo(500, 330);
+        this.context.lineTo(430, 330);
         this.context.stroke();
         break;
       case 2:
-        this.context.beginPath();
-        this.context.moveTo(500, 500);
-        this.context.lineTo(450, 600);
+        this.context.lineTo(570, 330);
         this.context.stroke();
         break;
       case 1:
         this.context.beginPath();
-        this.context.moveTo(500, 500);
-        this.context.lineTo(550, 600);
+        this.context.arc(485, 210, 5, 0, Math.PI * 2);
+        this.context.closePath();
         this.context.stroke();
-        this.gameOver();
+        this.context.beginPath();
+        this.context.arc(515, 210, 5, 0, Math.PI * 2);
+        this.context.closePath();
+        this.context.stroke();
+        this.context.moveTo(485, 245);
+        this.context.lineTo(515, 245);
+        this.context.stroke();
+        break;
+      case 0:
+        this.context.font = "30px Arial";
+        this.context.clearRect(470, 190, 60, 40);
+        this.context.fillText('x', 479, 217);
+        this.context.fillText('x', 509, 217);
+        break;
     }
   }
 
+  gameOver() {
+    console.log('YOU LOOSE');
+    let image = new Image();
+    image.src = './images/gameover.png';
+    this.context.drawImage(image, 0, 0);
+  }
+
   winner() {
+    console.log('YOU WIN');
     let image = new Image();
     image.src = './images/awesome.png';
-    this.context.drawImage(image, 0, 0, 1200, 800);
+    this.context.drawImage(image, 0, 0);
   }
 }
