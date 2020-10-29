@@ -1,6 +1,7 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
+    this.secretWord = secretWord;
     // ... your code goes here
   }
 
@@ -9,7 +10,18 @@ class HangmanCanvas {
   }
 
   drawLines() {
-    // ... your code goes here
+
+  let lengthWord = this.secretWord.length
+  
+  console.log(lengthWord)
+
+    this.context.beginPath();
+    this.context.lineWidth = 5
+    this.context.moveTo(60, 500);
+    this.context.lineTo(120, 500);
+    this.context.stroke();
+
+  
   }
 
   writeCorrectLetter(index) {
