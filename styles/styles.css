@@ -1,5 +1,6 @@
 .game-logo {
-
+width:500px;
+height: 100px;
 }
 
 #start-game-button {
@@ -7,11 +8,21 @@
   box-shadow: 0;
   background: linear-gradient(to bottom, #9DA400, #BAC600);
   color: #fff;
-  padding: 20px 40px;
-  font-size: 30px;
+  padding: 15px 20px;
+  font-size: 20px;
   border-radius: 5px;
 }
 
 #hangman {
   text-align: center;
+  border: solid red;
 }
+#result {
+  display: flex;
+  justify-content: center;
+}
+/*
+#container {
+  display: flex;
+  justify-content: space-around;
+}*/

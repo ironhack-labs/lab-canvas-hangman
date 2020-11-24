@@ -8,19 +8,29 @@
     <title>Hangman</title>
   </head>
   <body>
-    <div style="text-align:center; margin: 50px 0px;">
+    <div style="text-align:center; margin: 0px 0px;">
       <img
         src="http://www.firstcomicsnews.com/wp-content/uploads/2016/09/Hangman-Logo-600x253.png"
         alt="hangman image"
         class="game-logo"
       />
     </div>
-    <div style="text-align:center; margin: 50px 0px;">
+    <div style="text-align:center; margin: 1px 0px;">
       <button id="start-game-button">START GAME</button>
     </div>
-    <div style="text-align:center;">
-      <canvas id="hangman" height="800px" width="1200px"></canvas>
+    <div id= result>
+      <h1 id=game></h1>
     </div>
+    <div id="container">
+      <ul>
+<spam id="erro"></spam>
+      </ul>
+      
+    <div style="text-align:center;margin: -20px 0px;">
+      <canvas id="hangman" height="400px" width="600px"></canvas>
+    </div>
+  </div>
+    
     <script type="text/javascript" src="javascript/canvas.js"></script>
     <script type="text/javascript" src="javascript/hangman.js"></script>
   </body>
