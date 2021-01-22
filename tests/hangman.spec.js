@@ -5,7 +5,7 @@ window.jasmine.getEnv().configure({
 
 const testWords = ['hello', 'world', 'foo', 'bar'];
 
-describe('Hangman Game', () => {
+describe('Hangman Game',   () => {
   let hangman;
 
   beforeEach(() => {
