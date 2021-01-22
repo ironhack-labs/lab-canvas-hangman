@@ -1,11 +1,15 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = ``
+    this.letters = []
+    this.guessedLetters = ``
+    this.errorsLeft = 10
   }
 
   pickWord() {
-    // ... your code goes here
+    return ``
+  // ... your code goes here
   }
 
   checkIfLetter(keyCode) {
