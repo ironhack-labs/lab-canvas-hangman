@@ -13,17 +13,20 @@ class Hangman {
     }
 
     checkIfLetter(keyCode) {
-        if (keyCode.keyCode >= 65 && keyCode.keyCode <= 90)
+        if (keyCode.keyCode >= 65 && keyCode.keyCode <= 90) {
             return true
+        }
+        return false
     }
-
 
     checkClickedLetters(letter) {
         this.letters.push(letter)
-        for (let i = 0; i < this.letters.length; i++)
+        console.log(this.letters)
+        for (let i = 0; i < this.letters.length; i++) {
             if (this.letters[i].indexOf(letter) === -1) {
                 return false
             } else { return true }
+        }
     }
 
 
@@ -38,7 +41,14 @@ class Hangman {
 
 
     addWrongLetter(letter) {
-        // ... your code goes here
+        this.secretWord
+        console.log(this.errorsLeft)
+        for (let i = 0; i < this.secretWord.length; i++) {
+            if (this.secretWord[i] !== letter) {
+                this.errorsLeft--
+                    return this.errorsLeft
+            } else { return false }
+        }
     }
 
     checkGameOver() {
@@ -50,9 +60,15 @@ class Hangman {
     }
 
     checkWinner() {
-        // ... your code goes here
+        let secretWordArray = this.secretWord.split("")
+        let ganador = true
+        secretWordArray.forEach((letter) => {
+            if (!this.guessedLetters.includes(letter)) ganador = false
+        })
+        return ganador
     }
 }
+
 
 let hangman;
 
@@ -62,15 +78,18 @@ if (startGameButton) {
     startGameButton.addEventListener('click', event => {
         hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-        // HINT (uncomment when start working on the canvas portion of the lab)
-        // hangman.secretWord = hangman.pickWord();
-        // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+        hangman.secretWord = hangman.pickWord();
+        hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+        hangmanCanvas.createBoard()
+        hangmanCanvas.drawLines()
 
-        // ... your code goes here
     });
 }
 
 document.addEventListener('keydown', event => {
-    // React to user pressing a key
-    // ... your code goes here
+    hangman.checkIfLetter(event)
+    console.log(hangman.checkIfLetter(event))
+    hangman.checkClickedLetters(String.fromCharCode(event.keyCode))
+    hangman.addCorrectLetter(String.fromCharCode(event.keyCode))
+    hangman.addWrongLetter(String.fromCharCode(event.keyCode))
 });
