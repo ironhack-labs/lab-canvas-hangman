@@ -136,13 +136,29 @@ class HangmanCanvas {
     console.log("Game over!");
     const gameOverImage = new Image();
     gameOverImage.src = "./images/gameover.png";
-    this.context.drawImage(gameOverImage, 100, 100, 500, 500);
+    gameOverImage.onload = () => {
+      this.context.drawImage(
+        gameOverImage,
+        100,
+        250,
+        gameOverImage.width * 1.5,
+        gameOverImage.height * 1.5
+      );
+    };
   }
 
   winner() {
     console.log("Winner!");
     const winnerImage = new Image();
     winnerImage.src = "./images/awesome.png";
-    this.context.drawImage(winnerImage, 100, 100, 500, 500);
+    winnerImage.onload = () => {
+      this.context.drawImage(
+        winnerImage,
+        200,
+        50,
+        winnerImage.width,
+        winnerImage.height
+      );
+    };
   }
 }
