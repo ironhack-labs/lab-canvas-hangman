@@ -9,23 +9,18 @@ class Hangman {
   pickWord() {
     /*for(i=0; i < this.secretWord.length; i++) {
       this.letters.push(this.secretWord[i])*/
-      return this.words[Math.floor(Math.random() * this.words.length -1)]
+      return this.words[Math.floor(Math.random() * this.words.length)]
   }
   checkIfLetter(keyCode) {
-    if(keyCode.keyCode >= 65 && keyCode.keyCode <= 90 ) {
+    if(keyCode >= 65 && keyCode <= 90 || keyCode === 186) {
        return true
     } 
     return false
   }
   checkClickedLetters(letter) {
-    this.letters.push(letter)
-   console.log(this.letters)
-    for(let i = 0 ; i < this.letters.length; i++) {
-      if(this.letters[i].indexOf(letter) === -1) {
-         return false
-      } else {return true}
-    }
+    return !this.letters.includes(letter);
   }
+
   addCorrectLetter(letter) {
     if(this.checkClickedLetters(letter) === true) {
       this.guessedLetters+=letter
@@ -72,7 +67,7 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
     hangman.checkIfLetter(event)
     console.log(hangman.checkIfLetter(event))
-   hangman.checkClickedLetters(String.fromCharCode(event.keyCode))
+    hangman.checkClickedLetters(String.fromCharCode(event.keyCode))
     hangman.addCorrectLetter(String.fromCharCode(event.keyCode))
     hangman.addWrongLetter(String.fromCharCode(event.keyCode))
 });

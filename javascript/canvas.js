@@ -74,8 +74,7 @@ class HangmanCanvas {
   drawLines() {  
     let x1=250
     let x2=290
-    /*let w1=140
-    let w2=160*/
+    
     for(let i=0; i <this.secretWord.length; i++) {
       this.context.beginPath();
       this.context.lineWidth = 5
@@ -86,10 +85,46 @@ class HangmanCanvas {
       this.context.closePath()
               x1+=70
               x2+=70
-            }
+            
     }
-  writeCorrectLetter(index) {
-    let wordArr = this.secretWord[index]
-    this.context.font = "18px Arial"
-    this.context.fillText(wordArr,245 + (index + 1 ) * 70,645) 
   }
+  writeCorrectLetter(index) {
+    const guessedLetter = this.secretWord[index];
+        for (let i = 0; i < this.secretWord.length; i++) {
+            if (this.secretWord[i] === guessedLetter) {
+                this.context.fillText(guessedLetter.toUpperCase(), 425 + i * 75, 645);
+            }
+        }
+      }
+
+   writeWrongLetter(letter, errorsLeft) {
+      const letterOrder = 10 - errorsLeft;
+      this.context.fillText(letter.toUpperCase(), 450 + letterOrder * 50, 250);
+    }
+
+    drawHangman(errorsLeft) {
+        // ... your code goes here
+    }
+    gameOver() {
+        // ... your code goes here
+        const gameOverImg = new Image();
+        gameOverImg.src = '../images/gameover.png';
+        gameOverImg.onload = () => {
+            setTimeout(() => {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.context.drawImage(gameOverImg, 315, 150);
+            }, 1000);
+        };
+    }
+    winner() {
+        // ... your code goes here
+        const winnerImg = new Image();
+        winnerImg.src = './images/awesome.png';
+        winnerImg.onload = () => {
+            setTimeout(() => {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.context.drawImage(winnerImg, 164, 50);
+            }, 1000);
+        };
+    }
+}
