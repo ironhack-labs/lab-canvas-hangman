@@ -1,8 +1,9 @@
 class HangmanCanvas {
   constructor(secretWord) {
-    this.context = document.getElementById("hangman").getContext("2d");
+    this.canvas = document.getElementById("hangman");
+    this.context = this.canvas.getContext("2d");
     this.secretWord = secretWord;
-    this.HangmanParts = [
+    this.hangmanParts = [
       "head",
       "body",
       "rightArm",
@@ -20,25 +21,26 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    this.context.clearRect(0, 0, this.context.height, this.context.width); //limpa todos os pixels de um retângulo definido na posição (x, y) e tamanho (width (largura), height (altura)) para uma cor preta transparente, apagando algum conteúdo anterior.
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); //se não tiver isso aqui as coisas ficam todas uma em cima da outra
 
-    // Base
+    // Base rectangle
     this.drawLines(150, 600, 225, 650);
     this.drawLines(225, 650, 75, 650);
     this.drawLines(75, 650, 150, 600);
 
-    // Linhas da forca
+    // A forquinha
     this.drawLines(150, 600, 150, 200);
     this.drawLines(150, 200, 400, 200);
     this.drawLines(400, 200, 400, 300);
 
-    //letras espaçadas
+    // Secret letter spaces -- para ter as linhas onde vão as palavras certas
     for (let i = 0; i < this.secretWord.length; i += 1) {
-      this.drawLines(400 + i * 75, 650, 450 + i * 75, 650);
+      this.drawLines(400 + i * 75, 650, 450 + i * 75, 650); //vai ter 50px de largura
     }
   }
 
   drawLines(x1, y1, x2, y2) {
+    //desenhar a linha
     this.context.beginPath();
     this.context.moveTo(x1, y1);
     this.context.lineTo(x2, y2);
@@ -46,18 +48,32 @@ class HangmanCanvas {
     this.context.closePath();
   }
 
+  writeInvalidKeyMessage() {
+    this.context.font = "38px Georgia";
+    this.context.fillText(
+      "Tecla Inválida. Presione somente teclas contendo letras!",
+      600,
+      100
+    );
+
+    setTimeout(() => {
+      //pra fazer writeInvalidKey sumir
+      this.context.clearRect(0, 0, this.canvas.width, 100);
+    }, 1500);
+  }
+
   writeCorrectLetter(index) {
     const guessedLetter = this.secretWord[index];
 
     for (let i = 0; i < this.secretWord.length; i += 1) {
       if (this.secretWord[i] === guessedLetter) {
-        this.context.fillText(guessedLetter.toUpperCase(), 425 + i * 75, 645);
+        this.context.fillText(guessedLetter.toUpperCase(), 425 + i * 75, 645); //aparecer a letra certa lá em cima do espaço
       }
     }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    const letterOrder = 10 - errorsLeft;
+    const letterOrder = 10 - errorsLeft; //pode errar até 10x porque tem 10 pecinhas do boneco
 
     this.context.fillText(letter.toUpperCase(), 450 + letterOrder * 75, 250);
   }

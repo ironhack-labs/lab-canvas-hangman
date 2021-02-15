@@ -63,6 +63,7 @@ class Hangman {
 
 let hangman;
 let hangmanCanvas;
+//sem esses dois as palavras certas não completam os espaços. Aparecem todas como erradas
 
 const startGameButton = document.getElementById("start-game-button");
 
@@ -77,32 +78,39 @@ if (startGameButton) {
       "amsterdam",
       "lisboa",
     ]);
-    hangmanCanvas = new HangmanCanvas(hangman.secretWord); //faz a palavra nova aparecer
-    hangmanCanvas.createBoard(); //faz a imagem nova aparecer
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
   });
 }
 
 document.addEventListener("keydown", (event) => {
   if (!hangman.checkWinner() && !hangman.checkGameOver()) {
-    const isLetter = hangman.checkIfLetter(event.keyCode);
+    const isLetter = hangman.checkIfLetter(event.keyCode); //temos que checar se o code que o jogado digitou é uma letra. Sem isso, os números que digitar vai aparecer nas letras que erramos
+    //ficou riscado esse negócio mas se ele, não funciona
+    //console.log(event.keyCode)
+    //console.log(event.key)
+    //console.log(isLetter)
 
     if (isLetter) {
-      const isNotClicked = hangman.checkClickedLetters(event.key.toLowerCase());
+      //se for uma letra, chamar a função checkClickedLetters -- ver se essa letra já foi clicada
+      const isNotClicked = hangman.checkClickedLetters(event.key.toLowerCase()); //event.key -- está passando a letra. Estamos colocando lowercase pra sempre guardar minúsculo e verificar minúsculo para garantir que vai fazer a verificação corretamente e não diferenciar maiúsculo de minúsculo
 
       if (isNotClicked) {
+        //se ela  não foi clicada, precisamos ver se ela está certa ou errada
         const correctLetterIndex = hangman.secretWord.indexOf(event.key);
 
         if (correctLetterIndex > -1) {
+          //se a letra estiver correta -- se for menos que -1 quer dizer que essa letra existe dentro de secret word
           hangman.addCorrectLetter(event.key);
           hangmanCanvas.writeCorrectLetter(correctLetterIndex);
 
-          const isWinner = hangman.checkWinner();
+          const isWinner = hangman.checkWinner(); //toda vez que escreve uma letra correta tem que dar um checkWinner -- para juntar com a função winner do 'canvas.js' que eu não fiz ainda kkk
 
           if (isWinner) {
             hangmanCanvas.winner();
           }
         } else {
-          hangman.addWrongLetter(event.key);
+          hangman.addWrongLetter(event.key); //vai tirar 1 do meu errorsLeft e dar letter.push na letter
 
           hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
           hangmanCanvas.drawHangman(hangman.errorsLeft);
