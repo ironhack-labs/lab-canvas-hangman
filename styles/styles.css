@@ -14,4 +14,7 @@
 
 #hangman {
   text-align: center;
+  border: 8px solid blue;
+  background-color:green;
 }
+
