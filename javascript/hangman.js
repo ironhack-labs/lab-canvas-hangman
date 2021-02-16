@@ -5,7 +5,7 @@ class Hangman {
     this.secretWord = this.words[Math.floor(Math.random()*this.words.length)];
     this.letters = [];
     this.guessedLetters = '';
-    this.errorsLeft = 10;
+    this.errorsLeft = 6;
   }
 
   pickWord() {
@@ -22,10 +22,12 @@ class Hangman {
 
   addCorrectLetter(letter) {
     this.guessedLetters += letter
+    this.letters.push(letter)
   }
 
   addWrongLetter(letter) {
     this.errorsLeft --
+    this.letters.push(letter)
   }
 
   checkGameOver() {
@@ -49,16 +51,38 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard()
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if(hangman.checkIfLetter(event.keyCode)){
+    if(hangman.checkClickedLetters(event.key)){
+      if (hangman.secretWord.includes(event.key)) {
+        hangman.addCorrectLetter(event.key)
+        for (let i = 0; i < hangman.secretWord.length; i ++) {
+          if (event.key.toUpperCase() === hangman.secretWord[i].toUpperCase()) {
+            hangmanCanvas.writeCorrectLetter(i)
+          }
+        }
+        if(hangman.checkWinner){
+          //colocar imagem de ganhou
+        }
+      } else {
+        if(hangman.checkGameOver()){
+          
+          // colocar imagem de gameover
+        }
+        console.log(hangman.errorsLeft)
+        hangman.addWrongLetter(event.key)
+        hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft)
+      }
+    } else {
+        console.log('letter already typed')
+    }
+  } else {
+    console.log('please type a letter')
+  }
 });
