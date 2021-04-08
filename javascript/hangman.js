@@ -63,20 +63,18 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
-  console.log('event ', event.keyCode)
+  if(hangman.checkGameOver() || hangman.checkWinner()) {
+    return;
+  }
   if (hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.keyCode)) {
-    
     if ([...hangman.secretWord].includes(event.key)){
       hangman.addCorrectLetter(event.key);
-      console.log(event.key);
       hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key));
       hangman.checkWinner() && hangmanCanvas.winner();
-      console.log('winner ',hangman.checkWinner());
     } else {
       hangman.addWrongLetter(event.key);
       hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
       hangman.checkGameOver() && hangmanCanvas.gameOver();
-      console.log('loser ',hangman.checkGameOver())
     }
 
   } 

@@ -178,136 +178,44 @@ class HangmanCanvas {
   }
 }
 
-
-
-// class HangmanCanvas {
-//   constructor(secretWord) {
-//     this.canvas = document.getElementById('hangman');
-//     this.ctx = this.canvas.getContext('2d');
-//     this.secretWord = secretWord;
-//     this.hangmanParts = ['head', 'body', 'rightArm', 'rightHand', 'leftArm', 'leftHand', 'rightLeg', 'rightFoot', 'leftLeg', 'leftFoot'];
-//     this.ctx.strokeStyle = 'black';
-//     this.ctx.textAlign = 'center';
-//     this.ctx.font = '48px Georgia';
+// class Shark {
+//   constructor(width, height, img, x, y) {
+//       this.img = img;
+//       this.width = width;
+//       this.height = height;
+//       this.color = color;
+//       this.x = x;
+//       this.y = y;
+//        // new speed properties
+//       this.speedX = 0;
+//       this.speedY = 0;
 //   }
 
-//   createBoard() {
-//     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-//     this.drawLines(150, 600, 225, 650);
-//     this.drawLines(225, 650, 75, 650);
-//     this.drawLines(75, 650, 150, 600);
-
-//     this.drawLines(150, 600, 150, 200);
-//     this.drawLines(150, 200, 400, 200);
-//     this.drawLines(400, 200, 400, 300);
-
-//     for (let i = 0; i < this.secretWord.length; i += 1) {
-//       this.drawLines(400 + i * 75, 650, 450 + i * 75, 650);
-//     }
+//   update() {
+//       const ctx = myGameArea.context;
+//       ctx.fillStyle = this.color;
+//       ctx.fillRect(this.x, this.y, this.width, this.height);
 //   }
 
-//   drawLines(x1, y1, x2, y2) {
-//     this.ctx.beginPath();
-//     this.ctx.moveTo(x1, y1);
-//     this.ctx.lineTo(x2, y2);
-//     this.ctx.stroke();
-//     this.ctx.closePath();
+//   newPos() {
+//       this.x += this.speedX;
+//       this.y += this.speedY;
+//   } 
+//   left() {
+//       return this.x;
 //   }
-
-//   writeInvalidKeyMessage() {
-//     this.ctx.font = '38px Georgia';
-//     this.ctx.fillText('That key is very invalid', 600, 100);
-
-//     setTimeout(() => {
-//       this.ctx.clearRect(0, 0, this.canvas.width, 100);
-//     }, 1500);
+//       right() {
+//       return this.x + this.width;
 //   }
-
-//   writeCorrectLetter(index) {
-//     const guessedLetter = this.secretWord[index];
-
-//     for (let i = 0; i < this.secretWord.length; i += 1) {
-//       if (this.secretWord[i] === guessedLetter) {
-//         this.ctx.fillText(guessedLetter.toUpperCase(), 425 + i * 75, 645);
-//       }
-//     }
+//   top() {
+//       return this.y;
 //   }
-
-//   writeWrongLetter(letter, errorsLeft) {
-//     const letterOrder = 10 - errorsLeft;
-
-//     this.ctx.fillText(letter.toUpperCase(), 450 + letterOrder * 50, 250);
+//   bottom() {
+//       return this.y + this.height;
 //   }
-
-//   drawHangman(errorsLeft) {
-//     const errorOrder = 10 - errorsLeft;
-//     const hangmanPart = this.hangmanParts[errorOrder - 1];
-
-//     switch (hangmanPart) {
-//       case 'head':
-//         this.ctx.beginPath();
-//         this.ctx.arc(400, 330, 30, 0, Math.PI * 2);
-//         this.ctx.stroke();
-//         this.ctx.closePath();
-//         this.drawLines(385, 315, 390, 320);
-//         this.drawLines(390, 315, 385, 320);
-//         this.drawLines(415, 315, 410, 320);
-//         this.drawLines(410, 315, 415, 320);
-//         this.drawLines(390, 340, 410, 340);
-//         break;
-//       case 'body':
-//         this.drawLines(400, 360, 400, 480);
-//         break;
-//       case 'rightArm':
-//         this.drawLines(400, 390, 430, 440);
-//         break;
-//       case 'leftArm':
-//         this.drawLines(400, 390, 370, 440);
-//         break;
-//       case 'rightLeg':
-//         this.drawLines(400, 480, 430, 550);
-//         break;
-//       case 'leftLeg':
-//         this.drawLines(400, 480, 370, 550);
-//         break;
-//       case 'rightHand':
-//         this.drawLines(430, 440, 440, 435);
-//         break;
-//       case 'leftHand':
-//         this.drawLines(370, 440, 360, 435);
-//         break;
-//       case 'rightFoot':
-//         this.drawLines(430, 550, 445, 540);
-//         break;
-//       case 'leftFoot':
-//         this.drawLines(370, 550, 355, 540);
-//         break;
-//       default:
-//         console.log('Part does not exist');
-//     }
+//   crashWith(obstacle) {
+//       return !(this.bottom() < obstacle.top() || this.top() > obstacle.bottom() || this.right() < obstacle.left() || this.left() > obstacle.right());
 //   }
-
-//   gameOver() {
-//     const gameOverImg = new Image();
-//     gameOverImg.src = './images/gameover.png';
-
-//     gameOverImg.onload = () => {
-//       setTimeout(() => {
-//         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-//         this.ctx.drawImage(gameOverImg, 315, 150);
-//       }, 1000);
-//     };
-//   }
-
-//   winner() {
-//     const winnerImg = new Image();
-//     winnerImg.src = './images/awesome.png';
-
-//     winnerImg.onload = () => {
-//       setTimeout(() => {
-//         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-//         this.ctx.drawImage(winnerImg, 164, 50);
-//       }, 1000);
-//     };
-//   }
+  
+  
 // }
