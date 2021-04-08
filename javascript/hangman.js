@@ -13,7 +13,7 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    return ((keyCode >= 65 && keyCode <= 90) || keyCode === 186);
+    return ((keyCode >= 65 && keyCode <= 90));
   }
 
   checkClickedLetters(letter) {
@@ -53,6 +53,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
+    document.getElementById('gameBoard').style.display = 'block';
     hangman = new Hangman(['node','jaavascript','react','miami','paris','amsterdam','lisboa']);
     hangman.secretWord = hangman.pickWord();
     console.log('word ', hangman.secretWord);

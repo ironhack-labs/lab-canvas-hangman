@@ -6,10 +6,11 @@ class HangmanCanvas {
     this.secretWord = secretWord;
     this.sharkImg = new Image();
     this.sharkImg.src = './images/Shark.png';
-    this.sharkX = 0;
-    this.sharkY = 0;
-    this.x = 3;
-    this.y = 4;
+    this.sharkX = this.canvas.width;
+    this.sharkY = this.canvas.height;
+    this.x = 7;
+    this.y = 5;
+    this.grow = 0;
   }
 
   createBoard() {
@@ -53,12 +54,13 @@ class HangmanCanvas {
     console.log('shar k',this.sharkX);
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawHangman(1, true);
-    this.context.drawImage(this.sharkImg, this.sharkX, this.sharkY, 100, 100);
+    this.context.drawImage(this.sharkImg, this.sharkX, this.sharkY, 100 + this.grow, 100 + this.grow);
    
-    this.sharkX += this.x;
-    this.sharkY += this.y;
+    this.sharkX -= this.x;
+    this.sharkY -= this.y;
+    this.grow += 1;
 
-    window.requestAnimationFrame(() => this.animateShark);
+    requestAnimationFrame(() => this.animateShark());
     // setTimeout(`draw(${x}, ${y})`, 100);
   }
 

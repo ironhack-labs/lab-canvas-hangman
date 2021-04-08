@@ -2,6 +2,7 @@
 
 }
 
+
 #start-game-button {
   border: 0;
   box-shadow: 0;
@@ -14,4 +15,16 @@
 
 #hangman {
   text-align: center;
+}
+
+#gameBoard {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 30px;
+  border: black solid 20px;
 }
