@@ -65,7 +65,7 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   console.log('event ', event.keyCode)
   if (hangman.checkIfLetter(event.keyCode) && hangman.checkClickedLetters(event.keyCode)) {
-    console.log('test');
+    
     if ([...hangman.secretWord].includes(event.key)){
       hangman.addCorrectLetter(event.key);
       console.log(event.key);

@@ -8,6 +8,8 @@ class HangmanCanvas {
     this.sharkImg.src = './images/Shark.png';
     this.sharkX = 0;
     this.sharkY = 0;
+    this.x = 3;
+    this.y = 4;
   }
 
   createBoard() {
@@ -47,20 +49,25 @@ class HangmanCanvas {
     this.drawHangman(errorsLeft);
       
   }
-  drawShark(x,y) {
+  animateShark() {
+    console.log('shar k',this.sharkX);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawHangman(1, true);
+    this.context.drawImage(this.sharkImg, this.sharkX, this.sharkY, 100, 100);
    
-    this.context.drawImage(this.sharkImg, x, y, 100, 100);
-    // this.sharkX -= 3;
-    // this.sharkY -= 3;
+    this.sharkX += this.x;
+    this.sharkY += this.y;
+
+    window.requestAnimationFrame(() => this.animateShark);
     // setTimeout(`draw(${x}, ${y})`, 100);
-  
   }
 
-  drawHangman(errorsLeft) {
+  drawHangman(errorsLeft, drawAll) {
+    if(drawAll === undefined) {drawAll = false;}
     const shark = new Image();
     shark.src = './images/Shark.png';
 
-    if(errorsLeft === 9) {
+    if(errorsLeft === 9 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(50, 300);
       this.context.lineTo(100, 270);
@@ -72,42 +79,42 @@ class HangmanCanvas {
       this.context.lineTo(200, 20)
       this.context.stroke();
     }
-    if(errorsLeft === 8) {
+    if(errorsLeft === 8 || drawAll) {
       this.context.beginPath();
       this.context.arc(200, 45, 26, 0, Math.PI * 2);
       this.context.stroke();
     }
-    if(errorsLeft === 7) {
+    if(errorsLeft === 7 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(200, 70);
       this.context.lineTo(200, 150);
       this.context.stroke();
     }
-    if(errorsLeft === 6) {
+    if(errorsLeft === 6 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(200, 90);
       this.context.lineTo(260, 60);
       this.context.stroke();
     }
-    if(errorsLeft === 5) {
+    if(errorsLeft === 5 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(200, 90);
       this.context.lineTo(130, 60);
       this.context.stroke();
     }
-    if(errorsLeft === 4) {
+    if(errorsLeft === 4 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(200, 150);
       this.context.lineTo(260, 200);
       this.context.stroke();
     }
-    if(errorsLeft === 3) {
+    if(errorsLeft === 3 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(200, 150);
       this.context.lineTo(130, 200);
       this.context.stroke();
     }
-    if(errorsLeft === 2) {
+    if(errorsLeft === 2 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(185, 35);
       this.context.lineTo(195, 47);
@@ -115,7 +122,7 @@ class HangmanCanvas {
       this.context.lineTo(185, 47);
       this.context.stroke();
     }
-    if(errorsLeft === 1) {
+    if(errorsLeft === 1 || drawAll) {
       this.context.beginPath();
       this.context.moveTo(203, 35);
       this.context.lineTo(212, 47);
@@ -124,7 +131,7 @@ class HangmanCanvas {
       this.context.stroke();
     }
     if(errorsLeft === 0) {
-      this.drawShark(185, 50);
+      this.animateShark();
     }
 
       // sharkImg.onload = () => {
