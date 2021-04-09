@@ -11,6 +11,7 @@ class HangmanCanvas {
     this.x = 7;
     this.y = 5;
     this.grow = 0;
+    let rAf = null;
   }
 
   createBoard() {
@@ -59,9 +60,13 @@ class HangmanCanvas {
     this.sharkX -= this.x;
     this.sharkY -= this.y;
     this.grow += 1;
-
-    requestAnimationFrame(() => this.animateShark());
-    // setTimeout(`draw(${x}, ${y})`, 100);
+    if(this.sharkX > 100) {
+      rAf = requestAnimationFrame(() => this.animateShark());
+    } else {
+      cancelAnimationFrame(rAf);
+      this.gameOver();
+    }
+  
   }
 
   drawHangman(errorsLeft, drawAll) {
@@ -135,23 +140,6 @@ class HangmanCanvas {
     if(errorsLeft === 0) {
       this.animateShark();
     }
-
-      // sharkImg.onload = () => {
-      //   setTimeout(() => {
-      //     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      //     this.context.drawImage(sharkImg, 200, 50);
-      //   }, 100);
-      // };
-      
-      // let sharkX = 0;
-      // let sharkY = 0;
-      // const draw = (x, y) => { 
-      //   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      //   this.context.drawImage(shark, 0, this.canvas.height, 50, 50);
-      //   sharkX += 3;
-      //   sharkY += 3;
-      //   setTimeout(`draw(${x}, ${y})`, 30);
-      // };
   }
   
 
@@ -163,7 +151,7 @@ class HangmanCanvas {
       setTimeout(() => {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.drawImage(gameOverImg, 315, 150);
-      }, 10000);
+      }, 100);
     };
   }
 
@@ -180,44 +168,3 @@ class HangmanCanvas {
   }
 }
 
-// class Shark {
-//   constructor(width, height, img, x, y) {
-//       this.img = img;
-//       this.width = width;
-//       this.height = height;
-//       this.color = color;
-//       this.x = x;
-//       this.y = y;
-//        // new speed properties
-//       this.speedX = 0;
-//       this.speedY = 0;
-//   }
-
-//   update() {
-//       const ctx = myGameArea.context;
-//       ctx.fillStyle = this.color;
-//       ctx.fillRect(this.x, this.y, this.width, this.height);
-//   }
-
-//   newPos() {
-//       this.x += this.speedX;
-//       this.y += this.speedY;
-//   } 
-//   left() {
-//       return this.x;
-//   }
-//       right() {
-//       return this.x + this.width;
-//   }
-//   top() {
-//       return this.y;
-//   }
-//   bottom() {
-//       return this.y + this.height;
-//   }
-//   crashWith(obstacle) {
-//       return !(this.bottom() < obstacle.top() || this.top() > obstacle.bottom() || this.right() < obstacle.left() || this.left() > obstacle.right());
-//   }
-  
-  
-// }
