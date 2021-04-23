@@ -46,10 +46,10 @@ class Hangman {
 
   checkWinner() {
     // ... your code goes here
-    for(let letter of this.secretWord){
-      console.log(letter);
-      return this.guessedLetters.indexOf(letter) != -1 ? true : false
-    }
+    // for(let letter of this.secretWord){
+    //   console.log(letter);
+    //   return this.guessedLetters.indexOf(letter) != -1 ? true : false
+    // }
 
 
     const solution = Array.from(this.secretWord)
@@ -97,7 +97,7 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   console.log(event.keyCode)
-  console.log(event.key);
+  console.log(event.key);  
   // React to user pressing a key
   // ... your code goes here
   const keyCode = event.keyCode
@@ -106,7 +106,24 @@ document.addEventListener('keydown', event => {
     hangman.checkIfLetter(keyCode)    && 
     hangman.checkClickedLetters(key)  &&
     !hangman.guessedLetters.includes(key)){
-      hangman.addCorrectLetter(key)
-    }
+      if (hangman.secretWord.includes(key)){
+        hangman.addCorrectLetter(key);
+        for (let i=0; i < hangman.secretWord.length; i++){
+          if(hangman.secretWord[i] === key){
+            hangmanCanvas.writeCorrectLetter(i)
+          }
+        }
+        if(hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+           
+      }else{
+        hangman.addWrongLetter(key);
+        hangmanCanvas.writeCorrectLetter(hangman.letters.join(' '), hangman.errors.left);
+        if (hangman.checkGameOver()){
+          hangmanCanvas.gameOver();
+        }
+      }
+      }
   
   });
