@@ -119,7 +119,7 @@ document.addEventListener('keydown', event => {
            
       }else{
         hangman.addWrongLetter(key);
-        hangmanCanvas.writeCorrectLetter(hangman.letters.join(' '), hangman.errors.left);
+        hangmanCanvas.writeWrongLetter(hangman.letters.join(' '), hangman.errorsleft);
         if (hangman.checkGameOver()){
           hangmanCanvas.gameOver();
         }

@@ -47,15 +47,15 @@ class HangmanCanvas {
   drawHangman(errorsLeft) {
     // ... your code goes here
     this.context.lineWidth = 3;
-    //dibujar una línea con cada error
     switch(errorsLeft){
+    
       case 9:
         this.context.beginPath()
           this.context.moveTo(50,700)
           this.context.lineTo(150, 700)
           this.context.lineTo(100,650)
           this.context.lineTo(50,700)
-          this.context.stroke()
+          this.context.stroke(1)
         this.context.closePath()
         break;
       case 8:
