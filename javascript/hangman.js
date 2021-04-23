@@ -83,6 +83,7 @@ class Hangman {
     })
 
 return matches === secretArray.length
+
   }
 }
 
@@ -95,6 +96,7 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
+  
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     console.log(hangman.secretWord)
@@ -103,6 +105,7 @@ if (startGameButton) {
     
 
     hangmanCanvas.drawHangman(hangmanCanvas.errorsLeft)
+    
 
     // ... your code goes here
   });
@@ -113,21 +116,31 @@ document.addEventListener('keydown', event => {
   // ... your code goes here
   hangman
   hangmanCanvas
+  hangmanCanvas.drawHangman(hangman.errorsLeft)
   console.log(hangman.secretWord)
   console.log(event.key)
   correctLetter(event.key)
+  console.log(hangman.guessedLetters)
+  
   addIncorrect(event.key, hangman.errorsLeft)
+  hangman.checkWinner()
+  console.log(hangman.checkWinner())
+  hangmanCanvas.winner()
   // hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key))
   console.log(hangman.secretWord.indexOf(event.key))
+  hangmanCanvas.gameOver()
+  
 });
 
 function correctLetter(key){
   for( let i = 0; i < hangman.secretWord.length; i++){
     if(hangman.secretWord[i] == key){
       hangmanCanvas.writeCorrectLetter(i)
+      hangman.addCorrectLetter(key)
     }
   }
 }
+
 
 function addIncorrect(key, errorsLeft){
   if(hangman.secretWord.indexOf(key) === -1){
@@ -136,3 +149,8 @@ function addIncorrect(key, errorsLeft){
     console.log(`bien ${key} ${errorsLeft}`)
   }
 }
+
+
+
+
+  

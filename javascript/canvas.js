@@ -56,49 +56,106 @@ class HangmanCanvas {
     //cada pintada depende del error left que yo tenga
     //switch
 //path1
-    //9
-    this.context.beginPath()
-      this.context.moveTo(50, 700)
-      this.context.lineTo(200, 700)
-      this.context.lineTo(200-75, 650)
-      this.context.lineTo(50, 700)
-      this.context.stroke()
-    this.context.closePath()
 
-    //8
-    this.context.beginPath()
-      this.context.moveTo(200-75, 650)
-      this.context.lineTo(200-75, 100)
-      this.context.stroke()
-    this.context.closePath()
+    switch (errorsLeft) {
+      case 9:
+        this.context.beginPath()
+          this.context.moveTo(50, 700)
+          this.context.lineTo(200, 700)
+          this.context.lineTo(200-75, 650)
+          this.context.lineTo(50, 700)
+          this.context.stroke()
+        this.context.closePath()
+        break;
+      case 8:
+        this.context.beginPath()
+        this.context.moveTo(200-75, 650)
+        this.context.lineTo(200-75, 100)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 7:
+        this.context.beginPath()
+        this.context.moveTo(200-75, 100)
+        this.context.lineTo(300, 100)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 6:
+        this.context.beginPath()
+        this.context.moveTo(300, 100)
+        this.context.lineTo(300, 200)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 5:
+        this.context.beginPath()
+        this.context.arc(300, 250, 50, 0, 3.14* 2)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 4:
+        this.context.beginPath()
+        this.context.moveTo(300, 300)
+        this.context.lineTo(300, 500)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 3:
+        this.context.beginPath()
+        this.context.moveTo(300, 500)
+        this.context.lineTo(200, 650)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 2:
+        this.context.beginPath()
+        this.context.moveTo(300, 500)
+        this.context.lineTo(400, 650)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 1:
+        this.context.beginPath()
+        this.context.moveTo(300,330)
+        this.context.lineTo(400, 450)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      case 0:
+        this.context.beginPath()
+        this.context.moveTo(300,330)
+        this.context.lineTo(200, 450)
+        this.context.stroke()
+      this.context.closePath()
+        break;
+      default:
+        break;
+    }
+ 
 
-    //7
-    this.context.beginPath()
-      this.context.moveTo(200-75, 100)
-      this.context.lineTo(300, 100)
-      this.context.stroke()
-    this.context.closePath()
 
-    //6
-    this.context.beginPath()
-      this.context.moveTo(300, 100)
-      this.context.lineTo(300, 200)
-      this.context.stroke()
-    this.context.closePath()
 
-    //5
-    this.context.beginPath()
-      this.context.arc(300, 300, 50, 0, 3.14* 2)
-      this.context.stroke()
-    this.context.closePath()
 
   }
 
   gameOver() {
     // ... your code goes here
+    if(hangman.errorsLeft <= 0){
+      const looser = new Image();
+      looser.src = "./images/gameover.png";
+      this.context.drawImage(looser, 400, 200, 650, 500)
+    }
+    
+    
   }
 
   winner() {
+    if(hangman.checkWinner() === true){
+      const winner = new Image();
+      winner.src = "./images/awesome.png";
+      this.context.drawImage(winner, 400, 200, 650, 500)
+    }
     // ... your code goes here
   }
 }
