@@ -25,7 +25,7 @@ class Hangman {
 
   addCorrectLetter(letter) {
     // ... your code goes here
-    if (false === this.guessedLetters.includes(letter)) this.guessedLetters += letter
+    this.guessedLetters += letter
   }
 
   addWrongLetter(letter) {
@@ -59,7 +59,7 @@ if (startGameButton) {
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard()
-
+    console.log(hangman.secretWord)
 
   });
 }
@@ -78,6 +78,7 @@ document.addEventListener('keydown', event => {
     }
   }
 
+  console.log(hangman.guessedLetters)
   if (hangman.checkGameOver()) hangmanCanvas.gameOver();
   if (hangman.checkWinner()) hangmanCanvas.winner();
 
