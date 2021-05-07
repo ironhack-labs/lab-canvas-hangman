@@ -8,8 +8,8 @@ class Hangman {
   }
 
   pickWord() {
-    let random = this.words[Math.floor(Math.random()* this.words.length)];
-    return random
+    let randomWord = this.words[Math.floor(Math.random()* this.words.length)];
+    return randomWord
   }
 
   checkIfLetter(keyCode) {
@@ -44,8 +44,17 @@ class Hangman {
     }
   }
 
-  checkWinner() {
+  checkWinner(){
+    for (let i = 0; i < this.secretWord.length; i++){
+      if(this.guessedLetters.indexOf(this.secretWord[i]) === -1){
+        return false;
+      } else {
+        return true
+      }
+    }
   }
+
+
 }
 
 let hangman;
@@ -59,8 +68,6 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
   });
 }
 
