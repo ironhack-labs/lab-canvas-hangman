@@ -123,10 +123,9 @@ class HangmanCanvas {
   winner() {
     console.log("gane")
     /*
-    this.context.clearRect(0,0,this.canvas.width, this.canvas.height)
-    let awesome = new Image()
+    const awesome = new Image()
     awesome.src = "images/awesome.png"
-    awesome.onload = function(){
+    awesome.onload = function() {
       this.context.drawImage(awesome,150,150,800,800)
     }
     */

@@ -42,7 +42,11 @@ class Hangman {
 
   checkWinner() {
     // ... your code goes here
-    if (this.secretWord.length === this.guessedLetters.length) return true;
+    let cont = 0;
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (this.guessedLetters.includes(this.secretWord[i])) cont += 1
+    }
+    if (cont === this.secretWord.length) return true
     return false
   }
 }
