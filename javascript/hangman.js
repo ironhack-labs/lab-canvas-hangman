@@ -70,7 +70,7 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key keycode.info
-  if (hangman.checkIfLetter(event.which)) {
+  if (hangman.checkIfLetter(event.which) && hangman.errorsLeft > 0) {
     if(hangman.checkClickedLetters(event.key)) {
       if (hangmanCanvas.writeCorrectLetter(event.key)) {
         hangman.addCorrectLetter(event.key)

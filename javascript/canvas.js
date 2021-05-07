@@ -5,8 +5,10 @@ class HangmanCanvas {
     this.secretWord = secretWord
     this.letterPosition = []
     this.initialy = 60
-    //this.gameover = new Image()
-    //this.gameover.src = "images/gameover.png"
+    this.gameover = new Image()
+    this.gameover.src = "images/gameover.png"
+    this.awesome = new Image()
+    this.awesome.src = "images/awesome.png"
   }
 
   createBoard() {
@@ -113,21 +115,11 @@ class HangmanCanvas {
 
   gameOver() {
     console.log("perdi")
-    /*
-    this.gameover.onload = function(){
-      this.context.drawImage(this.gameover,150,150,800,800)
-    }
-    */
+    this.context.drawImage(this.gameover,0,0,this.canvas.width,this.canvas.height)
   }
 
   winner() {
     console.log("gane")
-    /*
-    const awesome = new Image()
-    awesome.src = "images/awesome.png"
-    awesome.onload = function() {
-      this.context.drawImage(awesome,150,150,800,800)
-    }
-    */
+    this.context.drawImage(this.awesome,0,0,this.canvas.width,this.canvas.height)
   }
 }
