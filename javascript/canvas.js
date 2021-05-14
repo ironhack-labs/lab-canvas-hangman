@@ -124,17 +124,32 @@ class HangmanCanvas {
         this.ctx.lineTo(30, 780)
         this.ctx.stroke()
       break;
-
     }
 
 
   }
 
   gameOver() {
-    // ... your code goes here
+    const image = new Image()
+    const ctx = this.ctx
+    const canvas = this.canvas
+
+    image.src = "/images/gameover.png"
+    
+    image.onload = function(){
+      ctx.drawImage(image, 0, 0, canvas.width*0.7, canvas.height*0.8)
+    }
   }
 
   winner() {
-    // ... your code goes here
+    const image = new Image()
+    const canvas = this.canvas
+    const ctx = this.ctx
+
+    image.src = "/images/awesome.png"
+
+    image.onload = function(){
+      ctx.drawImage(image, 0, 0, canvas.width*0.7, canvas.height*0.8);
+    }
   }
 }
