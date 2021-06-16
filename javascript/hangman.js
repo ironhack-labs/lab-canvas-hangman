@@ -30,9 +30,12 @@ class Hangman {
     addCorrectLetter(letter) {
         if (this.secretWord.indexOf(letter) === -1) {
             this.addWrongLetter(letter);
+            return false;
+        } else {
+            this.letters.push(letter);
+            this.guessedLetters += letter;
+            return true;
         }
-        this.letters.push(letter);
-        this.guessedLetters += letter;
     }
 
     addWrongLetter(letter) {
@@ -48,12 +51,12 @@ class Hangman {
     }
 
     checkWinner() {
-      let winner;
-      for (let i = 0; i < this.guessedLetters.length; i++) {
-      if (this.secretWord.indexOf(this.guessedLetters[i]) != -1) {
-          winner += this.secretWord.match(this.guessedLetters[i]).length;
+        let winner;
+        for (let i = 0; i < this.guessedLetters.length; i++) {
+            if (this.secretWord.indexOf(this.guessedLetters[i]) != -1) {
+                winner += this.secretWord.match(this.guessedLetters[i]).length;
+            }
         }
-      }
         if (this.secretWord.length === winner) {
             return true;
         }
@@ -88,12 +91,25 @@ if (startGameButton) {
 document.addEventListener("keydown", (event) => {
     // React to user pressing a key
     let letterKey = event.keyCode;
-    if (checkIfLetter(letterKey)) {
-        if (!checkClickedLetters(letterKey)) {
+    let letter = event.key;
+    console.log(hangman.secretWord);
 
-          
+    if (hangman.checkIfLetter(letterKey)) {
+        if (!hangman.checkClickedLetters(letter)) {
+
+            if (hangman.addCorrectLetter(letter)) {
+                hangmanCanvas.writeCorrectLetter(letter);
+
+            } else {
+              hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+            }
+
+        } else {
+          console.log(
+            "Letter was already clicked. Please choose another letter."
+            );
         }
-        return "Letter was already clicked. Please choose another letter.";
+    } else {
+    console.log("Please choose a letter.");
     }
-    return "Please choose a letter.";
 });

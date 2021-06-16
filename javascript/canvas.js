@@ -5,27 +5,42 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    // this.context.fillRect(400,200, 200,200);
     this.drawLines();
   }
 
   drawLines() {
-    this.context.lineWidth = 2;
     for (let i = 0; i < this.secretWord.length; i++) {
       this.context.beginPath();
-      this.context.moveTo(400 + (i*50),400);
-      this.context.lineTo(420 + (i*50),400);
+      this.context.moveTo(200 + (i*50),300);
+      this.context.lineTo(220 + (i*50),300);
       this.context.stroke();
       this.context.closePath();
     }
   }
 
   writeCorrectLetter(index) {
-    
+    console.log(index);
+    let correctLetter = [];
+    let count = 0;
+    let pos = this.secretWord.indexOf(index);
+
+    while(pos != -1) {
+      count ++;
+      correctLetter.push(pos);
+      pos = this.secretWord.indexOf(index, pos+1);
+    }
+
+    for (let i = 0; i <= correctLetter.length; i++) {
+      this.context.fillText(index, 210 + (correctLetter[i]*50), 290);
+    }
+
   }
 
   writeWrongLetter(letter, errorsLeft) {
-      this.canvas.fillText(letter, 600 + (errorsLeft*50), 100 );
+    console.log(letter);
+    console.log(errorsLeft);
+    let pos = errorsLeft;
+      this.context.fillText(letter, 500 + (pos*50), 400 );
   }
 
   drawHangman(errorsLeft) {
