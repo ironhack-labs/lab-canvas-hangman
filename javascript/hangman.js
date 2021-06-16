@@ -88,10 +88,48 @@ if (startGameButton) {
 
     // ... your code goes here
     hangmanCanvas.createBoard();
+    hangmanCanvas.drawLines();
   });
 }
 
 document.addEventListener("keydown", (event) => {
   // React to user pressing a key
   // ... your code goes here
+  let letter = event.key;
+  let keyCode = event.keyCode;
+  console.log(letter);
+  let index = hangman.secretWord.indexOf(letter);
+  let errorsLeft = hangman.errorsLeft;
+
+  //1st check if letter is valid
+  if (hangman.checkIfLetter(keyCode) && hangman.secretWord.includes(letter)) {
+    hangman.addCorrectLetter(letter);
+    hangmanCanvas.writeCorrectLetter(index);
+    if (hangman.checkWinner()) {
+      hangmanCanvas.winner();
+    }
+  } else if (
+    hangman.checkIfLetter(keyCode) &&
+    !hangman.secretWord.includes(letter)
+  ) {
+    hangman.addWrongLetter(letter);
+    hangmanCanvas.writeWrongLetter(letter, errorsLeft);
+    if (hangman.checkGameOver()) {
+      hangmanCanvas.gameOver();
+    }
+  } else if (
+    hangman.checkIfLetter(keyCode) &&
+    !hangman.secretWord.includes(letter) &&
+    hangman.letters.includes(letter)
+  ) {
+    alert("You've already tried that letter, try another!");
+  } else if (!hangman.checkIfLetter) {
+    alert("Please choose a valid character!");
+  }
 });
+
+//then check if correct
+
+//then if correct => addCorrectLetter - writeCorrectLetter - checkWinner
+
+//if notCorrect => addWrongLetter - writeWrongletter - checkGameOver
