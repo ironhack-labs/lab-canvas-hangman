@@ -1,19 +1,25 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.letters = [];
+    this.guessedLetters = [];
+    this.errorsLeft = 10;
+    this.secretWord;
+    this.trys = ['a','b','c'];
   }
 
   pickWord() {
-    // ... your code goes here
+   this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
+   return this.secretWord.toUpperCase();
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    return (/[a-z]/).test(keyCode);
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    let alreadyPressed = this.trys.map( validation => validation.indexOf(letter)).reduce((sum, cb) => sum + cb,0);
+    return alreadyPressed !== -(this.trys.length) ? true : false
   }
 
   addCorrectLetter(letter) {
@@ -33,7 +39,7 @@ class Hangman {
   }
 }
 
-let hangman;
+/* let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -52,4 +58,7 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
-});
+}); */
+
+let teste = new Hangman(['oi', 'teste']);
+console.log(teste.checkClickedLetters('a'))
