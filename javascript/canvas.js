@@ -48,10 +48,14 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    let looseImg = new Image();
+    looseImg.src = '../images/gameover.png';
+    this.context.drawImage(looseImg, 100, 100, 600, 400);
   }
 
   winner() {
-    // ... your code goes here
+    let winnerImg = new Image();
+    winnerImg.src = '../images/awesome.png';
+    this.context.drawImage(winnerImg, 100, 100, 600, 400);
   }
 }

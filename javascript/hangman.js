@@ -44,24 +44,24 @@ class Hangman {
     }
 
     checkGameOver() {
-        if (this.errorsLeft > 0) {
-            return false;
+        if (this.errorsLeft <= 0) {
+            return true;
+        } else {
+          return false;
         }
-        return true;
     }
 
     checkWinner() {
-        let winner;
-        for (let i = 0; i < this.guessedLetters.length; i++) {
-            if (this.secretWord.indexOf(this.guessedLetters[i]) != -1) {
-                winner += this.secretWord.match(this.guessedLetters[i]).length;
-            }
-        }
-        if (this.secretWord.length === winner) {
+        let guessedWord = [...this.guessedLetters].sort().join();
+        let winningWord = [...this.secretWord].sort().join();
+        if (guessedWord === winningWord) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
+
+  
 }
 
 let hangman;
@@ -96,20 +96,24 @@ document.addEventListener("keydown", (event) => {
 
     if (hangman.checkIfLetter(letterKey)) {
         if (!hangman.checkClickedLetters(letter)) {
-
             if (hangman.addCorrectLetter(letter)) {
                 hangmanCanvas.writeCorrectLetter(letter);
-
+                if (hangman.checkWinner()) {
+                  hangmanCanvas.winner();
+                }
             } else {
-              hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+                hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft);
+                if (hangman.checkGameOver()) {
+                  hangmanCanvas.gameOver();
+                  console.log ('You loose!')
+                }
             }
-
         } else {
-          console.log(
-            "Letter was already clicked. Please choose another letter."
+            console.log(
+                "Letter was already clicked. Please choose another letter."
             );
         }
     } else {
-    console.log("Please choose a letter.");
+        console.log("Please choose a letter.");
     }
 });
