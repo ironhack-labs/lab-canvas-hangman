@@ -1,4 +1,5 @@
-
+const imgWinner = new Image()
+imgWinner.src = "../images/awesome.png"
 
 
 class HangmanCanvas {
@@ -129,8 +130,6 @@ class HangmanCanvas {
   winner() {
     let ctx = this.context;
     ctx.clearRect(0,0,1200,800)
-    const imgWinner = new Image()
-    imgWinner.src = "../images/awesome.png"
     ctx.drawImage(imgWinner,100,100,1000,700)
   }
 }

@@ -69,7 +69,6 @@ class Hangman {
 let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
-
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
