@@ -1,5 +1,5 @@
-const imgWinner = new Image()
-imgWinner.src = "../images/awesome.png"
+const imgWinner = new Image();
+imgWinner.src = "./images/awesome.png";
 
 
 class HangmanCanvas {
@@ -121,7 +121,7 @@ class HangmanCanvas {
 
   gameOver() {
     const img = new Image();
-    img.src = '../images/gameover.png';
+    img.src = './images/gameover.png';
     this.context.drawImage(img, 100, 50, 800, 500);
 
 
