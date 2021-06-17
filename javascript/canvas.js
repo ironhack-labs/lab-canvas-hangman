@@ -5,11 +5,13 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    // ... your code goes here
+    this.context.getContext.clearRect(0, 0, 1200, 800)
+    this.drawLines()
   }
 
   drawLines() {
-    // ... your code goes here
+    
+
   }
 
   writeCorrectLetter(index) {
