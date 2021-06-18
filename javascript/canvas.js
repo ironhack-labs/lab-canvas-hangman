@@ -6,7 +6,8 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    this.content.clearRect
+    this.context.clearRect
+    this.drawLines()
   }
 
   //version 1
@@ -34,42 +35,64 @@ class HangmanCanvas {
       this.context.beginPath();
       this.context.moveTo(400 + (i * 50), 400);
       this.context.lineTo(420 + (i * 50), 400);
-     // lineNumber.push(i);
-      this.context.stroke();
+      // lineNumber.push(i);
       this.context.closePath();
+      this.context.stroke();
     }
   }
 
 
   writeCorrectLetter(index) {
-    let positionCorrectLetter = lineNumber[]
+    let positionCorrectLetter = []
     //idea: -> if letter new...
-    if (checkClickedLetters(index) == true) {
+    if (hangman.checkClickedLetters(index) == true) {
       //-> ...then check at which position in SecretWord the letter is situated (equals the specified i from drawLines())
       positionCorrectLetter = this.context.secretWord.indexOf(index)
-      //-> ...and entsprechend der Position ueber die linie schreiben.
-      this.context.fillText(index, 400 + (positionCorrectLetter * 50), 400), 400)
+      //-> ...and write the letter above the corrsponding line
+      this.context.fillText(index, 400 + (positionCorrectLetter * 50), 400, 400)
     }
     else {
-      addWrongLetter(index)
+      hangman.addWrongLetter(index)
     }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    if (checkClickedLetters(letter) == false) {
+    if (hangman.checkClickedLetters(letter) == false &&
+      hangman.checkGameOver(errorsLeft) == false) {
 
       // ... your code goes here
     }
 
     drawHangman(errorsLeft) {
+      if (hangman.checkGameOver() == false) {
+        this.context.beginPath;
+        this.context.moveTo()
+        this.context.lineTo()
+        this.context.closePath()
+        this.context.stroke()
+      }
       // ... your code goes here
+
     }
+
 
     gameOver() {
-      // ... your code goes here
-    }
+      if (hangman.checkGameOver() == true) {
+        let gameOverImg = new Image()
+        gameOverImg.src = "./images/gameover.png"
+        console.log(gameOverImg)
+        gameOverImg.onload = () => {
+          context.drawImage(gameOverImg, 0, 0, 500, 700)
+        }
+      }
 
-    winner() {
-      // ... your code goes here
-    }
-  }
+      winner() {
+        if (hangman.checkWinner() == true) {
+          let winnerImg = new Image()
+          winnerImg.src = "./images/awesome.png"
+          console.log(winnerImg)
+          winnerImg.onload = () => {
+            context.drawImage(winnerImg, 0, 0, 500, 700)
+          }
+        }
+      }
