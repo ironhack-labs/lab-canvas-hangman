@@ -75,7 +75,7 @@ document.addEventListener('keydown', event => {
     window.alert('Please choose only letters.');
   } else {
     if (hangman.checkClickedLetters(pressedLetter) === false) {
-      window.alert('Letter already choose. Please try another one.');
+      window.alert('Letter already chosen. Please try another one.');
     } else {
       if ((hangman.secretWord).indexOf(pressedLetter) >= 0) {
         hangmanCanvas.writeCorrectLetter(pressedLetter);
