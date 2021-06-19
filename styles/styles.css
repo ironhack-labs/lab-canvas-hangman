@@ -14,4 +14,12 @@
 
 #hangman {
   text-align: center;
+
+}
+
+/*
+to make the canvas space visible for a moment
+*/
+canvas {
+  border: 1px solid red;
 }
