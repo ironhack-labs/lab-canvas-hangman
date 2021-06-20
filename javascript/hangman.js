@@ -5,7 +5,7 @@ class Hangman {
     this.guessedLetters = [];
     this.errorsLeft = 10;
     this.secretWord;
-    this.trys = ['a','b','c'];
+    this.trys = [];
   }
 
   pickWord() {
@@ -18,24 +18,36 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    let alreadyPressed = this.trys.map( validation => validation.indexOf(letter)).reduce((sum, cb) => sum + cb,0);
+
     return alreadyPressed !== -(this.trys.length) ? true : false
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    const arrWord = this.secretWord.split('');
+    let verifier = false;
+    arrWord.forEach( arrLetter => {
+      if(arrLetter === letter){ verifier = true;}
+    });
+    return verifier
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    const arrWord = this.secretWord.split('');
+    let verifier = true;
+    arrWord.forEach( arrLetter => {
+      if(arrLetter !== letter){ verifier = false;}
+    });
+    return verifier
   }
 
   checkGameOver() {
-    // ... your code goes here
+    const validation = this.trys.length > this.errorsLeft ? true : false
+    return validation
   }
 
   checkWinner() {
-    // ... your code goes here
+    const validation = this.guessedLetters === this.secretWord.length ? true : false
+    return validation
   }
 }
 
@@ -43,7 +55,7 @@ class Hangman {
 
 const startGameButton = document.getElementById('start-game-button');
 
-if (startGameButton) {
+if (startGsameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
@@ -59,6 +71,3 @@ document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
 }); */
-
-let teste = new Hangman(['oi', 'teste']);
-console.log(teste.checkClickedLetters('a'))
