@@ -12,6 +12,11 @@
   border-radius: 5px;
 }
 
+#start-game-button:hover{
+  cursor: pointer;
+}
+
 #hangman {
   text-align: center;
+  border: solid ;
 }
