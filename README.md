@@ -35,7 +35,7 @@ In order to help you develop the game logic, we have added some **Jasmine** test
 
 ## Instructions
 
-### Iteration 1: The game logic
+### Iteration 1: The game logic 
 
 In the `javascript/hangman.js` file, create Hangman class and its methods as described below.
 
