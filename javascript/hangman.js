@@ -21,9 +21,6 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    // if (!this.checkWinner()) {
-    //   this.guessedLetters += letter;
-    // }
     this.guessedLetters += letter;
     return this.guessedLetters.length === this.secretWord.length;
   }
@@ -65,11 +62,8 @@ if (startGameButton) {
     console.log(`Secret word: ${hangman.secretWord}`)
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
-    // ... your code goes here
-
   });
 }
-
 
 document.addEventListener('keydown', event => {
   if (hangman) {
@@ -79,13 +73,17 @@ document.addEventListener('keydown', event => {
         hangman.addCorrectLetter(pushedKey);
         const index = hangman.secretWord.indexOf(pushedKey);
         hangmanCanvas.writeCorrectLetter(index);
-      } else if (!hangman.checkGameOver()) {
+        if (hangman.checkWinner()) {
+          hangmanCanvas.winner();
+        }
+      } else {
         hangman.addWrongLetter(pushedKey);
         hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft)
-      } else {
-        hangmanCanvas.gameOver();
       }
+    } else {
+      hangmanCanvas.gameOver();
     }
+
   }
 });
 

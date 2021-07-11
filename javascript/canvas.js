@@ -36,19 +36,50 @@ class HangmanCanvas {
     this.context.clearRect(0, 0, 1200, 400);
     const wrongLetters = letter.join(" ").toUpperCase();
     this.context.moveTo(700, this.context.canvas.height - 50);
-    this.context.fillText(wrongLetters, 400, this.context.canvas.height - 600);
-    this.context.fillText(`Attempts left: ${errorsLeft}`, 400, this.context.canvas.height - 700);
+    this.context.fillText(wrongLetters, 700, this.context.canvas.height - 600);
+    this.context.fillText(`Attempts left: ${errorsLeft}`, 700, this.context.canvas.height - 700);
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
+    this.context.beginPath();
+    this.context.moveTo(200, this.context.canvas.height - 250);
+    this.context.lineTo(100, this.context.canvas.height - 350)
+
+    this.context.lineTo(0, this.context.canvas.height - 250)
+    this.context.moveTo(100, this.context.canvas.height - 350);
+    this.context.lineTo(100, this.context.canvas.height - 650)
+
+    this.context.moveTo(200, this.context.canvas.height - 250);
+    this.context.lineTo(0, this.context.canvas.height - 250)
+
+    this.context.moveTo(100, this.context.canvas.height - 650);
+    this.context.lineTo(350, this.context.canvas.height - 650)
+
+    this.context.lineTo(350, this.context.canvas.height - 550)
+    this.context.arc(350, this.context.canvas.height - 550, 20, 0, 2 * Math.PI, false);
+
+    this.context.moveTo(350, this.context.canvas.height - 527);
+    this.context.lineTo(350, this.context.canvas.height - 400);
+    this.context.lineTo(300, this.context.canvas.height - 350);
+
+    this.context.moveTo(350, this.context.canvas.height - 400);
+    this.context.lineTo(400, this.context.canvas.height - 350);
+
+
+    this.context.stroke();
+    this.context.closePath();
   }
 
   gameOver() {
-    drawHangman(this.errorsLeft)
+    this.drawHangman(this.errorsLeft)
   }
 
   winner() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 400);
+    const img = new Image();
+    img.src = "./images/awesome.png";
+    img.addEventListener('load', () => {
+      this.context.drawImage(img, 350, 0, 500, 500)
+    });
   }
 }
