@@ -1,23 +1,43 @@
 class HangmanCanvas {
   constructor(secretWord) {
+    this.secretWord = secretWord;
     this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
+    this.context.lineWidth = 5;
+    this.context.font = '55px serif';
   }
 
   createBoard() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 800);
+    this.drawLines();
   }
 
   drawLines() {
-    // ... your code goes here
+    this.secretWord.split('').forEach((_, i) => {
+      this.context.beginPath();
+      this.context.moveTo(200 + i * 60, this.context.canvas.height - 250);
+      this.context.lineTo(250 + i * 60, this.context.canvas.height - 250);
+      this.context.stroke();
+      this.context.closePath();
+    });
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+    const indexes = []
+    this.context.moveTo(200, this.context.canvas.height - 120);
+    this.secretWord.split('').forEach((letter, i) => {
+      if (this.secretWord[index] === letter) indexes.push(i);
+    });
+    indexes.forEach(index => {
+      this.context.fillText(this.secretWord[index], 210 + (index * 60), this.context.canvas.height - 275);
+    });
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 400);
+    const wrongLetters = letter.join(" ").toUpperCase();
+    this.context.moveTo(700, this.context.canvas.height - 50);
+    this.context.fillText(wrongLetters, 400, this.context.canvas.height - 600);
+    this.context.fillText(`Attempts left: ${errorsLeft}`, 400, this.context.canvas.height - 700);
   }
 
   drawHangman(errorsLeft) {
@@ -25,7 +45,7 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    drawHangman(this.errorsLeft)
   }
 
   winner() {
