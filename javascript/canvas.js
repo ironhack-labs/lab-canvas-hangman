@@ -14,8 +14,8 @@ class HangmanCanvas {
   drawLines() {
     this.secretWord.split('').forEach((_, i) => {
       this.context.beginPath();
-      this.context.moveTo(200 + i * 60, this.context.canvas.height - 250);
-      this.context.lineTo(250 + i * 60, this.context.canvas.height - 250);
+      this.context.moveTo(210 + i * 60, this.context.canvas.height - 250);
+      this.context.lineTo(260 + i * 60, this.context.canvas.height - 250);
       this.context.stroke();
       this.context.closePath();
     });
@@ -23,12 +23,12 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     const indexes = []
-    this.context.moveTo(200, this.context.canvas.height - 120);
+    this.context.moveTo(210, this.context.canvas.height - 120);
     this.secretWord.split('').forEach((letter, i) => {
       if (this.secretWord[index] === letter) indexes.push(i);
     });
     indexes.forEach(index => {
-      this.context.fillText(this.secretWord[index], 210 + (index * 60), this.context.canvas.height - 275);
+      this.context.fillText(this.secretWord[index], 215 + (index * 60), this.context.canvas.height - 275);
     });
   }
 
@@ -72,6 +72,12 @@ class HangmanCanvas {
 
   gameOver() {
     this.drawHangman(this.errorsLeft)
+    this.context.clearRect(450, 0, 1200, 400);
+    const img = new Image();
+    img.src = "./images/gameover.png";
+    img.addEventListener('load', () => {
+      this.context.drawImage(img, 400, 0, 500, 250)
+    });
   }
 
   winner() {
