@@ -1,7 +1,3 @@
-.game-logo {
-
-}
-
 #start-game-button {
   border: 0;
   box-shadow: 0;
@@ -14,4 +10,23 @@
 
 #hangman {
   text-align: center;
+}
+
+.picked-letters {
+  font-size: 24px;
+}
+
+.wrong-letters {
+  font-size: 24px;
+  color: red;
+}
+
+.picked {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.pickletter-div {
+  margin-left: 130px;
 }
