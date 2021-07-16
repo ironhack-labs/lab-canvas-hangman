@@ -1,11 +1,9 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    this.secretWord = this.pickWord();
     this.errorsLeft = 10;
     this.guessedLetters = "";
     this.letters = [];
-    this.hangmanCanvas = new HangmanCanvas(this.secretWord);
   }
 
   pickWord() {
@@ -15,12 +13,11 @@ class Hangman {
 
   checkIfLetter(keyCode) {
     if(!this.secretWord.includes(keyCode)) {
-      console.log(this);
       this.addWrongLetter(keyCode);
-      console.log("Add Wrong Letter "+keyCode);
+      return false;
     } else {
-      addCorrectLetter(keyCode);
-      console.log("Add Correct Letter "+keyCode);
+      this.addCorrectLetter(keyCode);
+      return true;
     }
   }
 
@@ -54,30 +51,29 @@ class Hangman {
 
   clearPickedLetters() {
     document.getElementById('pickedLetters').innerText = "";
+    document.getElementById('wrongLetters').innerText = "";
   }
 }
 
 const startGameButton = document.getElementById('start-game-button');
-
+var self = this;
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
     hangman.secretWord = hangman.pickWord();
+    hangman.hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    console.log(hangman.secretWord);
+    self.errorsLeft = 10;
     hangman.clearPickedLetters();
   });
 }
 
-
-const pickLetterButton = document.getElementById('pickLetter-btn');
-if (pickLetterButton) {
-  pickLetterButton.addEventListener('click', event => {
-    var letter = document.getElementById('letter');
-    hangman.checkIfLetter(letter.value);
-  });
-}
-
-document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+window.addEventListener('keydown', event => {
+  if(this.errorsLeft > 0) {
+    let isLetterCorrect = hangman.checkIfLetter(event.key);
+    if(!isLetterCorrect) {
+      this.errorsLeft--;
+    }
+  }
 });

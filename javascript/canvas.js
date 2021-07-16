@@ -9,7 +9,8 @@ class HangmanCanvas {
     this.createBoard(); 
   }
 
-  createBoard() {
+  createBoard() {    
+    this.context.clearRect(1, 1, 700, 700);
     this.context.strokeRect(1, 1, 700, 700);
     this.drawLines();
   }
@@ -17,40 +18,32 @@ class HangmanCanvas {
   drawLines() {
     this.context.strokeStyle = 'black';
 
-    for(var count=0; count <= this.secretWord.length; count++) {
-      this.context.strokeRect(80 + (50*count), 100, 30, 2);
-    }
-  }
-
-  writeCorrectLetter(index) {
-    this.context.fillText("Hello World", 300, 30);
-  }
-
-  pickLetter() {
-    var letter = getElementById('letter');
-    console.log(letter);    
-    this.letter = letter;
-    if(!secretWord.include(letter)) {
-      this.writeWrongLetter(letter, "")
-    } else {
-      this.pickedLetters += letter;
-      document.getElementById('pickedLetters').innerText = pickedLetters;    
-      this.writeCorrectLetter(letter);
+    for(var count=0; count <= this.secretWord.length-1; count++) {
+      this.context.strokeRect(80 + (52.5*count), 120, 30, 2);
     }
   }
 
   writeCorrectLetter(letter) {
-    var secretWord = this.secretWord;
+    document.getElementById('pickedLetters').innerText += " " + letter.toUpperCase(); 
+    var secretWord = this.secretWord;       
     var indices = [];
-    for(var count=0; i < secretWord.length; count++) {
+    for(var count=0; count < this.secretWord.length; count++) {
         if (secretWord[count] === letter) {
-          indices.push(indices);
+          indices.push(count);
+          this.writeCorrectLetterToCanvas(count, letter);
         }
     }
     console.log("Indices "+indices);
   }
 
+  writeCorrectLetterToCanvas(count, letter) {
+    this.context.fillStyle = 'orange';
+    this.context.font = '34px Arial';
+    this.context.fillText(letter.toUpperCase(), 80 + count * 54, 90);
+  }
+
   writeWrongLetter(letter, errorsLeft) {
+    document.getElementById('pickedLetters').innerText += " " + letter; 
     document.getElementById('wrongLetters').innerText += " " + letter;
     this.drawHangman(errorsLeft);
   }
@@ -58,66 +51,57 @@ class HangmanCanvas {
   drawHangman(errorsLeft) {
     this.context.beginPath();
     if(errorsLeft == 9) {
-      this.context.moveTo(30, 640); 
-      this.context.lineTo(130, 640);        
-      this.context.stroke();
+      this.drawLine(30, 640, 130, 640);      
     }
 
     if(errorsLeft == 8) {
-      this.context.moveTo(30, 640);
-      this.context.lineTo(80, 540);      
-      this.context.stroke();
+      this.drawLine(30, 640, 80, 540);     
     }
 
     if(errorsLeft == 7) {
-        this.context.moveTo(80, 540);
-        this.context.lineTo(130, 640);      
-        this.context.stroke();
+        this.drawLine(80, 540, 130, 640);
     }
 
     if(errorsLeft == 6) {
-        this.context.moveTo(80, 540); 
-        this.context.lineTo(80, 240);   
-        this.context.stroke();
+        this.drawLine(80, 540, 80, 240);
     }
 
     if(errorsLeft == 5) {
-      this.context.moveTo(80, 240); 
-      this.context.lineTo(330, 240);   
-      this.context.stroke();
+      this.drawLine(80, 240, 330, 240);
     }
 
     if(errorsLeft == 4) {
-      this.context.moveTo(330, 240); 
-      this.context.lineTo(330, 300);   
-      this.context.stroke();
+      this.drawLine(330, 240, 330, 300);
     }
 
     if(errorsLeft == 3) {
-      this.context.moveTo(330, 300); 
-      this.context.arc(330, 330, 75, 0, Math.PI * 2);
+      this.context.closePath();
+      this.context.beginPath();
+      this.context.fillStyle = 'black';
+      this.context.arc(330, 350, 50, 0, 2 * Math.PI);
+      this.context.fill();
     }
 
     if(errorsLeft == 2) {
-      this.context.moveTo(330, 380); 
-      this.context.lineTo(330, 550);
-      this.context.stroke();
+      this.drawLine(330, 380, 330, 550);
     }
 
     if(errorsLeft == 1) {
-      this.context.moveTo(330, 550);
-      this.context.lineTo(270, 620);      
-      this.context.stroke();
+      this.drawLine(330, 550, 270, 620);
     }
 
     if(errorsLeft == 0) {
-      this.context.moveTo(330, 550);
-      this.context.lineTo(380, 620); 
-      this.context.stroke();
+      this.drawLine(330, 550, 380, 620);
     }
      
     // close the path
     this.context.closePath();
+  }
+
+  drawLine(startX, startY, stopX, stopY) {
+    this.context.moveTo(startX, startY); 
+    this.context.lineTo(stopX, stopY);        
+    this.context.stroke();
   }
 
   gameOver() {
