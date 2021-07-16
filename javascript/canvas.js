@@ -33,7 +33,6 @@ class HangmanCanvas {
           this.writeCorrectLetterToCanvas(count, letter);
         }
     }
-    console.log("Indices "+indices);
   }
 
   writeCorrectLetterToCanvas(count, letter) {

@@ -1,6 +1,7 @@
 class Hangman {
   constructor(words) {
     this.words = words;
+    this.secretWord = this.pickWord();
     this.errorsLeft = 10;
     this.guessedLetters = "";
     this.letters = [];
@@ -43,7 +44,7 @@ class Hangman {
   }
 
   checkWinner() {
-    if(this.guessedLetters != undefined && this.guessedLetters.length === this.secretWord.length) {
+    if(this.guessedLetters.length === this.secretWord.length) {
       return true;
     }
     return false;
