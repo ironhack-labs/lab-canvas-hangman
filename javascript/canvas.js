@@ -36,10 +36,6 @@ class HangmanCanvas {
 		password.value = this.secretWord;
 	}
 
-	drawLines() {
-		// ... your code goes here
-	}
-
 	writeCorrectLetter(index) {
 		// ... your code goes here
 		this.context.font = '48px arial';
@@ -136,13 +132,5 @@ class HangmanCanvas {
 			this.context.stroke();
 			this.context.fill();
 		}
-	}
-
-	gameOver() {
-		// ... your code goes here
-	}
-
-	winner() {
-		// ... your code goes here
 	}
 }

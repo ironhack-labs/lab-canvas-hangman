@@ -6,6 +6,7 @@ class Hangman {
 		this.letters = [];
 		this.guessedLetters = '';
 		this.errorsLeft = 10;
+		this.context = document.getElementById('hangman').getContext('2d');
 	}
 
 	pickWord() {
@@ -63,6 +64,35 @@ class Hangman {
 		return this.secretWord.length === this.guessedLetters.length ? true : false;
 		//return this.guessedLetters.includes(this.secretWord) ? true : false;
 	}
+
+	gameOver() {
+		//alert('HAS PERDIDO');
+		let loser = new Image();
+		loser.src = '/images/gameover.png';
+		this.context.clearRect(0, 0, 1200, 800);
+
+		this.context.drawImage(loser, 0, 0, 1200, 800);
+		//location.reload();
+
+		//3 seconds, refresh
+		setTimeout(() => {
+			location.reload();
+		}, 3000);
+		//console.log('Has perdido');
+	}
+
+	winnerGame() {
+		///alert('HAS GANADO');
+		let winner = new Image();
+		winner.src = '/images/awesome.png';
+		this.context.clearRect(0, 0, 1200, 800);
+
+		this.context.drawImage(winner, 0, 0, 1200, 800);
+		//3 seconds, refresh
+		setTimeout(() => {
+			location.reload();
+		}, 3000);
+	}
 }
 
 let hangman;
@@ -83,7 +113,7 @@ if (startGameButton) {
 	});
 }
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keyup', (event) => {
 	let letterToPassAsKey = event.keyCode;
 	let letterToPassAsLetter = event.key;
 	document.getElementById('instrucciones').value = ' ';
@@ -134,13 +164,9 @@ document.addEventListener('keydown', (event) => {
 			// alert('not a good key');
 		}
 	} else if (hangman.checkWinner()) {
-		alert('HAS GANADO');
-		location.reload();
-		//console.log('Has ganado');
+		hangman.winnerGame();
 	} else {
-		alert('HAS PERDIDO');
-		location.reload();
-		//console.log('Has perdido');
+		hangman.gameOver();
 	}
 });
 /*
