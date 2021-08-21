@@ -39,12 +39,15 @@ class Hangman {
 	addCorrectLetter(letter) {
 		// ... your code goes here
 		this.guessedLetters += letter;
-		this.checkWinner();
+		//this.checkWinner();
 	}
 
 	addWrongLetter(letter) {
 		// ... your code goes here
-		return this.errorsLeft--;
+		//console.log(letter);
+		letter = this.errorsLeft--;
+		console.log(letter);
+		return letter;
 	}
 
 	checkGameOver() {
@@ -80,7 +83,7 @@ if (startGameButton) {
 document.addEventListener('keydown', (event) => {
 	let letterToPassAsKey = event.keyCode;
 	let letterToPassAsLetter = event.key;
-	//console.log(letterToPassAsKey);
+	//console.log(letterToPassAsLetter);
 	// React to user pressing a key
 	// ... your code goes here
 	//Miramos que la tecla sea la correcta checkIfLetter()
@@ -90,18 +93,38 @@ document.addEventListener('keydown', (event) => {
 		if (hangman.checkClickedLetters(letterToPassAsLetter)) {
 			//Si la palabra secreta incluye la letra pulsada, guardamos letra y pintamos palabro
 			if (hangman.secretWord.includes(letterToPassAsLetter)) {
-				hangman.addCorrectLetter(letterToPassAsLetter);
-				console.log('SI');
+				//hangman.addCorrectLetter(letterToPassAsLetter);
+				const posicionLetra = [];
+
+				for (let i = 0; i < hangman.secretWord.length; i++) {
+					if (hangman.secretWord[i] === letterToPassAsLetter) posicionLetra.push(i);
+				}
+
+				posicionLetra.map((index) => {
+					hangman.addCorrectLetter(index);
+					hangmanCanvas.writeCorrectLetter(index);
+				});
+
+				// hangmanCanvas.writeCorrectLetter(index);
+				// console.log('SI');
 			} else if (!hangman.secretWord.includes(letterToPassAsLetter)) {
-				hangman.addWrongLetter(letterToPassAsLetter);
-				console.log('No');
+				//hangman.addWrongLetter(letterToPassAsLetter);
+				hangmanCanvas.writeWrongLetter(letterToPassAsLetter, hangman.errorsLeft);
+				hangmanCanvas.drawHangman(hangman.addWrongLetter(letterToPassAsLetter));
 			}
 		} else {
 			console.log('tecla repetida');
-			hangman.addWrongLetter(letterToPassAsLetter);
+			//hangman.addWrongLetter(letterToPassAsLetter);
 		}
 	} else {
 		console.log('not a good key');
 		// alert('not a good key');
 	}
 });
+/*
+writeCorrectLetter(index) and writeWrongLetter(letter, errorsLeft) - the methods that should write the letter 
+on which the user has just clicked, on the appropriate part of the canvas. After checking if the letter was
+ not already clicked, we should write it on our board. If the secret word includes the letter, we should 
+ write it in the position where it belongs, and if the letter is not included in the secret word, we should 
+ write it on the top right corner, so that the user knows which letters were already clicked.
+*/
