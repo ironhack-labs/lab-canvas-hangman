@@ -86,10 +86,14 @@ class HangmanCanvas {
 
 	writeCorrectLetter(index) {
 		// ... your code goes here
+		let x = 200 + index * 55;
+		this.ctx.fillText(this.secretWord[index].toUpperCase(), x, 490);
 	}
 
 	writeWrongLetter(letter, errorsLeft) {
 		// ... your code goes here
+		let x = 1050 + errorsLeft * -55;
+		this.ctx.fillText(letter.toUpperCase(), x, 150);
 	}
 
 	drawHangman(errorsLeft) {

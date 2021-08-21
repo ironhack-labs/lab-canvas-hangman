@@ -26,6 +26,7 @@ class Hangman {
 	checkClickedLetters(letter) {
 		// ... your code goes here
 		if (this.letters.includes(letter)) {
+			this.letters.push(letter);
 			return false;
 		} else {
 			this.letters.push(letter);
@@ -71,12 +72,36 @@ if (startGameButton) {
 		hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
 		// ... your code goes here
-		//console.log(hangman.secretWord);
+		console.log(hangman.secretWord);
 		hangmanCanvas.createBoard();
 	});
 }
 
 document.addEventListener('keydown', (event) => {
+	let letterToPassAsKey = event.keyCode;
+	let letterToPassAsLetter = event.key;
+	//console.log(letterToPassAsKey);
 	// React to user pressing a key
 	// ... your code goes here
+	//Miramos que la tecla sea la correcta checkIfLetter()
+	//miramos que no se repita la tecla checkClickedLetters()
+	//miramos si la letra (palabra) está dentro de la palabra misteriosa y pintamos palabro
+	if (hangman.checkIfLetter(letterToPassAsKey)) {
+		if (hangman.checkClickedLetters(letterToPassAsLetter)) {
+			//Si la palabra secreta incluye la letra pulsada, guardamos letra y pintamos palabro
+			if (hangman.secretWord.includes(letterToPassAsLetter)) {
+				hangman.addCorrectLetter(letterToPassAsLetter);
+				console.log('SI');
+			} else if (!hangman.secretWord.includes(letterToPassAsLetter)) {
+				hangman.addWrongLetter(letterToPassAsLetter);
+				console.log('No');
+			}
+		} else {
+			console.log('tecla repetida');
+			hangman.addWrongLetter(letterToPassAsLetter);
+		}
+	} else {
+		console.log('not a good key');
+		// alert('not a good key');
+	}
 });
