@@ -2,7 +2,7 @@ class Hangman {
 	constructor(words) {
 		this.words = words;
 		// ... your code goes here
-		this.secretWord = '';
+		this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
 		this.letters = [];
 		this.guessedLetters = '';
 		this.errorsLeft = 10;
@@ -10,8 +10,10 @@ class Hangman {
 
 	pickWord() {
 		// ... your code goes here
-		let arrayWords = this.words;
-		return arrayWords[Math.floor(Math.random() * arrayWords.length)];
+		//LEE MEJOR LOS TEST, pone constructor, no aquí...
+		//this.secretWord = this.words[Math.floor(Math.random() * this.words.length)];
+
+		return this.secretWord;
 	}
 
 	checkIfLetter(keyCode) {
@@ -51,7 +53,8 @@ class Hangman {
 
 	checkWinner() {
 		// ... your code goes here
-		if (this.secretWord) return true;
+		return this.secretWord.length === this.guessedLetters.length ? true : false;
+		//return this.guessedLetters.includes(this.secretWord) ? true : false;
 	}
 }
 
