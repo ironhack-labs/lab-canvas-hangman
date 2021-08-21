@@ -1,5 +1,9 @@
-.game-logo {
+/* .game-logo {
 
+} */
+
+#hangManLogo{
+  display:none;
 }
 
 #start-game-button {
@@ -14,4 +18,5 @@
 
 #hangman {
   text-align: center;
+  border: 1px solid red;
 }
