@@ -25,3 +25,20 @@ strong{
   color:red;
   text-decoration: underline;
 }
+
+#preCanvasStyles{
+  text-align: center;
+}
+
+#preCanvasStyles > input{
+  margin-bottom: 15px;
+}
+
+#instrucciones{
+  color:red;
+}
+
+.labelHint{
+  font-weight: bold;
+  
+}

@@ -39,6 +39,7 @@ class Hangman {
 	addCorrectLetter(letter) {
 		// ... your code goes here
 		this.guessedLetters += letter;
+		//console.log(this.guessedLetters);
 		//this.checkWinner();
 	}
 
@@ -46,13 +47,15 @@ class Hangman {
 		// ... your code goes here
 		//console.log(letter);
 		letter = this.errorsLeft--;
-		console.log(letter);
+		//console.log(letter);
 		return letter;
 	}
 
 	checkGameOver() {
 		// ... your code goes here
-		return this.errorsLeft === 0 ? true : false;
+		// console.log(this.errorsLeft);
+		// console.log(this.errorsLeft >= 0 ? true : false);
+		return this.errorsLeft > 0 ? true : false;
 	}
 
 	checkWinner() {
@@ -83,42 +86,61 @@ if (startGameButton) {
 document.addEventListener('keydown', (event) => {
 	let letterToPassAsKey = event.keyCode;
 	let letterToPassAsLetter = event.key;
+	document.getElementById('instrucciones').value = ' ';
 	//console.log(letterToPassAsLetter);
 	// React to user pressing a key
 	// ... your code goes here
 	//Miramos que la tecla sea la correcta checkIfLetter()
 	//miramos que no se repita la tecla checkClickedLetters()
 	//miramos si la letra (palabra) está dentro de la palabra misteriosa y pintamos palabro
-	if (hangman.checkIfLetter(letterToPassAsKey)) {
-		if (hangman.checkClickedLetters(letterToPassAsLetter)) {
-			//Si la palabra secreta incluye la letra pulsada, guardamos letra y pintamos palabro
-			if (hangman.secretWord.includes(letterToPassAsLetter)) {
-				//hangman.addCorrectLetter(letterToPassAsLetter);
-				const posicionLetra = [];
+	if (hangman.checkGameOver() && !hangman.checkWinner()) {
+		if (hangman.checkIfLetter(letterToPassAsKey)) {
+			if (hangman.checkClickedLetters(letterToPassAsLetter)) {
+				//Si la palabra secreta incluye la letra pulsada, guardamos letra y pintamos palabro
+				if (hangman.secretWord.includes(letterToPassAsLetter)) {
+					//hangman.addCorrectLetter(letterToPassAsLetter);
+					const posicionLetra = [];
 
-				for (let i = 0; i < hangman.secretWord.length; i++) {
-					if (hangman.secretWord[i] === letterToPassAsLetter) posicionLetra.push(i);
+					for (let i = 0; i < hangman.secretWord.length; i++) {
+						if (hangman.secretWord[i] === letterToPassAsLetter) posicionLetra.push(i);
+					}
+
+					posicionLetra.map((index) => {
+						hangman.addCorrectLetter(index);
+						hangmanCanvas.writeCorrectLetter(index);
+					});
+
+					// hangmanCanvas.writeCorrectLetter(index);
+					// console.log('SI');
+				} else if (!hangman.secretWord.includes(letterToPassAsLetter)) {
+					//hangman.addWrongLetter(letterToPassAsLetter);
+					hangmanCanvas.writeWrongLetter(letterToPassAsLetter, hangman.errorsLeft);
+					hangmanCanvas.drawHangman(hangman.addWrongLetter(letterToPassAsLetter));
+
+					// if (hangman.checkGameOver()) {
+					// 	null;
+					// } else {
+					// 	alert('LOSER');
+					// }
 				}
-
-				posicionLetra.map((index) => {
-					hangman.addCorrectLetter(index);
-					hangmanCanvas.writeCorrectLetter(index);
-				});
-
-				// hangmanCanvas.writeCorrectLetter(index);
-				// console.log('SI');
-			} else if (!hangman.secretWord.includes(letterToPassAsLetter)) {
+			} else {
+				document.getElementById('instrucciones').value = 'Tecla repetida';
+				//console.log('tecla repetida');
 				//hangman.addWrongLetter(letterToPassAsLetter);
-				hangmanCanvas.writeWrongLetter(letterToPassAsLetter, hangman.errorsLeft);
-				hangmanCanvas.drawHangman(hangman.addWrongLetter(letterToPassAsLetter));
 			}
 		} else {
-			console.log('tecla repetida');
-			//hangman.addWrongLetter(letterToPassAsLetter);
+			document.getElementById('instrucciones').value = 'Tecla fuera del rango a-z';
+			//console.log('not a good key');
+			// alert('not a good key');
 		}
+	} else if (hangman.checkWinner()) {
+		alert('HAS GANADO');
+		location.reload();
+		//console.log('Has ganado');
 	} else {
-		console.log('not a good key');
-		// alert('not a good key');
+		alert('HAS PERDIDO');
+		location.reload();
+		//console.log('Has perdido');
 	}
 });
 /*

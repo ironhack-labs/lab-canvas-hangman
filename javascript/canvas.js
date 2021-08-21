@@ -7,7 +7,16 @@ class HangmanCanvas {
 	}
 
 	createBoard() {
+		this.hintSecretWord();
 		// ... your code goes here
+		//Secret word to show into a password input
+
+		//this.password.setAttribute('type', 'text');
+		//this.password.onfocus('type', 'text');
+		// $(password).on('focus', function() {
+		// 	$(password).attr('type', 'text');
+		// });
+
 		this.context.clearRect(0, 0, 1200, 800);
 		this.context.font = '48px arial';
 		this.context.strokeText('Palabras correctas', 250, 700);
@@ -19,6 +28,12 @@ class HangmanCanvas {
 		//alert('test');
 
 		this.drawLines();
+	}
+
+	//el input quiero hacer que sea un hint, si tiene focus, pone palabra sinó, eliminamos palabra, para no mirar por consola...
+	hintSecretWord() {
+		let password = document.getElementById('secretWordToFind');
+		password.value = this.secretWord;
 	}
 
 	drawLines() {
