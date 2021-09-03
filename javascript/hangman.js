@@ -1,35 +1,53 @@
 class Hangman {
   constructor(words) {
-    this.words = words;
-    // ... your code goes here
-  }
+    this.words = words
+    this.secretWord = this.pickWord(words)
+    this.letters = []
+    this.guessedLetters = ""
+    this.errorsLeft = 10
+    }
 
   pickWord() {
-    // ... your code goes here
+    let random = Math.trunc(Math.random()*this.words.length)
+    let randomWord = this.words[random]
+      return randomWord
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+  if (keyCode >= 65 && keyCode <= 90) {
+    return true
+  } else {
+    return false
+  }
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
-  }
+    if(this.letters.includes(letter)){
+      return false;
+    }else{
+      return true;
+    }}
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    let newLetters = this.guessedLetters += letter
+    return newLetters
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
-  }
+    this.errorsLeft -= 1
+    if(this.letters.includes(letter)) {
+    this.letters.push(letter) 
+    }}
 
   checkGameOver() {
-    // ... your code goes here
+  return !this.errorsLeft > 0
   }
 
-  checkWinner() {
-    // ... your code goes here
+  checkWinner () {
+ let newOrder = this.secretWord.split("").sort().join("")
+ let guessOrder = this.guessedLetters.split("").sort().join("")
+ if (newOrder === guessOrder) return true
+ else return false
   }
 }
 
@@ -40,13 +58,12 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+     hangman.secretWord = hangman.pickWord();
+     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
-    // ... your code goes here
-  });
+  hangmanCanvas.createBoard()  
+});
 }
 
 document.addEventListener('keydown', event => {
