@@ -5,19 +5,32 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    // ... your code goes here
+    this.ctx.strokeStyle = "black";
+    this.ctx.clearRect(0, 0, 1200, 800);
+    this.drawLines()
   }
 
   drawLines() {
-    // ... your code goes here
+    let xLine = 260 
+    let yLine = 600
+    this.secretWord.split().lenght.forEach(element => {
+      this.ctx.beginPath();
+      this.ctx.moveTo(xLine, yLine);
+      this.ctx.lineTo(xLine + 60, yLine);
+      this.ctx.stroke();
+      xLine += 20
+      this.ctx.closePath()
+    });
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+   
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+    this.ctx.clearRect(0,0,1200,200)
+    if (errorsLeft >= 0) this.context.font[letter].toUpperCase
+
   }
 
   drawHangman(errorsLeft) {
