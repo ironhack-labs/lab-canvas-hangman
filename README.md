@@ -91,7 +91,7 @@ In the `javascript/canvas.js` file, you can see `HangmanCanvas` class and it has
 // javascript/hangman.js
 
 // HINT (uncomment when start working on the canvas portion of the lab)
-hangman.secretWord = hangman.pickWord(); // 
+hangman.secretWord = hangman.pickWord(); // the word to guess
 hangmanCanvas = new HangmanCanvas();
 ```
 
