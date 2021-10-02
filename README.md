@@ -85,16 +85,14 @@ In the `javascript/canvas.js` file, you can see `HangmanCanvas` class and it has
 
 - **context** - the canvas context has been already captured in its property `this.context`.
 
-- **secretWord** - the _HangmanCanvas_ class should know which random secret word has been chosen. This is actually super doable since it receives this word as an argument, as we can see in its constructor.
-
 :bulb: _Hint_: You can uncomment now the code provided in the `javascript/hangman.js` file:
 
 ```javascript
 // javascript/hangman.js
 
 // HINT (uncomment when start working on the canvas portion of the lab)
-hangman.secretWord = hangman.pickWord();
-hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+hangman.secretWord = hangman.pickWord(); // 
+hangmanCanvas = new HangmanCanvas();
 ```
 
 #### The HangmanCanvas methods
