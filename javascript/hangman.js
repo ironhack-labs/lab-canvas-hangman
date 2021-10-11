@@ -1,7 +1,7 @@
 class Hangman {
   constructor(words) {
     this.words = words; // array
-    this.secreWord = this.pickWord; // random secret word to guess by the user
+    this.secretWord = this.pickWord; // random secret word to guess by the user
     this.letters = []; // array to store the letters that the user has already picked
     this.guessedLetters = ''; // store letters user chose and guess
     this.errorsLeft = 10;
@@ -29,11 +29,12 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
+    debugger
     // array with the letters that are contained in the secret word
-    let checkLetter = this.secretWord.split('').filter(item => item === letter);
+    let checkLetter = this.secretWord.split('').filter(item => item === letter).join('');
     console.log(checkLetter);
     this.guessedLetters += checkLetter;
-    if (this.guessedLetters.length === this.secreWord.length) {
+    if (this.guessedLetters.length === this.secretWord.length) {
       return;
     }
   }
@@ -70,6 +71,7 @@ if (startGameButton) {
     console.log(hangman);
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
+    console.log(`Random secret word: ${hangman.secretWord}`);
 
     // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
@@ -78,6 +80,24 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if (!hangman) return; // if there is no hangman, return
+  
+  // Key pressed --> produces a character key
+  const keyPressed = event.key;
+  console.log(`letter: ${event.key}`); // letter: e
+  // check if the character is includes in secretWord
+  if (hangman.secretWord.includes(keyPressed)) {
+    hangman.addCorrectLetter(keyPressed);
+    if (hangman.checkWinner()) {
+      alert('Awesome! You won!!!!!');
+    }
+  } else { // if the key pressed is not included in secretWord
+    hangman.addWrongLetter(keyPressed);
+    if (hangman.checkGameOver()) {
+      // if there are no error left
+      alert('Sorry! Keep trying!!!!!');
+    }
+
+  }
+ 
 });
