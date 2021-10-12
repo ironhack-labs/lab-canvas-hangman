@@ -4,7 +4,6 @@ class HangmanCanvas {
     this.context.lineWidth = 8;
     this.context.strokeStyle = '#4a4a44'; // grey
     this.secretWord = secretWord;
-    
   }
 
   createBoard() {
