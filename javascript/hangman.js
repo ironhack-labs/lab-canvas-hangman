@@ -74,6 +74,7 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     // hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
   });
 }
 
@@ -83,9 +84,13 @@ document.addEventListener('keydown', (event) => {
   if (!hangman.checkIfLetter(event.keyCode)) return;
   if (hangman.checkClickedLetters(event.key)) {
     hangman.addCorrectLetter(event.key);
+    hangman.secretWord.split('').forEach((el, i) => {
+      if (el === event.key) hangmanCanvas.writeCorrectLetter(i);
+    });
     hangman.checkWinner();
   } else {
     hangman.addWrongLetter(event.key);
+    hangmanCanvas.writeWrongLetter(event.key, this.errorsLeft);
     hangman.checkGameOver();
   }
 });
