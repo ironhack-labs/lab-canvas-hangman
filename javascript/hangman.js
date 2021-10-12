@@ -12,15 +12,19 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
+    console.log('checkIfLetter');
+    // keyCode is deprecated but here used bc of the tests
     return keyCode <= 90 && keyCode >= 65;
   }
 
   checkClickedLetters(letter) {
+    console.log(letter);
     return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
     this.guessedLetters += letter;
+    console.log(this.guessedLetters);
   }
 
   addWrongLetter(letter) {
@@ -31,10 +35,18 @@ class Hangman {
   }
 
   checkGameOver() {
+    console.log(this.errorsLeft);
     return this.errorsLeft <= 0;
   }
 
   checkWinner() {
+    console.log(
+      this.secretWord
+        .split('')
+        .every((el) => this.guessedLetters.split('').includes(el))
+        ? 'Win'
+        : 'not yet'
+    );
     return this.secretWord
       .split('')
       .every((el) => this.guessedLetters.split('').includes(el));
@@ -48,6 +60,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', (event) => {
+    console.log('start');
     hangman = new Hangman([
       'node',
       'javascript',
@@ -57,16 +70,22 @@ if (startGameButton) {
       'amsterdam',
       'lisboa',
     ]);
-
+    console.log(hangman.secretWord);
     // HINT (uncomment when start working on the canvas portion of the lab)
     // hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    // ... your code goes here
   });
 }
 
 document.addEventListener('keydown', (event) => {
-  // React to user pressing a key
-  // ... your code goes here
+  console.log(event);
+  // keyCode is deprecated????
+  if (!hangman.checkIfLetter(event.keyCode)) return;
+  if (hangman.checkClickedLetters(event.key)) {
+    hangman.addCorrectLetter(event.key);
+    hangman.checkWinner();
+  } else {
+    hangman.addWrongLetter(event.key);
+    hangman.checkGameOver();
+  }
 });
