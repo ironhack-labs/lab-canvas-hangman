@@ -79,7 +79,6 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   if (!hangman) return; // if there is no hangman, return
-  debugger
   // Key pressed --> produces a character key
   const key = event.key;
   const code = event.keyCode;
@@ -110,7 +109,7 @@ document.addEventListener('keydown', event => {
         hangman.addWrongLetter(key);
         // letter not included in secretWord, write the letter on the top right corner
         hangmanCanvas.writeWrongLetter(key, hangman.errorsLeft); 
-        //hangmanCanvas.drawHangman(hangman.errorsLeft);
+        hangmanCanvas.drawHangman(hangman.errorsLeft);
       }
   } if (hangman.checkGameOver()) {
     // add the gameOver image inside canvas

@@ -1,7 +1,7 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
-    this.context.lineWidth = 10;
+    this.context.lineWidth = 8;
     this.context.strokeStyle = '#4a4a44'; // grey
     this.secretWord = secretWord;
     
@@ -18,8 +18,8 @@ class HangmanCanvas {
     console.log(this.secretWord.length);
     for (let i = 0; i < this.secretWord.length; i++) {
       this.context.beginPath();
-      this.context.moveTo(200 + i * 80, 700); // 200 - 250 --> 50px each line -> 200 + 1*80 --> x -> 280
-      this.context.lineTo(250 + i * 80, 700);
+      this.context.moveTo(300 + i * 80, 700); // 200 - 250 --> 50px each line -> 200 + 1*80 --> x -> 280
+      this.context.lineTo(350 + i * 80, 700);
       this.context.stroke();
       this.context.closePath();
     }
@@ -33,7 +33,8 @@ class HangmanCanvas {
     this.context.fillStyle = '#9DA400'; 
     this.context.font = '48px Roboto';
     // context.fillText('string', x, y);
-    index.forEach( item => this.context.fillText(this.secretWord[item].toUpperCase(), 210 + item * 80, 680))
+    // taking line#22 -->coorX --> 300
+    index.forEach( item => this.context.fillText(this.secretWord[item].toUpperCase(), 310 + item * 80, 680))
   }
 
   writeWrongLetter(letter, errorsLeft) {
@@ -43,7 +44,6 @@ class HangmanCanvas {
     // console.log(hangman.letters)
     let indexToDraw;
     if (errorsLeft > 0) {
-      debugger
       this.context.fillStyle = '#4a4a44';
       this.context.font = '48px Roboto';
       hangman.letters.forEach((item, index) => {
@@ -56,7 +56,36 @@ class HangmanCanvas {
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
+    console.log(errorsLeft);
+    this.context.strokeStyle = '#4a4a44'; // grey
+    // starts with errorsLeft = 9
+    const drawLineHangman = (startX, startY, nextX, nextY) => { // arrow function to use 'this'
+      this.context.beginPath();
+      this.context.moveTo(startX, startY);
+      this.context.lineTo(nextX, nextY);
+      this.context.stroke() //executes the drawing
+      this.context.closePath();
+    }
+
+    const drawCircle = (startX, startY, radius) => {
+      this.context.beginPath();
+      // startAngle --> 0, finalAngle -> 360degrees or PI * 2
+      this.context.arc(startX, startY, radius, 0, Math.PI * 2, true); // radius: 12
+      this.context.stroke(); // only border
+    }
+
+    return errorsLeft === 9 ?  drawLineHangman(50, 700, 150, 630) //triangle
+    : errorsLeft === 8 ? drawLineHangman(150, 630, 250, 700) //triangle
+    : errorsLeft === 7 ? drawLineHangman(250, 700, 50, 700) //triangle
+      // draw line left to right up --> triangle
+    : errorsLeft === 6 ? drawLineHangman(150, 630, 150, 100) // line up
+    : errorsLeft === 5 ? drawLineHangman(150, 100, 400, 100) // line from left to right
+    : errorsLeft === 4 ? drawLineHangman(400, 100, 400, 170) // line from left to right
+    : errorsLeft === 3 ? drawCircle(400, 170 + 50, 50) // draw circle // 170 + radius
+    : errorsLeft === 2 ? drawLineHangman(400, 270, 400, 450) // line from left to right // y-> 100 + 170
+    : errorsLeft === 1 ? drawLineHangman(400, 450, 400 + 80 , 510 ) // line right leg
+    : errorsLeft === 0 ? drawLineHangman(400, 450, 400 - 80 , 510 ) // line from left leg
+    : 'End of the Game!';     
   }
 
   gameOver() {
