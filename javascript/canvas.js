@@ -60,6 +60,7 @@ class HangmanCanvas {
   }
 
   gameOver() {
+    // create the img object
     const gameOverImg = new Image();
     // "src" has to point as the image is used in HTML file
     gameOverImg.src = '../images/gameover.png';
@@ -73,6 +74,14 @@ class HangmanCanvas {
   }
 
   winner() {
-    // ... your code goes here
+    const winnerImg = new Image();
+    winnerImg.src = '../images/awesome.png';
+      // set the start position of our image
+      let imgX = 180;
+      let imgY = 40;
+    winnerImg.onload = () => { // once the image isloaded
+      this.context.drawImage(winnerImg, imgX, imgY);
+    };
+
   }
 }

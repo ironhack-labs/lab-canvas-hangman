@@ -103,8 +103,8 @@ document.addEventListener('keydown', event => {
         hangmanCanvas.writeCorrectLetter(index);
 
         if (hangman.checkWinner()) {
-          alert('Awesome! You won!!!!!');
-          //hangmanCanvas.winner()
+          // add the winner image inside canvas
+          hangmanCanvas.winner()
         }
       } else { // if the key pressed is not included in secretWord
         hangman.addWrongLetter(key);
@@ -113,8 +113,7 @@ document.addEventListener('keydown', event => {
         //hangmanCanvas.drawHangman(hangman.errorsLeft);
       }
   } if (hangman.checkGameOver()) {
-    // if there are no error left
-    //alert('Sorry! Keep trying!!!!!');
+    // add the gameOver image inside canvas
     hangmanCanvas.gameOver();
   }
 }
