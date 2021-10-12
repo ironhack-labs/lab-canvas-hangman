@@ -114,7 +114,8 @@ document.addEventListener('keydown', event => {
       }
   } if (hangman.checkGameOver()) {
     // if there are no error left
-    alert('Sorry! Keep trying!!!!!');
+    //alert('Sorry! Keep trying!!!!!');
+    hangmanCanvas.gameOver();
   }
 }
 });

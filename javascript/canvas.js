@@ -31,22 +31,28 @@ class HangmanCanvas {
     console.log(index);
     console.log(this.secretWord)
     this.context.fillStyle = '#9DA400'; 
-    this.context.font = '46px Roboto';
+    this.context.font = '48px Roboto';
     // context.fillText('string', x, y);
     index.forEach( item => this.context.fillText(this.secretWord[item].toUpperCase(), 210 + item * 80, 680))
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    debugger
-    console.log(letter)
-    console.log(hangman)
-    console.log(errorsLeft);
-    // if (!this.hangman.checkClickedLetters(letter)) { // false if the letter has been pressed before
-    //   alert('Choose another letter! This has already passed!');
-    // }
-    // else {
-
-    // }
+    // write letters not included in secretWord
+    // write it on our board
+    // console.log(letter)
+    // console.log(hangman.letters)
+    let indexToDraw;
+    if (errorsLeft > 0) {
+      debugger
+      this.context.fillStyle = '#4a4a44';
+      this.context.font = '48px Roboto';
+      hangman.letters.forEach((item, index) => {
+        if(item === letter) {
+          indexToDraw = index;
+        }
+      });
+      this.context.fillText(letter.toUpperCase(), 600 + (indexToDraw * 50), 200);
+    }
   }
 
   drawHangman(errorsLeft) {
@@ -54,7 +60,16 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
+    const gameOverImg = new Image();
+    // "src" has to point as the image is used in HTML file
+    gameOverImg.src = '../images/gameover.png';
+    // set the start position of our image
+    let imgX = 300;
+    let imgY = 300;
+    // ctx.drawImage(whichImage, x, y, width, height);
+    gameOverImg.onload = () => { // once the image isloaded
+      this.context.drawImage(gameOverImg, imgX, imgY);
+    };
   }
 
   winner() {
