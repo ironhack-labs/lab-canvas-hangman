@@ -14,14 +14,15 @@ class HangmanCanvas {
 
     drawLines() {
         // ... your code goes here
-        let startPoint = 50
+        let startPointX = 100
+        const startPointY = 500
         const lineWidth = 50
         for (let i = 0; i < this.secretWord.length; i++){
           this.context.beginPath();
-          this.context.moveTo(startPoint, 50);
-          this.context.lineTo(startPoint+lineWidth, 50);
+          this.context.moveTo(startPointX, startPointY);
+          this.context.lineTo(startPointX+lineWidth, startPointY);
           this.context.stroke();
-          startPoint+=lineWidth+25
+          startPointX+=lineWidth+25
         }
     }
 
