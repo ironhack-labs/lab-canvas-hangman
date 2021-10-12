@@ -8,7 +8,6 @@ class Hangman {
   }
 
   pickWord() {
-    debugger
     // random word from words
     return this.words[Math.floor(Math.random() * this.words.length)];
     // if(typeof secret === 'string') {
@@ -29,7 +28,6 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    debugger
     // array with the letters that are contained in the secret word
     let checkLetter = this.secretWord.split('').filter(item => item === letter).join('');
     console.log(checkLetter);
@@ -62,6 +60,7 @@ class Hangman {
 }
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById('start-game-button');
 
@@ -80,23 +79,42 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   if (!hangman) return; // if there is no hangman, return
-  
+  debugger
   // Key pressed --> produces a character key
-  const keyPressed = event.key;
-  console.log(`letter: ${event.key}`); // letter: e
+  const key = event.key;
+  const code = event.keyCode;
+  //console.log(`letter: ${event.key}, ${event.code}`); // letter: e
   // check if the character is includes in secretWord
-  if (hangman.secretWord.includes(keyPressed)) {
-    hangman.addCorrectLetter(keyPressed);
-    if (hangman.checkWinner()) {
-      alert('Awesome! You won!!!!!');
-    }
-  } else { // if the key pressed is not included in secretWord
-    hangman.addWrongLetter(keyPressed);
-    if (hangman.checkGameOver()) {
-      // if there are no error left
-      alert('Sorry! Keep trying!!!!!');
-    }
+  if (!hangman.checkIfLetter(code)) { // keyCode corresponds to a character from a-z
+    alert('Please enter a letter!');
+  } else { 
+    if (!hangman.checkClickedLetters(key)) { // false if the letter has been pressed before
+      alert('Choose another letter! This has already passed!')
+    } else {
+      // check if it's included into the secretWord
+      if (hangman.secretWord.includes(key)) { //hangman.secretWord.indexOf(key) >= 0 // true
+        // check if letter has already been pressed
+        hangman.addCorrectLetter(key); // add letter to the guessedLetters
+        // draw the letters
+        let index = [];
+        for(let i = 0; i < hangman.secretWord.length; i++) {
+        if (hangman.secretWord[i] === key) index.push(i)
+        }
+        hangmanCanvas.writeCorrectLetter(index);
 
+        if (hangman.checkWinner()) {
+          alert('Awesome! You won!!!!!');
+          //hangmanCanvas.winner()
+        }
+      } else { // if the key pressed is not included in secretWord
+        hangman.addWrongLetter(key);
+        // letter not included in secretWord, write the letter on the top right corner
+        hangmanCanvas.writeWrongLetter(key, hangman.errorsLeft); 
+        //hangmanCanvas.drawHangman(hangman.errorsLeft);
+      }
+  } if (hangman.checkGameOver()) {
+    // if there are no error left
+    alert('Sorry! Keep trying!!!!!');
   }
- 
+}
 });
