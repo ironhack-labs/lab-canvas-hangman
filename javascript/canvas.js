@@ -56,10 +56,24 @@ class HangmanCanvas {
   }
 
   writeWrongLetter(letter, errorsLeft) {
+    // Create gradient
+
     this.context.beginPath();
     this.context.clearRect(580, 150, 100, 100);
-    this.context.font = "red";
     this.context.fillText(errorsLeft, 590, 200);
+    this.context.closePath();
+
+    this.context.beginPath();
+    this.context.clearRect(390, 250, 500, 100);
+    this.context.font = "30px Arial";
+
+    // let gradient = this.context.createLinearGradient(0, 0, 150, 100);
+
+    // gradient.addColorStop("0", " blue");
+    // gradient.addColorStop("0.5", "blue");
+    // gradient.addColorStop("1.0", "red");
+    // this.context.fillStyle = gradient;
+    this.context.fillText(`wrong guessed letters:  ${letter}`, 400, 300);
     this.context.closePath();
   }
 

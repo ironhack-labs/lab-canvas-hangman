@@ -136,7 +136,10 @@ document.addEventListener("keydown", (event) => {
         }
       } else {
         hangman.addWrongLetter(event.key);
-        this.hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+        this.hangmanCanvas.writeWrongLetter(
+          hangman.guessedLetters,
+          hangman.errorsLeft
+        );
         hangmanCanvas.drawHangman(hangman.errorsLeft);
 
         console.log(hangman.errorsLeft);
