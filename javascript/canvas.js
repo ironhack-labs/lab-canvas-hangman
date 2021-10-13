@@ -174,10 +174,18 @@ class HangmanCanvas {
   // this.context.closePath();
 
   gameOver() {
-    // ... your code goes here
+    const image = document.querySelector("#img-loser");
+
+    this.context.beginPath();
+    this.context.drawImage(image, 50, 50);
+    this.context.closePath();
   }
 
   winner() {
-    // ... your code goes here
+    const image = document.querySelector("#img-winner");
+
+    this.context.beginPath();
+    this.context.drawImage(image, 50, 50);
+    this.context.closePath();
   }
 }
