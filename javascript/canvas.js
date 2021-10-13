@@ -9,6 +9,7 @@ class HangmanCanvas {
         this.startPointY = 100
         this.lineWidth = 20
         this.startPointsX_arr = [this.startPointX]
+        this.errorLetters = ""
 
         for (let i = 1; i <= this.secretWord.length; i++){
             this.startPointsX_arr.push(this.startPointX+=this.lineWidth+25)
@@ -42,6 +43,14 @@ class HangmanCanvas {
 
     writeWrongLetter(letter, errorsLeft) {
         // ... your code goes here
+        this.context.clearRect(100, 200, 150, 350); // clears errors left number on canvas, for next number
+        this.context.font = "30px Arial";
+        this.context.fillText(errorsLeft, 100 ,300);
+
+        this.errorLetters += letter
+
+        this.context.fillText(this.errorLetters, this.startPointsX_arr[0], this.startPointY+80)
+
     }
 
     drawHangman(errorsLeft) {
