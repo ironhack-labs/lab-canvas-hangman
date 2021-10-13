@@ -29,8 +29,9 @@ class Hangman {
         // argument has already been pressed. It should return 
         // true if it was not or false in the opposite case.
         // ... your code goes here
-        console.log(`${letter} has already been pressed?`, !this.letters.includes(letter))
-        return !this.letters.includes(letter);
+        
+        console.log(`${letter} has already been pressed?`, this.guessedLetters.includes(letter))
+        return !this.guessedLetters.includes(letter);
     }
 
     addLetterToLetters (letter) {
@@ -68,8 +69,8 @@ class Hangman {
     checkWinner() {
         // ... your code goes here
         // return this.secretWord === this.guessedLetters
-        this.secretWord;
-        this.guessedLetters;
+        // this.secretWord;
+        // this.guessedLetters;
 
         let isComplete = [];
         for (let char of this.secretWord) {
@@ -117,6 +118,14 @@ document.addEventListener("keydown", (event) => {
             hangman.addLetterToLetters(event.key)
             if (hangman.isCorrectLetter(event.key)) {
                 hangman.addCorrectLetter(event.key)
+                //das Wort "letter"
+                // array mit _ _ t t _ _ - mit gleicher länge (index werte)
+                // for letter in  array
+                for (let letterIndex in hangman.secretWord) {
+                    if (hangman.secretWord[letterIndex] === event.key)
+                        this.hangmanCanvas.writeCorrectLetter(letterIndex)
+                }
+                //this.hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key)) //send index of correct letter to canvas
                 if (hangman.checkWinner()){
                     console.log("You WON!!!!");
                 }
