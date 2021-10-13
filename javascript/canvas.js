@@ -139,14 +139,27 @@ class HangmanCanvas {
             this.context.stroke();
             this.context.closePath();
         }
-
     }
 
     gameOver() {
         // ... your code goes here
+        const body = document.querySelector("body")
+        const looseImg = document.createElement("img")
+        looseImg.style.position = "absolute"
+        looseImg.style.width = "100%"
+        looseImg.style.height = "auto"
+        looseImg.src = "/images/gameover.png"
+        body.prepend(looseImg)
     }
 
     winner() {
         // ... your code goes here
+        const body = document.querySelector("body")
+        const wonImage = document.createElement("img")
+        wonImage.style.position = "absolute"
+        wonImage.style.width = "100%"
+        wonImage.style.height = "auto"
+        wonImage.src = "/images/awesome.png"
+        body.prepend(wonImage)
     }
 }

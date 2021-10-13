@@ -128,6 +128,7 @@ document.addEventListener("keydown", (event) => {
                 //this.hangmanCanvas.writeCorrectLetter(hangman.secretWord.indexOf(event.key)) //send index of correct letter to canvas
                 if (hangman.checkWinner()){
                     console.log("You WON!!!!");
+                    this.hangmanCanvas.winner()
                 }
             }
             else {
@@ -135,6 +136,7 @@ document.addEventListener("keydown", (event) => {
                 this.hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft)
                 this.hangmanCanvas.drawHangman(hangman.errorsLeft)
                 if (hangman.checkGameOver()) {
+                    this.hangmanCanvas.gameOver()
                     console.log("You LOST Bigtime!!!!");
                 }
             }
