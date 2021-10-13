@@ -12,19 +12,20 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    console.log('checkIfLetter');
     // keyCode is deprecated but here used bc of the tests
     return keyCode <= 90 && keyCode >= 65;
   }
 
   checkClickedLetters(letter) {
-    console.log(letter);
     return !this.letters.includes(letter);
+  }
+
+  checkIfLetterIsCorrect(letter) {
+    return this.secretWord.toLowerCase().split('').includes(letter);
   }
 
   addCorrectLetter(letter) {
     this.guessedLetters += letter;
-    console.log(this.guessedLetters);
   }
 
   addWrongLetter(letter) {
@@ -35,18 +36,10 @@ class Hangman {
   }
 
   checkGameOver() {
-    console.log(this.errorsLeft);
-    return this.errorsLeft <= 0;
+    return this.errorsLeft === 0;
   }
 
   checkWinner() {
-    console.log(
-      this.secretWord
-        .split('')
-        .every((el) => this.guessedLetters.split('').includes(el))
-        ? 'Win'
-        : 'not yet'
-    );
     return this.secretWord
       .split('')
       .every((el) => this.guessedLetters.split('').includes(el));
@@ -80,17 +73,30 @@ if (startGameButton) {
 
 document.addEventListener('keydown', (event) => {
   console.log(event);
+  const lowerKey = event.key.toLowerCase();
   // keyCode is deprecated????
   if (!hangman.checkIfLetter(event.keyCode)) return;
-  if (hangman.checkClickedLetters(event.key)) {
-    hangman.addCorrectLetter(event.key);
+  if (!hangman.checkClickedLetters(lowerKey)) {
+    alert('You have already tried this letter!');
+    return;
+  }
+  if (hangman.checkIfLetterIsCorrect(lowerKey)) {
+    hangman.addCorrectLetter(lowerKey);
     hangman.secretWord.split('').forEach((el, i) => {
-      if (el === event.key) hangmanCanvas.writeCorrectLetter(i);
+      if (el === lowerKey) hangmanCanvas.writeCorrectLetter(i);
     });
-    hangman.checkWinner();
+    if (hangman.checkWinner()) {
+      setTimeout(() => {
+        hangmanCanvas.winner();
+      }, 1500);
+    }
   } else {
-    hangman.addWrongLetter(event.key);
-    hangmanCanvas.writeWrongLetter(event.key, this.errorsLeft);
-    hangman.checkGameOver();
+    hangman.addWrongLetter(lowerKey);
+    console.log(lowerKey);
+    hangmanCanvas.writeWrongLetter(lowerKey, hangman.errorsLeft);
+    hangmanCanvas.drawHangman(hangman.errorsLeft);
+    if (hangman.checkGameOver()) {
+      hangmanCanvas.gameOver();
+    }
   }
 });
