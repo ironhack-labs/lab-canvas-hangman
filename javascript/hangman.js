@@ -133,6 +133,7 @@ document.addEventListener("keydown", (event) => {
             else {
                 hangman.addWrongLetter(event.key)
                 this.hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft)
+                this.hangmanCanvas.drawHangman(hangman.errorsLeft)
                 if (hangman.checkGameOver()) {
                     console.log("You LOST Bigtime!!!!");
                 }
