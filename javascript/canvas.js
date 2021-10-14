@@ -1,27 +1,80 @@
+let originXLines = 400;
+let originYLines = 500;
+
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
-    // ... your code goes here
+    this.secretWord = secretWord
   }
 
+
+
+  //https://developer.mozilla.org/pt-BR/docs/Web/API/CanvasRenderingContext2D/clearRect
+
   createBoard() {
-    // ... your code goes here
+    this.context.clearRect(0, 0, 1000, 1000)
+    this.drawLines()
+    this.drawHangman(10)
   }
 
   drawLines() {
-    // ... your code goes here
+
+    let comp = 50;
+    let initialOriginX = originXLines
+    for (let i = 0; i < this.secretWord.length; i++) {
+
+      this.context.fillRect(initialOriginX, originYLines + 50, comp, 1)
+      initialOriginX += comp * 2
+
+    }
+
+
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+
+    //200+100index 
+    //https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillText
+    this.context.font = 'bold 48px serif'
+    this.context.fillText(this.secretWord[index], originXLines + (100 * index), originYLines)
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+
+    let originX = 500
+    let originY = 100
+
+    this.context.font = 'bold 48px serif'
+    this.context.fillText(letter, originX + (60 * errorsLeft), originY)
+
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
+    let ax = 100;
+    let ay = 550;
+
+    switch (errorsLeft) {
+      case 10:
+        this.context.beginPath();
+        this.context.moveTo(ax, ay)
+        this.context.lineTo(ax + 100, ay)
+        this.context.lineTo(ax + 50, ay - 50)
+        this.context.lineTo(ax, ay)
+        this.context.lineTo(ax + 50, ay - 50)
+        this.context.lineTo(ax + 50, ay - 500)
+        this.context.lineTo(ax + 300, ay - 500)
+        this.context.lineTo(ax + 300, ay - 450)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+
+      case 9:
+        this.context.beginPath();
+        this.context.arc(ax + 300, ay - 400, 50, 0, Math.PI * 2)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+    }
   }
 
   gameOver() {
