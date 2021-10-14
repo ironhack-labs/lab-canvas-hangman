@@ -60,20 +60,87 @@ class HangmanCanvas {
         this.context.lineTo(ax + 100, ay)
         this.context.lineTo(ax + 50, ay - 50)
         this.context.lineTo(ax, ay)
-        this.context.lineTo(ax + 50, ay - 50)
-        this.context.lineTo(ax + 50, ay - 500)
-        this.context.lineTo(ax + 300, ay - 500)
-        this.context.lineTo(ax + 300, ay - 450)
         this.context.stroke()
         this.context.closePath()
         break;
 
       case 9:
         this.context.beginPath();
+        this.context.moveTo(ax + 50, ay - 50)
+        this.context.lineTo(ax + 50, ay - 500)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+      
+      case 8:
+        this.context.beginPath();
+        this.context.moveTo(ax + 50, ay - 500)
+        this.context.lineTo(ax + 300, ay - 500)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+
+      case 7:
+        this.context.beginPath();
+        this.context.moveTo(ax + 300, ay - 500)
+        this.context.lineTo(ax + 300, ay - 450)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+
+      case 6:
+        this.context.beginPath();
         this.context.arc(ax + 300, ay - 400, 50, 0, Math.PI * 2)
         this.context.stroke()
         this.context.closePath()
         break;
+
+      case 5:
+        this.context.beginPath()
+        this.context.moveTo(ax + 300, ay - 350)
+        this.context.lineTo(ax + 300, ay-250)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+      
+        case 4:
+        this.context.beginPath()
+        this.context.moveTo(ax + 300, ay - 350)
+        this.context.lineTo(ax + 250, ay-300)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+
+        case 3:
+        this.context.beginPath()
+        this.context.moveTo(ax + 300, ay - 350)
+        this.context.lineTo(ax + 350, ay-300)
+        this.context.stroke()
+        this.context.closePath()
+        break;
+
+        case 2:
+          this.context.beginPath()
+          this.context.moveTo(ax + 300, ay - 250)
+          this.context.lineTo(ax + 250, ay-200)
+          this.context.stroke()
+          this.context.closePath()
+          break;
+
+          case 1:
+          this.context.beginPath()
+          this.context.moveTo(ax + 300, ay - 250)
+          this.context.lineTo(ax + 350, ay-200)
+          this.context.stroke()
+          this.context.closePath()
+
+          case 0:
+            this.context.beginPath()
+            this.context.moveTo(ax + 300, ay - 250)
+            this.context.lineTo(ax + 250, ay-200)
+            this.context.stroke()
+            this.context.closePath()
+
     }
   }
 

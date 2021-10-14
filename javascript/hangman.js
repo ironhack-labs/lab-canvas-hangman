@@ -95,4 +95,11 @@ document.addEventListener('keydown', event => {
     }
   }
 
+  if(hangman.checkGameOver()) {
+
+    alert('Game Over!!')
+
+   
+  }
+
 });
