@@ -40,12 +40,15 @@ class Hangman {
   }
   checkWinner() {
     // ... your code goes here
-    let secretWordSplit = this.secretWord.split("")
-    let guessedLettersSplit = this.guessedLetters.split("")
-    function isWinner (arr, arr2) {
-      return arr2.every(wrd => arr.includes(wrd));
+    let endGame = [];
+    for (let letter of this.secretWord) {
+      if(this.guessedLetters.includes(letter)) {
+        endGame.push(true);
+      } else {
+        endGame.push(false)
+      }
+      return endGame.includes(true);
     }
-    return isWinner(secretWordSplit, guessedLettersSplit)
   }
 }
 
