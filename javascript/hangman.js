@@ -93,7 +93,7 @@ document.addEventListener('keydown', event => {
 
     } else {
       hangman.addWrongLetter(event.key)
-      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft)
+      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft,hangman.letters)
       hangmanCanvas.drawHangman(hangman.errorsLeft)
 
 

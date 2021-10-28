@@ -53,19 +53,16 @@ class HangmanCanvas {
 
   gameOver() {
     // ... your code goes here
-    var baseImg = new Image(400,500);
-    baseImg.src ='/images/gameover.png';
-    baseImg.addEventListener('load', ()=>{
-      this.context.drawImage(baseImg,250,350);
-    })    
+    let img = new Image(400,500)
+    img.src ='/images/gameover.png';
+      this.context.drawImage(img,250,350);
+     
   }
 
   winner() {
     // ... your code goes here
-    var baseImg = new Image(400,500);
-    baseImg.src ='/images/awesome.png';
-    baseImg.addEventListener('load', ()=>{
-      this.context.drawImage(baseImg,250,350);
-    }) 
-  }
+    let img = new Image(400,500)
+    img.src ='/images/awesome.png';
+      this.context.drawImage(img,250,350);
+}
 }
