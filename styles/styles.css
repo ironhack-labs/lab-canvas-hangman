@@ -10,6 +10,8 @@
   padding: 20px 40px;
   font-size: 30px;
   border-radius: 5px;
+  cursor: pointer;
+
 }
 
 #hangman {
