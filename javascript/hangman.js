@@ -1,35 +1,68 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    // palabra que se obtiene del método pickWord.
+    this.secretWord = this.pickWord();
+    // un array vacío que guardará las letras que el usuario ha intentado.
+    this.letters = [];
+    // un string vacío que guardará las letras que ha adivinado correctamente el usuario.
+    this.guessedLetters = "";
+    // valor inicial de 10 intentos.
+    this.errorsLeft = 10;
   }
 
+  // regresa una palabra random del array de words.
   pickWord() {
-    // ... your code goes here
+    return this.words[Math.floor(Math.random()* this.words.length)];
   }
 
+  // regresa falso o verdadero dependiendo la tecla apretada por el usuario, si corresponde a las letras a-z (de 65 a 90)
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if (keyCode <= 65 && keyCode >= 90) {
+      return true;
+    } else {
+      return false;
+    }
   }
-
+  
+  // verifica si una letra apretada por el usuario está dentro del argumento
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if (!this.letters.includes(letter)){
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  // agrega la letra correcta a guessedLetters
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
   }
 
+  // resta uno de la variable errorsLeft
   addWrongLetter(letter) {
-    // ... your code goes here
+    if (!this.guessedLetters) {
+      this.errorsLeft -= 1;
+    }
   }
 
+  // verifica si el usuario ya no tiene vidas. si el número es > 0 regresa falso (el juego continúa), si es 0 regresa true.
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft == 0) {
+      return true;
+    } else {
+      return false
+    }
   }
 
+  // verifica si el usuario gana regresando un valor booleano.
   checkWinner() {
-    // ... your code goes here
+    let okWord = this.secretWord.split();
+    if (this.guessedLetters.includes(okWord) && okWord) {
+      return true;
+    } else {
+      return false
+    }
   }
 }
 
