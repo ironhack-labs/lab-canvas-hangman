@@ -1,14 +1,35 @@
+// const $canvas= getElementById("hangman")
+// const contxt= $canvas.getContext("2d");
+
 class Hangman {
   constructor(words) {
-    this.words = words;
+     this.words = words;
+     this.secretWord = this.pickWord();
+     this.letters=[];
+     this.guessedLetters='';
+     this.errorLeft= 10;
+
     // ... your code goes here
   }
 
   pickWord() {
-    // ... your code goes here
+    // if(typeof(this.words)!== "string"){
+    //   return
+    // }else{
+      
+  return this.words[Math.floor(Math.random()* this.words.length)];
+// }
+  
+  // ... your code goes here
   }
+  
 
   checkIfLetter(keyCode) {
+    // document.onekeydown = (event)=>{
+      if(keyCode>=65 && keyCode<=90){
+        return true;
+      }return false;
+    
     // ... your code goes here
   }
 
@@ -50,6 +71,12 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
+  pickWord();
+  // checkIfLetter(keyCode);
+
+  // if (hangman.checkIfLetter(event.keyCode)) {
+  //   console.log("entra en el rango");
+  //   }
   // React to user pressing a key
   // ... your code goes here
 });
