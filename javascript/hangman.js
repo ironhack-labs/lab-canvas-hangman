@@ -1,36 +1,65 @@
 class Hangman {
-  constructor(words) {
-    this.words = words;
-    // ... your code goes here
-  }
+    constructor(words) {
+        this.words = words;
+        // ... your code goes here
+        this.secretWord = this.pickWord(this.words);
+        this.errorsLeft = 10;
+        this.guessedLetters = '';
+        this.letters = [];
+    }
 
-  pickWord() {
-    // ... your code goes here
-  }
+    pickWord() {
+        // ... your code goes here
+        let randomValue =
+            this.words[Math.floor(Math.random() * this.words.length)];
+        return randomValue;
+    }
 
-  checkIfLetter(keyCode) {
-    // ... your code goes here
-  }
+    checkIfLetter(keyCode) {
+        // ... your code goes here
+        if (keyCode > 64 && keyCode < 91) {
+            this.guessedLetters = String.fromCharCode(keyCode);
+            return true;
+        }
+        return false;
+    }
 
-  checkClickedLetters(letter) {
-    // ... your code goes here
-  }
+    checkClickedLetters(letter) {
+        // ... your code goes here
+        if (this.letters.includes(letter)) return false;
+        else return true;
+    }
 
-  addCorrectLetter(letter) {
-    // ... your code goes here
-  }
+    addCorrectLetter(letter) {
+        // ... your code goes here
+        this.guessedLetters += letter;
+    }
 
-  addWrongLetter(letter) {
-    // ... your code goes here
-  }
+    addWrongLetter(letter) {
+        // ... your code goes here
+        this.errorsLeft--;
+    }
 
-  checkGameOver() {
-    // ... your code goes here
-  }
+    checkGameOver() {
+        // ... your code goes here
+        if (this.errorsLeft === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-  checkWinner() {
-    // ... your code goes here
-  }
+    checkWinner() {
+        let secArr = this.secretWord.split('');
+        let guessArr = this.guessedLetters.split('');
+        for (let i = 0; i < this.secretWord.length; i++) {
+            if (guessArr.includes(secArr[i])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }
 
 let hangman;
