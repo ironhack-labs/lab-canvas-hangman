@@ -1,15 +1,21 @@
 class HangmanCanvas {
   constructor(secretWord) {
-    this.context = document.getElementById('hangman').getContext('2d');
+    this.context = document.getElementById("hangman").getContext("2d");
     // ... your code goes here
+    this.secretWord = secretWord;
   }
 
   createBoard() {
     // ... your code goes here
+    this.context.clearRect(0, 0, 1200, 800);
+    this.drawLines();
   }
 
   drawLines() {
     // ... your code goes here
+    const lines = this.secretWord.length;
+
+    this.context.fillRect(25, 25, 100, 100);
   }
 
   writeCorrectLetter(index) {
@@ -32,3 +38,4 @@ class HangmanCanvas {
     // ... your code goes here
   }
 }
+hangmanCanvas.createBoard();
