@@ -13,13 +13,30 @@ class HangmanCanvas {
 
   drawLines() {
     // ... your code goes here
-    const lines = this.secretWord.length;
-
-    this.context.fillRect(25, 25, 100, 100);
+    let count = 0;
+    for (let i = 0; i < this.secretWord.length; i++) {
+      let xInit = 300;
+      let XEnd = xInit + 50;
+      count += 100;
+      let initialPositionX = xInit + count;
+      let finalPositionX = XEnd + count;
+      this.context.beginPath();
+      this.context.moveTo(initialPositionX, 700);
+      this.context.lineTo(finalPositionX, 700);
+      this.context.stroke();
+    }
   }
 
   writeCorrectLetter(index) {
     // ... your code goes here
+    this.context.font = "48px serif";
+    let count = 0;
+    for (let i = 0; i < this.secretWord.length; i++) {
+      let xInit = 312;
+      count += 100;
+      let initialPositionX = xInit + count;
+      this.context.fillText(index, initialPositionX, 690);
+    }
   }
 
   writeWrongLetter(letter, errorsLeft) {
@@ -38,4 +55,3 @@ class HangmanCanvas {
     // ... your code goes here
   }
 }
-hangmanCanvas.createBoard();

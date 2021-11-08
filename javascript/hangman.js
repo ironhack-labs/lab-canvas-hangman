@@ -32,7 +32,7 @@ class Hangman {
 
   addCorrectLetter(letter) {
     // ... your code goes here
-    this.guessedLetters += letter;
+    return (this.guessedLetters += letter);
   }
 
   addWrongLetter(letter) {
@@ -50,6 +50,7 @@ class Hangman {
 
   checkWinner() {
     // ... your code goes here
+    // No estoy segura porque fallo el test: should return true if we guess all letters
     if (this.guessedLetters === this.secretWord) {
       return true;
     }
@@ -76,7 +77,8 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
+    hangmanCanvas.createBoard();
+    // hangmanCanvas.writeCorrectLetter("a");
     // ... your code goes here
   });
 }
@@ -94,4 +96,6 @@ document.addEventListener("keydown", (event) => {
     "lisboa",
   ]);
   hangman.checkIfLetter(event.key);
+  hangmanCanvas.writeCorrectLetter(event.key);
+  // hangmanCanvas.writeCorrectLetter(this.addCorrectLetter(event.key));
 });
