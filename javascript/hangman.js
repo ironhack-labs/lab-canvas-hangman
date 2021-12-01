@@ -28,7 +28,7 @@ class Hangman {
   }
 
   addCorrectLetter(letter) {
-    this.guessedLetters = letter;
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
@@ -73,9 +73,6 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
-    const canvas = document.getElementById("hangman");
-    const ctx = canvas.getContext("2d");
   });
 }
 
