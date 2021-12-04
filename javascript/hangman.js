@@ -1,35 +1,62 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.errorsLeft = 10;
+    this.letters = [];
+    this.guessedLetters = "";
+    
   }
 
   pickWord() {
-    // ... your code goes here
+    let randomWord = this.words[Math.floor(Math.random() * this.words.length)]
+    return randomWord
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if ((keyCode >= 65) && (keyCode <=90)) {
+      return true
+    }
+    return false
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if (this.letters.indexOf(letter) === -1) {
+      return true
+    }
+    return false
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    //let numRepetition!!
+    this.guessedLetters += letter
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft -= 1
+    if (this.checkClickedLetters(letter)) {
+      this.letters.push(letter)
+    }
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft) {
+      return false
+    }
+    return true
   }
 
   checkWinner() {
-    // ... your code goes here
+
+    let wordsOfSecretWord = this.secretWord.split("")
+
+    for (let i = 0; i < wordsOfSecretWord.length;i++){
+      if (this.guessedLetters.includes(wordsOfSecretWord[i]) === false) {
+        return false
+      }      
+    }
+
+    return true
   }
 }
 
@@ -41,9 +68,9 @@ if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
-    // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    //HINT (uncomment when start working on the canvas portion of the lab)
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
