@@ -6,6 +6,12 @@ class HangmanCanvas {
   }
 
   createBoard() {
+    const image = document.getElementById('outcome');
+    image.src = "";
+    image.classList.remove('game-over-image');
+    image.classList.remove('winner-image');
+
+
     const canvas = document.getElementById('hangman');
     this.context.clearRect(0, 0, canvas.width, canvas.height);
     this.drawLines();
@@ -92,9 +98,18 @@ class HangmanCanvas {
   }
 
   gameOver() {
-
+    const canvas = document.getElementById('hangman');
+    this.context.clearRect(0, 0, canvas.width, canvas.height);
+    const image = document.getElementById('outcome');
+    image.src = './images/gameover.png';
+    image.classList.add('game-over-image');
   }
 
   winner() {
+    const canvas = document.getElementById('hangman');
+    this.context.clearRect(0, 0, canvas.width, canvas.height);
+    const image = document.getElementById('outcome');
+    image.src = './images/awesome.png';
+    image.classList.add('winner-image');
   }
 }
