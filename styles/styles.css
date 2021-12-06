@@ -2,6 +2,10 @@
 
 }
 
+#hangman {
+  border: 1px solid;
+}
+
 #start-game-button {
   border: 0;
   box-shadow: 0;
