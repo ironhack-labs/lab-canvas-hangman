@@ -109,6 +109,8 @@ document.addEventListener('keydown', event => {
     })
     if (hangman.checkWinner()){
       alert('Congrats! You won!');
+      hangmanCanvas.winner();
+      hangman = undefined;
       return;
     }
   } else {
@@ -117,6 +119,8 @@ document.addEventListener('keydown', event => {
     hangmanCanvas.drawHangman(hangman.errorsLeft);
     if (hangman.checkGameOver()){
       alert('Game Over. Try again!');
+      hangmanCanvas.gameOver();
+      hangman = undefined;
       return;
     }
   }

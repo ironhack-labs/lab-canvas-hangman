@@ -4,6 +4,7 @@
 
 #hangman {
   border: 1px solid;
+  position: relative;
 }
 
 #start-game-button {
@@ -19,3 +20,16 @@
 #hangman {
   text-align: center;
 }
+
+.game-over-image {
+  left: 35%;
+  position: absolute;
+  top: 70%
+}
+
+.winner-image {
+  left: 25%;
+  position: absolute;
+  top: 50%
+}
+
