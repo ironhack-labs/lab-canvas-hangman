@@ -105,9 +105,12 @@ document.addEventListener('keydown', (event) => {
     console.log(hangman.guessedLetters);
     hangman.addWrongLetter(typedLetter);
     console.log(hangman.errorsLeft);
+    hangmanCanvas.writeWrongLetter(typedLetter, hangman.errorsLeft);
+    hangmanCanvas.drawHangman(hangman.errorsLeft);
 
-    if (hangman.checkGameOver()) {
+    if (!hangman.checkGameOver()) {
       console.log('Game over!');
+      hangmanCanvas.gameOver();
     } else if (hangman.checkWinner()) {
       console.log('Winner winner, chicken dinner!');
       hangmanCanvas.createBoard();
