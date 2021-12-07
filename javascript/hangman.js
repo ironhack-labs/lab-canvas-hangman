@@ -68,22 +68,6 @@ class Hangman {
 let hangman;
 let hangmanCanvas;
 
-//tests
-// let hangmanTest = new Hangman([
-//   'node',
-//   'javascript',
-//   'react',
-//   'miami',
-//   'paris',
-//   'amsterdam',
-//   'lisboa',
-// ]);
-// hangmanTest.secretWord;
-// console.log(hangmanTest.secretWord);
-// console.log(hangmanTest.addCorrectLetter('R'));
-// console.log(hangmanTest.addCorrectLetter('a'));
-// console.log(hangmanTest.guessedLetters);
-
 const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
@@ -108,21 +92,27 @@ if (startGameButton) {
 document.addEventListener('keydown', (event) => {
   const typedLetter = event.key.toLocaleLowerCase();
   const keyCode = event.keyCode;
-  console.log(typedLetter);
 
   if (!hangman.checkIfLetter(keyCode)) {
     alert('Not a letter!');
   } else if (hangman.checkClickedLetters(typedLetter)) {
     console.log(hangman.letters);
     hangman.addCorrectLetter(typedLetter);
+    hangmanCanvas.writeCorrectLetter(
+      hangmanCanvas.secretWord.indexOf(typedLetter)
+    );
+    console.log(hangmanCanvas.secretWord.indexOf(typedLetter));
     console.log(hangman.guessedLetters);
     hangman.addWrongLetter(typedLetter);
     console.log(hangman.errorsLeft);
 
     if (hangman.checkGameOver()) {
-      return console.log('Game over!');
+      console.log('Game over!');
     } else if (hangman.checkWinner()) {
-      return console.log('Winner winner, chicken dinner!');
+      console.log('Winner winner, chicken dinner!');
+      hangmanCanvas.createBoard();
     }
+  } else {
+    alert('You already typed that letter :)');
   }
 });

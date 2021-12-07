@@ -43,11 +43,16 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     this.context.fillStyle = '#1c1919';
-    this.context.font = '40px Helvetica';
-    const upperCaseLetter = this.secretWord[index].toUpperCase();
-    const paddingLeft = 310;
-    const axisY = 690;
-    this.context.fillText(upperCaseLetter, paddingLeft + index, axisY);
+    this.context.font = '20px Helvetica';
+    for (let i = 0; i < this.secretWord.length; i++) {
+      if (this.secretWord[index] === this.secretWord[i]) {
+        this.context.fillText(
+          this.secretWord[i].toUpperCase(),
+          this.lineXStart + this.lineGap * i,
+          this.lineYStart - 10
+        );
+      }
+    }
   }
 
   writeWrongLetter(letter, errorsLeft) {
