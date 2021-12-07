@@ -82,7 +82,6 @@ if (startGameButton) {
       'lisboa',
     ]);
     hangman.secretWord;
-    console.log(hangman.secretWord);
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
     // ... your code goes here
@@ -96,24 +95,18 @@ document.addEventListener('keydown', (event) => {
   if (!hangman.checkIfLetter(keyCode)) {
     alert('Not a letter!');
   } else if (hangman.checkClickedLetters(typedLetter)) {
-    console.log(hangman.letters);
     hangman.addCorrectLetter(typedLetter);
     hangmanCanvas.writeCorrectLetter(
       hangmanCanvas.secretWord.indexOf(typedLetter)
     );
-    console.log(hangmanCanvas.secretWord.indexOf(typedLetter));
-    console.log(hangman.guessedLetters);
     hangman.addWrongLetter(typedLetter);
-    console.log(hangman.errorsLeft);
     hangmanCanvas.writeWrongLetter(typedLetter, hangman.errorsLeft);
     hangmanCanvas.drawHangman(hangman.errorsLeft);
 
-    if (!hangman.checkGameOver()) {
-      console.log('Game over!');
+    if (hangman.checkGameOver()) {
       hangmanCanvas.gameOver();
     } else if (hangman.checkWinner()) {
-      console.log('Winner winner, chicken dinner!');
-      hangmanCanvas.createBoard();
+      hangmanCanvas.winner();
     }
   } else {
     alert('You already typed that letter :)');

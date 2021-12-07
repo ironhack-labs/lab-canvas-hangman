@@ -56,6 +56,7 @@ class HangmanCanvas {
   drawHangman(errorsLeft) {
     switch (errorsLeft) {
       case 10:
+        break;
       case 9:
         this.context.beginPath();
         this.context.moveTo(240, this.lineYStart);
@@ -122,13 +123,22 @@ class HangmanCanvas {
   }
 
   gameOver() {
+    const canvas = document.getElementById('hangman');
+    this.context.clearRect(0, 0, canvas.width, canvas.height);
     const gameOverImg = new Image();
     gameOverImg.src = '../images/gameover.png';
-    this.context.drawImage(gameOverImg, 100, 100, 100, 100);
-    console.log('this works');
+    gameOverImg.addEventListener('load', () => {
+      this.context.drawImage(gameOverImg, 140, 100);
+    });
   }
 
   winner() {
-    // ... your code goes here
+    const canvas = document.getElementById('hangman');
+    this.context.clearRect(0, 0, canvas.width, canvas.height);
+    const awesomeImg = new Image();
+    awesomeImg.src = '../images/awesome.png';
+    awesomeImg.addEventListener('load', () => {
+      this.context.drawImage(awesomeImg, 0, 0);
+    });
   }
 }
