@@ -22,34 +22,26 @@ class Hangman {
   }
 
   checkClickedLetters(letter) {
-    if(this.letters.includes(letter)){
-      return false;
-    } else {
-      return true;
-    }
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    let word = this.pickWord;
-    if(this.checkIfLetter(letter)){
-      this.letters.push(letter);
-      if(word.indexOf(letter)!= -1){
-      this.guessedLetters += letter;
-    }
-
-    } 
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    if (this.checkClickedLetters(letter)){
+      this.letters.push(letter);
+      this.errorsLeft -=1;
+ }  
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return this.errorsLeft <= 0;
   }
 
   checkWinner() {
-    // ... your code goes here
+    return this.secretWord.split('').every(letter => this.guessedLetters.includes(letter));
   }
 }
 
@@ -62,14 +54,31 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
+    hangmanCanvas.createBoard();
   });
 }
 
 document.addEventListener('keydown', event => {
-  // React to user pressing a key
-  // ... your code goes here
+  if (hangman.checkIfLetter(event.keyCode)) {
+    console.log('é uma letra');
+    if (hangman.secretWord.includes(event.key)) {
+      const index = hangman.secretWord.indexOf(event.key);
+      hangman.addCorrectLetter(event.key);
+      hangmanCanvas.writeCorrectLetter(index);
+      if (hangman.checkWinner()) {
+        hangmanCanvas.winner();
+      }
+    } else {
+      hangman.addWrongLetter(event.key);
+      hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+      if (hangman.checkGameOver()) {
+        console.log('game over');
+        hangmanCanvas.gameOver();
+      }
+    }
+  }
 });
