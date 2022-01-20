@@ -8,7 +8,7 @@ class HangmanCanvas {
   createBoard() {
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     this.drawLines();
-    this.writeCorrectLetter();
+    // this.writeCorrectLetter();
   }
 
   drawLines() {
@@ -21,15 +21,25 @@ class HangmanCanvas {
   writeCorrectLetter(index) {
     this.context.fillStyle = "green"
     this.context.font = "50px Century Gothic";
-    this.context.fillText(this.secretWord.charAt(index), 490, 680)
+    this.context.fillText(this.secretWord[index], 490 + (index * 30), 680)
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+    this.context.fillStyle = "red"
+    this.context.font = "50px Century Gothic";
+    this.context.fillText(letter, 800, 200);
   }
 
   drawHangman(errorsLeft) {
     
+    switch (errorsLeft) {
+      case 10:
+        this.context.beginPath();
+        break;
+    
+      default:
+        break;
+    }
   }
 
   gameOver() {

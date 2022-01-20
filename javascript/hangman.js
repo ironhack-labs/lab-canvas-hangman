@@ -72,7 +72,27 @@ if (startGameButton) {
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
-  // checkIfLetter(event.keyCode);
-  // checkClickedLetters(event.keyCode);
-  hangmanCanvas.writeCorrecctLetter()
+  const letter = event.key;
+  if(hangman.letters.includes(letter)) {
+    console.log('Ya se usó esa letra')
+  };
+  if(hangman.secretWord.includes(letter)) {
+    hangman.addCorrectLetter(letter);
+    for(let i = 0; i < hangman.secretWord.length; i++) {
+      if (hangman.secretWord[i] === letter) {
+        hangmanCanvas.writeCorrectLetter(i);
+        console.log(hangman.secretWord[i]);
+      }
+    }
+    hangman.letters.push(letter);
+    console.log(hangman.letters);
+  } else {
+    if(!hangman.secretWord.includes(letter)) {
+      hangman.addWrongLetter(letter)
+      console.log(letter);
+      hangman.letters.push(letter);
+      console.log(hangman.letters);
+      hangmanCanvas.writeWrongLetter
+    }
+  }
 });
