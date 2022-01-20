@@ -3,6 +3,8 @@ class Hangman {
     this.words = words;
     this.letters = [];
     this.guessedLetters = "";
+    this.errorsLeft = 10;
+    this.secretWord = ""
   }
 
   pickWord() {
@@ -12,7 +14,7 @@ class Hangman {
 
 
   checkIfLetter(keyCode) {
-    if (keyCode == 'a' || 'b' || 'c' || 'd' || 'e' || 'f' || 'g' || 'h' || 'i' || 'j' || 'k' || 'l' || 'm' || 'n' || 'o' || 'p' || 'q' || 'r' || 's' || 't' || 'u' || 'v' || 'w' || 'x' || 'y' || 'z' ) {
+          if (keyCode == 'a' || 'b' || 'c' || 'd' || 'e' || 'f' || 'g' || 'h' || 'i' || 'j' || 'k' || 'l' || 'm' || 'n' || 'o' || 'p' || 'q' || 'r' || 's' || 't' || 'u' || 'v' || 'w' || 'x' || 'y' || 'z' ||  'A' || 'B' || 'C' || 'D' || 'E' || 'F' || 'G' || 'H' || 'I' || 'J' || 'K' || 'L' || 'M' || 'N' || 'O' || 'P' || 'Q' || 'R' || 'S' || 'T' || 'U' || 'V' || 'W' || 'X' || 'Y' || 'Z') {
       return true
     } else {
       return false
@@ -32,15 +34,23 @@ class Hangman {
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    if (this.checkClickedLetters == true) {
+      this.secretWord.push(letter)
+    }
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if (this.errorsLeft == 0){ 
+     return true
+    } else if (this.errorsLeft >= 5) {
+      return false
+    }
   }
 
   checkWinner() {
-    // ... your code goes here
+    if (this.checkGameOver = true) {
+      return false
+    }
   }
 }
 
