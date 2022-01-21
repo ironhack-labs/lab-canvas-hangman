@@ -12,8 +12,11 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+  /*  this.context.fillStyle = "green";
+    this.context.font = "50px Arial";
+    this.context.fillText(this.secretWord[index], 200 + (index * 60), 550); */
   }
+
 
   writeWrongLetter(letter, errorsLeft) {
     // ... your code goes here
