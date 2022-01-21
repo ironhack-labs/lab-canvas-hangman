@@ -18,15 +18,18 @@ class Hangman {
     // ... your code goes here
     if(keyCode >=65 && keyCode <=90){
       return true
-    }else{
-      return false
-    }
+    } return false
+    
     
   }
 
   checkClickedLetters(letter) {
     // ... your code goes here
-    return !this.letters.includes(letter)
+    if(this.letters.includes(letter) || this.guessedLetters.includes(letter)){
+      return false
+    }else{
+      return true
+    }
 
   }
 
@@ -54,7 +57,7 @@ class Hangman {
 
   checkWinner() {
     // ... your code goes here
-    const validation =[]
+    /*const validation =[]
     for (let i=0; i<=this.guessedLetters.length;i++){
       if(this.secretWord.includes(this.guessedLetters[i])){
         validation.push(true)
@@ -70,7 +73,28 @@ class Hangman {
       }
     }
     
+  }*/ let orderGuessedLetters = this.guessedLetters.split('').sort().join('')
+      let orderSecretWord = this.secretWord.split('').sort().join('')
+
+    if( orderGuessedLetters === orderSecretWord){
+      return true
+    }else{
+      return false
+    }
   }
+
+  getAllIndex(letter){
+    let i = -1
+    let index = []
+
+    while((i = this.secretWord.indexOf(letter,i+1))!=-1){
+      index.push(i)
+
+    }
+    return index
+  }
+
+
 }
 
 
@@ -94,15 +118,49 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
-  hangmanCanvas.writeCorrectLetter()
+  /*hangmanCanvas.writeCorrectLetter()
   const key = event.keyCode
   const letter = String.fromCharCode(key).toLowerCase
   if(hangman.checkIfLetter(key)){
     if(checkClickedLetters(letter)){
-      if(hangman.secretWord.inclludes){
+      if(hangman.secretWord.includes){
         hangman.addCorrectLetter()
       }
 
     }
-  }
+  }*/
+    const key = event.keyCode
+    const letter = String.fromCharCode(key).toLowerCase()
+    console.log(key)
+    if(hangman.checkIfLetter(key)){
+      if(hangman.checkClickedLetters(letter)){
+        //console.log(letter)
+        if(hangman.secretWord.includes(letter)){
+          let AllIndex = hangman.getAllIndex(letter)
+          for( let element of AllIndex){
+            hangmanCanvas.writeCorrectLetter(element)
+          }
+          let i = 0;
+          while (i < AllIndex.length) {
+            hangman.addCorrectLetter(letter);
+            i++;
+          }
+          console.log(hangman.guessedLetters);
+
+          console.log(hangman.guessedLetters)
+          console.log(AllIndex)
+        }else{
+          console.log('no la incluye')
+          hangman.addWrongLetter(letter)
+        }
+
+      }
+
+    }
+
+  //console.log(event.keyCode)
+
+
+
+
 });

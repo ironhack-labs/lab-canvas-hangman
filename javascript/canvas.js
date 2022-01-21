@@ -11,7 +11,7 @@ class HangmanCanvas {
     //this.context.fillStyle ="blue"
     this.context.clearRect(0,0,1200,800)
     this.drawLines()
-    this.writeCorrectLetter()
+    //this.writeCorrectLetter()
   }
 
   drawLines() {
@@ -29,7 +29,8 @@ class HangmanCanvas {
     // ... your code goes here
     this.context.fillStyle = "green"
     this.context.font = "50px Arial"
-    this.context.fillText(this.secretWord.charAt(index),200,500)
+    this.context.fillText(`${this.secretWord[index]}`,200+ (index * 60), 550)
+    console.log(this.secretWord[index])
   }
 
   writeWrongLetter(letter, errorsLeft) {
