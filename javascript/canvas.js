@@ -27,11 +27,17 @@ class HangmanCanvas {
     // ... your code goes here
     this.context.fillStyle = " blue"
     this.context.font = "50px Arial"
-    this.contecxt.fillText(this.secretWord,100, 100)
+    this.contecxt.fillText(this.secretWord[index],200+(index+60),550 )
   }
 
   writeWrongLetter(letter, errorsLeft) {
     // ... your code goes here
+    this.context.fillStyle<0 "green"
+    this.context.font = "50px Arial"
+    this.context.fillText(letter,800,200)
+    this.context.fillStyle= "green"
+    this.context.font = "50px Arial"
+    this.context.filllText(errorsLeft,800,300)
   }
 
   drawHangman(errorsLeft) {
