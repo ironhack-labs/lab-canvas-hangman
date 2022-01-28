@@ -1,35 +1,48 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
+
   }
 
   pickWord() {
-    // ... your code goes here
+    let len = this.words.length
+    let rndWord = this.words[Math.floor(Math.random()*len)]
+    return rndWord;
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    return keyCode >= 65 && keyCode <=90 ? true : false;
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.letters.push(letter);
+    this.errorsLeft -= 1;
   }
 
   checkGameOver() {
-    // ... your code goes here
+    return this.errorsLeft <= 0 ? true : false;
   }
 
   checkWinner() {
-    // ... your code goes here
+    let len = this.secretWord.length;
+    let contador = 0;
+    for(let i = 0; i<= len; i++) {
+      let element = this.secretWord[i];
+      this.guessedLetters.includes(element) ? contador += 1 : contador +=0;
+    };
+    return contador === len ? true : false;
   }
 }
 
@@ -42,8 +55,9 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard()
 
     // ... your code goes here
   });
