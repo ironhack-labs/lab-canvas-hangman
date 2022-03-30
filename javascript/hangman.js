@@ -1,37 +1,71 @@
 class Hangman {
   constructor(words) {
-    this.words = words;
-    // ... your code goes here
-  }
+    this.words = words    
+    this.secretWord = this.pickWord() //la palabra que vamos a adivinar
+    this.letters = []
+    this.guessedLetters = ""  //la palabra que adivinamos
+    this.errorsLeft = 10
+}
 
   pickWord() {
-    // ... your code goes here
-  }
+   // OBTENER NÚMERO ALEATORIO PARA SABER LA POSICIÓN
+  const randomNumber = Math.random() * this.words.length
+  
+  // QUITAR DECIMALES
+  const positionArr = Math.floor(randomNumber)
+  
+  // RETORNAR PALABRA ALEATORIA
+  return this.words[positionArr]
+}
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
-  }
+    if(keyCode >= 65 && keyCode <= 90) {
+      return true
+    } 
+       
+    return false   
+
+}
 
   checkClickedLetters(letter) {
-    // ... your code goes here
-  }
+    // SI LA LETRA YA SE PRESIONÓ, ENTONCES, DEVUELVE UN FALSE
+    if(this.letters.includes(letter)){
+      return false
+    }
+
+    // SI NO SE HA PRESIONADO, ENTONCES, DEVUELVE UN TRUE
+    return true
+}
 
   addCorrectLetter(letter) {
-    // ... your code goes here
-  }
+    return this.guessedLetters+= letter 
+}
 
   addWrongLetter(letter) {
-    // ... your code goes here
-  }
+    //Disminuye cuantos errores puedes cometer
+    this.errorsLeft -= 1
+    //si la letra no se encuentra en el arreglo "letters" entonces agregalo
+    if(!this.letters.includes(letter)) {
+      this.letters.push(letter)
+    }
+    return
+}
 
   checkGameOver() {
-    // ... your code goes here
-  }
-
-  checkWinner() {
-    // ... your code goes here
-  }
+    if(this.errorsLeft > 0){
+      return false;
+    }
+    return true;
 }
+
+checkWinner() {
+  if(this.secretWord === this.guessedLetters){
+    return true
+  }
+  return false
+}
+
+
 
 let hangman;
 
@@ -53,3 +87,25 @@ document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
