@@ -1,10 +1,12 @@
 class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
+    this.secretWord = secretWord;
     // ... your code goes here
   }
 
   createBoard() {
+    
     // ... your code goes here
   }
 
