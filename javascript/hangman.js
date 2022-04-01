@@ -39,7 +39,7 @@ class Hangman {
     // ... your code goes here
     return !this.errorsLeft;
   }
-
+    
   /**if won return true else return false */
   checkWinner() {
     // ... your code goes here
@@ -109,8 +109,8 @@ document.addEventListener('keydown', event => {
 
         //if letter is NOT correct we call addWrongLetter somewhere in here
         hangman.addWrongLetter(event.key)
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
         hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
-        //CALL HANGMAN DRAWING HERE AFTER GETTING ANOTHER WRONG LETTER
 
         if(hangman.checkGameOver()){
           alert(`You lost, sucker! The secret word was ${hangman.secretWord}`);
