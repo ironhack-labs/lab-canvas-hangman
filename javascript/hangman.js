@@ -1,34 +1,70 @@
 class Hangman {
   constructor(words) {
-    this.words = words;
+    this.words = [...words];
+    this.secretWord = this.pickWord(words);
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
     // ... your code goes here
   }
 
-  pickWord() {
+  pickWord(words) {
+    let randomWord = Math.floor(Math.random() * this.words.length);
+    return this.words[randomWord];
     // ... your code goes here
   }
 
   checkIfLetter(keyCode) {
+    if(keyCode < 91 && keyCode > 64) {
+      return true;
+    } else {
+      return false;
+    }
     // ... your code goes here
   }
 
   checkClickedLetters(letter) {
+   let uniqueArray = [...this.letters];
+
+    for(let i= 0; i < uniqueArray.length; i++) {
+      let index = uniqueArray.indexOf(uniqueArray[i]);
+      if(index < 0) {
+        uniqueArray.push(uniqueArray[i])
+      }
+    }
+    if(uniqueArray.includes(letter)) {
+      return false;
+    } else{
+      return true;
+    }
     // ... your code goes here
   }
 
   addCorrectLetter(letter) {
+    this.guessedLetters += letter;
     // ... your code goes here
   }
 
   addWrongLetter(letter) {
+    this.errorsLeft -= 1;
     // ... your code goes here
   }
 
   checkGameOver() {
+    if (this.errorsLeft <= 0) {
+      return true;
+    } else {
+      return false;
+    }
     // ... your code goes here
   }
 
   checkWinner() {
+    if(this.guessedLetters === this.secretWord) {
+      return true;
+    } else {
+      return false;
+    }
     // ... your code goes here
   }
 }
@@ -50,6 +86,7 @@ if (startGameButton) {
 }
 
 document.addEventListener('keydown', event => {
+checkIfLetter(event.keyCode);
   // React to user pressing a key
   // ... your code goes here
 });
