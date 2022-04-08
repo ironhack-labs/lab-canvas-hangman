@@ -19,6 +19,7 @@ class Hangman {
   // Expects: 'keycode' of Letter that's been guessed [[keyocde.info]]
   // Returns: BOOL of validity [# btwn 65-90]
   checkIfLetter(keyCode) {
+    // return ( (keyCode - 91) * (keyCode - 64 ) >= 0)
     return (keyCode < 91 && keyCode > 64 ? true : false);
   }
 
@@ -72,6 +73,24 @@ class Hangman {
       return false;
     }
   }
+  checkWinnerAdam() {
+    console.log('Checking win-state!');
+    if( this.guessedLetters.length === ([...new Set(this.secretWord.split(''))].length) ){  
+      for (let i = 0; i < this.secretWord.length; i ++) {
+        console.log(`For every character in ${this.secretWord} - ${this.secretWord[i]}`);      
+        if (this.guessedLetters.indexOf(this.secretWord[i]) === -1) {
+            console.log(this.guessedLetters);
+            console.log(`Couldn't find ${this.secretWord[i]} in ${this.guessedLetters}`);          
+          return false;
+        } else {
+            console.log(`Found ${this.secretWord[i]} in ${this.guessedLetters}`);
+          return true;
+        }
+      }
+   }
+
+  }
+
 }
 
 let hangman;

@@ -36,21 +36,11 @@ class HangmanCanvas {
 
   writeCorrectLetter(index) {
     // ... your code goes here
-    // hangman.
     let addLines = '';
     let letter = hangman.secretWord[index];
-    // console.log(hangman.secretWord);
-    // console.log(letter);
-    // let drawString = (hangman.secretWord.split('')).map( x => (x === letter ? letter : ``));
-    // console.log(`[${drawString}] ${drawString.length}`);
-    // addLines = drawString.join('  ');
-    // // addLines = drawString.join(' ');
-    // console.log(`Drawing: [${addLines}] ${addLines.length}`);
     addLines = (hangman.secretWord.split('')).map( x=> ( x === letter ? letter : `_`)).join(' ');
     this.context.font = '48px Monospace';       
     this.context.fillStyle = 'black';
-    // console.log(`Drawing: [${addLines}] ${addLines.length}`);
-    // console.log(`Splitting it: ${addLines.split('')}`);
     this.context.fillText(addLines,350,300); 
   }
 
@@ -70,48 +60,24 @@ class HangmanCanvas {
   writeWrongLetter(letter, errorsLeft) {
   const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   this.context.font = '32px Monospace';    
-
-  // !!!!!
-  // 8 characters to new-line
-  // !!!!!
-
-  
-
   let redLetter = alphabet.map( x=> ( x === letter ? letter : ` `)); //.join('')
-  // let letterGuess = '              h';
   this.context.fillStyle = 'rgba(255, 0, 0, 1)'; 
   let printString;
-  // console.log(redLetter.indexOf(letter));
   if(redLetter.indexOf(letter) <= 8 && redLetter.indexOf(letter) >= 0){
-    
     printString = redLetter.slice(0,-10).join(' ');
-    // redLetter.slice(8).join('');
-    // console.log(redLetter);
-    // console.log(`[${printString}]`);
     this.context.fillText(`${printString}`,30,65);
   }else if(redLetter.indexOf(letter) <= 16 && redLetter.indexOf(letter) >= 9){
-    // redLetter.slice(8).join('');
     printString = redLetter.slice(8,17).join(' ');
-    // console.log(redLetter);
-    // console.log(`[${printString}]`);
     this.context.fillText(`${printString}`,30,115);   
   }else{
-    // redLetter.slice(8).join('');
     printString = redLetter.slice(-9).join(' ');
-    // console.log(redLetter);
-    // console.log(`[${printString}]`);
     this.context.fillText(`${printString}`,30,165);  
   }
-  // this.context.fillText(redLetter,30,65);
-
   this.context.strokeStyle = 'black';
   }
 
   drawHangman(errorsLeft) {
-    // ... your code goes here
     let part = (10-errorsLeft);
-    // console.log(part);
-    // console.log(errorsLeft);
     this.context.fillStyle = 'green';
     this.context.strokeStyle = 'green';
     
@@ -214,22 +180,18 @@ class HangmanCanvas {
   }
 
   gameOver() {
-    // ... your code goes here
     const img = new Image();        
     img.src = './images/gameover.png';
     img.onload = function() {
       hangmanCanvas.context.drawImage(img,100,25,500,350);
-      // .drawImage(img, 0, 0,150*imgScale,150);
     };
   }
 
   winner() {
-    // ... your code goes here
     const img = new Image();        
     img.src = './images/awesome.png';
     img.onload = function() {
       hangmanCanvas.context.drawImage(img,250,5,300,300);
-      //.drawImage(img, 0, 0,150*imgScale,150);
     };
   }
 }
