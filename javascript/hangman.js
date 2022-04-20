@@ -51,7 +51,7 @@ class Hangman {
   checkGameOver() {
     // ... your code goes here
 if(this.errorsLeft<=0){
- return true
+  return true
 }else{
   return false
 }
@@ -77,8 +77,8 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+      hangman.secretWord = hangman.pickWord();
+      hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
@@ -87,4 +87,25 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  //console.log(event.key)
+  let letter = event.key
+  //hangmanCanvas.writeCorrectLetter(letter)
+  //hangmanCanvas.writeWrongLetter(letter, hangman.errorsLeft)
+
+  if (hangman.secretWord.includes(event.key)){
+
+    hangmanCanvas.writeCorrectLetter(letter)
+    
+    if(hangman.checkWinner()){
+      hangmanCanvas.winner()
+    }
+
+  } else{
+    hangman.addWrongLetter(event.key)
+    hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft)
+    hangmanCanvas.drawHangman(hangman.errorsLeft);
+    if(hangman.checkGameOver()){
+      hangmanCanvas.gameOver()
+    }
+  }
 });
