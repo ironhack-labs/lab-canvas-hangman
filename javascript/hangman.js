@@ -1,111 +1,108 @@
 class Hangman {
   constructor(words) {
-    this.words = words    
-    this.secretWord = this.pickWord()
-    this.letters = []
-    this.guessedLetters = ""
-    this.errorsLeft = 10
+    this.words = words;
+    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = "";
+    this.errorsLeft = 10;
   }
-
   pickWord() {
-   // OBTENER NÚMERO ALEATORIO PARA SABER LA POSICIÓN
-  const randomNumber = Math.random() * this.words.length
-  
-  // QUITAR DECIMALES
-  const positionArr = Math.floor(randomNumber)
-  
-  // RETORNAR PALABRA ALEATORIA
-  return this.words[positionArr]
+    // ... your code goes here
+    const randomWord = this.words[Math.floor(Math.random()*this.words.length)];
+    return randomWord;
   }
-
   checkIfLetter(keyCode) {
-    if(keyCode >= 65 && keyCode <= 90) {
+    // ... your code goes here
+    if (keyCode >= 65 && keyCode <=90 ){
       return true
-    } 
-       
-    return false   
-
-  }
-
-  checkClickedLetters(letter) {
-    // SI LA LETRA YA SE PRESIONÓ, ENTONCES, DEVUELVE UN FALSE
-    if(this.letters.includes(letter)){
+    } else{
       return false
     }
-
-    // SI NO SE HA PRESIONADO, ENTONCES, DEVUELVE UN TRUE
-    return true
   }
-
+  checkClickedLetters(letter) {
+    // ... your code goes here
+    if (this.letters.includes(letter)){
+      return false
+    } else{
+      return true
+    }
+  }
   addCorrectLetter(letter) {
+    // ... your code goes here
     return this.guessedLetters += letter
   }
-
   addWrongLetter(letter) {
-
-    // DISMINUYE CUÁNTOS ERRORES TODAVÍA PUEDES COMETER
+    // ... your code goes here
     this.errorsLeft -= 1
-    
-    // SI LA LETRA NO SE ENCUENTRA EN EL ARREGLO "LETTERS", ENTONCES, AGREGARLO.
-    if(!this.letters.includes(letter)) {
+    if (!this.letters.includes(letter)){
       this.letters.push(letter)
     }
-
     return
   }
-
   checkGameOver() {
-    if (this.errorsLeft > 0) {
-      return false;
+    // ... your code goes here
+    if (this.errorsLeft > 0){
+      return false
+    } else {
+      return true
     }
-    return true;
   }
-
   checkWinner() {
-    
-    // 1. LA PALABRA SECRETA ORDENADA
-    const sortedSecretWord = this.secretWord.split("").sort().join("")
-
-    // 2. LAS LETRAS ADIVINADAS POR EL USUARIO, ORENADAMENTE
-    const orderedGuessedWord = this.guessedLetters.split("").sort().join("")
-
-
-    // 3. EVALÚO SI LA PALABRA SECRETA ES LA MISMA QUE LA ADIVINADA
-    if(sortedSecretWord === orderedGuessedWord) return true
-    
-    // 4. EN CASO DE QUE NO SEAN IGUALES, RETORNA FALSO
-    return false
+    // ... your code goes here
+    if(this.guessedLetters.length === this.secretWord.length){
+      for (let i=0; i < this.guessedLetters.length; i++){
+        if (!this.secretWord.includes(this.guessedLetters[i])){
+          return false
+        }
+      }
+      return true
+    } else{
+      return false
+    }
   }
 }
-
 let hangman;
-
 const startGameButton = document.getElementById('start-game-button');
-
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
-    //HINT (uncomment when start working on the canvas portion of the lab)
+    // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
-
     // ... your code goes here
   });
 }
-
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  let letter = event.key
+  if(hangman.checkIfLetter(letter.toUpperCase().charCodeAt(0))){
+    if (hangman.secretWord.includes(letter)){
+      if(!hangman.guessedLetters.includes(letter)){
+        for (let i = 0; i <hangman.secretWord.length; i++){
+          if (letter === hangman.secretWord[i]){
+            hangman.addCorrectLetter(letter)
+          }
+        }
+        hangmanCanvas.writeCorrectLetter(letter)
+        console.log(hangman.guessedLetters)
+      }
+      if(hangman.checkWinner()) {
+        hangmanCanvas.winner()
+      }
+    } else{
+      if (hangman.checkClickedLetters(letter)){
+        hangman.addWrongLetter(letter)
+        hangmanCanvas.writeWrongLetter(hangman.letters, hangman.errorsLeft)
+        hangmanCanvas.drawHangman(hangman.errorsLeft)
+      }
+      if(hangman.checkGameOver()){
+        hangmanCanvas.gameOver()
+      }
+    }
+  }
 });
-
-
-
-
-
-
-
-
 
 
 
