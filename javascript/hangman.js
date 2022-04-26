@@ -49,7 +49,7 @@ class Hangman {
 
   checkGameOver() {
     // ... your code goes here
-    if (this.errorsLeft >0){
+    if (this.errorsLeft>0){
       return false;
     }else{
       return true;
@@ -61,6 +61,7 @@ class Hangman {
     let sortedSecretWord = this.secretWord.split("").sort().join("");
     const orderedGuessedWord = this.guessedLetters.split("").sort().join("");
     if (sortedSecretWord === orderedGuessedWord){
+      hangmanCanvas.winner()
       return true;
     }
     return false;
@@ -76,14 +77,23 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
+    hangmanCanvas.createBoard();
+    hangmanCanvas.drawLines();
   });
 }
 
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  if (event.keyCode >= 65 && event.keyCode <= 90){
+    hangmanCanvas.writeCorrectLetter(event.key);
+    hangmanCanvas.writeWrongLetter(event.key);
+    hangmanCanvas.gameOver();
+    hangmanCanvas.drawHangman(hangman.errorsLeft)
+    hangman.checkWinner();
+  }
 });
