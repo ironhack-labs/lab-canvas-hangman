@@ -39,12 +39,12 @@ class Hangman {
   }
 
   checkWinner() {
-    if(this.secretWord.includes(this.guessedLetters)){
+    if(this.pickWord() == this.guessedLetters){
       return true
+    } else {
+      return false
     }
   }
-
-
 }
 
 
@@ -58,8 +58,10 @@ if (startGameButton) {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
 
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+     hangman.secretWord = hangman.pickWord();
+     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+
+     hangmanCanvas.createBoard()
 
     // ... your code goes here
   });
