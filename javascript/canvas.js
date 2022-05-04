@@ -2,6 +2,7 @@ class HangmanCanvas {
   constructor(secretWord) {
     this.context = document.getElementById('hangman').getContext('2d');
     this.secretWord = secretWord
+    console.log(this.secretWord);
   }
 
   createBoard() {
@@ -18,10 +19,12 @@ class HangmanCanvas {
     this.context.stroke()
     this.context.closePath()
   }
+  
   }
 
   writeCorrectLetter(index) {
     // ... your code goes here
+    
   }
 
   writeWrongLetter(letter, errorsLeft) {
@@ -32,82 +35,82 @@ class HangmanCanvas {
     
     switch(errorsLeft){
 
-      case 0: ctx.beginPath()
-              ctx.lineWidth = 4
-              ctx.moveTo(570,340)
-              ctx.lineTo(590,350)       
-              ctx.moveTo(590,340)
-              ctx.lineTo(570,350)
-              ctx.moveTo(620,340)
-              ctx.lineTo(640,350)
-              ctx.moveTo(640,340)
-              ctx.lineTo(620,350)
-              ctx.stroke()
-              ctx.closePath()
+      case 0: this.context.beginPath()
+      this.context.lineWidth = 4
+      this.context.moveTo(570,340)
+      this.context.lineTo(590,350)       
+      this.context.moveTo(590,340)
+      this.context.lineTo(570,350)
+      this.context.moveTo(620,340)
+      this.context.lineTo(640,350)
+      this.context.moveTo(640,340)
+      this.context.lineTo(620,350)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 1: ctx.beginPath()
-              ctx.lineWidth = 5
-              ctx.moveTo(600,500)
-              ctx.lineTo(700,550)
-              ctx.stroke()
-              ctx.closePath()
+      case 1: this.context.beginPath()
+      this.context.lineWidth = 5
+      this.context.moveTo(600,500)
+      this.context.lineTo(700,550)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 2: ctx.beginPath()
-              ctx.moveTo(600,500)
-              ctx.lineTo(500,550)
-              ctx.stroke()
-              ctx.closePath()
+      case 2: this.context.beginPath()
+      this.context.moveTo(600,500)
+      this.context.lineTo(500,550)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 3: ctx.beginPath()
-              ctx.moveTo(670,680)
-              ctx.lineTo(700,750)
-              ctx.stroke()
-              ctx.closePath()
+      case 3: this.context.beginPath()
+      this.context.moveTo(670,680)
+      this.context.lineTo(700,750)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 4: ctx.beginPath()
-              ctx.moveTo(600,620)
-              ctx.lineTo(670,680)
-              ctx.stroke()
-              ctx.closePath()
+      case 4: this.context.beginPath()
+      this.context.moveTo(600,620)
+      this.context.lineTo(670,680)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 5: ctx.beginPath()
-              ctx.moveTo(530,680)
-              ctx.lineTo(500,750)
-              ctx.stroke()
-              ctx.closePath()
+      case 5: this.context.beginPath()
+      this.context.moveTo(530,680)
+      this.context.lineTo(500,750)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 6: ctx.beginPath()
-              ctx.moveTo(600,620)
-              ctx.lineTo(530,680)
-              ctx.stroke()
-              ctx.closePath()
+      case 6: this.context.beginPath()
+      this.context.moveTo(600,620)
+      this.context.lineTo(530,680)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 7: ctx.beginPath()
-              ctx.moveTo(600,500)
-              ctx.lineTo(600,620)
-              ctx.stroke()
-              ctx.closePath()
+      case 7: this.context.beginPath()
+      this.context.moveTo(600,500)
+      this.context.lineTo(600,620)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 8: ctx.beginPath()
-              ctx.moveTo(600,420)
-              ctx.lineTo(600,500)
-              ctx.stroke()
-              ctx.closePath()
+      case 8: this.context.beginPath()
+      this.context.moveTo(600,420)
+      this.context.lineTo(600,500)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 9: ctx.beginPath()
-              ctx.arc(600,360,57,0,Math.PI * 2)
-              ctx.stroke()
-              ctx.closePath()
+      case 9: this.context.beginPath()
+      this.context.arc(600,360,57,0,Math.PI * 2)
+      this.context.stroke()
+      this.context.closePath()
   
-      case 10: ctx.beginPath()
-               ctx.strokeStyle ='brown'
-               ctx.lineWidth = 8
-               ctx.moveTo(400,800);
-               ctx.lineTo(400,200);
-               ctx.lineTo(600,200);
-               ctx.lineTo(600,300);
-               ctx.stroke()
-               ctx.closePath()
+      case 10: this.context.beginPath()
+      this.context.strokeStyle ='brown'
+      this.context.lineWidth = 8
+      this.context.moveTo(400,800);
+      this.context.lineTo(400,200);
+      this.context.lineTo(600,200);
+      this.context.lineTo(600,300);
+      this.context.stroke()
+      this.context.closePath()
     }
   }
 
