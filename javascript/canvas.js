@@ -5,7 +5,7 @@ class HangmanCanvas {
   }
 
   createBoard() {
-    // ... your code goes here
+    // ... your code goes
   }
 
   drawLines() {
