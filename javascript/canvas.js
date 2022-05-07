@@ -1,51 +1,47 @@
+const canvas = document.getElementById("hangman");
+const ctx = canvas.getContext("2d");
+
+
 class HangmanCanvas {
   constructor(secretWord) {
-    this.context = document.getElementById("hangman").getContext("2d");
     this.secretWord = secretWord;
+    this.imgLoss = new Image()
+    this.imgLoss.src = "/images/gameover.png"
+    this.imgWin = new Image()
+    this.imgWin.src = "/images/awesome.png"
+    this.index = ""
   }
 
   createBoard() {
-    this.context.fillStyle = "salmon";
-    this.context.fillRect(20, 100, 100, 100);
-    this.context.clearRect(45,125,50,50)
-    drawLines();
+    ctx.fillStyle = "#d3d3d3";
+    ctx.fillRect(20, 20, 1200, 800);
+    this.drawLines();
 
-    /* createBoard() - the method that should
-     clear the canvas, so every time we start
-      the game we have a clean one. 
-      This method also should call the next 
-      one we will define, the drawLines().
-     */
   }
 
   drawLines() {
+    let n = this.secretWord.length;
+    let space = 100
+console.log(n)
+for(let i=0;i<=n; i++){
+  ctx.beginPath();
+  ctx.moveTo(space, 300);
+  ctx.lineTo(space+50, 300);
 
-   let n = this.secretWord.length
+  ctx.stroke();
 
-    this.context.beginPath();
-    this.context.moveTo(25, 300);
-    this.context.lineTo(50, 300);
-    context.stroke();
-    context.closePath();
-    
-    context.lineTo(170, 170);
-    context.lineTo(125, 125);
-    context.stroke();
-    context.fill();
-    context.closePath();
+  ctx.closePath();
+  console.log(space)
+space += 100
 
-/*
-drawLines() - the method that should draw 
-one line for each letter of the secret word.
- At this point we know the secret word the
- user has to guess.
-*/ 
+}
 
   }
 
   writeCorrectLetter(index) {
 
-/* 
+
+    /* 
 
 writeCorrectLetter(index) and 
 writeWrongLetter(letter, errorsLeft) - 
@@ -61,33 +57,24 @@ appropriate part of the canvas. After checking if the
    right corner, so that the user knows which letters 
    were already clicked.
 
-  */ }
+  */
+  }
 
-  writeWrongLetter(letter, errorsLeft) {
- 
-
-
-
- }
+  writeWrongLetter(letter, errorsLeft) {}
 
   drawHangman(errorsLeft) {
     // ... your code goes here
-
-
-
-/* 
+    /* 
 drawHangman(errorsLeft) - the method that should 
 draw the hangman. You will see that the drawing is 
 composed of multiple lines and one circle. Go ahead and 
 experiment, you will see it is pretty straightforward. */
-
   }
 
   gameOver() {
-    // ... your code goes here
+    ctx.drawImage(this.imgLoss)
   }
 
-  winner() {
-    // ... your code goes here
+  winner() {ctx.drawImage(this.imgWin);
   }
 }
