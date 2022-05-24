@@ -1,13 +1,11 @@
 class Hangman {
-  constructor(words, secretWord, letters, guessedLetters, errorsLeft) {
+  constructor(words) {
     this.words = words;
-
+    // ... your code goes here
     this.secretWord = this.pickWord();
     this.letters = [];
     this.guessedLetters = '';
     this.errorsLeft = 10;
-
-    // ... your code goes here
   }
 
   pickWord() {
@@ -16,51 +14,48 @@ class Hangman {
   }
 
   checkIfLetter(keyCode) {
-    if (keyCode >= 65 && keyCode <= 90) {
-      return true;
-    } else {
-      return false;
-    }
     // ... your code goes here
+    return keyCode >= 65 && keyCode <= 90;
   }
 
   checkClickedLetters(letter) {
     // ... your code goes here
-
-    if (!this.letters.includes(letter)) {
-      return true;
-    } else {
-      return false;
-    }
+    return !this.letters.includes(letter);
   }
 
   addCorrectLetter(letter) {
     // ... your code goes here
-    this.guessedLetters = letter;
+    this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
     // ... your code goes here
-
-    this.errorsLeft = this.errorsLeft - 1;
+    this.letters.push(letter);
+    this.errorsLeft -= 1;
+    console.log(letter, this.errorsLeft);
   }
 
   checkGameOver() {
     // ... your code goes here
-    if (this.errorsLeft > 0) {
-      return false;
-    } else {
-      return true;
-    }
+    return !this.errorsLeft;
   }
 
+  /**if won return true else return false */
   checkWinner() {
-    if (this.secretWord === this.guessedLetters) {
-      return true;
-    } else {
-      return false;
-    }
     // ... your code goes here
+    let guessedLettersSplitArray = this.guessedLetters.split('');
+    let setOfGuessedLetters = new Set(guessedLettersSplitArray);
+
+    let secretWordSplitArray = this.secretWord.split('');
+    let setOfSecretWord = new Set(secretWordSplitArray);
+
+    if (setOfGuessedLetters.size !== setOfSecretWord.size) return false;
+    for (let guessedLetter of setOfGuessedLetters) {
+      if (!setOfSecretWord.has(guessedLetter)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
@@ -70,6 +65,7 @@ const startGameButton = document.getElementById('start-game-button');
 
 if (startGameButton) {
   startGameButton.addEventListener('click', (event) => {
+    console.log('start game');
     hangman = new Hangman([
       'node',
       'javascript',
@@ -83,6 +79,7 @@ if (startGameButton) {
     // HINT (uncomment when start working on the canvas portion of the lab)
     hangman.secretWord = hangman.pickWord();
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangmanCanvas.createBoard();
 
     // ... your code goes here
   });
@@ -91,4 +88,40 @@ if (startGameButton) {
 document.addEventListener('keydown', (event) => {
   // React to user pressing a key
   // ... your code goes here
+
+  if (hangman.checkIfLetter(event.keyCode)) {
+    //at this point - the letter is a through z
+
+    if (hangman.checkClickedLetters(event.key)) {
+      //at this point - the letter is a through z and has not been guessed before
+      let secretWordSplitArray = hangman.secretWord.split('');
+      let setOfSecretWord = new Set(secretWordSplitArray);
+
+      if (setOfSecretWord.has(event.key)) {
+        //if letter is correct we call addCorrectLetter somewhere in here
+        hangman.addCorrectLetter(event.key);
+
+        hangman.secretWord.split('').forEach((charElement, index) => {
+          if (charElement == event.key) {
+            hangmanCanvas.writeCorrectLetter(index);
+          }
+        });
+      } else {
+        //if letter is NOT correct we call addWrongLetter somewhere in here
+        hangman.addWrongLetter(event.key);
+        hangmanCanvas.writeWrongLetter(event.key, hangman.errorsLeft);
+        //CALL HANGMAN DRAWING HERE AFTER GETTING ANOTHER WRONG LETTER
+
+        if (hangman.checkGameOver()) {
+          alert(`You lost, sucker! The secret word was ${hangman.secretWord}`);
+          startGameButton.click();
+        }
+      }
+    }
+
+    if (hangman.checkWinner()) {
+      alert(`You\'ve won - the secret word was ${hangman.secretWord}`);
+      startGameButton.click();
+    }
+  }
 });
