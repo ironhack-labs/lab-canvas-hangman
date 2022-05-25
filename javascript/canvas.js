@@ -137,10 +137,37 @@ class HangmanCanvas {
     this.context.closePath();
   }
 
+  drawDeadFace(positionX, positionY) {
+    this.context.beginPath();
+    this.context.moveTo(positionX - 30, positionY);
+    this.context.lineTo((positionX - 30) + 20, positionY - 20);
+    this.context.stroke();
+    this.context.closePath();
+    this.context.beginPath();
+    this.context.moveTo(positionX - 30, positionY - 20);
+    this.context.lineTo((positionX - 30) + 20, (positionY - 20) + 20);
+    this.context.stroke();
+    this.context.closePath();
+    this.context.beginPath();
+    this.context.moveTo(positionX + 15, positionY);
+    this.context.lineTo((positionX + 15) + 20, positionY - 20);
+    this.context.stroke();
+    this.context.closePath();
+    this.context.beginPath();
+    this.context.moveTo(positionX + 15, positionY - 20);
+    this.context.lineTo((positionX + 15) + 20, (positionY - 20) + 20);
+    this.context.stroke();
+    this.context.closePath();
+    this.context.beginPath();
+    this.context.arc(positionX, positionY + 40, 20, 1 * Math.PI, 2 * Math.PI);
+    this.context.stroke();
+    this.context.closePath();
+  }
+
   drawCircle(positionX, positionY, radius) {
     this.activeInterval = true;
     this.context.beginPath();
-    let perimeter = 0.01;
+    let perimeter = 0.01;    
     const intervalId = setInterval(() => {
       this.context.arc(positionX, positionY, radius, perimeter * Math.PI, perimeter * Math.PI);
       this.context.stroke();
@@ -150,7 +177,6 @@ class HangmanCanvas {
         this.activeInterval = false;
       }
     }, 1);
-    this.context.closePath();
   }
 
   drawTriangle(positionX, positionY) {

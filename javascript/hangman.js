@@ -87,6 +87,7 @@ document.addEventListener('keyup', event => {
           if (hangman.checkGameOver()) {
             const intervalId = setInterval(() => {
               if (!hangmanCanvas.activeInterval) {
+                hangmanCanvas.drawDeadFace(500, 250);
                 hangmanCanvas.gameOver()
                 clearInterval(intervalId);
               }
