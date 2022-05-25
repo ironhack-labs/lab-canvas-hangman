@@ -7,6 +7,7 @@ class HangmanCanvas {
     this.imgWinner = new Image();
     this.imgWinner.src = './images/awesome.png';
     this.context.font = "48px verdana";
+    this.activeInterval = null;
   }
 
   createBoard() {
@@ -87,48 +88,90 @@ class HangmanCanvas {
         break;
       case 3:
         //PIERNA DERECHA
-        this.drawRect(500, 500, 80, 100);
+        this.drawRect(500, 500, 100, 100);
         break;
       case 2:
         //PIERNA IZQUIERDA
-        this.drawRect(500, 500, -80, 100);
+        this.drawRect(500, 500, -100, 100);
         break;
       case 1:
         //BRAZO DERECHO
-        this.drawRect(500, 350, 80, 50);
+        this.drawRect(500, 350, 80, 80);
         break;
       case 0:
         //BRAZO IZQUIERDA
-        this.drawRect(500, 350, -80, 50);
+        this.drawRect(500, 350, -80, 80);
         break;
     }
   }
 
   drawRect(positionX, positionY, lengthLineX = 0, lengthLineY = 0){
+    this.activeInterval = true;
     this.context.beginPath();
     this.context.moveTo(positionX, positionY);
-    this.context.lineTo(positionX + lengthLineX, positionY + lengthLineY);
-    this.context.stroke();
+    let lineX = 0;
+    let lineY = 0;
+    const intervalId = setInterval(() => {
+      this.context.lineTo(positionX + lineX, positionY + lineY);
+      if (lineX !== lengthLineX) {
+        if (lengthLineX > 0) {
+          lineX++;
+        } else if (lengthLineX < 0) {
+          lineX--;
+        }
+      }
+      if (lineY !== lengthLineY) {
+        if (lengthLineY > 0) {
+          lineY++;
+        } else if (lengthLineY < 0) {
+          lineY--;
+        }
+      }
+      
+      this.context.stroke();
+      if (lineX === lengthLineX && lineY === lengthLineY) {
+        clearInterval(intervalId);
+        this.activeInterval = false;
+      }
+    }, 1);
     this.context.closePath();
   }
 
   drawCircle(positionX, positionY, radius) {
+    this.activeInterval = true;
     this.context.beginPath();
-    this.context.arc(positionX, positionY, radius, 0, 2 * Math.PI);
-    this.context.stroke();
+    let perimeter = 0.01;
+    const intervalId = setInterval(() => {
+      this.context.arc(positionX, positionY, radius, perimeter * Math.PI, perimeter * Math.PI);
+      this.context.stroke();
+      perimeter += 0.01;
+      if (Math.floor(perimeter) === 2) {
+        clearInterval(intervalId);
+        this.activeInterval = false;
+      }
+    }, 1);
     this.context.closePath();
   }
 
   drawTriangle(positionX, positionY) {
-    this.context.beginPath();
-    this.context.moveTo(positionX, positionY);
-    this.context.lineTo(positionX + positionX, positionY);
-    this.context.stroke();
-    this.context.lineTo((positionX + positionX) - 50, positionY - 50);
-    this.context.stroke();
-    this.context.lineTo(positionX, positionY);
-    this.context.stroke();
-    this.context.closePath();
+    const intervalId1 = setInterval(() => {
+      if (!this.activeInterval) {
+        this.drawRect(positionX, positionY, 100, 0);
+        clearInterval(intervalId1);
+      }
+    }, 10);
+    const intervalId2 = setInterval(() => {
+      if (!this.activeInterval) {
+        this.drawRect(positionX + positionX, positionY, -50, -50);
+        clearInterval(intervalId2);
+      }
+    }, 10);
+    const intervalId3 = setInterval(() => {
+      if (!this.activeInterval) {
+        this.drawRect((positionX + positionX) - 50, positionY - 50, -50, 50);
+        clearInterval(intervalId3);
+      }
+    }, 10);
   }
 
   gameOver() {

@@ -64,24 +64,34 @@ if (startGameButton) {
 }
 
 document.addEventListener('keyup', event => {
-  if (hangman && hangman.checkIfLetter(event.keyCode)){
-    if (hangman.checkClickedLetters(event.key)) {
-      if (hangman.secretWord.includes(event.key)) {
-        hangman.addCorrectLetter(event.key);
-        hangmanCanvas.writeCorrectLetter(event.key);
-        if (hangman.checkWinner()) {
-          setTimeout(() => {
-            hangmanCanvas.winner()
-          }, 200)
-        }
-      } else {
-        if (hangman.errorsLeft) {
-          hangman.addWrongLetter(event.key);
-          hangmanCanvas.writeWrongLetter();
-          hangmanCanvas.drawHangman(hangman.errorsLeft);
-        }
-        if (hangman.checkGameOver()) {
-          setTimeout(() => hangmanCanvas.gameOver(), 200)
+  if (hangmanCanvas && !hangmanCanvas.activeInterval) {
+    if (hangman && hangman.checkIfLetter(event.keyCode)){
+      if (hangman.checkClickedLetters(event.key)) {
+        if (hangman.secretWord.includes(event.key)) {
+          hangman.addCorrectLetter(event.key);
+          hangmanCanvas.writeCorrectLetter(event.key);
+          if (hangman.checkWinner()) {
+            const intervalId = setInterval(() => {
+              if (!hangmanCanvas.activeInterval) {
+                hangmanCanvas.winner()
+                clearInterval(intervalId);
+              }
+            }, 10)
+          }
+        } else {
+          if (hangman.errorsLeft) {
+            hangman.addWrongLetter(event.key);
+            hangmanCanvas.writeWrongLetter();
+            hangmanCanvas.drawHangman(hangman.errorsLeft);
+          }
+          if (hangman.checkGameOver()) {
+            const intervalId = setInterval(() => {
+              if (!hangmanCanvas.activeInterval) {
+                hangmanCanvas.gameOver()
+                clearInterval(intervalId);
+              }
+            }, 10)
+          }
         }
       }
     }
