@@ -177,6 +177,7 @@ class HangmanCanvas {
         this.activeInterval = false;
       }
     }, 1);
+    this.context.closePath();
   }
 
   drawTriangle(positionX, positionY) {
