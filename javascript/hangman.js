@@ -8,8 +8,7 @@ class Hangman {
   }
 
   pickWord() {
-    const rand = Math.floor(Math.random() * this.words.length);
-    return this.words[rand];
+    return this.words[Math.floor(Math.random() * this.words.length)];
   }
 
   checkIfLetter(keyCode) {
@@ -17,56 +16,36 @@ class Hangman {
       65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82,
       83, 84, 85, 86, 87, 88, 89, 90,
     ];
-
-    if (codes.includes(keyCode)) {
-      return true;
-    } else {
-      return false;
-    }
+    return codes.includes(keyCode);
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
     if (this.letters.includes(letter)) {
-      // already present
       return false;
-    } else {
-      // not already present
-      this.letters.push(letter);
-      return true;
     }
+    this.letters.push(letter);
+    return true;
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
     this.guessedLetters += letter;
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
     this.errorsLeft--;
   }
 
   checkGameOver() {
-    // ... your code goes here
-    if (this.errorsLeft > 0) {
-      return false;
-    } else {
-      return true;
-    }
+    return !(this.errorsLeft > 0);
   }
 
   checkWinner() {
-    // ... your code goes here
-    if (this.guessedLetters.length === [...new Set(this.secretWord)].length) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.guessedLetters.length === [...new Set(this.secretWord)].length;
   }
 }
 
 let hangman;
+let hangmanCanvas;
 
 const startGameButton = document.getElementById("start-game-button");
 
@@ -82,16 +61,11 @@ startGameButton &&
       "lisboa",
     ]);
     console.log("secretWord", hangman.secretWord);
-
-    // HINT (uncomment when start working on the canvas portion of the lab)
     hangmanCanvas = new HangmanCanvas(hangman.secretWord);
     hangmanCanvas.createBoard();
   });
 
 document.addEventListener("keydown", (event) => {
-  // React to user pressing a key
-  console.log(event.keyCode);
-
   if (hangman.checkIfLetter(event.keyCode)) {
     // WOOT: this is a [a-z] letter
     const letter = event.key;
