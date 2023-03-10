@@ -28,13 +28,26 @@ class HangmanCanvas {
   }
 
   writeCorrectLetter(index) {
-    // ... your code goes here
+    const letter = this.secretWord[index].toUpperCase();
+    if (!this.correctLetters.includes(letter)) {
+      this.correctLetters.push(letter);
+      const x = 300 + index * 30;
+      const y = 685;
+      this.context.font = "30px Arial";
+      this.context.fillText(letter, x, y);
+    }
   }
 
   writeWrongLetter(letter, errorsLeft) {
-    // ... your code goes here
+    const upperLetter = letter.toUpperCase();
+    if (!this.wrongLetters.includes(upperLetter)) {
+      this.wrongLetters.push(upperLetter);
+      const x = 600 - (10 - errorsLeft) * 50;
+      const y = 200;
+      this.context.font = "30px Arial";
+      this.context.fillText(upperLetter, x, y);
+    }
   }
-
   drawHangman(errorsLeft) {
     // ... your code goes here
   }
