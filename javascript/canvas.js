@@ -127,7 +127,7 @@ class HangmanCanvas {
   winner() {
     const imgWin = new Image();
     imgWin.src = './images/awesome.png';
-    this.context.drawImage(imgWin, 0, 0);
+    imgWin.onload = () => this.context.drawImage(imgWin, 100, 100);
     console.log("you are awesome")
   }
 }
